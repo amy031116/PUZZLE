@@ -137,13 +137,15 @@
         overflow: hidden;
       }
       .hero-title {
-        font-family: "Built Titling" !important;
+        font-family: "Built Titling", Impact, sans-serif !important;
         font-size: 72px;
         font-weight: 900;
         color: #fff;
         letter-spacing: 2px;
         line-height: 1;
         margin: 0 0 8px;
+        white-space: nowrap;
+        word-break: keep-all;
       }
       .hero-sub {
         font-size: 20px;
@@ -746,6 +748,7 @@
       /* ── FOOTER (identical to main.html) ──────────────── */
       .footer-menu {
         background: var(--cream);
+        border-top: 1px solid #cbd0d6;
         border-bottom: 1px solid #cbd0d6;
       }
       .footer-menu nav {
@@ -786,13 +789,21 @@
       }
       .qr {
         justify-self: end;
+        align-self: end;
         text-align: center;
-        margin-top: -35px;
+      }
+      .qr-label {
+        font-size: 15px;
+        font-weight: 700;
+        color: #282828;
+        margin: 0 0 4px;
+        line-height: 1;
+        text-align: center;
       }
       .qr-box {
         width: 118px;
         height: 118px;
-        margin: 6px auto 24px;
+        margin: 0 auto 24px;
         background: #c9c2bf;
         border-radius: 18px;
       }
@@ -820,7 +831,8 @@
         width: 65px;
         height: 65px;
         border-radius: 50%;
-        background: #d8d1ce;
+        background: var(--cream);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
         color: #888;
         display: flex;
         flex-direction: column;
@@ -1184,12 +1196,8 @@
             </p>
           </div>
           <div class="qr">
+            <p class="qr-label">INSTAGRAM</p>
             <div class="qr-box" aria-hidden="true"></div>
-            <div class="socials">
-              <a href="#" aria-label="인스타그램">◎</a>
-              <a href="#" aria-label="소셜 링크 1"></a>
-              <a href="#" aria-label="소셜 링크 2"></a>
-            </div>
           </div>
         </div>
       </div>
