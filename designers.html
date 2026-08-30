@@ -1,0 +1,1210 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PUZZLE - DESIGNERS</title>
+    <style>
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2")
+          format("woff2");
+        font-weight: 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Built Titling";
+        src: url("./fonts/BuiltTitling.otf") format("opentype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      :root {
+        --pink: #ff2482;
+        --blue: #407dff;
+        --yellow: #ffc20d;
+        --cream: #f2f7f9;
+        --card-bg: #ddd5cf;
+        --gray: #b7b7b7;
+        --black: #080808;
+        --max: 1200px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background: var(--cream); /* 푸터 아래에 파란색 로 안더 변경 */
+      }
+
+      body {
+        margin: 0;
+        color: var(--black);
+        font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
+        font-weight: 500;
+        background: var(--pink);
+        overflow-x: clip; /* hidden 대신 clip: sticky nav가 정상 작동, 가로스크롤 차단 */
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ── NAV (identical to main.html) ─────────────────── */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 80px;
+        background: #f2f7f9;
+        border-bottom: 1px solid #cbd0d6;
+      }
+      .nav-inner {
+        width: 100%;
+        padding: 0 40px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        width: 60px;
+        height: auto;
+        display: block;
+        flex: 0 0 auto;
+        margin-right: 40px;
+        margin-top: 6px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 18px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+      .nav-links a,
+      .auth {
+        transition: color 0.2s ease;
+      }
+      .nav-links a:hover,
+      .nav-links a:focus-visible,
+      .auth:hover,
+      .auth:focus-visible {
+        color: #ff2b85;
+      }
+      .nav-links a.active {
+        color: var(--pink);
+      }
+      .auth {
+        margin-left: auto;
+        font-size: 18px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      /* ── HERO ─────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        background: var(--pink);
+        text-align: center;
+        padding: 100px 40px 60px;
+        overflow: hidden;
+      }
+      .hero-title {
+        font-family: "Built Titling" !important;
+        font-size: 72px;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin: 0 0 8px;
+      }
+      .hero-sub {
+        font-size: 20px;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 220px;
+        letter-spacing: 0.5px;
+      }
+      /* white half-circle at bottom of hero */
+      .hero-wave {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        height: 400px;
+        background: var(--pink);
+        position: relative;
+        margin-top: 230px;
+        z-index: 5;
+      }
+      .hero-wave::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3500px; /* 고정 너비 지정(곡률 유지) & 기존 높이(840px) 유지(타이틀 가림 방지) */
+        height: 840px;
+        background: #4169e1;
+        border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+      }
+
+      /* ── BLUE MAIN CONTENT ────────────────────────────── */
+      .peoples {
+        background: #4169e1;
+        padding: 1px 40px 100px;
+        position: relative;
+        z-index: 6;
+      }
+      /* deco-container를 중앙 고정 박스로 만들어
+         창 크기가 바뀌어도 스티커 위치가 달라지지 않게 합니다 */
+      .deco-container {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(-300px);
+        width: 1600px; /* 기준 너비 고정 */
+        height: 100%;
+        pointer-events: none;
+        overflow: visible;
+        /* translateY(-300px) 때문에 붕 뜬 만큼, 하단을 -300px 늘려서 푸터 선에 딱 맞게 잘리도록 보정 */
+        clip-path: inset(-600px -100vw -300px -100vw);
+      }
+
+      /* 콘텐츠 이너 스티커 (이제 deco-container extra-21~25로 지정) */
+      .deco-container .sticker.extra-21 {
+        position: absolute;
+        top: 40px;
+        right: 1590px;
+        width: 60px;
+        height: 60px;
+        z-index: 8;
+        background-image: url("웹 에셋/도향 에셋1.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-110deg);
+      }
+      .deco-container .sticker.extra-22 {
+        position: absolute;
+        top: 668px;
+        right: -147px;
+        width: 56px;
+        height: 56px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 31.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(11deg);
+      }
+      .deco-container .sticker.extra-23 {
+        position: absolute;
+        bottom: 250px;
+        left: -100px;
+        width: 130px;
+        height: 130px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 14.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-20deg);
+      }
+      .deco-container .sticker.extra-24 {
+        position: absolute;
+        bottom: 90px;
+        right: -250px;
+        width: 290px;
+        height: 290px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 54.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-8deg);
+      }
+      .deco-container .sticker.extra-25 {
+        position: absolute;
+        bottom: 1330px;
+        left: -30px;
+        width: 60px;
+        height: 60px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 16.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-6deg);
+      }
+
+      /* 추가 커스텀 스티커 extra-6 ~ extra-10 (이미지 경로만 수정하세요) */
+      /* decorative stickers */
+      /* 기존의 .content-inner 를 제거하고 .deco-container .sticker 로 수정합니다 */
+
+      .deco-container .sticker.extra-1 {
+        position: absolute;
+        top: 18px;
+        left: 1293px;
+        width: 200px;
+        height: 200px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 30.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(10deg);
+      }
+
+      .deco-container .sticker.extra-2 {
+        position: absolute;
+        top: 400px;
+        right: 1260px;
+        width: 15px;
+        height: 15px;
+        z-index: 8;
+        background-image: url("스티커 에셋/흰-원.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(10deg);
+      }
+
+      .deco-container .sticker.extra-3 {
+        position: absolute;
+        bottom: 1550px;
+        left: 1750px; /* -100px에서 화면 안쪽으로 수정 */
+        width: 00px;
+        height: 40px;
+        z-index: 8;
+        background-image: url("웹 에셋/도향 에셋3.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-20deg);
+      }
+
+      .deco-container .sticker.extra-4 {
+        position: absolute;
+        bottom: 220px;
+        right: -190px; /* -370px에서 화면 안쪽으로 수정 */
+        width: 29px;
+        height: 29px;
+        z-index: 8;
+        background-image: url("웹 에셋/도형 에셋5.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(0deg);
+      }
+
+      .deco-container .sticker.extra-5 {
+        position: absolute;
+        bottom: 1520px;
+        left: -70px;
+        width: 170px;
+        height: 170px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 33.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-4deg);
+      }
+
+      .deco-container .sticker.extra-6 {
+        position: absolute;
+        top: 760px;
+        right: -118px;
+        width: 170px;
+        height: 170px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 32.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(17deg);
+      }
+
+      .deco-container .sticker.extra-7 {
+        position: absolute;
+        top: 1040px;
+        right: 1560px;
+        width: 260px;
+        height: 260px;
+        z-index: 2;
+        background-image: url("스티커 에셋/노란-띠.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(45deg);
+      }
+
+      .deco-container .sticker.extra-8 {
+        position: absolute;
+        top: 250px;
+        right: 20px;
+        width: 90px;
+        height: 90px;
+        z-index: 8;
+        background-image: url("");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(15deg);
+      }
+
+      .deco-container .sticker.extra-9 {
+        position: absolute;
+        bottom: 650px;
+        right: -290px;
+        width: 133px;
+        height: 133px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 29.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(18deg);
+      }
+
+      .deco-container .sticker.extra-10 {
+        position: absolute;
+        bottom: 1040px;
+        left: -300px;
+        width: 30px;
+        height: 30px;
+        z-index: 8;
+        background-image: url("스티커 에셋/핑-무늬원.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-10deg);
+      }
+
+      .deco-container .sticker.extra-11 {
+        position: absolute;
+        bottom: 1905px;
+        left: -430px;
+        width: 510px;
+        height: 510px;
+        z-index: 2;
+        background-image: url("웹 에셋/도향 에셋1.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-5deg);
+      }
+
+      .deco-container .sticker.extra-12 {
+        position: absolute;
+        bottom: 591px;
+        left: -90px;
+        width: 153px;
+        height: 153px;
+        z-index: 7;
+        background-image: url("스티커 에셋/Artboard 36.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(15deg);
+      }
+
+      .deco-container .sticker.extra-13 {
+        position: absolute;
+        bottom: 330px;
+        left: -540px;
+        width: 550px;
+        height: 550px;
+        z-index: 2;
+        background-image: url("스티커 에셋/핑-하트.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(15deg);
+      }
+
+      .deco-container .sticker.extra-14 {
+        position: absolute;
+        bottom: -1181px;
+        right: -500px;
+        width: 1200px;
+        height: 1200px;
+        z-index: 2;
+        background-image: url("스티커 에셋/노-네모.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-12deg);
+      }
+
+      .deco-container .sticker.extra-15 {
+        position: absolute;
+        bottom: 621px;
+        right: 85px;
+        width: 80px;
+        height: 80px;
+        z-index: 2;
+        background-image: url("스티커 에셋/파-별.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-325deg);
+      }
+      .deco-container .sticker.extra-16 {
+        position: absolute;
+        bottom: 2740px;
+        right: 95px;
+        width: 36px;
+        height: 36px;
+        z-index: 3;
+        background-image: url("스티커 에셋/핑-원.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-55deg);
+      }
+      .deco-container .sticker.extra-17 {
+        position: absolute;
+        bottom: 1397px;
+        right: -298px;
+        width: 143px;
+        height: 143px;
+        z-index: 2;
+        background-image: url("스티커 에셋/노-원.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(5deg);
+      }
+      .deco-container .sticker.extra-18 {
+        position: absolute;
+        bottom: 2590px;
+        right: 1282px;
+        width: 321px;
+        height: 321px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 13.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-7deg);
+      }
+      .deco-container .sticker.extra-19 {
+        position: absolute;
+        bottom: 1900px;
+        right: 1642px;
+        width: 259px;
+        height: 259px;
+        z-index: 2;
+        background-image: url("스티커 에셋/Artboard 22.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-13deg);
+      }
+      .deco-container .sticker.extra-20 {
+        position: absolute;
+        bottom: 892px;
+        right: -136px;
+        width: 136px;
+        height: 136px;
+        z-index: 2;
+        background-image: url("웹 에셋/도향 에셋3.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(20deg);
+      }
+
+      /* extra-26 ~ 30: 신규 스티커 추가 (이미지 경로와 좌표 자유롭게 조정) */
+      .deco-container .sticker.extra-26 {
+        position: absolute;
+        top: 470px;
+        left: -14px;
+        width: 82px;
+        height: 82px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 4.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(12deg);
+      }
+      .deco-container .sticker.extra-27 {
+        position: absolute;
+        top: 530px;
+        right: 40px;
+        width: 120px;
+        height: 120px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 6.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-18deg);
+      }
+      .deco-container .sticker.extra-28 {
+        position: absolute;
+        bottom: 1020px;
+        left: 1607px;
+        width: 16px;
+        height: 16px;
+        z-index: 8;
+        background-image: url("스티커 에셋/흰-원.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(5deg);
+      }
+      .deco-container .sticker.extra-29 {
+        position: absolute;
+        bottom: 700px;
+        left: 1510px;
+        width: 29px;
+        height: 29px;
+        z-index: 8;
+        background-image: url("스티커 에셋/핑-띠 없는 별.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(13deg);
+      }
+      .deco-container .sticker.extra-30 {
+        position: absolute;
+        top: 1500px;
+        right: 60px;
+        width: 110px;
+        height: 110px;
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 38.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(22deg);
+      }
+      .deco-container .sticker.extra-31 {
+        position: absolute;
+        top: 630px;
+        left: 1400px;
+        width: 780px;
+        height: 780px;
+        z-index: 4;
+        background-image: url("스티커 에셋/파-띠 반짝.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(20deg);
+      }
+      .deco-container .sticker.extra-32 {
+        position: absolute;
+        top: 400px;
+        right: 200px;
+        width: 100px;
+        height: 100px;
+        z-index: 8;
+        background-image: url("");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(0);
+      }
+      .deco-container .sticker.extra-33 {
+        position: absolute;
+        bottom: 400px;
+        left: 200px;
+        width: 100px;
+        height: 100px;
+        z-index: 8;
+        background-image: url("");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(0);
+      }
+      .deco-container .sticker.extra-34 {
+        position: absolute;
+        bottom: 200px;
+        right: 300px;
+        width: 100px;
+        height: 100px;
+        z-index: 8;
+        background-image: url("");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(0);
+      }
+      .deco-container .sticker.extra-35 {
+        position: absolute;
+        top: 1000px;
+        left: 400px;
+        width: 100px;
+        height: 100px;
+        z-index: 8;
+        background-image: url("");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(0);
+      }
+      /* ── SECTION BADGE ────────────────────────────────── */
+      .section-badge {
+        display: inline-block;
+        border: 2px solid #fff;
+        background: transparent;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        padding: 6px 28px;
+        margin: 48px 0 32px;
+        letter-spacing: 1px;
+      }
+
+      /* ── TEAM GROUP ───────────────────────────────────── */
+      .team-group {
+        position: relative;
+        z-index: 10; /* 파란 돔(z-index: 5) 위로 프로필들이 자연스럽게 올라탈 수 있도록 수정 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px; /* 부서 이름-프로필 간 간격 */
+        margin-bottom: 150px; /* 부서 간 여백 */
+      }
+      .team-group.first-group {
+        margin-top: -800px;
+      }
+
+      /* ── PERSON CARD GRID ─────────────────────────────── */
+      .card-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 24px;
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 0;
+      }
+
+      /* person card */
+      .person-card {
+        background: var(--card-bg);
+        border-radius: 24px;
+        width: 220px;
+        height: 220px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* for 2-column layout (경영운영팀 2x2) */
+      .card-grid.col2 {
+        max-width: 464px; /* (220px * 2) + 24px gap */
+      }
+
+      /* for MD/VMD wide sections, 4-column */
+      .card-grid.col4 {
+        max-width: 1100px;
+      }
+
+      /* for 제작기획팀 */
+      .card-grid.col-production {
+        flex-wrap: nowrap;
+        max-width: none;
+      }
+
+      .person-card .photo {
+        position: absolute;
+        inset: 0;
+        background: var(--card-bg);
+        overflow: hidden;
+      }
+      .person-card .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+      }
+
+      .person-card .info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 8px 14px 12px;
+        background: transparent;
+        z-index: 1;
+      }
+      .person-card .role {
+        font-size: 13px;
+        font-weight: 600;
+        color: #3d3d3d;
+        display: block;
+        margin-bottom: 2px;
+        text-shadow: none;
+      }
+      .person-card .name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #080808;
+        text-shadow: none;
+      }
+
+      /* ── FOOTER (identical to main.html) ──────────────── */
+      .footer-menu {
+        background: var(--cream);
+        border-bottom: 1px solid #cbd0d6;
+      }
+      .footer-menu nav {
+        width: var(--max);
+        margin: 0 auto;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      footer {
+        position: relative;
+        min-height: 390px;
+        padding: 62px 0 54px;
+        background: var(--cream);
+        color: #282828;
+      }
+      .footer-inner {
+        width: var(--max);
+        margin: 0 auto;
+        position: relative;
+      }
+      .footer-logo {
+        width: 100px;
+        margin-bottom: 42px;
+      }
+      .footer-info {
+        display: grid;
+        grid-template-columns: minmax(500px, 1.5fr) minmax(200px, 1fr) 250px;
+        gap: 54px;
+        font-size: 15px;
+        line-height: 1.62;
+      }
+      .footer-info p {
+        margin: 0 0 12px;
+      }
+      .qr {
+        justify-self: end;
+        text-align: center;
+        margin-top: -35px;
+      }
+      .qr-box {
+        width: 118px;
+        height: 118px;
+        margin: 6px auto 24px;
+        background: #c9c2bf;
+        border-radius: 18px;
+      }
+      .socials {
+        display: flex;
+        gap: 22px;
+        justify-content: center;
+      }
+      .socials a {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background: #c9c2bf;
+        display: grid;
+        place-items: center;
+        color: #eee8e4;
+        font-size: 24px;
+        font-weight: 900;
+      }
+      .top-btn {
+        position: fixed;
+        right: 38px;
+        bottom: 38px;
+        z-index: 20;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: #d8d1ce;
+        color: #888;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+
+        /* 스크롤 시 등장 애니메이션 초기 상태 */
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          visibility 0.3s ease;
+      }
+
+      .top-btn.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .top-btn::before {
+        content: "⌃";
+        display: block;
+        font-size: 30px;
+        line-height: 0.55;
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body id="top">
+    <!-- ── HEADER (identical to main.html) ── -->
+    <header class="nav" aria-label="주요 메뉴">
+      <div class="nav-inner">
+        <a href="main.html" aria-label="PUZZLE 홈"
+          ><img class="logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE"
+        /></a>
+        <nav class="nav-links">
+          <a href="about.html">About</a>
+          <a href="work.html">PRODUCTS</a>
+          <a href="designers.html" class="active">Designers</a>
+          <a href="sponsors.html">Partners</a>
+        </nav>
+        <a class="auth" href="#">로그인 / 회원가입</a>
+      </div>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <h1 class="hero-title">DESIGNERS</h1>
+      <p class="hero-sub"></p>
+    </section>
+    <div class="hero-wave"></div>
+
+    <!-- ── BLUE PEOPLES SECTION ── -->
+    <main class="peoples">
+      <!-- Decorative stickers (데코 박스들을 별도 분리하여 바깥으로 넘치는 것 방지) -->
+      <div class="deco-container">
+        <i class="sticker extra-1" aria-hidden="true"></i>
+        <i class="sticker extra-2" aria-hidden="true"></i>
+        <i class="sticker extra-3" aria-hidden="true"></i>
+        <i class="sticker extra-4" aria-hidden="true"></i>
+        <i class="sticker extra-5" aria-hidden="true"></i>
+        <i class="sticker extra-6" aria-hidden="true"></i>
+        <i class="sticker extra-7" aria-hidden="true"></i>
+        <i class="sticker extra-8" aria-hidden="true"></i>
+        <i class="sticker extra-9" aria-hidden="true"></i>
+        <i class="sticker extra-10" aria-hidden="true"></i>
+        <i class="sticker extra-11" aria-hidden="true"></i>
+        <i class="sticker extra-12" aria-hidden="true"></i>
+        <i class="sticker extra-13" aria-hidden="true"></i>
+        <i class="sticker extra-14" aria-hidden="true"></i>
+        <i class="sticker extra-15" aria-hidden="true"></i>
+        <i class="sticker extra-16" aria-hidden="true"></i>
+        <i class="sticker extra-17" aria-hidden="true"></i>
+        <i class="sticker extra-18" aria-hidden="true"></i>
+        <i class="sticker extra-19" aria-hidden="true"></i>
+        <i class="sticker extra-20" aria-hidden="true"></i>
+        <i class="sticker extra-21" aria-hidden="true"></i>
+        <i class="sticker extra-22" aria-hidden="true"></i>
+        <i class="sticker extra-23" aria-hidden="true"></i>
+        <i class="sticker extra-24" aria-hidden="true"></i>
+        <i class="sticker extra-25" aria-hidden="true"></i>
+        <i class="sticker extra-26" aria-hidden="true"></i>
+        <i class="sticker extra-27" aria-hidden="true"></i>
+        <i class="sticker extra-28" aria-hidden="true"></i>
+        <i class="sticker extra-29" aria-hidden="true"></i>
+        <i class="sticker extra-30" aria-hidden="true"></i>
+        <i class="sticker extra-31" aria-hidden="true"></i>
+        <i class="sticker extra-32" aria-hidden="true"></i>
+        <i class="sticker extra-33" aria-hidden="true"></i>
+        <i class="sticker extra-34" aria-hidden="true"></i>
+        <i class="sticker extra-35" aria-hidden="true"></i>
+      </div>
+
+      <!-- ── 경영운영팀 ── -->
+      <div class="team-group first-group">
+        <div class="section-badge">MANAGEMENT</div>
+        <div class="card-grid col2">
+          <div class="person-card">
+            <div class="photo">
+              <img src="프로필 사진\예시2.svg" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">회장</span><span class="name">정인서</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="프로필 사진\예시1.svg" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">부회장</span><span class="name">강재준</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="프로필 사진\예시3.svg" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">총무</span><span class="name">양미진</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="프로필 사진\예시4.svg" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">감사</span><span class="name">진서연</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 제작기획팀 ── -->
+      <div class="team-group">
+        <div class="section-badge">R&D</div>
+        <div class="card-grid col-production">
+          <div class="person-card">
+            <div class="photo">
+              <img src="프로필 사진\예시5.svg" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">팀장</span><span class="name">이희서</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="프로필 사진\예시6.svg" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">부팀장</span><span class="name">박서현</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="프로필 사진\예시7.svg" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">고예원</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 콘텐츠전략팀 ── -->
+      <div class="team-group">
+        <div class="section-badge">MARKETING</div>
+        <div class="card-grid col4" style="max-width: 500px">
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">팀장</span><span class="name">곽지윤</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">부팀장</span><span class="name">김지은</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-grid col4" style="margin-top: 12px">
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">임호진</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">채민서</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">안지윤</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MD팀 ── -->
+      <div class="team-group">
+        <div class="section-badge">MD</div>
+        <div class="card-grid col4" style="max-width: 750px">
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">팀장</span><span class="name">노유민</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">부팀장</span><span class="name">김연진</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">심가애</span></div>
+          </div>
+        </div>
+        <div class="card-grid col4" style="margin-top: 12px">
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">이경민</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">이영윤</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">권다혜</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">홍민영</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── VMD팀 ── -->
+      <div class="team-group">
+        <div class="section-badge">VMD</div>
+        <div class="card-grid col4" style="max-width: 750px">
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">팀장</span><span class="name">임재윤</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info">
+              <span class="role">차장</span><span class="name">장명경</span>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">장영찬</span></div>
+          </div>
+        </div>
+        <div class="card-grid col4" style="margin-top: 12px">
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">양소정</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">정지우</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">이준규</span></div>
+          </div>
+          <div class="person-card">
+            <div class="photo">
+              <img src="" alt="팀원 사진" />
+            </div>
+            <div class="info"><span class="name">염화영</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── FOOTER (identical to main.html) ── -->
+    <div class="footer-menu">
+      <nav aria-label="푸터 메뉴">
+        <a href="#">회사소개</a>
+        <a href="#">채용정보</a>
+        <a href="#">이용약관</a>
+        <a href="#">입점문의</a>
+        <a href="#">제휴광고</a>
+      </nav>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <a class="top-btn" href="#top" aria-label="맨 위로 이동">TOP</a>
+        <img class="footer-logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+        <div class="footer-info">
+          <div>
+            <p>
+              <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
+              용인시 처인구 명지로 116<br />
+              전화번호: 1577-0020 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail :
+              mju.ac.kr<br />
+              임원진: 임경훈 김종환 유형준 김형규
+            </p>
+            <p>
+              사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
+              않습니다.<br />
+              해당 상품들은 편하게 감상해주시면 되며, (주)퍼즐은 판매 당사자가
+              아닙니다.<br />
+              상품정보 및 거래는 개인적인 컨택 바랍니다.
+            </p>
+            <p>COPYRIGHT © PUZZLE ALL RIGHTS RESERVED</p>
+          </div>
+          <div>
+            <p>
+              <strong>고객센터 운영시간 &gt;</strong><br />
+              이용시간: 10:00 ~ 18:00<br />
+              점심시간: 없음
+            </p>
+          </div>
+          <div class="qr">
+            <div class="qr-box" aria-hidden="true"></div>
+            <div class="socials">
+              <a href="#" aria-label="인스타그램">◎</a>
+              <a href="#" aria-label="소셜 링크 1"></a>
+              <a href="#" aria-label="소셜 링크 2"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // 스크롤 이벤트 감지하여 TOP 버튼 숨김/표시 애니메이션 작동
+      const topBtn = document.querySelector(".top-btn");
+      window.addEventListener("scroll", () => {
+        // 맨 위에서 500px 이상 휠을 내렸을 때 등장 (기존보다 더 늦게 등장)
+        if (window.scrollY > 500) {
+          topBtn.classList.add("show");
+        } else {
+          topBtn.classList.remove("show");
+        }
+      });
+    </script>
+  </body>
+</html>

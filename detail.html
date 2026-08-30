@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PUZZLE - Detail</title>
+    <style>
+      /* ==========================================
+         1. 브랜드 고유 폰트 에셋 세팅 
+      ========================================== */
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2")
+          format("woff2");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Hackensack";
+        src: url("./fonts/Hackensack.otf") format("opentype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Built Titling";
+        src: url("./fonts/BuiltTitling.otf") format("opentype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      /* ==========================================
+         2. 글로벌 디자인 시스템 토큰
+      ========================================== */
+      :root {
+        --pink: #ff2482;
+        --blue: #407dff;
+        --yellow: #ffc20d;
+        --cream: #f2f7f9;
+        --gray: #b7b7b7;
+        --black: #080808;
+        --wine: #9b0045;
+        --max: 1200px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background: #ffffff; /* 상세페이지 배경은 흰색으로 보임 */
+      }
+
+      body {
+        margin: 0;
+        color: var(--black);
+        font-family: "Paperlogy", Pretendard, sans-serif;
+        font-weight: 500;
+        overflow-x: auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ==========================================
+         3. 공통 컴포넌트: 내비게이션 바
+      ========================================== */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 80px;
+        background: #f2f7f9;
+        border-bottom: 1px solid #cbd0d6;
+      }
+
+      .nav-inner {
+        width: 100%;
+        padding: 0 40px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        width: 60px;
+        height: auto;
+        display: block;
+        flex: 0 0 auto;
+        margin-right: 40px;
+        margin-top: 6px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 20px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .nav-links a,
+      .auth {
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible,
+      .auth:hover,
+      .auth:focus-visible {
+        color: #ff2b85;
+      }
+
+      .nav-links a.active {
+        color: var(--pink);
+      }
+
+      .auth {
+        margin-left: auto;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      /* ==========================================
+         4. 상세 페이지 콘텐츠
+      ========================================== */
+      .detail-container {
+        width: var(--max);
+        margin: 60px auto 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+      }
+
+      /* 새롭게 추가된 상품 최상단 섹션 */
+      .product-hero-section {
+        display: flex;
+        gap: 30px;
+        position: relative;
+        z-index: 10;
+        margin-top: 40px;
+      }
+
+      .hero-thumbnails {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 120px;
+        flex-shrink: 0;
+      }
+      .hero-thumb {
+        background-color: #b3b3b3;
+        border-radius: 15px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        color: #000;
+      }
+
+      .hero-main-image {
+        background-color: #b3b3b3;
+        border-radius: 40px;
+        width: 550px;
+        flex-shrink: 0;
+        height: 525px; /* 4 thumbs * 120 + 3 * 15 gap = 525px */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #000;
+      }
+
+      .hero-info {
+        flex-grow: 1;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-info h1 {
+        font-size: 28px;
+        margin: 0 0 10px 0;
+      }
+
+      .hero-info h2 {
+        font-size: 18px;
+        margin: 0 0 30px 0;
+        font-weight: 600;
+      }
+
+      .hero-details {
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 40px;
+        font-weight: 600;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: auto;
+        margin-bottom: 3px;
+      }
+
+      .btn-buy {
+        background-color: var(--yellow);
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        padding: 15px 38px 15px 48px; /* 좌측 여백을 2px 늘려 내용을 오른쪽으로 2px 밈 */
+        font-size: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        flex: 1;
+        font-family: "Built Titling", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .btn-wish {
+        background-color: var(--pink);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 15px 40px;
+        font-size: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        flex: 1;
+        font-family: "Built Titling", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px; /* 텍스트와 이미지 사이 간격 */
+      }
+
+      .btn-wish img {
+        height: 1em; /* 폰트 사이즈와 동일한 높이 */
+        width: auto;
+      }
+
+      .btn-buy img {
+        height: calc(1.1em + 2px);
+        width: auto;
+        display: inline-block;
+        vertical-align: middle;
+        transform: translateY(-0.2px);
+        margin-left: -5px;
+      }
+
+      .hero-extra-meta {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+        font-weight: 600;
+        margin-top: -8px;
+      }
+
+      /* 배경 데코레이션 */
+      .bg-decor {
+        position: absolute;
+        z-index: -1;
+      }
+      /* .decor-blue-circle {
+        top: 20px;
+        left: -150px;
+        width: 150px;
+        height: 150px;
+        background-color: var(--blue);
+        border-radius: 50%;
+      }
+      .decor-pink-rect {
+        top: 30px;
+        right: -80px;
+        width: 100px;
+        height: 60px;
+        background-color: var(--pink);
+        transform: rotate(-15deg);
+        border-radius: 10px;
+      }
+      .decor-blue-circle-small {
+        top: 60px;
+        right: -100px;
+        width: 50px;
+        height: 50px;
+        background-color: var(--blue);
+        border-radius: 50%;
+      } */
+
+      .top-section {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr;
+        gap: 30px;
+      }
+
+      .placeholder-box {
+        background-color: #b3b3b3;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #000;
+        min-height: 500px;
+      }
+
+      .info-box {
+        background-color: var(--blue);
+        border-radius: 40px;
+        padding: 50px 40px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        /* To create the overlapping circle effect seen in mockup */
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box::after {
+        content: "";
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 250px;
+        height: 250px;
+        background-color: #558dff;
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .info-box > * {
+        position: relative;
+        z-index: 2;
+      }
+
+      .info-box h2 {
+        margin: 0 0 20px 0;
+        font-size: 24px;
+        color: #000;
+      }
+
+      .info-box p {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #000;
+        font-weight: 700;
+      }
+
+      .middle-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: -50px; /* gap 80px을 보정하기 위해 */
+      }
+
+      .video-section {
+        background-color: #737373;
+        border-radius: 0; /* from mockup it looks rectangular full width */
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #000;
+      }
+
+      .care-section-wrapper {
+        position: relative;
+        margin-top: -40px;
+      }
+
+      /* .care-heart {
+        position: absolute;
+        left: -40px;
+        top: -20px;
+        width: 100px;
+        height: 100px;
+        background-color: var(--pink);
+        transform: rotate(-45deg);
+        z-index: 2;
+        border-radius: 50% 50% 0 0;
+      }
+      .care-heart::after {
+        content: "";
+        width: 100px;
+        height: 100px;
+        background-color: var(--pink);
+        border-radius: 50%;
+        position: absolute;
+        top: 0px;
+        left: 50px;
+      } */
+
+      .care-box {
+        border: 8px solid var(--pink);
+        padding: 40px 60px 40px 80px;
+        position: relative;
+        z-index: 1;
+        background: #fff;
+      }
+
+      .care-box h2 {
+        font-size: 22px;
+        margin: 0 0 20px 0;
+        color: #000;
+      }
+
+      .care-box p {
+        margin: 5px 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #000;
+      }
+
+      .bottom-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 26px;
+        margin-top: -30px; /* Care Box와의 간격을 줄이기 위해 전체 여백(80px)에서 위로 당김 */
+        width: calc(var(--max) * 1.3);
+        margin-left: calc((var(--max) - var(--max) * 1.3) / 2);
+      }
+
+      /* ⭕ 올바른 부분: 밖으로 빼내서 독립적인 코드로 만듦 */
+      .bottom-grid .placeholder-box {
+        min-height: 0;
+        min-width: 0;
+      }
+      .bottom-grid-right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+      }
+
+      .three-squares-wrapper {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* ==========================================
+         6. 공통 컴포넌트: 푸터 내비게이션 & 본문
+      ========================================== */
+      .footer-menu {
+        background: var(--cream);
+        border-bottom: 1px solid #cbd0d6;
+        border-top: 1px solid #cbd0d6;
+      }
+
+      .footer-menu nav {
+        width: var(--max);
+        margin: 0 auto;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      footer {
+        position: relative;
+        min-height: 390px;
+        padding: 62px 0 54px;
+        background: var(--cream);
+        color: #282828;
+      }
+
+      .footer-inner {
+        width: var(--max);
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .footer-logo {
+        width: 100px;
+        margin-bottom: 42px;
+      }
+
+      .footer-info {
+        display: grid;
+        grid-template-columns: minmax(500px, 1.5fr) minmax(200px, 1fr) 250px;
+        gap: 54px;
+        font-size: 15px;
+        line-height: 1.62;
+      }
+
+      .footer-info p {
+        margin: 0 0 12px;
+      }
+
+      .qr {
+        justify-self: end;
+        text-align: center;
+        margin-top: -35px;
+      }
+
+      .qr-box {
+        width: 118px;
+        height: 118px;
+        margin: 6px auto 24px;
+        background: #c9c2bf;
+        border-radius: 18px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 22px;
+        justify-content: center;
+      }
+
+      .socials a {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background: #c9c2bf;
+        display: grid;
+        place-items: center;
+        color: #eee8e4;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .top-btn {
+        position: fixed;
+        right: 38px;
+        bottom: 38px;
+        z-index: 20;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: #d8d1ce;
+        color: #888;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+
+        /* 스크롤 시 등장 애니메이션 초기 상태 */
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          visibility 0.3s ease;
+      }
+
+      .top-btn.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .top-btn::before {
+        content: "⌃";
+        display: block;
+        font-size: 30px;
+        line-height: 0.55;
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body id="top">
+    <!-- 1. 상단 내비게이션 바 -->
+    <header class="nav">
+      <div class="nav-inner">
+        <a href="main.html">
+          <img class="logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+        </a>
+        <nav class="nav-links">
+          <a href="about.html">About</a>
+          <a href="work.html" class="active">PRODUCTS</a>
+          <a href="designers.html">Designers</a>
+          <a href="sponsors.html">Partners</a>
+          <a href="index.html#archive">Archive</a>
+        </nav>
+        <a class="auth" href="#">로그인 / 회원가입</a>
+      </div>
+    </header>
+
+    <!-- 2. 상세 콘텐츠 -->
+    <main class="detail-container">
+      <!-- 2-1. 새롭게 추가된 상품 최상단 섹션 -->
+      <div class="product-hero-section">
+        <div class="bg-decor decor-blue-circle"></div>
+        <div class="bg-decor decor-pink-rect"></div>
+        <div class="bg-decor decor-blue-circle-small"></div>
+
+        <div class="hero-thumbnails">
+          <div class="hero-thumb">사진</div>
+          <div class="hero-thumb">사진</div>
+          <div class="hero-thumb">사진</div>
+          <div class="hero-thumb">사진</div>
+        </div>
+        <div class="hero-main-image">목업 이미지</div>
+        <div class="hero-info">
+          <h1>작품 이름</h1>
+          <h2>작품에 대한 설명/한줄 요약</h2>
+
+          <div class="hero-details">
+            작품 줄거리<br />
+            봄 봄 봄 봄이 왔네요 우리가 처음 만났던 그때의 향기 그대로<br />
+            그대가 앉아 있었던 그 벤치 옆에 나무도 아직도 남아있네요<br />
+            살아가다 보면 잊혀질 거라 했지만, 그 말을 하며 안될 거란 걸 알고
+            있었소<br />
+            <br />
+            그대여 너를 처음 본 순간 나는 바로 알았지<br />
+            그대여 나와 함께 해주오 이 봄이 가기 전에<br />
+          </div>
+
+          <div class="hero-extra-meta">
+            • 이희서 (제작자 이름)<br />
+            • 2026.03 ~ 2026.11 (제작기간)<br />
+            • 1080*1920, 1분 30초 (영상 포멧),(러닝타임)<br />
+            • Illustrator, Photoshop, Premiere Pro (사용 툴)<br />
+            • #키치 #레트로 #펑키 (작품 설명 태그)
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn-buy">
+              <span style="display: inline-block">BUY</span>
+              <img
+                src="웹 에셋/shop_cart_icon_157457.svg"
+                alt="장바구니"
+                style="filter: brightness(0)"
+              />
+            </button>
+            <button class="btn-wish">
+              I LIKE IT
+              <img src="웹 에셋\흰 하트.svg" alt="하트 아이콘" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-2. 영상 섹션 -->
+      <div class="video-section">영상</div>
+
+      <!-- 2-3. 제품 상세 정보 및 목업 -->
+      <div class="top-section">
+        <div class="placeholder-box" style="height: 600px">
+          목업 이미지// 스틸컷 등 작품 관련된 이미지
+        </div>
+        <div class="info-box">
+          <h2>Product Information</h2>
+          <p>이 작품은 특수한 방식으로 제작되었습니다.</p>
+          <p>
+            입체적인 구상과 아이디어로 인하여 이해가 쉽지 않을 수 있으며,<br />이는
+            감상 과정에서 나타나는 자연스러운 현상입니다.
+          </p>
+          <p>(실제로는 작품 소개, 작업 과정 설명, 의도 등....)</p>
+        </div>
+      </div>
+
+      <div class="middle-section">
+        <div class="placeholder-box" style="height: 400px; border-radius: 30px">
+          목업 이미지// 스틸컷 등 작품 관련된 이미지
+        </div>
+        <div class="placeholder-box" style="height: 400px; border-radius: 30px">
+          목업 이미지// 스틸컷 등 작품 관련된 이미지
+        </div>
+      </div>
+
+      <!-- 2-4. Care Instructions -->
+      <div class="care-section-wrapper">
+        <div class="care-heart"></div>
+        <div class="care-box">
+          <h2>Care Instructions</h2>
+          <p>
+            본 제품은 다양한 소재가 재봉/ 접착/ 압착 방식으로 복잡하게 연결되어
+            있어 변형될 수 있으니, 전체 세탁은 지양해주십시오.
+          </p>
+          <p>
+            젖은 노면, 얼은 노면, 이끼, 낙엽, 타일 바닥 등에서 미끄러울 수
+            있으니 착화에 주의하여 주십시오.
+          </p>
+          <p>(작품 의도를 여기에? 어떤 내용이 좋을까)</p>
+          <br />
+          <p>* 디자인 및 판매저작권은 PUZZLE에 있습니다.</p>
+          <p>* 디자인 도용 및 카피제품 사용 시 법적 조치를 받을 수 있습니다</p>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <!-- width: 70% 를 추가하여 해당 칸 안에서 크기를 줄였습니다 -->
+        <div
+          class="placeholder-box"
+          style="aspect-ratio: 1 / 1; border-radius: 40px"
+        ></div>
+        <div class="bottom-grid-right">
+          <div
+            class="placeholder-box"
+            style="border-radius: 40px; aspect-ratio: 4 / 3"
+          ></div>
+          <div
+            class="placeholder-box"
+            style="border-radius: 40px; aspect-ratio: 4 / 3"
+          ></div>
+          <div class="three-squares-wrapper">
+            <div
+              class="placeholder-box"
+              style="border-radius: 40px; aspect-ratio: 1 / 1"
+            ></div>
+            <div
+              class="placeholder-box"
+              style="border-radius: 40px; aspect-ratio: 1 / 1"
+            ></div>
+            <div
+              class="placeholder-box"
+              style="border-radius: 40px; aspect-ratio: 1 / 1"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 3. 하단 푸터 링크 바 -->
+    <div class="footer-menu">
+      <nav>
+        <a href="#">회사소개</a>
+        <a href="#">채용정보</a>
+        <a href="#">이용약관</a>
+        <a href="#">입점문의</a>
+        <a href="#">제휴광고</a>
+      </nav>
+    </div>
+
+    <!-- 4. 하단 푸터 본문 -->
+    <footer>
+      <div class="footer-inner">
+        <a class="top-btn" href="#top" aria-label="맨 위로 이동">TOP</a>
+        <img class="footer-logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+
+        <div class="footer-info">
+          <div>
+            <p>
+              <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
+              용인시 처인구 명지로 116<br />전화번호: 1577-0020
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              임경훈 김종환 유형준 김형규
+            </p>
+            <p>
+              사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
+              않습니다.<br />해당 상품들은 편하게 감상해주시면 되며, (주)퍼즐은
+              판매 당사자가 아닙니다.<br />상품정보 및 거래는 개인적인 컨택
+              바랍니다.
+            </p>
+            <p>COPYRIGHT © PUZZLE ALL RIGHTS RESERVED</p>
+          </div>
+          <div>
+            <p>
+              <strong>고객센터 운영시간 &gt;</strong><br />이용시간: 10:00 ~
+              18:00<br />점심시간: 없음
+            </p>
+          </div>
+          <div class="qr">
+            <div class="qr-box"></div>
+            <div class="socials">
+              <a href="#">◎</a>
+              <a href="#"></a>
+              <a href="#"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // 스크롤 이벤트 감지하여 TOP 버튼 숨김/표시 애니메이션 작동
+      const topBtn = document.querySelector(".top-btn");
+      window.addEventListener("scroll", () => {
+        // 맨 위에서 500px 이상 휠을 내렸을 때 등장 (기존보다 더 늦게 등장)
+        if (window.scrollY > 500) {
+          topBtn.classList.add("show");
+        } else {
+          topBtn.classList.remove("show");
+        }
+      });
+    </script>
+  </body>
+</html>

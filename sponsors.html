@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PUZZLE - PARTNERS</title>
+    <style>
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2")
+          format("woff2");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Built Titling";
+        src: url("./fonts/BuiltTitling.otf") format("opentype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      :root {
+        --pink: #ff2482;
+        --blue: #407dff;
+        --yellow: #ffc20d;
+        --cream: #f2f7f9;
+        --gray: #b7b7b7;
+        --black: #080808;
+        --wine: #9b0045;
+        --max: 1200px; /* 메인 콘텐츠 너비 기준 고정 */
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background: var(--cream);
+      }
+
+      body {
+        margin: 0;
+        color: var(--black);
+        font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
+        font-weight: 500;
+        overflow-x: auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000; /*고정 풀고싶음 여기까지 지우기*/
+        height: 80px; /* 고정 크기 */
+        background: #f2f7f9;
+        border-bottom: 1px solid #cbd0d6;
+      }
+
+      .nav-inner {
+        width: 100%; /* 화면 크기에 맞게 반응 */
+        padding: 0 40px; /* 양쪽 여백 */
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        width: 60px; /* 고정 크기 */
+        height: auto;
+        display: block;
+        flex: 0 0 auto;
+        margin-right: 40px; /* 고정 크기 */
+        margin-top: 6px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 40px; /* 고정 크기 */
+        font-size: 18px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .nav-links a,
+      .auth {
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible,
+      .auth:hover,
+      .auth:focus-visible {
+        color: #ff2b85;
+      }
+
+      .auth {
+        margin-left: auto;
+        font-size: 18px; /* 고정 크기 */
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      /* 2. 메인 컨텐츠 영역 */
+      main {
+        position: relative;
+        padding: 100px 20px 100px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* ✨ 스티커 공통 스타일 */
+      .sticker {
+        position: absolute;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* 개별 스티커 위치·크기 설정 (이미지 경로를 src에 넣어 사용) */
+      .sticker-1 {
+        top: -30px;
+        left: -130px;
+        width: 200px;
+      }
+      .sticker-2 {
+        top: 100px;
+        left: -60px;
+        width: 100px;
+      }
+      .sticker-3 {
+        top: 160px;
+        right: -80px;
+        width: 160px;
+        transform: rotate(15deg);
+      }
+      .sticker-4 {
+        top: 700px;
+        right: -90px;
+        width: 130px;
+        transform: rotate(-10deg);
+      }
+      .sticker-5 {
+        bottom: 250px;
+        left: -130px;
+        width: 220px;
+      }
+
+      /* 스폰서 타이틀 */
+      .title-section {
+        text-align: center;
+        margin-bottom: 68px;
+      }
+
+      .badge-sponsors {
+        display: inline-block;
+        background-color: #ff2a85;
+        color: #fff;
+        font-family: "Built Titling" !important;
+        font-size: 72px;
+        font-weight: 900;
+        padding: 8px 28px;
+        border: 3px solid #000;
+        box-shadow: 5px 5px 0px #000;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .title-section p {
+        font-family: "Built Titling" !important;
+        font-size: 20px;
+        font-weight: 700;
+        color: #222;
+        letter-spacing: 0.5px;
+      }
+
+      /* 3. 소형 로고 목록 (5개) */
+      .mini-logos {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 80px;
+        flex-wrap: wrap;
+      }
+
+      .mini-logo-card {
+        width: 140px;
+        height: 140px;
+        background-color: #b2b2b2;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        color: #111;
+      }
+
+      /* 4. 메인 스폰서 그리드 (3열 x 4행 = 12개) */
+      .sponsor-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px 30px;
+      }
+
+      .sponsor-card {
+        background-color: #b2b2b2;
+        height: 280px;
+        border-radius: 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        padding: 20px;
+      }
+
+      .sponsor-card h3 {
+        font-size: 26px;
+        font-weight: 800;
+        color: #111;
+      }
+
+      .sponsor-card p {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111;
+      }
+
+      .footer-menu {
+        background: var(--cream);
+        border-bottom: 1px solid #cbd0d6;
+      }
+
+      .footer-menu nav {
+        width: var(--max); /* 1200px 고정 */
+        margin: 0 auto;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        gap: 60px; /* 고정 간격 */
+        font-size: 16px; /* 고정 크기 */
+        font-weight: 700;
+      }
+
+      footer {
+        position: relative;
+        min-height: 390px;
+        padding: 62px 0 54px; /* 내부 가로 패딩 해제 */
+        background: var(--cream);
+        color: #282828;
+      }
+
+      /* 💡 푸터 내부 정렬을 고정하기 위해 추가된 스타일 클래스 */
+      .footer-inner {
+        width: var(--max); /* 1200px 고정 */
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .footer-logo {
+        width: 100px;
+        margin-bottom: 42px;
+      }
+
+      .footer-info {
+        display: grid;
+        grid-template-columns: minmax(500px, 1.5fr) minmax(200px, 1fr) 250px;
+        gap: 54px;
+        font-size: 15px; /* 고정 크기 */
+        line-height: 1.62;
+      }
+
+      .footer-info p {
+        margin: 0 0 12px;
+      }
+
+      .qr {
+        justify-self: end;
+        text-align: center;
+        margin-top: -35px;
+      }
+
+      .qr-box {
+        width: 118px;
+        height: 118px;
+        margin: 6px auto 24px;
+        background: #c9c2bf;
+        border-radius: 18px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 22px;
+        justify-content: center;
+      }
+
+      .socials a {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background: #c9c2bf;
+        display: grid;
+        place-items: center;
+        color: #eee8e4;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .top-btn {
+        position: fixed;
+        right: 38px;
+        bottom: 38px;
+        z-index: 20;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: #d8d1ce;
+        color: #888;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+
+        /* 스크롤 시 등장 애니메이션 초기 상태 */
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          visibility 0.3s ease;
+      }
+
+      .top-btn.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .top-btn::before {
+        content: "⌃";
+        display: block;
+        font-size: 30px;
+        line-height: 0.55;
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. 고정 상단바 헤더 -->
+    <header class="nav" aria-label="주요 메뉴">
+      <div class="nav-inner">
+        <a href="main.html" aria-label="PUZZLE 홈">
+          <img class="logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+        </a>
+        <nav class="nav-links">
+          <a href="about.html">About</a>
+          <a href="work.html">PRODUCTS</a>
+          <a href="designers.html">Designers</a>
+          <a href="#" class="active">Partners</a>
+        </nav>
+        <a class="auth" href="#">로그인 / 회원가입</a>
+      </div>
+    </header>
+
+    <!-- 2. 메인 컨텐츠 영역 -->
+    <main>
+      <!-- ✨ 스티커 영역 - src에 이미지 경로를 넣어 사용하세요 -->
+      <!-- 위치·크기는 CSS의 .sticker-1 ~ .sticker-5 에서 조절 -->
+      <img class="sticker sticker-1" src="" alt="" aria-hidden="true" />
+      <img class="sticker sticker-2" src="" alt="" aria-hidden="true" />
+      <img class="sticker sticker-3" src="" alt="" aria-hidden="true" />
+      <img class="sticker sticker-4" src="" alt="" aria-hidden="true" />
+      <img class="sticker sticker-5" src="" alt="" aria-hidden="true" />
+
+      <!-- 타이틀 -->
+      <section class="title-section">
+        <div class="badge-sponsors">PARTNERS</div>
+      </section>
+
+      <!-- 상단 미니 로고 (5개) -->
+      <section class="mini-logos">
+        <div class="mini-logo-card">회사로고</div>
+        <div class="mini-logo-card">회사로고</div>
+        <div class="mini-logo-card">회사로고</div>
+        <div class="mini-logo-card">회사로고</div>
+        <div class="mini-logo-card">회사로고</div>
+      </section>
+
+      <!-- 메인 스폰서 카드리스트 (12개) -->
+      <section class="sponsor-grid">
+        <!-- 카드를 필요한 만큼 복사해서 사용하세요 -->
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+        <div class="sponsor-card">
+          <h3>회사명</h3>
+          <p>회사 설명</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer-menu">
+      <nav aria-label="푸터 메뉴">
+        <a href="#">회사소개</a>
+        <a href="#">채용정보</a>
+        <a href="#">이용약관</a>
+        <a href="#">입점문의</a>
+        <a href="#">제휴광고</a>
+      </nav>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <a class="top-btn" href="#top" aria-label="맨 위로 이동">TOP</a>
+        <img class="footer-logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+        <div class="footer-info">
+          <div>
+            <p>
+              <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
+              용인시 처인구 명지로 116<br />전화번호: 1577-0020
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              임경훈 김종환 유형준 김형규
+            </p>
+            <p>
+              사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
+              않습니다.<br />해당 상품들은 편하게 감상해주시면 되며, (주)퍼즐은
+              판매 당사자가 아닙니다.<br />상품정보 및 거래는 개인적인 컨택
+              바랍니다.
+            </p>
+            <p>COPYRIGHT © PUZZLE ALL RIGHTS RESERVED</p>
+          </div>
+          <div>
+            <p>
+              <strong>고객센터 운영시간 &gt;</strong><br />이용시간: 10:00 ~
+              18:00<br />점심시간: 없음
+            </p>
+          </div>
+          <div class="qr">
+            <div class="qr-box" aria-hidden="true"></div>
+            <div class="socials">
+              <a href="#" aria-label="인스타그램">◎</a>
+              <a href="#" aria-label="소셜 링크 1"></a>
+              <a href="#" aria-label="소셜 링크 2"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // 스크롤 이벤트 감지하여 TOP 버튼 숨김/표시 애니메이션 작동
+      const topBtn = document.querySelector(".top-btn");
+      window.addEventListener("scroll", () => {
+        // 맨 위에서 500px 이상 휠을 내렸을 때 등장 (기존보다 더 늦게 등장)
+        if (window.scrollY > 500) {
+          topBtn.classList.add("show");
+        } else {
+          topBtn.classList.remove("show");
+        }
+      });
+    </script>
+  </body>
+</html>

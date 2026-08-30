@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PUZZLE - Works</title>
+    <style>
+      /* ==========================================
+         1. 브랜드 고유 폰트 에셋 세팅 (유지)
+      ========================================== */
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2")
+          format("woff2");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Hackensack";
+        src: url("./fonts/Hackensack.otf") format("opentype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Built Titling";
+        src: url("./fonts/BuiltTitling.otf") format("opentype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      /* ==========================================
+         2. 글로벌 디자인 시스템 토큰 (유지)
+      ========================================== */
+      :root {
+        --pink: #ff2482;
+        --blue: #407dff;
+        --yellow: #ffc20d;
+        --cream: #f2f7f9;
+        --gray: #b7b7b7;
+        --black: #080808;
+        --wine: #9b0045;
+        --max: 1200px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background: var(--cream);
+      }
+
+      body {
+        margin: 0;
+        color: var(--black);
+        font-family: "Paperlogy", Pretendard, sans-serif;
+        font-weight: 500;
+        overflow-x: auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ==========================================
+         3. 공통 컴포넌트: 내비게이션 바 (유지)
+      ========================================== */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 80px;
+        background: #f2f7f9;
+        border-bottom: 1px solid #cbd0d6;
+      }
+
+      .nav-inner {
+        width: 100%;
+        padding: 0 40px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        width: 60px;
+        height: auto;
+        display: block;
+        flex: 0 0 auto;
+        margin-right: 40px;
+        margin-top: 6px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 18px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .nav-links a,
+      .auth {
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible,
+      .auth:hover,
+      .auth:focus-visible {
+        color: #ff2b85;
+      }
+
+      .nav-links a.active {
+        color: var(--pink);
+      }
+
+      .auth {
+        margin-left: auto;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      /* ==========================================
+         5. 메인 콘텐츠 영역: 핑크 섹션 & 라운드 보드
+      ========================================== */
+      .works-section {
+        background: var(--pink);
+        padding: 100px 0 90px 0;
+        position: relative;
+      }
+
+      .works-title-area {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 68px;
+      }
+
+      .works-title-area h1 {
+        font-family: "Built Titling", Impact, sans-serif;
+        font-size: 72px;
+        font-weight: 900;
+        line-height: 1;
+        margin: 0 0 8px 0;
+        letter-spacing: 2px;
+      }
+
+      .works-title-area p {
+        font-family: "Built Titling", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        margin: 0;
+        letter-spacing: 0.5px;
+      }
+
+      /* 거대한 중앙 크림색 라운드 컨테이너 */
+      .works-board {
+        width: var(--max);
+        margin: 0 auto;
+        background: var(--cream);
+        border-radius: 50px;
+        padding: 45px 45px;
+      }
+
+      /* [슬라이딩 퍼즐] 그리드 */
+      .works-grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        gap: 15px;
+        width: 100%;
+        position: relative;
+      }
+
+      .work-item {
+        display: flex;
+        flex-direction: column;
+        /* JS가 transform으로 이동 제어 */
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* 빈 칸 */
+      .work-item.empty {
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      /* 이동 가능한 카드에 커서 힌트 */
+      .work-item.slideable {
+        cursor: pointer;
+      }
+
+      /* 슬라이딩 중일 때 z-index 올리기 */
+      .work-item.sliding {
+        z-index: 10;
+      }
+
+      /* 정사각형 둥근 카드 베이스 */
+      .work-item .card {
+        display: block;
+        border-radius: 36px;
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .work-item .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .work-item.slideable .card:focus-visible {
+        outline: none;
+      }
+
+      /* 🎨 27개 카드 개별 이미지 및 배경색 매핑 */
+      .work-item:nth-child(1) .card {
+        background-color: #505c75;
+        background-image: url("이미지_1.jpg");
+      }
+      .work-item:nth-child(2) .card {
+        background-color: #2ecc71;
+        background-image: url("이미지_2.jpg");
+      }
+      .work-item:nth-child(3) .card {
+        background-color: #7d5e53;
+        background-image: url("이미지_3.jpg");
+      }
+      .work-item:nth-child(4) .card {
+        background-color: #f79d7f;
+        background-image: url("이미지_4.jpg");
+      }
+      .work-item:nth-child(5) .card {
+        background-color: #e84393;
+        background-image: url("이미지_5.jpg");
+      }
+      .work-item:nth-child(6) .card {
+        background-color: #be6edd;
+        background-image: url("이미지_6.jpg");
+      }
+      .work-item:nth-child(7) .card {
+        background-color: #9b5de5;
+        background-image: url("이미지_7.jpg");
+      }
+      .work-item:nth-child(8) .card {
+        background-color: #f06292;
+        background-image: url("이미지_8.jpg");
+      }
+      .work-item:nth-child(9) .card {
+        background-color: #4ecdc4;
+        background-image: url("이미지_9.jpg");
+      }
+      .work-item:nth-child(10) .card {
+        background-color: #b83b1d;
+        background-image: url("이미지_10.jpg");
+      }
+      .work-item:nth-child(11) .card {
+        background-color: #24c264;
+        background-image: url("이미지_11.jpg");
+      }
+      .work-item:nth-child(12) .card {
+        background-color: #ebdcd0;
+        background-image: url("이미지_12.jpg");
+      }
+      .work-item:nth-child(13) .card {
+        background-color: #505c75;
+        background-image: url("이미지_13.jpg");
+      }
+      .work-item:nth-child(14) .card {
+        background-color: #2ecc71;
+        background-image: url("이미지_14.jpg");
+      }
+      .work-item:nth-child(15) .card {
+        background-color: #7d5e53;
+        background-image: url("이미지_15.jpg");
+      }
+      .work-item:nth-child(16) .card {
+        background-color: #f79d7f;
+        background-image: url("이미지_16.jpg");
+      }
+      .work-item:nth-child(17) .card {
+        background-color: #e84393;
+        background-image: url("이미지_17.jpg");
+      }
+      .work-item:nth-child(18) .card {
+        background-color: #be6edd;
+        background-image: url("이미지_18.jpg");
+      }
+      .work-item:nth-child(19) .card {
+        background-color: #9b5de5;
+        background-image: url("이미지_19.jpg");
+      }
+      .work-item:nth-child(20) .card {
+        background-color: #f06292;
+        background-image: url("이미지_20.jpg");
+      }
+      .work-item:nth-child(21) .card {
+        background-color: #4ecdc4;
+        background-image: url("이미지_21.jpg");
+      }
+      .work-item:nth-child(22) .card {
+        background-color: #b83b1d;
+        background-image: url("이미지_22.jpg");
+      }
+      .work-item:nth-child(23) .card {
+        background-color: #24c264;
+        background-image: url("이미지_23.jpg");
+      }
+      .work-item:nth-child(24) .card {
+        background-color: #ebdcd0;
+        background-image: url("이미지_24.jpg");
+      }
+      .work-item:nth-child(25) .card {
+        background-color: #505c75;
+        background-image: url("이미지_25.jpg");
+      }
+      .work-item:nth-child(26) .card {
+        background-color: #2ecc71;
+        background-image: url("이미지_26.jpg");
+      }
+      .work-item:nth-child(27) .card {
+        background-color: #7d5e53;
+        background-image: url("이미지_27.jpg");
+      }
+
+      /* ==========================================
+         6. 공통 컴포넌트: 푸터 내비게이션 & 본문 (유지)
+      ========================================== */
+      .footer-menu {
+        background: var(--cream);
+        border-bottom: 1px solid #cbd0d6;
+        border-top: 1px solid #cbd0d6;
+      }
+
+      .footer-menu nav {
+        width: var(--max);
+        margin: 0 auto;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      footer {
+        position: relative;
+        min-height: 390px;
+        padding: 62px 0 54px;
+        background: var(--cream);
+        color: #282828;
+      }
+
+      .footer-inner {
+        width: var(--max);
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .footer-logo {
+        width: 100px;
+        margin-bottom: 42px;
+      }
+
+      .footer-info {
+        display: grid;
+        grid-template-columns: minmax(500px, 1.5fr) minmax(200px, 1fr) 250px;
+        gap: 54px;
+        font-size: 15px;
+        line-height: 1.62;
+      }
+
+      .footer-info p {
+        margin: 0 0 12px;
+      }
+
+      .qr {
+        justify-self: end;
+        text-align: center;
+        margin-top: -35px;
+      }
+
+      .qr-box {
+        width: 118px;
+        height: 118px;
+        margin: 6px auto 24px;
+        background: #c9c2bf;
+        border-radius: 18px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 22px;
+        justify-content: center;
+      }
+
+      .socials a {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background: #c9c2bf;
+        display: grid;
+        place-items: center;
+        color: #eee8e4;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .top-btn {
+        position: fixed;
+        right: 38px;
+        bottom: 38px;
+        z-index: 20;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: #d8d1ce;
+        color: #888;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+
+        /* 스크롤 시 등장 애니메이션 초기 상태 */
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          visibility 0.3s ease;
+      }
+
+      .top-btn.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .top-btn::before {
+        content: "⌃";
+        display: block;
+        font-size: 30px;
+        line-height: 0.55;
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body id="top">
+    <!-- 1. 상단 내비게이션 바 (공통 유지) -->
+    <header class="nav">
+      <div class="nav-inner">
+        <a href="main.html">
+          <img class="logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+        </a>
+        <nav class="nav-links">
+          <a href="about.html">About</a>
+          <a href="#top" class="active">PRODUCTS</a>
+          <a href="designers.html">Designers</a>
+          <a href="sponsors.html">Partners</a>
+        </nav>
+        <a class="auth" href="#">로그인 / 회원가입</a>
+      </div>
+    </header>
+
+    <!-- 3. 메인 콘텐츠 영역 (4열 7줄 = 28칸, 27개 카드 + 1 빈칸) -->
+    <main class="works-section">
+      <div class="works-title-area">
+        <h1>PRODUCTS</h1>
+      </div>
+
+      <div class="works-board">
+        <div class="works-grid-container" id="puzzleGrid">
+          <!-- Row 1 -->
+          <article class="work-item">
+            <a class="card" href="detail.html"></a>
+          </article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <!-- Row 2 -->
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <!-- Row 3 -->
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <!-- Row 4 -->
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <!-- Row 5 -->
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <!-- Row 6 -->
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <!-- Row 7: 3개 카드 + 1 빈칸 -->
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item"><a class="card" href="#"></a></article>
+          <article class="work-item empty" aria-hidden="true"></article>
+        </div>
+      </div>
+    </main>
+
+    <!-- 4. 하단 푸터 링크 바 (공통 유지) -->
+    <div class="footer-menu">
+      <nav>
+        <a href="#">회사소개</a>
+        <a href="#">채용정보</a>
+        <a href="#">이용약관</a>
+        <a href="#">입점문의</a>
+        <a href="#">제휴광고</a>
+      </nav>
+    </div>
+
+    <!-- 5. 하단 푸터 본문 (공통 유지) -->
+    <footer>
+      <div class="footer-inner">
+        <a class="top-btn" href="#top" aria-label="맨 위로 이동">TOP</a>
+        <img class="footer-logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+
+        <div class="footer-info">
+          <div>
+            <p>
+              <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
+              용인시 처인구 명지로 116<br />전화번호: 1577-0020
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              임경훈 김종환 유형준 김형규
+            </p>
+            <p>
+              사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
+              않습니다.<br />해당 상품들은 편하게 감상해주시면 되며, (주)퍼즐은
+              판매 당사자가 아닙니다.<br />상품정보 및 거래는 개인적인 컨택
+              바랍니다.
+            </p>
+            <p>COPYRIGHT © PUZZLE ALL RIGHTS RESERVED</p>
+          </div>
+          <div>
+            <p>
+              <strong>고객센터 운영시간 &gt;</strong><br />이용시간: 10:00 ~
+              18:00<br />점심시간: 없음
+            </p>
+          </div>
+          <div class="qr">
+            <div class="qr-box"></div>
+            <div class="socials">
+              <a href="#">◎</a>
+              <a href="#"></a>
+              <a href="#"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* — TOP 버튼 — */
+      const topBtn = document.querySelector(".top-btn");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 500) {
+          topBtn.classList.add("show");
+        } else {
+          topBtn.classList.remove("show");
+        }
+      });
+
+      /* ============================================================
+         🧩 슬라이딩 퍼즐 인터랙션
+         - 4열(COLS) × 7행 = 28칸, 카드 27개 + 빈칸 1개
+         - 빈칸에 인접한 카드를 마우스로 진입할 때,
+           진입한 쪽이 빈칸 방향이면 카드가 슬라이딩
+      ============================================================ */
+      (function initPuzzle() {
+        const COLS = 4;
+        const ANIM_MS = 350;
+
+        const grid = document.getElementById("puzzleGrid");
+        if (!grid) return;
+
+        let isAnimating = false;
+
+        /* 색/이미지를 인라인 스타일로 고정
+           → DOM 이동 후 nth-child 재계산으로 색이 뒤바뀌는 문제 방지 */
+        function lockCardStyles() {
+          grid
+            .querySelectorAll(".work-item:not(.empty) .card")
+            .forEach((card) => {
+              const cs = getComputedStyle(card);
+              card.style.backgroundColor = cs.backgroundColor;
+              card.style.backgroundImage = cs.backgroundImage;
+            });
+        }
+
+        /* 카드 인덱스→빈칸 인덱스 방향 반환 (인접 아니면 null) */
+        function getDir(ci, ei) {
+          const cc = ci % COLS,
+            cr = Math.floor(ci / COLS);
+          const ec = ei % COLS,
+            er = Math.floor(ei / COLS);
+          if (cr === er && Math.abs(cc - ec) === 1)
+            return { dx: ec - cc, dy: 0 };
+          if (cc === ec && Math.abs(cr - er) === 1)
+            return { dx: 0, dy: er - cr };
+          return null;
+        }
+
+        function getItems() {
+          return Array.from(grid.querySelectorAll(".work-item"));
+        }
+
+        /* 슬라이딩 가능 클래스 갱신 */
+        function updateSlideable() {
+          const items = getItems();
+          const ei = items.findIndex((el) => el.classList.contains("empty"));
+          items.forEach((el, i) => {
+            const adj = !!getDir(i, ei) && !el.classList.contains("empty");
+            el.classList.toggle("slideable", adj);
+          });
+        }
+
+        /* 두 DOM 노드를 안전하게 교환 */
+        function swapNodes(a, b) {
+          const ph = document.createComment("ph");
+          a.parentNode.insertBefore(ph, a); // ph가 a 자리 기억
+          b.parentNode.insertBefore(a, b); // a → b 위치로
+          ph.parentNode.insertBefore(b, ph); // b → a 원래 자리로
+          ph.parentNode.removeChild(ph);
+        }
+
+        /* 카드 슬라이딩 실행 */
+        function slide(cardEl) {
+          if (isAnimating) return;
+          const items = getItems();
+          const ci = items.indexOf(cardEl);
+          const ei = items.findIndex((el) => el.classList.contains("empty"));
+          const emptyEl = items[ei];
+          const dir = getDir(ci, ei);
+          if (!dir) return;
+
+          isAnimating = true;
+
+          const gap = parseFloat(getComputedStyle(grid).gap) || 15;
+          const cellW = cardEl.offsetWidth + gap;
+          const cellH = cardEl.offsetHeight + gap;
+
+          /* ① CSS transition으로 카드 이동 */
+          cardEl.classList.add("sliding");
+          cardEl.style.transform = `translate(${dir.dx * cellW}px, ${dir.dy * cellH}px)`;
+
+          setTimeout(() => {
+            /* ② transition 잠깐 끔 → transform 제거해도 snap 없음 */
+            cardEl.style.transition = "none";
+            cardEl.style.transform = "";
+
+            /* ③ DOM 교환 */
+            swapNodes(cardEl, emptyEl);
+
+            /* ④ 다음 프레임에 transition 복원 */
+            requestAnimationFrame(() => {
+              cardEl.style.transition = "";
+              cardEl.classList.remove("sliding");
+              isAnimating = false;
+              updateSlideable();
+            });
+          }, ANIM_MS);
+        }
+
+        /* mouseover = 버블링 O → 자식 요소 진입도 grid에서 감지 가능 */
+        grid.addEventListener("mouseover", (e) => {
+          if (isAnimating) return;
+          const card = e.target.closest(".work-item.slideable");
+          if (!card) return;
+
+          const items = getItems();
+          const ci = items.indexOf(card);
+          const ei = items.findIndex((el) => el.classList.contains("empty"));
+          const dir = getDir(ci, ei);
+          if (!dir) return;
+
+          /* 마우스가 카드의 어느 엣지로 진입했는지 판단 */
+          const rect = card.getBoundingClientRect();
+          const mx = e.clientX - rect.left;
+          const my = e.clientY - rect.top;
+
+          const edges = [
+            { dx: 1, dy: 0, dist: rect.width - mx }, // right
+            { dx: -1, dy: 0, dist: mx }, // left
+            { dx: 0, dy: 1, dist: rect.height - my }, // bottom
+            { dx: 0, dy: -1, dist: my }, // top
+          ];
+          const closest = edges.sort((a, b) => a.dist - b.dist)[0];
+
+          /* 진입 엣지 방향 = 빈칸 방향이면 슬라이딩 */
+          if (closest.dx === dir.dx && closest.dy === dir.dy) {
+            slide(card);
+          }
+        });
+
+        lockCardStyles();
+        updateSlideable();
+      })();
+    </script>
+  </body>
+</html>
