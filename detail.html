@@ -115,14 +115,14 @@
         display: block;
         flex: 0 0 auto;
         margin-right: 40px;
-        margin-top: 6px;
+        margin-top: 2px;
       }
 
       .nav-links {
         display: flex;
         align-items: center;
         gap: 40px;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 900;
         text-transform: uppercase;
       }
@@ -139,14 +139,11 @@
         color: #ff2b85;
       }
 
-      .nav-links a.active {
-        color: var(--pink);
-      }
-
       .auth {
         margin-left: auto;
         font-size: 18px;
         font-weight: 900;
+        white-space: nowrap;
       }
 
       /* ==========================================
@@ -279,7 +276,7 @@
         display: inline-block;
         vertical-align: middle;
         transform: translateY(-0.2px);
-        margin-left: -5px;
+        margin-left: -2px;
       }
 
       .hero-extra-meta {
@@ -532,6 +529,7 @@
         justify-self: end;
         align-self: end;
         text-align: center;
+        margin-bottom: 58px; /* 박스를 위로 들어올림 */
       }
 
       .qr-label {
@@ -544,8 +542,8 @@
       }
 
       .qr-box {
-        width: 118px;
-        height: 118px;
+        width: 100px;
+        height: 100px;
         margin: 0 auto 24px;
         background: #c9c2bf;
         border-radius: 18px;
@@ -625,7 +623,6 @@
           <a href="work.html" class="active">PRODUCTS</a>
           <a href="designers.html">Designers</a>
           <a href="sponsors.html">Partners</a>
-          <a href="index.html#archive">Archive</a>
         </nav>
         <a class="auth" href="#">로그인 / 회원가입</a>
       </div>

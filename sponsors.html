@@ -99,7 +99,7 @@
         display: block;
         flex: 0 0 auto;
         margin-right: 40px; /* 고정 크기 */
-        margin-top: 6px;
+        margin-top: 2px;
       }
 
       .nav-links {
@@ -178,6 +178,7 @@
       .title-section {
         text-align: center;
         margin-bottom: 68px;
+        min-width: max-content;
       }
 
       .badge-sponsors {
@@ -195,6 +196,9 @@
         margin-bottom: 8px;
         white-space: nowrap;
         word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
       }
 
       .title-section p {
@@ -313,6 +317,7 @@
         justify-self: end;
         align-self: end;
         text-align: center;
+        margin-bottom: 58px; /* 박스를 위로 들어올림 */
       }
 
       .qr-label {
@@ -324,8 +329,8 @@
         text-align: center;
       }
       .qr-box {
-        width: 118px;
-        height: 118px;
+        width: 100px;
+        height: 100px;
         margin: 0 auto 24px;
         background: #c9c2bf;
         border-radius: 18px;
