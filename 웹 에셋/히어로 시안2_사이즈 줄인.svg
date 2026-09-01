@@ -188,10 +188,10 @@
         opacity: .7;
       }
     </style>
-    <filter id="drop-shadow-73" x="2431.91061102" y="347.57335233" width="123.36" height="130.32" filterUnits="userSpaceOnUse">
-      <feOffset dx="-.7066727" dy="2.12001811"/>
-      <feGaussianBlur result="blur" stdDeviation=".7066727"/>
-      <feFlood flood-color="#000" flood-opacity=".75"/>
+    <filter id="drop-shadow-73" x="2434.9758412" y="347.75381804" width="120.25872686" height="129.16001517" filterUnits="userSpaceOnUse">
+      <feOffset dx="1.5" dy="3.5"/>
+      <feGaussianBlur result="blur" stdDeviation="0"/>
+      <feFlood flood-color="#000" flood-opacity=".45"/>
       <feComposite in2="blur" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
