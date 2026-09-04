@@ -484,52 +484,13 @@
         z-index: 5;
       }
 
-      .trend-scroller {
-        width: var(--max); /* 1200px 고정 */
+      .trend-grid {
+        width: var(--max);
         margin: 0 auto;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-top: 10px; /* 고정 크기 */
-        padding-bottom: 20px; /* 고정 크기 */
-        scrollbar-color: var(--blue) var(--wine);
-        scrollbar-width: auto;
-        position: relative;
-        z-index: 5;
-      }
-
-      .trend-scroller::-webkit-scrollbar {
-        height: 16px;
-      }
-
-      .trend-scroller::-webkit-scrollbar-track {
-        background: var(--wine);
-        border-radius: 999px;
-      }
-
-      .trend-scroller::-webkit-scrollbar-thumb {
-        background: var(--blue);
-        border-radius: 999px;
-      }
-
-      .trend-scroller::-webkit-scrollbar-button {
-        display: none;
-        width: 0;
-        height: 0;
-      }
-
-      .trend-scroller::-webkit-scrollbar-corner {
-        background: transparent;
-      }
-
-      .trend-track {
-        display: flex;
-        gap: 40px; /* 고정 간격 */
-        width: max-content;
-      }
-
-      .trend-track .card {
-        flex: none;
-        width: 270px; /* 계산 기반 고정 가로폭 (1200px 기준 분할) */
+        display: grid;
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        gap: 40px;
+        padding-bottom: 20px;
       }
 
       .blue-works {
@@ -910,7 +871,275 @@
         font-size: 0;
       }
 
-      /* 💡 화면 크기에 따라 컴포넌트 크기가 바뀌는 기존 반응형 미디어쿼리는 전부 삭제 처리 완료 */
+      /* ==========================================
+         카테고리 버튼 섹션
+      ========================================== */
+      .category-section {
+        background: var(--cream);
+        padding: 48px 0 52px;
+        border-bottom: 1px solid #e0e5ea;
+      }
+
+      .category-inner {
+        width: var(--max);
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .category-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--black);
+        transition: transform 0.25s ease;
+      }
+
+      .category-btn:hover {
+        transform: translateY(-6px);
+      }
+
+      .category-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        transition:
+          box-shadow 0.25s ease,
+          transform 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-btn:hover .category-circle {
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+      }
+
+      .category-circle.c1 {
+        background: linear-gradient(135deg, #ff2482, #ff6eb4);
+      }
+      .category-circle.c2 {
+        background: linear-gradient(135deg, #407dff, #89b4ff);
+      }
+      .category-circle.c3 {
+        background: linear-gradient(135deg, #ffc20d, #ffe07a);
+      }
+      .category-circle.c4 {
+        background: linear-gradient(135deg, #4ecdc4, #a8f0eb);
+      }
+
+      .category-label {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        color: #333;
+      }
+
+      /* ==========================================
+         슬라이딩 퍼즐 섹션 (메인)
+      ========================================== */
+      .puzzle-section {
+        background: var(--pink);
+        padding: 80px 0 90px;
+      }
+
+      .puzzle-title-area {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 52px;
+      }
+
+      .puzzle-title-area h2.puzzle-h2 {
+        font-family: "Built Titling", Impact, sans-serif;
+        font-size: 64px;
+        font-weight: 900;
+        line-height: 1;
+        margin: 0 0 8px 0;
+        letter-spacing: 2px;
+        color: #fff;
+      }
+
+      .puzzle-title-area p {
+        font-family: "Built Titling", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.85);
+        letter-spacing: 0.5px;
+      }
+
+      .puzzle-board {
+        width: var(--max);
+        margin: 0 auto;
+        background: var(--cream);
+        border-radius: 50px;
+        padding: 40px;
+      }
+
+      .puzzle-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        gap: 15px;
+        width: 100%;
+        position: relative;
+      }
+
+      .puzzle-item {
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .puzzle-item.empty {
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      .puzzle-item.slideable {
+        cursor: pointer;
+      }
+
+      .puzzle-item.sliding {
+        z-index: 10;
+      }
+
+      .puzzle-item .pcard {
+        display: block;
+        border-radius: 36px;
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .puzzle-item:nth-child(1) .pcard {
+        background-color: #505c75;
+      }
+      .puzzle-item:nth-child(2) .pcard {
+        background-color: #ff2482;
+      }
+      .puzzle-item:nth-child(3) .pcard {
+        background-color: #7d5e53;
+      }
+      .puzzle-item:nth-child(4) .pcard {
+        background-color: #f79d7f;
+      }
+      .puzzle-item:nth-child(5) .pcard {
+        background-color: #407dff;
+      }
+      .puzzle-item:nth-child(6) .pcard {
+        background-color: #be6edd;
+      }
+      .puzzle-item:nth-child(7) .pcard {
+        background-color: #9b5de5;
+      }
+      .puzzle-item:nth-child(8) .pcard {
+        background-color: #f06292;
+      }
+      .puzzle-item:nth-child(9) .pcard {
+        background-color: #4ecdc4;
+      }
+      .puzzle-item:nth-child(10) .pcard {
+        background-color: #b83b1d;
+      }
+      .puzzle-item:nth-child(11) .pcard {
+        background-color: #24c264;
+      }
+      .puzzle-item:nth-child(12) .pcard {
+        background-color: #ebdcd0;
+      }
+      .puzzle-item:nth-child(13) .pcard {
+        background-color: #ffc20d;
+      }
+      .puzzle-item:nth-child(14) .pcard {
+        background-color: #2ecc71;
+      }
+      .puzzle-item:nth-child(15) .pcard {
+        background-color: #e84393;
+      }
+      .puzzle-item:nth-child(16) .pcard {
+        background-color: #505c75;
+      }
+
+      /* ==========================================
+         PRODUCTS 28칸 슬라이딩 퍼즐 섹션
+      ========================================== */
+      .works-section {
+        background: var(--pink);
+        padding: 50px 0 0;
+      }
+      .works-title-area {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 40px;
+        color: var(--cream);
+      }
+      .works-title-area h1 {
+        font-family: "Built Titling", Impact, sans-serif;
+        font-size: 64px;
+        font-weight: 900;
+        margin: 0;
+        letter-spacing: 2px;
+        color: var(--cream);
+      }
+      .works-board {
+        width: var(--max);
+        margin: 0 auto;
+        padding-bottom: 100px;
+        background: var(--pink);
+      }
+      .works-grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        width: 100%;
+        position: relative;
+      }
+      .work-item {
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .work-item.empty {
+        pointer-events: none;
+        visibility: hidden;
+      }
+      .work-item.slideable {
+        cursor: pointer;
+      }
+      .work-item.sliding {
+        z-index: 10;
+      }
+      .work-item .card {
+        display: block;
+        border-radius: 36px;
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        overflow: hidden;
+        /* 기존 global .card의 hover transform 상쇄 */
+        transform: none !important;
+        transition: filter 0.2s ease !important;
+        background-color: #cbd0d6;
+        background-size: cover;
+        background-position: center;
+      }
+      .work-item .card:hover {
+        transform: none !important;
+        filter: brightness(1.1);
+      }
+
+      /* 💡 기존 반응형 미디어쿼리는 전부 삭제 처리 완료 */
 
       @media (prefers-reduced-motion: reduce) {
         html {
@@ -1032,207 +1261,60 @@
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="pink-band">
-          <i class="sticker pink-extra1" aria-hidden="true"></i>
-          <i class="sticker pink-extra2" aria-hidden="true"></i>
-          <i class="sticker pink-extra3" aria-hidden="true"></i>
-          <i class="sticker pink-extra4" aria-hidden="true"></i>
-          <i class="sticker pink-extra5" aria-hidden="true"></i>
-          <i class="sticker pink-extra6" aria-hidden="true"></i>
-          <div class="cards-row">
+      <!-- 3. 메인 콘텐츠 영역 (4열 7줄 = 28칸, 27개 카드 + 1 빈칸) -->
+      <section class="works-section">
+        <div class="works-title-area">
+          <h1>PRODUCTS</h1>
+        </div>
+
+        <div class="works-board">
+          <div class="works-grid-container" id="puzzleGrid">
+            <!-- Row 1: 빈칸 + 3개 카드 -->
+            <article class="work-item empty" aria-hidden="true"></article>
             <article class="work-item">
-              <a class="card" href="#" aria-label="작품 카드 1"></a>
-              <div class="meta">
-                <span class="major">전공 - Light 14px</span>
-                <strong>작품 제목 - Bold 18px</strong>
-                <span class="name">이름 - Semibold 16px</span>
-              </div>
+              <a class="card" href="detail.html"></a>
             </article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <!-- Row 2 -->
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <!-- Row 3 -->
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <!-- Row 4 -->
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <!-- Row 5 -->
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <!-- Row 6 -->
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <!-- Row 7: 3개 카드 -->
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
+            <article class="work-item"><a class="card" href="#"></a></article>
             <article class="work-item">
-              <a class="card" href="#" aria-label="작품 카드 2"></a>
-              <div class="meta">
-                <span class="major">전공 - Light 14px</span>
-                <strong>작품 제목 - Bold 18px</strong>
-                <span class="name">이름 - Semibold 16px</span>
-              </div>
-            </article>
-            <article class="work-item">
-              <a class="card" href="#" aria-label="작품 카드 3"></a>
-              <div class="meta">
-                <span class="major">전공 - Light 14px</span>
-                <strong>작품 제목 - Bold 18px</strong>
-                <span class="name">이름 - Semibold 16px</span>
-              </div>
-            </article>
-            <article class="work-item">
-              <a class="card" href="#" aria-label="작품 카드 4"></a>
-              <div class="meta">
-                <span class="major">전공 - Light 14px</span>
-                <strong>작품 제목 - Bold 18px</strong>
-                <span class="name">이름 - Semibold 16px</span>
-              </div>
-            </article>
-            <article class="work-item">
-              <a class="card" href="#" aria-label="작품 카드 4"></a>
-              <div class="meta">
-                <span class="major">전공 - Light 14px</span>
-                <strong>작품 제목 - Bold 18px</strong>
-                <span class="name">이름 - Semibold 16px</span>
-              </div>
+              <a
+                class="card"
+                href="detail.html"
+                style="background-color: #ff2482"
+              ></a>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section class="section trend">
-        <div class="trend-head">
-          <i class="big-star" aria-hidden="true"></i>
-          <h2>TRENDING NOW!</h2>
-        </div>
-        <div class="trend-scroller" aria-label="트렌딩 작품 가로 스크롤">
-          <div class="trend-track">
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 1"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 2"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 3"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 4"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 5"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 6"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 7"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 8"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 9"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 10"></a>
-            <a class="card tall" href="#" aria-label="트렌딩 작품 카드 10"></a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section blue-works" id="designers">
-        <i class="sticker thumb" aria-hidden="true"></i>
-        <i class="sticker heart" aria-hidden="true"></i>
-        <i class="sticker extra1" aria-hidden="true"></i>
-        <i class="sticker extra2" aria-hidden="true"></i>
-        <i class="sticker extra3" aria-hidden="true"></i>
-        <i class="sticker extra4" aria-hidden="true"></i>
-        <i class="sticker extra5" aria-hidden="true"></i>
-        <i class="sticker extra6" aria-hidden="true"></i>
-        <i class="sticker extra7" aria-hidden="true"></i>
-        <i class="sticker extra8" aria-hidden="true"></i>
-        <i class="sticker extra9" aria-hidden="true"></i>
-        <i class="sticker extra10" aria-hidden="true"></i>
-        <div class="works-grid">
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 1"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 2"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 3"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 4"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 5"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 6"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 7"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 8"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
-            <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section archive" id="archive">
-        <div class="archive-grid">
-          <a class="card small" href="#" aria-label="아카이브 카드 1"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 2"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 3"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 4"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 5"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 6"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 7"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 8"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 9"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 10"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 11"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 12"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 13"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 14"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 15"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 16"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 17"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 18"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 19"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 20"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 21"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 22"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 23"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 24"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 25"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 26"></a>
-          <div class="card small empty" aria-hidden="true"></div>
         </div>
       </section>
     </main>
@@ -1284,16 +1366,151 @@
     </footer>
 
     <script>
-      // 스크롤 이벤트 감지하여 TOP 버튼 숨김/표시 애니메이션 작동
+      /* — TOP 버튼 — */
       const topBtn = document.querySelector(".top-btn");
       window.addEventListener("scroll", () => {
-        // 맨 위에서 500px 이상 휠을 내렸을 때 등장 (기존보다 더 늦게 등장)
         if (window.scrollY > 500) {
           topBtn.classList.add("show");
         } else {
           topBtn.classList.remove("show");
         }
       });
+
+      /* ============================================================
+         🧩 슬라이딩 퍼즐 인터랙션
+         - 4열(COLS) × 7행 = 28칸, 카드 27개 + 빈칸 1개
+         - 빈칸에 인접한 카드를 마우스로 진입할 때,
+           진입한 쪽이 빈칸 방향이면 카드가 슬라이딩
+      ============================================================ */
+      (function initPuzzle() {
+        const COLS = 4;
+        const ANIM_MS = 350;
+
+        const grid = document.getElementById("puzzleGrid");
+        if (!grid) return;
+
+        let isAnimating = false;
+
+        /* 색/이미지를 인라인 스타일로 고정
+           → DOM 이동 후 nth-child 재계산으로 색이 뒤바뀌는 문제 방지 */
+        function lockCardStyles() {
+          grid
+            .querySelectorAll(".work-item:not(.empty) .card")
+            .forEach((card) => {
+              const cs = getComputedStyle(card);
+              card.style.backgroundColor = cs.backgroundColor;
+              card.style.backgroundImage = cs.backgroundImage;
+            });
+        }
+
+        /* 카드 인덱스→빈칸 인덱스 방향 반환 (인접 아니면 null) */
+        function getDir(ci, ei) {
+          const cc = ci % COLS,
+            cr = Math.floor(ci / COLS);
+          const ec = ei % COLS,
+            er = Math.floor(ei / COLS);
+          if (cr === er && Math.abs(cc - ec) === 1)
+            return { dx: ec - cc, dy: 0 };
+          if (cc === ec && Math.abs(cr - er) === 1)
+            return { dx: 0, dy: er - cr };
+          return null;
+        }
+
+        function getItems() {
+          return Array.from(grid.querySelectorAll(".work-item"));
+        }
+
+        /* 슬라이딩 가능 클래스 갱신 */
+        function updateSlideable() {
+          const items = getItems();
+          const ei = items.findIndex((el) => el.classList.contains("empty"));
+          items.forEach((el, i) => {
+            const adj = !!getDir(i, ei) && !el.classList.contains("empty");
+            el.classList.toggle("slideable", adj);
+          });
+        }
+
+        /* 두 DOM 노드를 안전하게 교환 */
+        function swapNodes(a, b) {
+          const ph = document.createComment("ph");
+          a.parentNode.insertBefore(ph, a); // ph가 a 자리 기억
+          b.parentNode.insertBefore(a, b); // a → b 위치로
+          ph.parentNode.insertBefore(b, ph); // b → a 원래 자리로
+          ph.parentNode.removeChild(ph);
+        }
+
+        /* 카드 슬라이딩 실행 */
+        function slide(cardEl) {
+          if (isAnimating) return;
+          const items = getItems();
+          const ci = items.indexOf(cardEl);
+          const ei = items.findIndex((el) => el.classList.contains("empty"));
+          const emptyEl = items[ei];
+          const dir = getDir(ci, ei);
+          if (!dir) return;
+
+          isAnimating = true;
+
+          const gap = parseFloat(getComputedStyle(grid).gap) || 15;
+          const cellW = cardEl.offsetWidth + gap;
+          const cellH = cardEl.offsetHeight + gap;
+
+          /* ① CSS transition으로 카드 이동 */
+          cardEl.classList.add("sliding");
+          cardEl.style.transform = `translate(${dir.dx * cellW}px, ${dir.dy * cellH}px)`;
+
+          setTimeout(() => {
+            /* ② transition 잠깐 끔 → transform 제거해도 snap 없음 */
+            cardEl.style.transition = "none";
+            cardEl.style.transform = "";
+
+            /* ③ DOM 교환 */
+            swapNodes(cardEl, emptyEl);
+
+            /* ④ 다음 프레임에 transition 복원 */
+            requestAnimationFrame(() => {
+              cardEl.style.transition = "";
+              cardEl.classList.remove("sliding");
+              isAnimating = false;
+              updateSlideable();
+            });
+          }, ANIM_MS);
+        }
+
+        /* mouseover = 버블링 O → 자식 요소 진입도 grid에서 감지 가능 */
+        grid.addEventListener("mouseover", (e) => {
+          if (isAnimating) return;
+          const card = e.target.closest(".work-item.slideable");
+          if (!card) return;
+
+          const items = getItems();
+          const ci = items.indexOf(card);
+          const ei = items.findIndex((el) => el.classList.contains("empty"));
+          const dir = getDir(ci, ei);
+          if (!dir) return;
+
+          /* 마우스가 카드의 어느 엣지로 진입했는지 판단 */
+          const rect = card.getBoundingClientRect();
+          const mx = e.clientX - rect.left;
+          const my = e.clientY - rect.top;
+
+          const edges = [
+            { dx: 1, dy: 0, dist: rect.width - mx }, // right
+            { dx: -1, dy: 0, dist: mx }, // left
+            { dx: 0, dy: 1, dist: rect.height - my }, // bottom
+            { dx: 0, dy: -1, dist: my }, // top
+          ];
+          const closest = edges.sort((a, b) => a.dist - b.dist)[0];
+
+          /* 진입 엣지 방향 = 빈칸 방향이면 슬라이딩 */
+          if (closest.dx === dir.dx && closest.dy === dir.dy) {
+            slide(card);
+          }
+        });
+
+        lockCardStyles();
+        updateSlideable();
+      })();
     </script>
   </body>
 </html>

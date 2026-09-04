@@ -3,11 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PUZZLE - Works</title>
+    <title>PUZZLE Landing</title>
     <style>
-      /* ==========================================
-         1. 브랜드 고유 폰트 에셋 세팅 (유지)
-      ========================================== */
+      /* 1. 페이퍼로지 (전체 본문용) */
       @font-face {
         font-family: "Paperlogy";
         src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
@@ -15,6 +13,7 @@
         font-weight: 700;
         font-style: normal;
       }
+
       @font-face {
         font-family: "Paperlogy";
         src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
@@ -22,6 +21,7 @@
         font-weight: 600;
         font-style: normal;
       }
+
       @font-face {
         font-family: "Paperlogy";
         src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
@@ -29,6 +29,7 @@
         font-weight: 300;
         font-style: normal;
       }
+
       @font-face {
         font-family: "Paperlogy";
         src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2")
@@ -37,6 +38,7 @@
         font-style: normal;
       }
 
+      /* 2. Hackensack (흐르는 띠 영문용) */
       @font-face {
         font-family: "Hackensack";
         src: url("./fonts/Hackensack.otf") format("opentype");
@@ -44,6 +46,7 @@
         font-style: normal;
       }
 
+      /* 3. Built Titling (TRENDING NOW 타이틀용) */
       @font-face {
         font-family: "Built Titling";
         src: url("./fonts/BuiltTitling.otf") format("opentype");
@@ -51,9 +54,6 @@
         font-style: normal;
       }
 
-      /* ==========================================
-         2. 글로벌 디자인 시스템 토큰 (유지)
-      ========================================== */
       :root {
         --pink: #ff2482;
         --blue: #407dff;
@@ -61,8 +61,8 @@
         --cream: #f2f7f9;
         --gray: #b7b7b7;
         --black: #080808;
-        --wine: #9b0045;
-        --max: 1200px;
+        --wine: #e9e3df;
+        --max: 1200px; /* 메인 콘텐츠 너비 기준 고정 */
       }
 
       * {
@@ -77,9 +77,9 @@
       body {
         margin: 0;
         color: var(--black);
-        font-family: "Paperlogy", Pretendard, sans-serif;
+        font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
         font-weight: 500;
-        overflow-x: auto;
+        overflow-x: auto; /* 화면이 고정 너비보다 작아지면 스크롤 바 생성 */
       }
 
       a {
@@ -87,21 +87,18 @@
         text-decoration: none;
       }
 
-      /* ==========================================
-         3. 공통 컴포넌트: 내비게이션 바 (유지)
-      ========================================== */
       .nav {
         position: sticky;
         top: 0;
-        z-index: 1000;
-        height: 80px;
+        z-index: 1000; /*고정 풀고싶음 여기까지 지우기*/
+        height: 80px; /* 고정 크기 */
         background: #f2f7f9;
         border-bottom: 1px solid #cbd0d6;
       }
 
       .nav-inner {
-        width: 100%;
-        padding: 0 40px;
+        width: 100%; /* 화면 크기에 맞게 반응 */
+        padding: 0 40px; /* 양쪽 여백 */
         height: 100%;
         margin: 0 auto;
         display: flex;
@@ -110,18 +107,18 @@
       }
 
       .logo {
-        width: 60px;
+        width: 60px; /* 고정 크기 */
         height: auto;
         display: block;
         flex: 0 0 auto;
-        margin-right: 40px;
+        margin-right: 40px; /* 고정 크기 */
         margin-top: 2px;
       }
 
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 40px;
+        gap: 40px; /* 고정 크기 */
         font-size: 18px;
         font-weight: 900;
         text-transform: uppercase;
@@ -139,251 +136,631 @@
         color: #ff2b85;
       }
 
-      .nav-links a.active {
+      .auth {
+        margin-left: auto;
+        font-size: 18px; /* 고정 크기 */
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .ticker {
+        height: 50px; /* 고정 크기 */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 30px; /* 고정 크기 */
+        background: var(--blue);
+        color: #fff8f1;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .ticker-track {
+        display: flex;
+        width: max-content;
+        animation: ticker 50s linear infinite;
+        will-change: transform;
+        position: relative;
+        top: 3px;
+      }
+
+      .ticker-content {
+        display: flex;
+        align-items: center;
+        gap: 30px; /* 고정 크기 */
+        padding-right: 30px; /* 고정 크기 */
+        flex-shrink: 0;
+      }
+
+      .ticker span {
+        padding: 0;
+        margin: 0;
+        font-family: "Hackensack", Impact, sans-serif;
+        font-size: 24px; /* 고정 크기 */
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+
+      .ticker .star {
+        font-family: Arial, sans-serif;
+        font-size: 150%;
+        padding: 0;
+        white-space: nowrap;
+        flex-shrink: 0;
+        line-height: 1;
+        transform: translateY(-10%);
+      }
+
+      .ticker.yellow {
+        background: var(--yellow);
         color: var(--pink);
       }
 
-      .auth {
-        margin-left: auto;
-        font-size: 18px;
-        font-weight: 900;
+      @keyframes ticker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
       }
 
-      /* ==========================================
-         5. 메인 콘텐츠 영역: 핑크 섹션 & 라운드 보드
-      ========================================== */
-      .works-section {
-        background: var(--pink);
-        padding: 100px 0 90px 0;
-        position: relative;
-      }
-
-      .works-title-area {
-        text-align: center;
-        color: #ffffff;
-        margin-bottom: 68px;
-      }
-
-      .works-title-area h1 {
-        font-family: "Built Titling", Impact, sans-serif;
-        font-size: 72px;
-        font-weight: 900;
-        line-height: 1;
-        margin: 0 0 8px 0;
-        letter-spacing: 2px;
-        white-space: nowrap;
-        word-break: keep-all;
-      }
-
-      .works-title-area p {
-        font-family: "Built Titling", sans-serif;
-        font-weight: 700;
-        font-size: 20px;
-        margin: 0;
-        letter-spacing: 0.5px;
-      }
-
-      /* 거대한 중앙 크림색 라운드 컨테이너 */
-      .works-board {
-        width: var(--max);
-        margin: 0 auto;
-        background: var(--cream);
-        border-radius: 50px;
-        padding: 45px 45px;
-      }
-
-      /* [슬라이딩 퍼즐] 그리드 */
-      .works-grid-container {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(180px, 1fr));
-        gap: 15px;
+      /* 💡 유연하게 반응하는 상단 히어로 영역 */
+      .hero {
         width: 100%;
+        aspect-ratio: 1920/700;
+        background-image: url("웹 에셋/히어로 시안2_사이즈 줄인.svg");
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
         position: relative;
+        overflow: hidden;
+        scroll-margin-top: 80px;
       }
 
-      .work-item {
-        display: flex;
-        flex-direction: column;
-        /* JS가 transform으로 이동 제어 */
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      .section {
+        position: relative;
+        overflow: hidden;
+        scroll-margin-top: 80px; /* 💡 상단바 고정 때문에 타이틀이 가려지는 현상 방지 */
       }
 
-      /* 빈 칸 */
-      .work-item.empty {
-        pointer-events: none;
-        visibility: hidden;
+      .works-intro {
+        background: linear-gradient(
+          90deg,
+          #90908f 0 41%,
+          var(--cream) 41% 100%
+        );
+        padding-top: 0;
+        position: relative;
+        z-index: 1;
       }
 
-      /* 이동 가능한 카드에 커서 힌트 */
-      .work-item.slideable {
-        cursor: pointer;
+      .pink-band {
+        position: relative;
+        left: 0;
+        right: 0;
+        min-height: auto;
+        padding: 80px 0 100px; /* 고정 패딩 */
+        background: var(--pink);
+        overflow: hidden;
+        z-index: 1;
       }
 
-      /* 슬라이딩 중일 때 z-index 올리기 */
-      .work-item.sliding {
-        z-index: 10;
-      }
-
-      /* 정사각형 둥근 카드 베이스 */
-      .work-item .card {
+      .pink-band::after {
+        content: "";
         display: block;
-        border-radius: 36px;
+        position: absolute;
+        top: 80px;
+        left: calc(50% + 680px);
+        width: 70px;
+        height: 70px;
+        background: url("웹%20에셋/도형%20에셋5.svg") center/contain no-repeat;
+        z-index: 1;
+      }
+
+      /* 💡 핑크 영역 추가 스티커 1 (왼쪽 상단 배치) */
+      .sticker.pink-extra1 {
+        position: absolute;
+        /* 🚨 50% 고정! 더 왼쪽으로 빼려면 700px 숫자를 키우세요. */
+        left: calc(50% - 880px);
+        top: 260px; /* 위에서부터 60px 위치 */
+        width: 170px;
+        height: 170px;
+        transform: rotate(5deg); /* 왼쪽으로 살짝 기울이기 */
+        z-index: 3; /* 카드들 위로 올라오도록 설정 */
+
+        background-image: url("스티커 에셋/Artboard 33.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* 💡 핑크 영역 추가 스티커 2 (오른쪽 하단 배치) */
+      .sticker.pink-extra2 {
+        position: absolute;
+        /* 🚨 50% 고정! 더 오른쪽으로 빼려면 650px 숫자를 키우세요. */
+        left: calc(50% + 620px);
+        bottom: 50px; /* 아래에서부터 50px 위치 */
+        width: 40px;
+        height: 40px;
+        transform: rotate(18deg); /* 오른쪽으로 살짝 기울이기 */
+        z-index: 3; /* 카드들 위로 올라오도록 설정 */
+
+        background-image: url("스티커 에셋/노-원.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.pink-extra3 {
+        position: absolute;
+        /* 🚨 50% 고정! 더 오른쪽으로 빼려면 650px 숫자를 키우세요. */
+        right: calc(50% + 880px);
+        bottom: 250px; /* 아래에서부터 50px 위치 */
+        width: 30px;
+        height: 30px;
+        transform: rotate(18deg); /* 오른쪽으로 살짝 기울이기 */
+        z-index: 3; /* 카드들 위로 올라오도록 설정 */
+
+        background-image: url("스티커 에셋/노-원.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.pink-extra4 {
+        position: absolute;
+        /* 🚨 50% 고정! 더 오른쪽으로 빼려면 650px 숫자를 키우세요. */
+        right: calc(50% + 680px);
+        bottom: 430px; /* 아래에서부터 50px 위치 */
+        width: 30px;
+        height: 30px;
+        transform: rotate(-10deg); /* 오른쪽으로 살짝 기울이기 */
+        z-index: 3; /* 카드들 위로 올라오도록 설정 */
+
+        background-image: url("웹 에셋/흰 하트.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.pink-extra5 {
+        position: absolute;
+        /* 🚨 50% 고정! 더 오른쪽으로 빼려면 650px 숫자를 키우세요. */
+        left: calc(50% + 700px);
+        bottom: 350px; /* 아래에서부터 50px 위치 */
+        width: 120px;
+        height: 120px;
+        transform: rotate(9deg); /* 오른쪽으로 살짝 기울이기 */
+        z-index: 3; /* 카드들 위로 올라오도록 설정 */
+
+        background-image: url("스티커 에셋/Artboard 14.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .sticker.pink-extra6 {
+        position: absolute;
+        /* 🚨 50% 고정! 더 오른쪽으로 빼려면 650px 숫자를 키우세요. */
+        left: calc(50% + 770px);
+        bottom: 290px; /* 아래에서부터 50px 위치 */
+        width: 30px;
+        height: 30px;
+        transform: rotate(10deg); /* 오른쪽으로 살짝 기울이기 */
+        z-index: 3; /* 카드들 위로 올라오도록 설정 */
+
+        background-image: url("스티커 에셋/흰-별.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .cards-row {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        /* 💡 기존 repeat(4, ...)에서 5칸으로 변경 */
+        grid-template-columns: repeat(5, minmax(180px, 1fr));
+        gap: 40px; /* 고정 간격 */
+        width: var(--max); /* 1200px 고정 */
+        margin: 0 auto;
+      }
+
+      .card {
+        display: block;
+        background: var(--gray);
+        border-radius: 34px;
         aspect-ratio: 1 / 1;
         width: 100%;
-        overflow: hidden;
-        transition: transform 0.3s ease;
+        transition:
+          transform 0.35s ease,
+          filter 0.35s ease;
       }
 
-      .work-item .card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .work-item.slideable .card:focus-visible {
+      .card:hover,
+      .card:focus-visible {
+        transform: translateY(-10px);
+        filter: brightness(1.04);
         outline: none;
       }
 
-      /* 🎨 27개 카드 개별 이미지 및 배경색 매핑 */
-      .work-item:nth-child(1) .card {
-        background-color: #505c75;
-        background-image: url("이미지_1.jpg");
+      .card.tall {
+        aspect-ratio: 1 / 1;
+        border-radius: 12%;
       }
-      .work-item:nth-child(2) .card {
-        background-color: #2ecc71;
-        background-image: url("이미지_2.jpg");
-      }
-      .work-item:nth-child(3) .card {
-        background-color: #7d5e53;
-        background-image: url("이미지_3.jpg");
-      }
-      .work-item:nth-child(4) .card {
-        background-color: #f79d7f;
-        background-image: url("이미지_4.jpg");
-      }
-      .work-item:nth-child(5) .card {
-        background-color: #e84393;
-        background-image: url("이미지_5.jpg");
-      }
-      .work-item:nth-child(6) .card {
-        background-color: #be6edd;
-        background-image: url("이미지_6.jpg");
-      }
-      .work-item:nth-child(7) .card {
-        background-color: #9b5de5;
-        background-image: url("이미지_7.jpg");
-      }
-      .work-item:nth-child(8) .card {
-        background-color: #f06292;
-        background-image: url("이미지_8.jpg");
-      }
-      .work-item:nth-child(9) .card {
-        background-color: #4ecdc4;
-        background-image: url("이미지_9.jpg");
-      }
-      .work-item:nth-child(10) .card {
-        background-color: #b83b1d;
-        background-image: url("이미지_10.jpg");
-      }
-      .work-item:nth-child(11) .card {
-        background-color: #24c264;
-        background-image: url("이미지_11.jpg");
-      }
-      .work-item:nth-child(12) .card {
-        background-color: #ebdcd0;
-        background-image: url("이미지_12.jpg");
-      }
-      .work-item:nth-child(13) .card {
-        background-color: #505c75;
-        background-image: url("이미지_13.jpg");
-      }
-      .work-item:nth-child(14) .card {
-        background-color: #2ecc71;
-        background-image: url("이미지_14.jpg");
-      }
-      .work-item:nth-child(15) .card {
-        background-color: #7d5e53;
-        background-image: url("이미지_15.jpg");
-      }
-      .work-item:nth-child(16) .card {
-        background-color: #f79d7f;
-        background-image: url("이미지_16.jpg");
-      }
-      .work-item:nth-child(17) .card {
-        background-color: #e84393;
-        background-image: url("이미지_17.jpg");
-      }
-      .work-item:nth-child(18) .card {
-        background-color: #be6edd;
-        background-image: url("이미지_18.jpg");
-      }
-      .work-item:nth-child(19) .card {
-        background-color: #9b5de5;
-        background-image: url("이미지_19.jpg");
-      }
-      .work-item:nth-child(20) .card {
-        background-color: #f06292;
-        background-image: url("이미지_20.jpg");
-      }
-      .work-item:nth-child(21) .card {
-        background-color: #4ecdc4;
-        background-image: url("이미지_21.jpg");
-      }
-      .work-item:nth-child(22) .card {
-        background-color: #b83b1d;
-        background-image: url("이미지_22.jpg");
-      }
-      .work-item:nth-child(23) .card {
-        background-color: #24c264;
-        background-image: url("이미지_23.jpg");
-      }
-      .work-item:nth-child(24) .card {
-        background-color: #ebdcd0;
-        background-image: url("이미지_24.jpg");
-      }
-      .work-item:nth-child(25) .card {
-        background-color: #505c75;
-        background-image: url("이미지_25.jpg");
-      }
-      .work-item:nth-child(26) .card {
-        background-color: #2ecc71;
-        background-image: url("이미지_26.jpg");
-      }
-      .work-item:nth-child(27) .card {
-        background-color: #7d5e53;
-        background-image: url("이미지_27.jpg");
+      .card.small {
+        aspect-ratio: 1 / 1;
+        border-radius: 12%;
       }
 
-      /* ==========================================
-         6. 공통 컴포넌트: 푸터 내비게이션 & 본문 (유지)
-      ========================================== */
+      .meta-grid {
+        width: var(--max); /* 1200px 고정 */
+        margin: 42px auto 120px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        gap: 40px; /* 고정 간격 */
+        font-size: 16px; /* 고정 크기 */
+        line-height: 1.55;
+      }
+
+      .pink-band .work-item .meta {
+        margin-top: 20px; /* 고정 크기 */
+        color: var(--black);
+      }
+
+      .meta {
+        margin-top: 20px; /* 고정 크기 */
+        line-height: 0.5;
+        color: var(--black);
+      }
+
+      .meta .major {
+        display: block;
+        font-weight: 300;
+        font-size: 13px; /* 고정 크기 */
+      }
+
+      .meta strong {
+        display: block;
+        font-weight: 700;
+        font-size: 18px; /* 고정 크기 */
+        margin: 3px 0;
+      }
+
+      .meta .name {
+        display: block;
+        font-weight: 600;
+        font-size: 16px; /* 고정 크기 */
+      }
+
+      .trend {
+        background: var(--cream);
+        padding: 40px 0; /* 고정 크기 */
+        position: relative;
+        z-index: 3;
+        overflow: visible;
+      }
+
+      .trend-head {
+        width: var(--max); /* 1200px 고정 */
+        margin: 0 auto 30px; /* 고정 크기 */
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 60px; /* 고정 크기 */
+        z-index: 1;
+      }
+
+      .big-star {
+        position: absolute;
+        left: -180px;
+        top: -115px;
+        width: 420px;
+        height: 240px;
+        background-image: url("웹%20에셋/도향%20에셋1.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 1;
+        transform: rotate(-20deg);
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        position: relative;
+        z-index: 2;
+        font-family: "Built Titling", Impact, Haettenschweiler, sans-serif;
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 0.9;
+      }
+
+      h2 {
+        font-size: 64px; /* 고정 크기 */
+        margin-left: 0;
+        position: relative;
+        z-index: 5;
+      }
+
+      .trend-grid {
+        width: var(--max);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        gap: 40px;
+        padding-bottom: 20px;
+      }
+
+      .blue-works {
+        background: var(--blue);
+        padding: 130px 0 110px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .blue-works::before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: calc(54% + 500px);
+        top: 15px;
+        width: 340px;
+        height: 180px;
+        transform: rotate(15deg);
+        z-index: 8;
+        background-image: url("스티커 에셋/노란-띠.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .blue-works::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: calc(50% - 910px);
+        bottom: 250px;
+        width: 15px;
+        height: 15px;
+        background: #fff;
+        border-radius: 50%;
+      }
+
+      .works-grid {
+        position: relative;
+        z-index: 2;
+        width: var(--max); /* 1200px 고정 */
+        margin: 0 auto;
+        display: grid;
+        /* 💡 기존 repeat(4, ...)에서 5칸으로 변경 */
+        grid-template-columns: repeat(5, minmax(180px, 1fr));
+        gap: 58px 40px; /* 고정 간격 */
+      }
+
+      .work-item {
+        position: relative;
+      }
+
+      .work-item .meta {
+        margin-top: 20px; /* 고정 크기 */
+        font-size: 16px; /* 고정 크기 */
+        line-height: 1.55;
+      }
+
+      .sticker {
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .sticker.heart {
+        position: absolute;
+        left: calc(50% + 800px);
+        bottom: 300px;
+        width: 50px;
+        height: 50px;
+        aspect-ratio: 1 / 1;
+        transform: rotate(10deg);
+        background-image: url("웹%20에셋/도향%20에셋4.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.thumb {
+        position: absolute;
+        left: calc(45% + 760px);
+        bottom: 400px;
+        width: 100px;
+        height: 100px;
+        transform: rotate(-10deg);
+        background-image: url("웹%20에셋/도향%20에셋3.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* 💡 추가 스티커 1 (왼쪽 상단 배치) */
+      .sticker.extra1 {
+        position: absolute;
+        left: calc(50% - 800px); /* 중앙에서 왼쪽으로 600px 이동 */
+        top: 420px; /* 위에서부터 150px 위치 */
+        width: 60px; /* 스티커 가로 크기 */
+        height: 60px; /* 스티커 세로 크기 */
+        transform: rotate(-4deg); /* 살짝 왼쪽으로 기울이기 */
+        background-image: url("스티커 에셋/핑-26.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* 💡 추가 스티커 2 (왼쪽 하단 배치) */
+      .sticker.extra2 {
+        position: absolute;
+        left: calc(50% - 980px); /* 중앙에서 왼쪽으로 500px 이동 */
+        bottom: 40px; /* 아래에서부터 120px 위치 */
+        width: 210px;
+        height: 210px;
+        transform: rotate(40deg); /* 살짝 오른쪽으로 기울이기 */
+
+        background-image: url("스티커 에셋/Artboard 20.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* 💡 추가 스티커 3 (오른쪽 중간 배치) */
+      .sticker.extra3 {
+        position: absolute;
+        left: calc(50% + 750px); /* 중앙에서 오른쪽으로 550px 이동 */
+        top: 900px; /* 위에서부터 450px 위치 */
+        width: 80px;
+        height: 80px;
+        transform: rotate(15deg);
+
+        background-image: url("스티커 에셋/Artboard 44.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.extra4 {
+        position: absolute;
+        right: calc(50% + 780px); /* 중앙에서 오른쪽으로 550px 이동 */
+        top: 80px; /* 위에서부터 450px 위치 */
+        width: 90px;
+        height: 90px;
+        transform: rotate(-8deg);
+        z-index: 8;
+        background-image: url("스티커 에셋/Artboard 22.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.extra5 {
+        position: absolute;
+        right: calc(50% + 770px); /* 중앙에서 오른쪽으로 550px 이동 */
+        top: 110px; /* 위에서부터 450px 위치 */
+        width: 150px;
+        height: 150px;
+        transform: rotate(15deg);
+
+        background-image: url("웹 에셋/도향 에셋1.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.extra6 {
+        position: absolute;
+        left: calc(50% + 730px); /* 중앙에서 오른쪽으로 550px 이동 */
+        top: 130px; /* 위에서부터 450px 위치 */
+        width: 120px;
+        height: 120px;
+        transform: rotate(-5deg);
+
+        background-image: url("스티커 에셋/핑-네모.svg"); /* 파일명 수정 */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .sticker.extra7 {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 490px;
+        left: calc(50% + 710px);
+        width: 30px;
+        height: 30px;
+        background: url("웹%20에셋/도형%20에셋5.svg") center/contain no-repeat;
+        z-index: 1;
+      }
+      .sticker.extra8 {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: calc(50% + 600px);
+        width: 30px;
+        height: 30px;
+        background: url("스티커 에셋/노-원.svg") center/contain no-repeat;
+        z-index: 1;
+      }
+      .sticker.extra9 {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 500px;
+        left: calc(50% - 730px);
+        width: 30px;
+        height: 30px;
+        background: url("웹 에셋/흰 하트.svg") center/contain no-repeat;
+        z-index: 1;
+        transform: rotate(5deg);
+      }
+      .sticker.extra10 {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 490px;
+        left: calc(50% + 710px);
+        width: 30px;
+        height: 30px;
+        background: url("") center/contain no-repeat;
+        z-index: 1;
+      }
+
+      .archive {
+        background: var(--pink);
+        padding: 38px 0 55px;
+      }
+
+      .archive-grid {
+        width: var(--max); /* 1200px 고정 */
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        gap: 24px;
+      }
+
+      .card.empty {
+        background: #407dff; /* 다른 색상 (원하는 색상 코드로 변경 가능) */
+        cursor: default; /* 마우스를 올려도 손가락 모양으로 안 변함 */
+        pointer-events: none; /* 클릭 및 호버 애니메이션 완전 차단 */
+      }
+
       .footer-menu {
         background: var(--cream);
-        border-bottom: 1px solid #cbd0d6;
         border-top: 1px solid #cbd0d6;
+        border-bottom: 1px solid #cbd0d6;
       }
 
       .footer-menu nav {
-        width: var(--max);
+        width: var(--max); /* 1200px 고정 */
         margin: 0 auto;
         height: 76px;
         display: flex;
         align-items: center;
-        gap: 60px;
-        font-size: 16px;
+        gap: 60px; /* 고정 간격 */
+        font-size: 16px; /* 고정 크기 */
         font-weight: 700;
       }
 
       footer {
         position: relative;
         min-height: 390px;
-        padding: 62px 0 54px;
+        padding: 62px 0 54px; /* 내부 가로 패딩 해제 */
         background: var(--cream);
         color: #282828;
       }
 
+      /* 💡 푸터 내부 정렬을 고정하기 위해 추가된 스타일 클래스 */
       .footer-inner {
-        width: var(--max);
+        width: var(--max); /* 1200px 고정 */
         margin: 0 auto;
         position: relative;
       }
@@ -397,7 +774,7 @@
         display: grid;
         grid-template-columns: minmax(500px, 1.5fr) minmax(200px, 1fr) 250px;
         gap: 54px;
-        font-size: 15px;
+        font-size: 15px; /* 고정 크기 */
         line-height: 1.62;
       }
 
@@ -489,6 +866,225 @@
         line-height: 0.55;
         margin-bottom: 2px;
       }
+
+      .card[aria-label] {
+        font-size: 0;
+      }
+
+      /* ==========================================
+         카테고리 버튼 섹션
+      ========================================== */
+      .category-section {
+        background: var(--cream);
+        padding: 48px 0 52px;
+        border-bottom: 1px solid #e0e5ea;
+      }
+
+      .category-inner {
+        width: var(--max);
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .category-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--black);
+        transition: transform 0.25s ease;
+      }
+
+      .category-btn:hover {
+        transform: translateY(-6px);
+      }
+
+      .category-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        transition:
+          box-shadow 0.25s ease,
+          transform 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-btn:hover .category-circle {
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+      }
+
+      .category-circle.c1 {
+        background: linear-gradient(135deg, #ff2482, #ff6eb4);
+      }
+      .category-circle.c2 {
+        background: linear-gradient(135deg, #407dff, #89b4ff);
+      }
+      .category-circle.c3 {
+        background: linear-gradient(135deg, #ffc20d, #ffe07a);
+      }
+      .category-circle.c4 {
+        background: linear-gradient(135deg, #4ecdc4, #a8f0eb);
+      }
+
+      .category-label {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        color: #333;
+      }
+
+      /* ==========================================
+         슬라이딩 퍼즐 섹션 (메인)
+      ========================================== */
+      .puzzle-section {
+        background: var(--pink);
+        padding: 80px 0 90px;
+      }
+
+      .puzzle-title-area {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 52px;
+      }
+
+      .puzzle-title-area h2.puzzle-h2 {
+        font-family: "Built Titling", Impact, sans-serif;
+        font-size: 64px;
+        font-weight: 900;
+        line-height: 1;
+        margin: 0 0 8px 0;
+        letter-spacing: 2px;
+        color: #fff;
+      }
+
+      .puzzle-title-area p {
+        font-family: "Built Titling", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.85);
+        letter-spacing: 0.5px;
+      }
+
+      .puzzle-board {
+        width: var(--max);
+        margin: 0 auto;
+        background: var(--cream);
+        border-radius: 50px;
+        padding: 40px;
+      }
+
+      .puzzle-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        gap: 15px;
+        width: 100%;
+        position: relative;
+      }
+
+      .puzzle-item {
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .puzzle-item.empty {
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      .puzzle-item.slideable {
+        cursor: pointer;
+      }
+
+      .puzzle-item.sliding {
+        z-index: 10;
+      }
+
+      .puzzle-item .pcard {
+        display: block;
+        border-radius: 36px;
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .puzzle-item:nth-child(1) .pcard {
+        background-color: #505c75;
+      }
+      .puzzle-item:nth-child(2) .pcard {
+        background-color: #ff2482;
+      }
+      .puzzle-item:nth-child(3) .pcard {
+        background-color: #7d5e53;
+      }
+      .puzzle-item:nth-child(4) .pcard {
+        background-color: #f79d7f;
+      }
+      .puzzle-item:nth-child(5) .pcard {
+        background-color: #407dff;
+      }
+      .puzzle-item:nth-child(6) .pcard {
+        background-color: #be6edd;
+      }
+      .puzzle-item:nth-child(7) .pcard {
+        background-color: #9b5de5;
+      }
+      .puzzle-item:nth-child(8) .pcard {
+        background-color: #f06292;
+      }
+      .puzzle-item:nth-child(9) .pcard {
+        background-color: #4ecdc4;
+      }
+      .puzzle-item:nth-child(10) .pcard {
+        background-color: #b83b1d;
+      }
+      .puzzle-item:nth-child(11) .pcard {
+        background-color: #24c264;
+      }
+      .puzzle-item:nth-child(12) .pcard {
+        background-color: #ebdcd0;
+      }
+      .puzzle-item:nth-child(13) .pcard {
+        background-color: #ffc20d;
+      }
+      .puzzle-item:nth-child(14) .pcard {
+        background-color: #2ecc71;
+      }
+      .puzzle-item:nth-child(15) .pcard {
+        background-color: #e84393;
+      }
+      .puzzle-item:nth-child(16) .pcard {
+        background-color: #505c75;
+      }
+
+      /* 💡 화면 크기에 따라 컴포넌트 크기가 바뀌는 기존 반응형 미디어쿼리는 전부 삭제 처리 완료 */
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .ticker-track {
+          animation: none;
+        }
+        .card {
+          transition: none;
+        }
+      }
     </style>
   </head>
   <body id="top">
@@ -508,53 +1104,233 @@
       </div>
     </header>
 
-    <!-- 3. 메인 콘텐츠 영역 (4열 7줄 = 28칸, 27개 카드 + 1 빈칸) -->
-    <main class="works-section">
-      <div class="works-title-area">
-        <h1>PRODUCTS</h1>
-      </div>
+    <main>
 
-      <div class="works-board">
-        <div class="works-grid-container" id="puzzleGrid">
-          <!-- Row 1 -->
-          <article class="work-item">
-            <a class="card" href="detail.html"></a>
-          </article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <!-- Row 2 -->
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <!-- Row 3 -->
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <!-- Row 4 -->
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <!-- Row 5 -->
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <!-- Row 6 -->
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <!-- Row 7: 3개 카드 + 1 빈칸 -->
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item"><a class="card" href="#"></a></article>
-          <article class="work-item empty" aria-hidden="true"></article>
+      <!-- 카테고리 원형 버튼 섹션 -->
+      <section class="category-section">
+        <div class="category-inner">
+          <a class="category-btn" href="work.html" aria-label="신상품">
+            <div class="category-circle c1">🧩</div>
+            <span class="category-label">신상품</span>
+          </a>
+          <a class="category-btn" href="work.html" aria-label="베스트">
+            <div class="category-circle c2">🏆</div>
+            <span class="category-label">베스트</span>
+          </a>
+          <a class="category-btn" href="work.html" aria-label="기획전">
+            <div class="category-circle c3">🎁</div>
+            <span class="category-label">기획전</span>
+          </a>
+          <a class="category-btn" href="work.html" aria-label="한정판">
+            <div class="category-circle c4">⭐</div>
+            <span class="category-label">한정판</span>
+          </a>
         </div>
-      </div>
+      </section>
+
+      <section class="section trend">
+        <div class="trend-head">
+          <i class="big-star" aria-hidden="true"></i>
+          <h2>TRENDING NOW!</h2>
+        </div>
+        <div class="trend-grid">
+          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 1"></a>
+          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 2"></a>
+          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 3"></a>
+          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 4"></a>
+        </div>
+      </section>
+
+      <section class="section blue-works" id="designers">
+        <i class="sticker thumb" aria-hidden="true"></i>
+        <i class="sticker heart" aria-hidden="true"></i>
+        <i class="sticker extra1" aria-hidden="true"></i>
+        <i class="sticker extra2" aria-hidden="true"></i>
+        <i class="sticker extra3" aria-hidden="true"></i>
+        <i class="sticker extra4" aria-hidden="true"></i>
+        <i class="sticker extra5" aria-hidden="true"></i>
+        <i class="sticker extra6" aria-hidden="true"></i>
+        <i class="sticker extra7" aria-hidden="true"></i>
+        <i class="sticker extra8" aria-hidden="true"></i>
+        <i class="sticker extra9" aria-hidden="true"></i>
+        <i class="sticker extra10" aria-hidden="true"></i>
+        <div class="works-grid">
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 1"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 2"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 3"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 5"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 6"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 7"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card tall" href="#" aria-label="작품 상세 8"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section archive" id="archive">
+        <div class="archive-grid">
+          <a class="card small" href="#" aria-label="아카이브 카드 1"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 2"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 3"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 4"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 5"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 6"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 7"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 8"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 9"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 10"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 11"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 12"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 13"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 14"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 15"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 16"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 17"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 18"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 19"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 20"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 21"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 22"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 23"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 24"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 25"></a>
+          <a class="card small" href="#" aria-label="아카이브 카드 26"></a>
+          <div class="card small empty" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- 🧩 슬라이딩 퍼즐 그리드 섹션 -->
+      <section class="puzzle-section" id="puzzle">
+        <div class="puzzle-title-area">
+          <h2 class="puzzle-h2">PUZZLE GRID</h2>
+          <p>퍼즐 조각을 움직여보세요</p>
+        </div>
+        <div class="puzzle-board">
+          <div class="puzzle-grid" id="mainPuzzleGrid">
+            <!-- Row 1: 빈칸 + 3개 -->
+            <article class="puzzle-item empty" aria-hidden="true"></article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <!-- Row 2 -->
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <!-- Row 3 -->
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <!-- Row 4 -->
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="#"></a>
+            </article>
+            <article class="puzzle-item">
+              <a class="pcard" href="work.html"></a>
+            </article>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- 4. 하단 푸터 링크 바 (공통 유지) -->
@@ -606,7 +1382,7 @@
     </footer>
 
     <script>
-      /* — TOP 버튼 — */
+      // 스크롤 이벤트 감지하여 TOP 버튼 숨김/표시 애니메이션 작동
       const topBtn = document.querySelector(".top-btn");
       window.addEventListener("scroll", () => {
         if (window.scrollY > 500) {
@@ -617,25 +1393,21 @@
       });
 
       /* ============================================================
-         🧩 슬라이딩 퍼즐 인터랙션
-         - 4열(COLS) × 7행 = 28칸, 카드 27개 + 빈칸 1개
-         - 빈칸에 인접한 카드를 마우스로 진입할 때,
-           진입한 쪽이 빈칸 방향이면 카드가 슬라이딩
+         🧩 메인 슬라이딩 퍼즐
+         - 4열(COLS) × 4행 = 16칸, 카드 15개 + 빈칸 1개
+         - work.html과 동일한 마우스 진입 방향 슬라이딩
       ============================================================ */
-      (function initPuzzle() {
+      (function initMainPuzzle() {
         const COLS = 4;
         const ANIM_MS = 350;
-
-        const grid = document.getElementById("puzzleGrid");
+        const grid = document.getElementById("mainPuzzleGrid");
         if (!grid) return;
 
         let isAnimating = false;
 
-        /* 색/이미지를 인라인 스타일로 고정
-           → DOM 이동 후 nth-child 재계산으로 색이 뒤바뀌는 문제 방지 */
         function lockCardStyles() {
           grid
-            .querySelectorAll(".work-item:not(.empty) .card")
+            .querySelectorAll(".puzzle-item:not(.empty) .pcard")
             .forEach((card) => {
               const cs = getComputedStyle(card);
               card.style.backgroundColor = cs.backgroundColor;
@@ -643,7 +1415,6 @@
             });
         }
 
-        /* 카드 인덱스→빈칸 인덱스 방향 반환 (인접 아니면 null) */
         function getDir(ci, ei) {
           const cc = ci % COLS,
             cr = Math.floor(ci / COLS);
@@ -657,10 +1428,9 @@
         }
 
         function getItems() {
-          return Array.from(grid.querySelectorAll(".work-item"));
+          return Array.from(grid.querySelectorAll(".puzzle-item"));
         }
 
-        /* 슬라이딩 가능 클래스 갱신 */
         function updateSlideable() {
           const items = getItems();
           const ei = items.findIndex((el) => el.classList.contains("empty"));
@@ -670,16 +1440,14 @@
           });
         }
 
-        /* 두 DOM 노드를 안전하게 교환 */
         function swapNodes(a, b) {
           const ph = document.createComment("ph");
-          a.parentNode.insertBefore(ph, a); // ph가 a 자리 기억
-          b.parentNode.insertBefore(a, b); // a → b 위치로
-          ph.parentNode.insertBefore(b, ph); // b → a 원래 자리로
+          a.parentNode.insertBefore(ph, a);
+          b.parentNode.insertBefore(a, b);
+          ph.parentNode.insertBefore(b, ph);
           ph.parentNode.removeChild(ph);
         }
 
-        /* 카드 슬라이딩 실행 */
         function slide(cardEl) {
           if (isAnimating) return;
           const items = getItems();
@@ -690,24 +1458,17 @@
           if (!dir) return;
 
           isAnimating = true;
-
           const gap = parseFloat(getComputedStyle(grid).gap) || 15;
           const cellW = cardEl.offsetWidth + gap;
           const cellH = cardEl.offsetHeight + gap;
 
-          /* ① CSS transition으로 카드 이동 */
           cardEl.classList.add("sliding");
           cardEl.style.transform = `translate(${dir.dx * cellW}px, ${dir.dy * cellH}px)`;
 
           setTimeout(() => {
-            /* ② transition 잠깐 끔 → transform 제거해도 snap 없음 */
             cardEl.style.transition = "none";
             cardEl.style.transform = "";
-
-            /* ③ DOM 교환 */
             swapNodes(cardEl, emptyEl);
-
-            /* ④ 다음 프레임에 transition 복원 */
             requestAnimationFrame(() => {
               cardEl.style.transition = "";
               cardEl.classList.remove("sliding");
@@ -717,10 +1478,9 @@
           }, ANIM_MS);
         }
 
-        /* mouseover = 버블링 O → 자식 요소 진입도 grid에서 감지 가능 */
         grid.addEventListener("mouseover", (e) => {
           if (isAnimating) return;
-          const card = e.target.closest(".work-item.slideable");
+          const card = e.target.closest(".puzzle-item.slideable");
           if (!card) return;
 
           const items = getItems();
@@ -729,20 +1489,18 @@
           const dir = getDir(ci, ei);
           if (!dir) return;
 
-          /* 마우스가 카드의 어느 엣지로 진입했는지 판단 */
           const rect = card.getBoundingClientRect();
           const mx = e.clientX - rect.left;
           const my = e.clientY - rect.top;
 
           const edges = [
-            { dx: 1, dy: 0, dist: rect.width - mx }, // right
-            { dx: -1, dy: 0, dist: mx }, // left
-            { dx: 0, dy: 1, dist: rect.height - my }, // bottom
-            { dx: 0, dy: -1, dist: my }, // top
+            { dx: 1, dy: 0, dist: rect.width - mx },
+            { dx: -1, dy: 0, dist: mx },
+            { dx: 0, dy: 1, dist: rect.height - my },
+            { dx: 0, dy: -1, dist: my },
           ];
           const closest = edges.sort((a, b) => a.dist - b.dist)[0];
 
-          /* 진입 엣지 방향 = 빈칸 방향이면 슬라이딩 */
           if (closest.dx === dir.dx && closest.dy === dir.dy) {
             slide(card);
           }
