@@ -488,9 +488,32 @@
         width: var(--max);
         margin: 0 auto;
         display: grid;
-        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        /* 4개 이상이면 가로 스크롤 허용하기 위해 설정 */
+        grid-auto-flow: column;
+        grid-auto-columns: calc((100% - 120px) / 4);
         gap: 40px;
         padding-bottom: 20px;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+      }
+      .trend-grid::-webkit-scrollbar {
+        height: 8px;
+        background: transparent;
+      }
+      .trend-grid::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+      }
+      .trend-grid .card {
+        scroll-snap-align: start;
+        /* grid auto column이 flex grow처럼 동작하지 않을경우 대비 */
+        min-width: 0;
+      }
+      .trend-grid .card:hover,
+      .trend-grid .card:focus-visible {
+        transform: none !important;
+        filter: none !important;
+        cursor: default;
       }
 
       .blue-works {
@@ -877,7 +900,6 @@
       .category-section {
         background: var(--cream);
         padding: 48px 0 52px;
-        border-bottom: 1px solid #e0e5ea;
       }
 
       .category-inner {
@@ -1105,25 +1127,44 @@
     </header>
 
     <main>
-
       <!-- 카테고리 원형 버튼 섹션 -->
       <section class="category-section">
         <div class="category-inner">
-          <a class="category-btn" href="work.html" aria-label="신상품">
+          <a
+            class="category-btn"
+            href="#trend"
+            data-category="게임컨텐츠"
+            aria-label="게임컨텐츠"
+          >
             <div class="category-circle c1">🧩</div>
-            <span class="category-label">신상품</span>
+            <span class="category-label">게임컨텐츠</span>
           </a>
-          <a class="category-btn" href="work.html" aria-label="베스트">
+          <a
+            class="category-btn"
+            href="#trend"
+            data-category="멀티미디어"
+            aria-label="멀티미디어"
+          >
             <div class="category-circle c2">🏆</div>
-            <span class="category-label">베스트</span>
+            <span class="category-label">멀티미디어</span>
           </a>
-          <a class="category-btn" href="work.html" aria-label="기획전">
+          <a
+            class="category-btn"
+            href="#trend"
+            data-category="모션그래픽"
+            aria-label="모션그래픽"
+          >
             <div class="category-circle c3">🎁</div>
-            <span class="category-label">기획전</span>
+            <span class="category-label">모션그래픽</span>
           </a>
-          <a class="category-btn" href="work.html" aria-label="한정판">
+          <a
+            class="category-btn"
+            href="#trend"
+            data-category="애니메이션"
+            aria-label="애니메이션"
+          >
             <div class="category-circle c4">⭐</div>
-            <span class="category-label">한정판</span>
+            <span class="category-label">애니메이션</span>
           </a>
         </div>
       </section>
@@ -1133,11 +1174,133 @@
           <i class="big-star" aria-hidden="true"></i>
           <h2>TRENDING NOW!</h2>
         </div>
-        <div class="trend-grid">
-          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 1"></a>
-          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 2"></a>
-          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 3"></a>
-          <a class="card tall" href="#" aria-label="트렌딩 작품 카드 4"></a>
+        <div class="trend-grid" id="trendGrid">
+          <a
+            class="card tall"
+            href="#"
+            data-category="게임컨텐츠"
+            aria-label="게임컨텐츠 작품 1"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="게임컨텐츠"
+            aria-label="게임컨텐츠 작품 2"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="게임컨텐츠"
+            aria-label="게임컨텐츠 작품 3"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="게임컨텐츠"
+            aria-label="게임컨텐츠 작품 4"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="게임컨텐츠"
+            aria-label="게임컨텐츠 작품 5"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="게임컨텐츠"
+            aria-label="게임컨텐츠 작품 6"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="멀티미디어"
+            aria-label="멀티미디어 작품 1"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="멀티미디어"
+            aria-label="멀티미디어 작품 2"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="멀티미디어"
+            aria-label="멀티미디어 작품 3"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="멀티미디어"
+            aria-label="멀티미디어 작품 4"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="멀티미디어"
+            aria-label="멀티미디어 작품 5"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="모션그래픽"
+            aria-label="모션그래픽 작품 1"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="모션그래픽"
+            aria-label="모션그래픽 작품 2"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="모션그래픽"
+            aria-label="모션그래픽 작품 3"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="모션그래픽"
+            aria-label="모션그래픽 작품 4"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="애니메이션"
+            aria-label="애니메이션 작품 1"
+            style="background-color: #4ecdc4"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="애니메이션"
+            aria-label="애니메이션 작품 2"
+            style="background-color: #4ecdc4"
+          ></a>
+          <a
+            class="card tall"
+            href="#"
+            data-category="애니메이션"
+            aria-label="애니메이션 작품 3"
+            style="background-color: #4ecdc4"
+          ></a>
         </div>
       </section>
 
@@ -1235,102 +1398,330 @@
               <span class="name">이름 - Semibold 16px</span>
             </div>
           </article>
-        </div>
-      </section>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
+          <article class="work-item">
+            <a class="card" href="#" aria-label="작품 카드 4"></a>
+            <div class="meta">
+              <span class="major">전공 - Light 14px</span>
+              <strong>작품 제목 - Bold 18px</strong>
+              <span class="name">이름 - Semibold 16px</span>
+            </div>
+          </article>
 
-      <section class="section archive" id="archive">
-        <div class="archive-grid">
-          <a class="card small" href="#" aria-label="아카이브 카드 1"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 2"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 3"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 4"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 5"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 6"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 7"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 8"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 9"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 10"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 11"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 12"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 13"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 14"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 15"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 16"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 17"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 18"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 19"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 20"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 21"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 22"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 23"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 24"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 25"></a>
-          <a class="card small" href="#" aria-label="아카이브 카드 26"></a>
-          <div class="card small empty" aria-hidden="true"></div>
+          <article class="work-item">
+            <div
+              class="card empty"
+              aria-hidden="true"
+              style="background-color: var(--wine)"
+            ></div>
+          </article>
         </div>
       </section>
 
       <!-- 🧩 슬라이딩 퍼즐 그리드 섹션 -->
-      <section class="puzzle-section" id="puzzle">
-        <div class="puzzle-title-area">
-          <h2 class="puzzle-h2">PUZZLE GRID</h2>
-          <p>퍼즐 조각을 움직여보세요</p>
-        </div>
-        <div class="puzzle-board">
-          <div class="puzzle-grid" id="mainPuzzleGrid">
-            <!-- Row 1: 빈칸 + 3개 -->
-            <article class="puzzle-item empty" aria-hidden="true"></article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <!-- Row 2 -->
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <!-- Row 3 -->
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <!-- Row 4 -->
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="#"></a>
-            </article>
-            <article class="puzzle-item">
-              <a class="pcard" href="work.html"></a>
-            </article>
-          </div>
-        </div>
-      </section>
     </main>
 
     <!-- 4. 하단 푸터 링크 바 (공통 유지) -->
@@ -1397,6 +1788,41 @@
          - 4열(COLS) × 4행 = 16칸, 카드 15개 + 빈칸 1개
          - work.html과 동일한 마우스 진입 방향 슬라이딩
       ============================================================ */
+
+      /* ============================================================
+         TRENDING NOW 카테고리 탭 및 슬라이드 (가로스크롤)
+      ============================================================ */
+      (function initTrendFilter() {
+        const btns = document.querySelectorAll(".category-btn");
+        const grid = document.getElementById("trendGrid");
+        if (!grid || btns.length === 0) return;
+
+        const allCards = Array.from(grid.querySelectorAll(".card"));
+
+        btns.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // 모든 카드 숨김 처리
+            allCards.forEach((card) => (card.style.display = "none"));
+
+            // 클릭한 카테고리의 카드만 표시
+            const cat = btn.getAttribute("data-category");
+            const targetCards = allCards.filter(
+              (card) => card.getAttribute("data-category") === cat,
+            );
+
+            targetCards.forEach((card) => (card.style.display = "block"));
+
+            // 스크롤 왼쪽 끝으로 초기화
+            grid.scrollLeft = 0;
+          });
+        });
+
+        // 초기 로드시 첫 번째 탭 활성화 시뮬레이션
+        btns[0].click();
+      })();
+
       (function initMainPuzzle() {
         const COLS = 4;
         const ANIM_MS = 350;
