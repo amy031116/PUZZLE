@@ -213,7 +213,7 @@
       .mini-logos {
         display: flex;
         justify-content: center;
-        gap: 20px;
+        gap: 23px; /* 3px 증가 */
         margin-bottom: 140px;
         flex-wrap: wrap;
       }
@@ -221,7 +221,8 @@
       .mini-logo-card {
         width: 140px;
         height: 140px;
-        background-color: #b2b2b2;
+        background-color: #ffffff;
+        border: 3px solid #e0e5ea;
         border-radius: 20px;
         display: flex;
         align-items: center;
@@ -229,6 +230,29 @@
         font-weight: 700;
         font-size: 14px;
         color: #111;
+        text-decoration: none;
+        transition:
+          box-shadow 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .mini-logo-card:hover {
+        box-shadow: 5px 6px 0px rgba(0, 0, 0, 0.7);
+        transform: translateY(-4px);
+      }
+
+      /* 카드별 고유 컬러 테두리 (웹 컬러 사용, 중복 없음) */
+      .mini-logo-card:nth-child(1) {
+        border-color: var(--blue);
+      }
+      .mini-logo-card:nth-child(2) {
+        border-color: var(--pink);
+      }
+      .mini-logo-card:nth-child(3) {
+        border-color: var(--yellow);
+      }
+      .mini-logo-card:nth-child(4) {
+        border-color: var(--black);
       }
 
       /* 4. 메인 스폰서 그리드 (4열 x 1행 = 4개) */
@@ -262,6 +286,20 @@
         font-size: 20px;
         font-weight: 700;
         color: #111;
+      }
+
+      /* 하단 카드별 컬러 라인 (상단 미니 로고와 동일한 순서) */
+      .sponsor-card:nth-child(1) {
+        border: 3px solid var(--blue);
+      }
+      .sponsor-card:nth-child(2) {
+        border: 3px solid var(--pink);
+      }
+      .sponsor-card:nth-child(3) {
+        border: 3px solid var(--yellow);
+      }
+      .sponsor-card:nth-child(4) {
+        border: 3px solid var(--black);
       }
 
       .footer-menu {
@@ -432,10 +470,54 @@
 
       <!-- 상단 미니 로고 (4개) -->
       <section class="mini-logos">
-        <div class="mini-logo-card">회사로고</div>
-        <div class="mini-logo-card">회사로고</div>
-        <div class="mini-logo-card">회사로고</div>
-        <div class="mini-logo-card">회사로고</div>
+        <a
+          class="mini-logo-card"
+          href="https://www.sandollcloud.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="후원사 로고\산돌_심볼.svg"
+            alt="산돌구름 로고"
+            style="max-width: 100px; max-height: 70px; object-fit: contain"
+          />
+        </a>
+        <a
+          class="mini-logo-card"
+          href="https://www.cabooks.co.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="후원사 로고\CA_logo.svg"
+            alt="cabooks 로고"
+            style="max-width: 100px; max-height: 70px; object-fit: contain"
+          />
+        </a>
+        <a
+          class="mini-logo-card"
+          href="https://www.meshy.ai/ko/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="후원사 로고\meshy-logo-general.svg"
+            alt="Meshy 로고"
+            style="max-width: 110px; max-height: 80px; object-fit: contain"
+          />
+        </a>
+        <a
+          class="mini-logo-card"
+          href="https://yoondesign.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="후원사 로고\yoon_black.svg"
+            alt="Yoon 로고"
+            style="max-width: 100px; max-height: 70px; object-fit: contain"
+          />
+        </a>
       </section>
 
       <!-- 메인 스폰서 카드리스트 (4개) -->
