@@ -145,33 +145,57 @@
         pointer-events: none;
       }
 
-      /* 개별 스티커 위치·크기 설정 (이미지 경로를 src에 넣어 사용) */
+      /* 개별 스티커 위치·크기 설정 */
       .sticker-1 {
-        top: -30px;
+        top: 100px;
         left: -130px;
         width: 200px;
+        transform: rotate(-38deg);
       }
       .sticker-2 {
-        top: 100px;
-        left: -60px;
-        width: 100px;
+        top: 650px;
+        left: -440px;
+        width: 290px;
+        transform: rotate(6deg);
       }
       .sticker-3 {
-        top: 160px;
-        right: -80px;
+        top: 290px;
+        right: -85px;
         width: 160px;
+        z-index: 3;
         transform: rotate(15deg);
       }
       .sticker-4 {
-        top: 700px;
-        right: -90px;
-        width: 130px;
+        top: 80px;
+        right: -790px;
+        width: 1000px;
+        z-index: 0;
         transform: rotate(-10deg);
       }
       .sticker-5 {
-        bottom: 250px;
-        left: -130px;
-        width: 220px;
+        bottom: 350px;
+        left: -20ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ0px;
+        width: 120px;
+        z-index: 2;
+        transform: rotate(5deg);
+      }
+      .sticker-6 {
+        top: 400px;
+        left: -100px;
+        width: 110px;
+        transform: rotate(-14deg);
+      }
+      .sticker-7 {
+        bottom: 80px;
+        right: -100px;
+        width: 150px;
+        transform: rotate(12deg);
+      }
+      .sticker-8 {
+        top: 900px;
+        left: -80px;
+        width: 80px;
+        transform: rotate(-5deg);
       }
 
       /* 스폰서 타이틀 */
@@ -455,13 +479,55 @@
 
     <!-- 2. 메인 컨텐츠 영역 -->
     <main>
-      <!-- ✨ 스티커 영역 - src에 이미지 경로를 넣어 사용하세요 -->
-      <!-- 위치·크기는 CSS의 .sticker-1 ~ .sticker-5 에서 조절 -->
-      <img class="sticker sticker-1" src="" alt="" aria-hidden="true" />
-      <img class="sticker sticker-2" src="" alt="" aria-hidden="true" />
-      <img class="sticker sticker-3" src="" alt="" aria-hidden="true" />
-      <img class="sticker sticker-4" src="" alt="" aria-hidden="true" />
-      <img class="sticker sticker-5" src="" alt="" aria-hidden="true" />
+      <!-- ✨ 스티커 영역 (8개) - 위치·크기는 CSS의 .sticker-1 ~ .sticker-8 에서 조절 -->
+      <img
+        class="sticker sticker-1"
+        src="스티커 에셋/Artboard 35.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="sticker sticker-2"
+        src="스티커 에셋/Artboard 54.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="sticker sticker-3"
+        src="스티커 에셋/Artboard 10.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="sticker sticker-4"
+        src="스티커 에셋\노-네모.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="sticker sticker-5"
+        src="스티커 에셋\파-무늬 원.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="sticker sticker-6"
+        src="스티커 에셋/Artboard 2.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="sticker sticker-7"
+        src="스티커 에셋/Artboard 30.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="sticker sticker-8"
+        src="스티커 에셋/Artboard 33.svg"
+        alt=""
+        aria-hidden="true"
+      />
 
       <!-- 타이틀 -->
       <section class="title-section">
