@@ -4,6 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PUZZLE Landing</title>
+    <!-- Three.js importmap -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
     <style>
       /* 1. 페이퍼로지 (전체 본문용) */
       @font-face {
@@ -1073,19 +1082,19 @@
       }
 
       /* ==========================================
-         PRODUCTS 28칸 슬라이딩 퍼즐 섹션
+         PRODUCTS 3D 퍼즐 셀션
       ========================================== */
       .works-section {
         background: var(--pink);
-        padding: 50px 0 100px;
+        padding: 50px 0 80px;
       }
       .works-title-area {
         text-align: center;
         margin-top: 50px;
-        margin-bottom: 36px; /* 여백 3px 증가 (30px -> 33px) */
+        margin-bottom: 36px;
         color: var(--cream);
         position: relative;
-        z-index: 50; /* h1, h2가 z-index: 2를 가져서, 부모 레벨에서 충분한 높이 보장 */
+        z-index: 50;
       }
       .works-title-area h1 {
         font-family: "Built Titling", Impact, sans-serif;
@@ -1099,9 +1108,82 @@
         font-weight: 600;
         font-size: 21px;
         margin: 10px 0 0 0;
-        color: rgba(242, 247, 249, 0.9); /* --cream based alpha */
+        color: rgba(242, 247, 249, 0.9);
         letter-spacing: 0.5px;
       }
+
+      /* 3D 캔버스 래퍼 */
+      .puzzle3d-wrap {
+        width: var(--max);
+        margin: 0 auto;
+        background: var(--cream);
+        border-radius: 50px;
+        overflow: hidden;
+        position: relative;
+        height: 780px;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+      }
+      #puzzle3dCanvas {
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+        cursor: grab;
+      }
+      #puzzle3dCanvas:active {
+        cursor: grabbing;
+      }
+
+      /* 3D 로딩 오버레이 */
+      .puzzle3d-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--cream);
+        border-radius: 50px;
+        z-index: 10;
+        transition: opacity 0.5s;
+      }
+      .puzzle3d-loading.done {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .p3d-loading-title {
+        font-family: "Built Titling", Impact, sans-serif;
+        font-size: 36px;
+        font-weight: 900;
+        color: var(--pink);
+        letter-spacing: 3px;
+        margin-bottom: 20px;
+      }
+      .p3d-bar-wrap {
+        width: 200px;
+        height: 5px;
+        background: #e0e5ea;
+        border-radius: 99px;
+        overflow: hidden;
+      }
+      .p3d-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--pink), var(--blue));
+        border-radius: 99px;
+        transition: width 0.2s;
+      }
+      .p3d-hint {
+        position: absolute;
+        bottom: 18px;
+        right: 24px;
+        font-size: 12px;
+        color: #aaa;
+        font-weight: 600;
+        line-height: 1.7;
+        text-align: right;
+        pointer-events: none;
+      }
+      /* HOW IT WORKS 말풍선 안에 구성 -- 기존 코드 유지 */
       .how-it-works-wrapper {
         position: relative;
         display: inline-flex;
@@ -1110,7 +1192,7 @@
         margin-top: 40px;
         cursor: help;
         transition: transform 0.2s ease;
-        z-index: 100; /* 타이틀(z-index:2) 위로 확실히 뜨도록 */
+        z-index: 100;
       }
       .how-it-works-wrapper:hover {
         transform: scale(1.05);
@@ -1151,7 +1233,7 @@
           opacity 0.3s ease,
           transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
           visibility 0.3s;
-        z-index: 200; /* 말풍선을 최상단으로 */
+        z-index: 200;
         pointer-events: none;
         font-weight: 600;
         word-break: keep-all;
@@ -1162,7 +1244,7 @@
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        margin-top: -1px; /* 얇은 선 없애기 위해 1px 겹치게 설정 */
+        margin-top: -1px;
         border: 12px solid transparent;
         border-top-color: var(--cream);
       }
@@ -1171,54 +1253,6 @@
         visibility: visible;
         transform: translateX(-50%) translateY(-15px) scale(1);
       }
-      .works-board {
-        width: var(--max);
-        margin: 0 auto;
-        padding: 40px;
-        background: var(--cream);
-        border-radius: 50px;
-      }
-      .works-grid-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-        width: 100%;
-        position: relative;
-      }
-      .work-item {
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .work-item.empty {
-        pointer-events: none;
-        visibility: hidden;
-      }
-      .work-item.slideable {
-        cursor: pointer;
-      }
-      .work-item.sliding {
-        z-index: 10;
-      }
-      .work-item .card {
-        display: block;
-        border-radius: 36px;
-        aspect-ratio: 1 / 1;
-        width: 100%;
-        overflow: hidden;
-        /* 기존 global .card의 hover transform 상쇄 */
-        transform: none !important;
-        transition: filter 0.2s ease !important;
-        background-color: #cbd0d6;
-        background-size: cover;
-        background-position: center;
-      }
-      .work-item .card:hover {
-        transform: none !important;
-        filter: brightness(1.1);
-      }
-
-      /* 💡 기존 반응형 미디어쿼리는 전부 삭제 처리 완료 */
 
       @media (prefers-reduced-motion: reduce) {
         html {
@@ -1342,15 +1376,14 @@
         </div>
       </section>
 
-      <!-- 3. 메인 콘텐츠 영역 (4열 7줄 = 28칸, 27개 카드 + 1 빈칸) -->
+      <!-- 3. 3D GLTF 퍼즐 영역 -->
       <section class="works-section">
         <div class="works-title-area">
           <h1>PRODUCTS</h1>
-          <p>퍼즐을 움직여보세요!</p>
+          <p>3D 퍼즐을 직접 돌려보세요!</p>
 
           <div class="how-it-works-wrapper">
             <div class="hiw-icon">
-              <!-- Using standard lightbulb SVG for premium look -->
               <svg
                 width="42"
                 height="42"
@@ -1370,57 +1403,24 @@
             </div>
             <div class="hiw-text">HOW IT WORKS?</div>
             <div class="hiw-toggle">
-              빈칸과 맞닿은 면에 마우스를 올리면 퍼즐이 빈칸으로 이동합니다.<br />
-              자유롭게 퍼즐을 옮겨보세요!
+              <strong>드래그</strong>: 퍼즐 조각을 클릭하고 드래그하여 이동<br />
+              <strong>우클릭+드래그</strong>: 전체 보드 3D 회전<br />
+              <strong>휴롤</strong>: 줄 인/아웃
             </div>
           </div>
         </div>
 
-        <div class="works-board">
-          <div class="works-grid-container" id="puzzleGrid">
-            <!-- Row 1: 빈칸 + 3개 카드 -->
-            <article class="work-item empty" aria-hidden="true"></article>
-            <article class="work-item">
-              <a class="card" href="detail.html"></a>
-            </article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <!-- Row 2 -->
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <!-- Row 3 -->
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <!-- Row 4 -->
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <!-- Row 5 -->
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <!-- Row 6 -->
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <!-- Row 7: 3개 카드 -->
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item"><a class="card" href="#"></a></article>
-            <article class="work-item">
-              <a
-                class="card"
-                href="detail.html"
-                style="background-color: #ff2482"
-              ></a>
-            </article>
+        <div class="puzzle3d-wrap">
+          <canvas id="puzzle3dCanvas"></canvas>
+          <div class="puzzle3d-loading" id="p3dLoading">
+            <div class="p3d-loading-title">PUZZLE</div>
+            <div class="p3d-bar-wrap">
+              <div class="p3d-bar" id="p3dBar"></div>
+            </div>
+          </div>
+          <div class="p3d-hint">
+            좌클릭+드래그: 조각 이동<br />우클릭+드래그: 3D 회전<br />휴랄: 줄
+            인/아웃
           </div>
         </div>
       </section>
@@ -1476,147 +1476,359 @@
       /* — TOP 버튼 — */
       const topBtn = document.querySelector(".top-btn");
       window.addEventListener("scroll", () => {
-        if (window.scrollY > 500) {
-          topBtn.classList.add("show");
+        topBtn.classList.toggle("show", window.scrollY > 500);
+      });
+    </script>
+
+    <!-- ==========================================================
+         3D 퍼즐 인터랙티브 (Three.js)
+         - 좌클릭 + 드래그: 조각 이동 (평면 위를 자유롭게)
+         - 우클릭 + 드래그: 전체 보드 3D 회전 (OrbitControls)
+         - 툴 스크롤: 줄 인/아웃
+    =========================================================== -->
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const canvas = document.getElementById("puzzle3dCanvas");
+      const wrap = canvas.parentElement;
+      const loading = document.getElementById("p3dLoading");
+      const bar = document.getElementById("p3dBar");
+
+      /* ── 렌더러 세팅 ── */
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      renderer.setClearColor(0xf2f7f9);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf2f7f9);
+
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 500);
+      camera.position.set(0, 1.2, 6);
+
+      /* ── 리사이징 ── */
+      function resize() {
+        const w = wrap.clientWidth,
+          h = wrap.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      new ResizeObserver(resize).observe(wrap);
+      resize();
+
+      /* ── OrbitControls (우클릭+드래그 회전, 휴롤 줄) ── */
+      const orbit = new OrbitControls(camera, canvas);
+      orbit.enableDamping = true;
+      orbit.dampingFactor = 0.08;
+      orbit.minDistance = 2;
+      orbit.maxDistance = 14;
+      orbit.mouseButtons = {
+        LEFT: null /* 좌클릭은 조각 드래그에 사용 */,
+        MIDDLE: THREE.MOUSE.DOLLY,
+        RIGHT: THREE.MOUSE.ROTATE /* 우클릭+드래그 = 회전 */,
+      };
+      orbit.touches = {
+        ONE: THREE.TOUCH.ROTATE,
+        TWO: THREE.TOUCH.DOLLY_PAN,
+      };
+
+      /* ── 조명 ── */
+      scene.add(new THREE.AmbientLight(0xffffff, 1.4));
+      const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+      sun.position.set(5, 10, 6);
+      sun.castShadow = true;
+      sun.shadow.mapSize.set(2048, 2048);
+      scene.add(sun);
+      const fill = new THREE.DirectionalLight(0xddeeff, 0.5);
+      fill.position.set(-4, -2, -3);
+      scene.add(fill);
+
+      /* ── 쉽 평면 ── */
+      const shadowGround = new THREE.Mesh(
+        new THREE.PlaneGeometry(30, 30),
+        new THREE.ShadowMaterial({ opacity: 0.07 }),
+      );
+      shadowGround.rotation.x = -Math.PI / 2;
+      shadowGround.position.y = -1.5;
+      shadowGround.receiveShadow = true;
+      scene.add(shadowGround);
+
+      /* ============================================================
+         GLTF 로딩
+      ============================================================ */
+      let allPieces = []; /* 모든 Mesh */
+      let puzzleRoot = null;
+
+      /* 한글 경로 URL 인코딩 */
+      const gltfPath =
+        encodeURIComponent("웹 에셋") + "/Sliding_Puzzle_Web.gltf";
+
+      new GLTFLoader().load(
+        gltfPath,
+        (gltf) => {
+          puzzleRoot = gltf.scene;
+          /* 뒤면이 보이면 Y충 180도 회전해 앞면이 보이게 함 */
+          puzzleRoot.rotation.y = Math.PI;
+          scene.add(puzzleRoot);
+
+          /* 임시 조각용 흰색 매터리얼 생성 */
+          const pieceMaterial = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            roughness: 0.6,
+            metalness: 0.1,
+          });
+
+          puzzleRoot.traverse((node) => {
+            if (!node.isMesh) return;
+            node.castShadow = node.receiveShadow = true;
+            /* P1~P19 이름을 가진 조각만 드래그 가능하게 등록 + 흰색 텍스처 입히기 */
+            if (/^P\d+$/.test(node.name)) {
+              node.material = pieceMaterial;
+              allPieces.push(node);
+            }
+          });
+
+          /* 중앙 정렬 + 크기 조정 */
+          const box = new THREE.Box3().setFromObject(puzzleRoot);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const scale = 3.2 / Math.max(size.x, size.y, size.z);
+          puzzleRoot.scale.setScalar(scale);
+          puzzleRoot.position.copy(center.multiplyScalar(-scale));
+
+          /* 슬라이딩 퍼즐 그리드 초기화 */
+          buildGrid();
+
+          loading.classList.add("done");
+        },
+        (xhr) => {
+          /* xhr.total이 0이면 NaN 방지 */
+          if (xhr.total > 0) {
+            bar.style.width = Math.round((xhr.loaded / xhr.total) * 100) + "%";
+          } else {
+            bar.style.width = "50%"; /* 진행 중 표시 */
+          }
+        },
+        (err) => {
+          console.error("GLTF 로딩 오류:", err);
+          loading.classList.add("done"); /* 오류 시에도 로딩 UI 숨김 */
+        },
+      );
+
+      /* ============================================================
+         슬라이딩 퍼즐 로직
+         - P1~P19 : 4×5 그리드 (열 4개 × 행 5개), 빈 칸 1개
+         - 클릭한 조각과 빈 칸이 같은 행/열이면
+           그 사이 모든 조각이 한 칸씩 빈 칸 방향으로 슬라이드
+      ============================================================ */
+
+      /* GLTF 로컬 좌표 기준 각 칸의 X·Y 위치 */
+      const COL_X = [0.453, 0.13, -0.194, -0.518];
+      const ROW_Y = [0.453, 0.13, -0.194, -0.518, -0.843];
+      const COLS = 4,
+        ROWS = 5;
+
+      /* 그리드 상태 */
+      let grid = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+      let emptyCell = null; /* { row, col } */
+      let pieceCell = new Map(); /* piece → { row, col } */
+      let slideAnims = []; /* 진행 중 애니메이션 배열 */
+      let isAnimating = false;
+
+      /* 배열에서 val에 가장 가까운 인덱스 반환 */
+      function nearestIdx(arr, val) {
+        return arr.reduce(
+          (best, v, i) =>
+            Math.abs(v - val) < Math.abs(arr[best] - val) ? i : best,
+          0,
+        );
+      }
+
+      /* GLTF 로드 후 그리드 초기화 */
+      function buildGrid() {
+        const filled = new Set();
+        allPieces.forEach((piece) => {
+          const col = nearestIdx(COL_X, piece.position.x);
+          const row = nearestIdx(ROW_Y, piece.position.y);
+          grid[row][col] = piece;
+          pieceCell.set(piece, { row, col });
+          filled.add(`${row},${col}`);
+        });
+        /* 빈 칸 탐색 */
+        outer: for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            if (!filled.has(`${r},${c}`)) {
+              emptyCell = { row: r, col: c };
+              break outer;
+            }
+          }
+        }
+      }
+
+      /* easeOutCubic — 끝에서 부드럽게 감속 */
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      /* 조각 클릭 시 슬라이딩 처리 */
+      function onPieceClick(piece) {
+        if (isAnimating || !emptyCell) return;
+        if (!pieceCell.has(piece)) return;
+
+        const { row: pr, col: pc } = pieceCell.get(piece);
+        const { row: er, col: ec } = emptyCell;
+
+        /* 같은 행/열이 아니면 이동 불가 */
+        if (pr !== er && pc !== ec) return;
+
+        const moving = []; /* { piece, targetX, targetY, newRow, newCol } */
+
+        if (pr === er) {
+          /* 같은 행 — 가로 이동 */
+          const dir = pc < ec ? 1 : -1;
+          for (let c = pc; c !== ec; c += dir) {
+            moving.push({
+              piece: grid[pr][c],
+              targetX: COL_X[c + dir],
+              targetY: ROW_Y[pr],
+              newRow: pr,
+              newCol: c + dir,
+            });
+          }
         } else {
-          topBtn.classList.remove("show");
+          /* 같은 열 — 세로 이동 */
+          const dir = pr < er ? 1 : -1;
+          for (let r = pr; r !== er; r += dir) {
+            moving.push({
+              piece: grid[r][pc],
+              targetX: COL_X[pc],
+              targetY: ROW_Y[r + dir],
+              newRow: r + dir,
+              newCol: pc,
+            });
+          }
+        }
+        if (!moving.length) return;
+
+        /* 그리드 상태 즉시 업데이트 */
+        moving.forEach(({ piece: p }) => {
+          const { row: or, col: oc } = pieceCell.get(p);
+          grid[or][oc] = null;
+        });
+        moving.forEach(({ piece: p, newRow, newCol }) => {
+          grid[newRow][newCol] = p;
+          pieceCell.set(p, { row: newRow, col: newCol });
+        });
+        emptyCell = { row: pr, col: pc };
+
+        /* 애니메이션 등록 */
+        isAnimating = true;
+        let done = 0;
+        moving.forEach(({ piece: p, targetX, targetY }) => {
+          slideAnims.push({
+            piece: p,
+            startX: p.position.x,
+            startY: p.position.y,
+            targetX,
+            targetY,
+            t: 0,
+            onDone() {
+              if (++done === moving.length) isAnimating = false;
+            },
+          });
+        });
+      }
+
+      /* 렌더 루프에서 매 프레임 호출 */
+      function updateSlideAnims() {
+        for (let i = slideAnims.length - 1; i >= 0; i--) {
+          const a = slideAnims[i];
+          a.t = Math.min(a.t + 0.09, 1);
+          const e = easeOut(a.t);
+          a.piece.position.x = a.startX + (a.targetX - a.startX) * e;
+          a.piece.position.y = a.startY + (a.targetY - a.startY) * e;
+          if (a.t >= 1) {
+            a.piece.position.x = a.targetX;
+            a.piece.position.y = a.targetY;
+            a.onDone();
+            slideAnims.splice(i, 1);
+          }
+        }
+      }
+
+      /* ── Raycaster & 호버 ── */
+      const raycaster = new THREE.Raycaster();
+      const mouse2 = new THREE.Vector2();
+      let hovPiece = null;
+
+      function getMouseNDC(e) {
+        const r = canvas.getBoundingClientRect();
+        mouse2.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        mouse2.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+      }
+
+      function setHighlight(mesh, on) {
+        if (!mesh) return;
+        const mats = Array.isArray(mesh.material)
+          ? mesh.material
+          : [mesh.material];
+        mats.forEach((m) => {
+          if (!m._origEmissive) m._origEmissive = m.emissive.clone();
+          m.emissive.set(on ? 0x331500 : 0x000000);
+        });
+      }
+
+      /* 클릭: 조각 슬라이드 */
+      canvas.addEventListener("mousedown", (e) => {
+        if (e.button !== 0) return;
+        if (isAnimating) return;
+        getMouseNDC(e);
+        raycaster.setFromCamera(mouse2, camera);
+        const hits = raycaster.intersectObjects(allPieces, true);
+        if (!hits.length) return;
+        onPieceClick(hits[0].object);
+        e.preventDefault();
+      });
+
+      /* 호버: 이동 가능한 조각 강조 */
+      canvas.addEventListener("mousemove", (e) => {
+        if (isAnimating) {
+          canvas.style.cursor = "default";
+          return;
+        }
+        getMouseNDC(e);
+        raycaster.setFromCamera(mouse2, camera);
+        const hits = raycaster.intersectObjects(allPieces, true);
+        const hov = hits.length ? hits[0].object : null;
+
+        if (hov !== hovPiece) {
+          setHighlight(hovPiece, false);
+          hovPiece = hov;
+          /* 빈 칸과 같은 행/열일 때만 pointer 커서 */
+          let canMove = false;
+          if (hovPiece && emptyCell && pieceCell.has(hovPiece)) {
+            const { row: pr, col: pc } = pieceCell.get(hovPiece);
+            canMove = pr === emptyCell.row || pc === emptyCell.col;
+          }
+          setHighlight(canMove ? hovPiece : null, true);
+          canvas.style.cursor = canMove ? "pointer" : "default";
         }
       });
 
       /* ============================================================
-         🧩 슬라이딩 퍼즐 인터랙션
-         - 4열(COLS) × 7행 = 28칸, 카드 27개 + 빈칸 1개
-         - 빈칸에 인접한 카드를 마우스로 진입할 때,
-           진입한 쪽이 빈칸 방향이면 카드가 슬라이딩
+         렌더 루프
       ============================================================ */
-      (function initPuzzle() {
-        const COLS = 4;
-        const ANIM_MS = 350;
-
-        const grid = document.getElementById("puzzleGrid");
-        if (!grid) return;
-
-        let isAnimating = false;
-
-        /* 색/이미지를 인라인 스타일로 고정
-           → DOM 이동 후 nth-child 재계산으로 색이 뒤바뀌는 문제 방지 */
-        function lockCardStyles() {
-          grid
-            .querySelectorAll(".work-item:not(.empty) .card")
-            .forEach((card) => {
-              const cs = getComputedStyle(card);
-              card.style.backgroundColor = cs.backgroundColor;
-              card.style.backgroundImage = cs.backgroundImage;
-            });
-        }
-
-        /* 카드 인덱스→빈칸 인덱스 방향 반환 (인접 아니면 null) */
-        function getDir(ci, ei) {
-          const cc = ci % COLS,
-            cr = Math.floor(ci / COLS);
-          const ec = ei % COLS,
-            er = Math.floor(ei / COLS);
-          if (cr === er && Math.abs(cc - ec) === 1)
-            return { dx: ec - cc, dy: 0 };
-          if (cc === ec && Math.abs(cr - er) === 1)
-            return { dx: 0, dy: er - cr };
-          return null;
-        }
-
-        function getItems() {
-          return Array.from(grid.querySelectorAll(".work-item"));
-        }
-
-        /* 슬라이딩 가능 클래스 갱신 */
-        function updateSlideable() {
-          const items = getItems();
-          const ei = items.findIndex((el) => el.classList.contains("empty"));
-          items.forEach((el, i) => {
-            const adj = !!getDir(i, ei) && !el.classList.contains("empty");
-            el.classList.toggle("slideable", adj);
-          });
-        }
-
-        /* 두 DOM 노드를 안전하게 교환 */
-        function swapNodes(a, b) {
-          const ph = document.createComment("ph");
-          a.parentNode.insertBefore(ph, a); // ph가 a 자리 기억
-          b.parentNode.insertBefore(a, b); // a → b 위치로
-          ph.parentNode.insertBefore(b, ph); // b → a 원래 자리로
-          ph.parentNode.removeChild(ph);
-        }
-
-        /* 카드 슬라이딩 실행 */
-        function slide(cardEl) {
-          if (isAnimating) return;
-          const items = getItems();
-          const ci = items.indexOf(cardEl);
-          const ei = items.findIndex((el) => el.classList.contains("empty"));
-          const emptyEl = items[ei];
-          const dir = getDir(ci, ei);
-          if (!dir) return;
-
-          isAnimating = true;
-
-          const gap = parseFloat(getComputedStyle(grid).gap) || 15;
-          const cellW = cardEl.offsetWidth + gap;
-          const cellH = cardEl.offsetHeight + gap;
-
-          /* ① CSS transition으로 카드 이동 */
-          cardEl.classList.add("sliding");
-          cardEl.style.transform = `translate(${dir.dx * cellW}px, ${dir.dy * cellH}px)`;
-
-          setTimeout(() => {
-            /* ② transition 잠깐 끔 → transform 제거해도 snap 없음 */
-            cardEl.style.transition = "none";
-            cardEl.style.transform = "";
-
-            /* ③ DOM 교환 */
-            swapNodes(cardEl, emptyEl);
-
-            /* ④ 다음 프레임에 transition 복원 */
-            requestAnimationFrame(() => {
-              cardEl.style.transition = "";
-              cardEl.classList.remove("sliding");
-              isAnimating = false;
-              updateSlideable();
-            });
-          }, ANIM_MS);
-        }
-
-        /* mouseover = 버블링 O → 자식 요소 진입도 grid에서 감지 가능 */
-        grid.addEventListener("mouseover", (e) => {
-          if (isAnimating) return;
-          const card = e.target.closest(".work-item.slideable");
-          if (!card) return;
-
-          const items = getItems();
-          const ci = items.indexOf(card);
-          const ei = items.findIndex((el) => el.classList.contains("empty"));
-          const dir = getDir(ci, ei);
-          if (!dir) return;
-
-          /* 마우스가 카드의 어느 엣지로 진입했는지 판단 */
-          const rect = card.getBoundingClientRect();
-          const mx = e.clientX - rect.left;
-          const my = e.clientY - rect.top;
-
-          const edges = [
-            { dx: 1, dy: 0, dist: rect.width - mx }, // right
-            { dx: -1, dy: 0, dist: mx }, // left
-            { dx: 0, dy: 1, dist: rect.height - my }, // bottom
-            { dx: 0, dy: -1, dist: my }, // top
-          ];
-          const closest = edges.sort((a, b) => a.dist - b.dist)[0];
-
-          /* 진입 엣지 방향 = 빈칸 방향이면 슬라이딩 */
-          if (closest.dx === dir.dx && closest.dy === dir.dy) {
-            slide(card);
-          }
-        });
-
-        lockCardStyles();
-        updateSlideable();
+      (function animate() {
+        requestAnimationFrame(animate);
+        updateSlideAnims();
+        orbit.update();
+        renderer.render(scene, camera);
       })();
     </script>
   </body>
