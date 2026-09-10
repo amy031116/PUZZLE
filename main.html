@@ -1085,14 +1085,16 @@
          PRODUCTS 3D 퍼즐 셀션
       ========================================== */
       .works-section {
-        background: var(--pink);
+        background: var(
+          --cream
+        ); /* 핑크 바탕이었던 걸 하얀색(cream) 계열로 변경 */
         padding: 50px 0 80px;
       }
       .works-title-area {
         text-align: center;
         margin-top: 50px;
         margin-bottom: 36px;
-        color: var(--cream);
+        color: var(--pink); /* 글자색을 핑크색으로 */
         position: relative;
         z-index: 50;
       }
@@ -1102,26 +1104,26 @@
         font-weight: 900;
         margin: 0;
         letter-spacing: 2px;
-        color: var(--cream);
+        color: var(--pink); /* 핑크색으로 변경 */
       }
       .works-title-area p {
         font-weight: 600;
         font-size: 21px;
         margin: 10px 0 0 0;
-        color: rgba(242, 247, 249, 0.9);
+        color: rgba(255, 36, 130, 0.7); /* 보조 설명도 핑크 느낌 유지 */
         letter-spacing: 0.5px;
       }
 
-      /* 3D 캔버스 래퍼 */
+      /* 3D 캔버스 래퍼 - 액자틀 제거, 전체화면 */
       .puzzle3d-wrap {
-        width: var(--max);
-        margin: 0 auto;
-        background: var(--cream);
-        border-radius: 50px;
+        width: 100%;
+        margin: 0;
+        background: transparent;
+        border-radius: 0;
         overflow: hidden;
         position: relative;
-        height: 780px;
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+        height: 1600px; /* 컨테이너 영역 더 아래로 넉넉하게 연장 */
+        box-shadow: none; /* 그림자 제거 (액자틀 느낌 없앰) */
       }
       #puzzle3dCanvas {
         width: 100% !important;
@@ -1207,9 +1209,9 @@
         font-family: "Built Titling", Impact, sans-serif;
         font-weight: 700;
         font-size: 24px;
-        color: var(--cream);
+        color: var(--pink); /* 문구를 핑크색으로 변경 */
         letter-spacing: 1px;
-        border-bottom: 2px dashed rgba(242, 247, 249, 0.6);
+        border-bottom: 2px dashed rgba(255, 36, 130, 0.4); /* 밑줄도 핑크 계열로 변경 */
         padding-bottom: 2px;
       }
       .hiw-toggle {
@@ -1389,7 +1391,7 @@
                 height="42"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#f2f7f9"
+                stroke="var(--pink)"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -1577,24 +1579,51 @@
           puzzleRoot.rotation.y = Math.PI;
           scene.add(puzzleRoot);
 
-          /* 임시 조각용 흰색 매터리얼 생성 */
+          /* ── 텍스처 로드 (노말, 러프니스) ── */
+          const assetDir = encodeURIComponent("웹 에셋") + "/";
+          const tLoader = new THREE.TextureLoader();
+          const tNormal = tLoader.load(
+            assetDir + "GSG_MC010_A038_Terrazzo19B_4k_normal.jpg",
+          );
+          const tRough = tLoader.load(
+            assetDir + "GSG_MC010_A038_Terrazzo19B_4k_roughness.jpg",
+          );
+
+          /* GLTF UV 기준에 맞추기 위해 flipY 해제 */
+          tNormal.flipY = false;
+          tRough.flipY = false;
+
+          /* 조각용 흰색 + 질감 매터리얼 */
           const pieceMaterial = new THREE.MeshStandardMaterial({
             color: 0xffffff,
-            roughness: 0.6,
+            normalMap: tNormal,
+            roughnessMap: tRough,
+            roughness: 1.0 /* 맵 값이 온전히 적용되도록 기본값을 1로 */,
+            metalness: 0.1,
+          });
+
+          /* 퍼즐 틀(Frame)용 매터리얼 (시그니처 핑크 #ff2482) */
+          const frameMaterial = new THREE.MeshStandardMaterial({
+            color: 0xff2482,
+            roughness: 0.2 /* 매끈한 플라스틱 느낌 */,
             metalness: 0.1,
           });
 
           puzzleRoot.traverse((node) => {
             if (!node.isMesh) return;
             node.castShadow = node.receiveShadow = true;
-            /* P1~P19 이름을 가진 조각만 드래그 가능하게 등록 + 흰색 텍스처 입히기 */
+
             if (/^P\d+$/.test(node.name)) {
+              /* 조각(P1~P19): 흰색 + 질감 매터리얼 적용 */
               node.material = pieceMaterial;
               allPieces.push(node);
+            } else if (node.name.includes("Frame")) {
+              /* 틀(Frame): 핑크색 매터리얼 적용 */
+              node.material = frameMaterial;
             }
           });
 
-          /* 중앙 정렬 + 크기 조정 */
+          /* 중앙 정렬 + 크기 조정 (퍼즐 사이즈 다시 축소) */
           const box = new THREE.Box3().setFromObject(puzzleRoot);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
@@ -1772,6 +1801,22 @@
         mouse2.x = ((e.clientX - r.left) / r.width) * 2 - 1;
         mouse2.y = -((e.clientY - r.top) / r.height) * 2 + 1;
       }
+
+      /* 휠 스크롤 제어: 퍼즐 위에서만 화면 확대/축소 가능 지정 */
+      canvas.addEventListener(
+        "wheel",
+        (e) => {
+          if (!puzzleRoot) return;
+          getMouseNDC(e);
+          raycaster.setFromCamera(mouse2, camera);
+          const hits = raycaster.intersectObject(puzzleRoot, true);
+          /* 퍼즐 객체에 맞지 않으면(여백이면) OrbitControls로 이벤트가 가지 않게 막고 화면 스크롤 허용 */
+          if (hits.length === 0) {
+            e.stopImmediatePropagation();
+          }
+        },
+        { capture: true, passive: false },
+      );
 
       function setHighlight(mesh, on) {
         if (!mesh) return;
