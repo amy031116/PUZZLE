@@ -119,7 +119,7 @@
         color: #ff2b85;
       }
       .nav-links a.active {
-        color: var(--pink);
+        color: #407dff;
       }
       .auth {
         margin-left: auto;
@@ -870,6 +870,116 @@
         line-height: 0.55;
         margin-bottom: 2px;
       }
+
+      /* ==========================================================================
+         ✅ 모바일 적응형 (Max-width: 768px)
+         ========================================================================== */
+      @media (max-width: 768px) {
+        :root {
+          --max: 100%;
+        }
+        body,
+        html {
+          min-width: 0 !important;
+          overflow-x: hidden !important;
+        }
+        .nav-inner {
+          padding: 0 15px;
+        }
+        .nav-links {
+          gap: 15px;
+          font-size: 14px;
+        }
+        .auth {
+          font-size: 13px;
+          margin-left: 10px;
+        }
+        .logo {
+          width: 40px;
+          margin-right: 15px;
+        }
+
+        /* 장식 스티커 숨김 처리 */
+        .deco-container {
+          display: none !important;
+        }
+
+        .hero {
+          padding: 80px 20px 60px;
+          min-width: 0;
+        }
+        .hero-title {
+          font-size: 40px;
+          white-space: normal;
+        }
+        .hero-sub {
+          font-size: 14px;
+          margin: 0 0 80px;
+        }
+
+        .peoples {
+          padding: 1px 20px 100px;
+        }
+        .team-group {
+          margin-bottom: 80px;
+        }
+        .team-group.first-group {
+          margin-top: -300px;
+        }
+
+        .hero-wave::before {
+          width: 1500px;
+          height: 840px;
+        }
+
+        .card-grid {
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+        }
+        .card-grid.col2,
+        .card-grid.col4,
+        .card-grid.col-production {
+          flex-wrap: wrap !important;
+          flex-direction: column !important;
+        }
+        .person-card {
+          width: 85vw;
+          max-width: 300px;
+          height: 85vw;
+          max-height: 300px;
+        }
+
+        /* 푸터 */
+        .footer-menu nav {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 15px;
+          padding: 15px;
+          height: auto;
+        }
+        footer {
+          min-height: auto;
+          padding: 40px 0;
+        }
+        .footer-inner {
+          padding: 0 15px;
+        }
+        .footer-logo {
+          margin: 0 auto 30px;
+          display: block;
+        }
+        .footer-info {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 30px;
+        }
+        .qr {
+          justify-self: center;
+          align-self: center;
+          margin-bottom: 0px;
+        }
+      }
     </style>
   </head>
   <body id="top">
@@ -940,10 +1050,10 @@
       <!-- ── 경영운영팀 ── -->
       <div class="team-group first-group">
         <div class="section-badge">MANAGEMENT</div>
-        <div class="card-grid col2">
+        <div class="card-grid">
           <div class="person-card">
             <div class="photo">
-              <img src="프로필 사진\예시2.svg" alt="팀원 사진" />
+              <img src="프로필 사진\정인서.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">회장</span><span class="name">정인서</span>
@@ -951,15 +1061,20 @@
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="프로필 사진\예시1.svg" alt="팀원 사진" />
+              <img src="프로필 사진\강재준.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">부회장</span><span class="name">강재준</span>
             </div>
           </div>
+        </div>
+        <div
+          class="card-grid"
+          style="margin-top: 12px; flex-wrap: nowrap; max-width: none"
+        >
           <div class="person-card">
             <div class="photo">
-              <img src="프로필 사진\예시3.svg" alt="팀원 사진" />
+              <img src="프로필 사진\양미진.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">총무</span><span class="name">양미진</span>
@@ -967,7 +1082,7 @@
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="프로필 사진\예시4.svg" alt="팀원 사진" />
+              <img src="프로필 사진\진서현.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">감사</span><span class="name">진서연</span>
@@ -979,10 +1094,10 @@
       <!-- ── 제작기획팀 ── -->
       <div class="team-group">
         <div class="section-badge">R&D</div>
-        <div class="card-grid col-production">
+        <div class="card-grid">
           <div class="person-card">
             <div class="photo">
-              <img src="프로필 사진\예시5.svg" alt="팀원 사진" />
+              <img src="프로필 사진\이희서.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">팀장</span><span class="name">이희서</span>
@@ -990,7 +1105,7 @@
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="프로필 사진\예시6.svg" alt="팀원 사진" />
+              <img src="프로필 사진\박서현.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">부팀장</span><span class="name">박서현</span>
@@ -998,7 +1113,7 @@
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="프로필 사진\예시7.svg" alt="팀원 사진" />
+              <img src="프로필 사진\고예원.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">고예원</span></div>
           </div>
@@ -1008,10 +1123,10 @@
       <!-- ── 콘텐츠전략팀 ── -->
       <div class="team-group">
         <div class="section-badge">MARKETING</div>
-        <div class="card-grid col4" style="max-width: 500px">
+        <div class="card-grid">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\곽지윤.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">팀장</span><span class="name">곽지윤</span>
@@ -1019,29 +1134,32 @@
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\김지은.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">부팀장</span><span class="name">김지은</span>
             </div>
           </div>
         </div>
-        <div class="card-grid col4" style="margin-top: 12px">
+        <div
+          class="card-grid"
+          style="margin-top: 12px; flex-wrap: nowrap; max-width: none"
+        >
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\임호진.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">임호진</span></div>
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\채민서.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">채민서</span></div>
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\안지윤.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">안지윤</span></div>
           </div>
@@ -1051,10 +1169,10 @@
       <!-- ── MD팀 ── -->
       <div class="team-group">
         <div class="section-badge">MD</div>
-        <div class="card-grid col4" style="max-width: 750px">
+        <div class="card-grid">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\노유민.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">팀장</span><span class="name">노유민</span>
@@ -1062,41 +1180,43 @@
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\김연진.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">부팀장</span><span class="name">김연진</span>
             </div>
           </div>
+        </div>
+        <div class="card-grid" style="margin-top: 12px; margin-bottom: 0">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\심가애.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">심가애</span></div>
           </div>
-        </div>
-        <div class="card-grid col4" style="margin-top: 12px">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\이경민.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">이경민</span></div>
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\이영윤.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">이영윤</span></div>
           </div>
+        </div>
+        <div class="card-grid" style="margin-top: 12px">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\권다혜.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">권다혜</span></div>
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\홍민영.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">홍민영</span></div>
           </div>
@@ -1106,10 +1226,10 @@
       <!-- ── VMD팀 ── -->
       <div class="team-group">
         <div class="section-badge">VMD</div>
-        <div class="card-grid col4" style="max-width: 750px">
+        <div class="card-grid">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\임재윤.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">팀장</span><span class="name">임재윤</span>
@@ -1117,41 +1237,43 @@
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\장명경.jpg" alt="팀원 사진" />
             </div>
             <div class="info">
               <span class="role">차장</span><span class="name">장명경</span>
             </div>
           </div>
+        </div>
+        <div class="card-grid" style="margin-top: 12px; margin-bottom: 0">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\장영찬.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">장영찬</span></div>
           </div>
-        </div>
-        <div class="card-grid col4" style="margin-top: 12px">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\양소정.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">양소정</span></div>
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\정지우.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">정지우</span></div>
           </div>
+        </div>
+        <div class="card-grid" style="margin-top: 12px">
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\이준규.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">이준규</span></div>
           </div>
           <div class="person-card">
             <div class="photo">
-              <img src="" alt="팀원 사진" />
+              <img src="프로필 사진\염화영.jpg" alt="팀원 사진" />
             </div>
             <div class="info"><span class="name">염화영</span></div>
           </div>
