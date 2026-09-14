@@ -829,8 +829,11 @@
         width: 100px;
         height: 100px;
         margin: 0 auto 24px;
-        background: #c9c2bf;
+        background: #ffffff;
         border-radius: 18px;
+        object-fit: contain;
+        padding: 5px;
+        box-sizing: border-box;
       }
 
       .socials {
@@ -1250,7 +1253,25 @@
             data-category="게임컨텐츠"
             aria-label="게임컨텐츠"
           >
-            <div class="category-circle c1">🧩</div>
+            <div class="category-circle c1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="6" x2="10" y1="12" y2="12" />
+                <line x1="8" x2="8" y1="10" y2="14" />
+                <line x1="15" x2="15.01" y1="13" y2="13" />
+                <line x1="18" x2="18.01" y1="11" y2="11" />
+                <rect width="20" height="12" x="2" y="6" rx="2" />
+              </svg>
+            </div>
             <span class="category-label">게임컨텐츠</span>
           </a>
           <a
@@ -1259,7 +1280,19 @@
             data-category="멀티미디어"
             aria-label="멀티미디어"
           >
-            <div class="category-circle c2">🏆</div>
+            <div class="category-circle c2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="45"
+                height="45"
+                viewBox="0 0 448 512"
+                fill="#ffffff"
+              >
+                <path
+                  d="M224 0c74.1 0 137.9 48.9 157.8 116.1l43.8 128.5L448 296v91.3c0 9.2-5.4 17.5-13.9 21.2l-51.2 22.4v17c0 35.3-28.7 64-64 64H192c-35.3 0-64-28.7-64-64v-64h-32c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64h16.2C130.6 85.5 171.6 0 224 0zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"
+                />
+              </svg>
+            </div>
             <span class="category-label">멀티미디어</span>
           </a>
           <a
@@ -1268,7 +1301,22 @@
             data-category="모션그래픽"
             aria-label="모션그래픽"
           >
-            <div class="category-circle c3">🎁</div>
+            <div class="category-circle c3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M10 9l5 3-5 3v-6z" fill="#ffffff" />
+              </svg>
+            </div>
             <span class="category-label">모션그래픽</span>
           </a>
           <a
@@ -1277,7 +1325,29 @@
             data-category="애니메이션"
             aria-label="애니메이션"
           >
-            <div class="category-circle c4">⭐</div>
+            <div class="category-circle c4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18" />
+                <line x1="7" x2="7" y1="2" y2="22" />
+                <line x1="17" x2="17" y1="2" y2="22" />
+                <line x1="2" x2="7" y1="12" y2="12" />
+                <line x1="2" x2="7" y1="7" y2="7" />
+                <line x1="2" x2="7" y1="17" y2="17" />
+                <line x1="17" x2="22" y1="12" y2="12" />
+                <line x1="17" x2="22" y1="7" y2="7" />
+                <line x1="17" x2="22" y1="17" y2="17" />
+              </svg>
+            </div>
             <span class="category-label">애니메이션</span>
           </a>
         </div>
@@ -1566,7 +1636,11 @@
         <i class="sticker extra10" aria-hidden="true"></i>
         <div class="works-grid">
           <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 1"></a>
+            <a
+              class="card tall"
+              href="detail.html"
+              aria-label="작품 상세 1"
+            ></a>
             <div class="meta">
               <span class="major">전공 - Light 14px</span>
               <strong>작품 제목 - Bold 18px</strong>
@@ -2013,7 +2087,11 @@
           </div>
           <div class="qr">
             <p class="qr-label">INSTAGRAM</p>
-            <div class="qr-box" aria-hidden="true"></div>
+            <img
+              class="qr-box"
+              src="웹 에셋/인스타_바코드.png"
+              alt="인스타그램 QR 코드"
+            />
           </div>
         </div>
       </div>
