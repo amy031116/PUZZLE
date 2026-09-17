@@ -59,6 +59,7 @@
       html {
         scroll-behavior: smooth;
         background: var(--cream);
+        overflow-x: hidden;
       }
 
       body {
@@ -66,7 +67,7 @@
         color: var(--black);
         font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
         font-weight: 500;
-        overflow-x: auto;
+        overflow-x: hidden;
       }
 
       a {
@@ -138,7 +139,6 @@
       main {
         position: relative;
         padding: 100px 20px 160px;
-        max-width: 1200px;
         margin: 0 auto;
       }
 
@@ -147,6 +147,18 @@
         position: absolute;
         z-index: 0;
         pointer-events: none;
+      }
+
+      /* 스티커 기준 컨테이너: 1200px 고정폭 중앙 정렬로 스티커 위치를 고정 */
+      .sticker-wrap {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1200px;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
       }
 
       /* 개별 스티커 위치·크기 설정 */
@@ -190,15 +202,15 @@
         transform: rotate(-73deg);
       }
       .sticker-7 {
-        bottom: 480px;
-        right: -320px;
+        bottom: 590px;
+        right: -440px;
         width: 110px;
-        transform: rotate(-12deg);
+        transform: rotate(5deg);
       }
       .sticker-8 {
-        top: 1500px;
-        left: 1290px;
-        width: 180px;
+        top: 1590px;
+        left: 1390px;
+        width: 220px;
         transform: rotate(-15deg);
       }
 
@@ -288,20 +300,20 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 60px 50px;
-        max-width: 900px;
+        max-width: 1300px;
         margin: 0 auto;
       }
 
       .sponsor-card {
-        background-color: #b2b2b2;
-        height: 420px;
+        background-color: #ffffff;
+        min-height: 560px;
         border-radius: 28px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 40px;
-        padding: 20px;
+        gap: 15px;
+        padding: 50px 30px;
       }
 
       .sponsor-card h3 {
@@ -310,10 +322,19 @@
         color: #111;
       }
 
+      .sponsor-logo {
+        max-width: 160px;
+        max-height: 80px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+      }
+
       .sponsor-card p {
         font-size: 20px;
         font-weight: 700;
         color: #111;
+        text-align: center;
       }
 
       /* 하단 카드별 컬러 라인 (상단 미니 로고와 동일한 순서) */
@@ -581,54 +602,56 @@
     <!-- 2. 메인 컨텐츠 영역 -->
     <main>
       <!-- ✨ 스티커 영역 (8개) - 위치·크기는 CSS의 .sticker-1 ~ .sticker-8 에서 조절 -->
-      <img
-        class="sticker sticker-1"
-        src="스티커 에셋/Artboard 35.svg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        class="sticker sticker-2"
-        src="스티커 에셋/Artboard 54.svg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        class="sticker sticker-3"
-        src="스티커 에셋/Artboard 10.svg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        class="sticker sticker-4"
-        src="스티커 에셋\노-네모.svg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        class="sticker sticker-5"
-        src="스티커 에셋\파-무늬 원.svg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        class="sticker sticker-6"
-        src="스티커 에셋/Artboard 2.svg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        class="sticker sticker-7"
-        src="스티커 에셋/Artboard 30.svg"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        class="sticker sticker-8"
-        src="스티커 에셋/Artboard 33.svg"
-        alt=""
-        aria-hidden="true"
-      />
+      <div class="sticker-wrap">
+        <img
+          class="sticker sticker-1"
+          src="스티커 에셋/Artboard 35.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="sticker sticker-2"
+          src="스티커 에셋/Artboard 54.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="sticker sticker-3"
+          src="스티커 에셋/Artboard 10.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="sticker sticker-4"
+          src="스티커 에셋\노-네모.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="sticker sticker-5"
+          src="스티커 에셋\파-무늬 원.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="sticker sticker-6"
+          src="스티커 에셋/Artboard 2.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="sticker sticker-7"
+          src="스티커 에셋/Artboard 30.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="sticker sticker-8"
+          src="스티커 에셋/Artboard 33.svg"
+          alt=""
+          aria-hidden="true"
+        />
+      </div>
 
       <!-- 타이틀 -->
       <section class="title-section">
@@ -690,20 +713,79 @@
       <!-- 메인 스폰서 카드리스트 (4개) -->
       <section class="sponsor-grid">
         <div class="sponsor-card">
-          <h3>회사명</h3>
-          <p>회사 설명</p>
+          <img
+            class="sponsor-logo"
+            src="후원사 로고/산돌_프라이머리.svg"
+            alt="산돌구름 로고"
+          />
+          <h3>산돌구름</h3>
+          <p>
+            &lt;산돌구름&gt;은<br />1984년부터 한글의 아름다움과 가치를
+            연구하며<br />
+            대한민국 타이포그래피 문화를 이끌어온<br />서체 디자인 및 폰트
+            플랫폼 기업입니다.<br /><br />
+            주로 클라우드 기반 폰트 서비스인 '산돌구름'을 통해<br />크리에이터들에게
+            국내외 다양한 폰트를 제공하는 것을 비롯해,<br />글로벌 기업들의 전용
+            서체 기획 및 개발을 진행하며 다채로운<br />타이포그래피 환경을
+            선보이고 있습니다.<br /><br />명지대학교 영상애니메이션디자인전공
+            졸업전시에<br />지원을 해주신 &lt;산돌구름&gt;에게 진심으로
+            감사드립니다.<br /><br />(본 전시는 &lt;산돌구름&gt;과 함께합니다.)
+          </p>
         </div>
         <div class="sponsor-card">
-          <h3>회사명</h3>
-          <p>회사 설명</p>
+          <img
+            class="sponsor-logo"
+            src="후원사 로고/cabooks.svg"
+            alt="CABOOKS 로고"
+          />
+          <h3>CABOOKS</h3>
+          <p>
+            &lt;CABOOKS&gt;는<br />1998년부터 일상 속 창조적인 작업물의 가치를
+            조명해 온<br />문화/시각예술 출판 기업입니다.<br /><br />
+            주로 세계 곳곳의 놀라운 디자인 작품과 창의적 통찰력을<br />담아내는
+            디자인 매거진 발행을 비롯해,<br />시각예술 분야의 단행본 도서 출간을
+            하며<br />다채로운 디자인 콘텐츠를 선보이고 있습니다.<br /><br />
+            명지대학교 영상애니메이션디자인전공 졸업전시에<br />지원을 해주신
+            &lt;CABOOKS&gt;에게 진심으로 감사드립니다.<br /><br />
+            (본 전시는 &lt;CABOOKS&gt;와 함께합니다.)
+          </p>
         </div>
         <div class="sponsor-card">
-          <h3>회사명</h3>
-          <p>회사 설명</p>
+          <img
+            class="sponsor-logo"
+            src="후원사 로고/meshy-logo-128px-accent-on-white.svg"
+            alt="Meshy AI 로고"
+          />
+          <h3>Meshy AI</h3>
+          <p>
+            &lt;Meshy AI&gt;는<br />생성형 AI 기술을 바탕으로 누구나 쉽고
+            빠르게<br />고품질의 3D 에셋을 제작할 수 있도록 돕는<br />3D
+            인공지능 플랫폼 기업입니다.<br /><br />
+            텍스트나 2D 이미지를 3D 모델로 즉각 변환하는<br />AI 생성 서비스를
+            비롯해, 3D 모델에 정교한 AI 텍스처를<br />입히는 솔루션을 제공하며
+            <br />다채로운 3D 크리에이티브 콘텐츠를 선보이고 있습니다.<br /><br />
+            명지대학교 영상애니메이션디자인전공 졸업전시에<br />지원을 해주신
+            &lt;Meshy AI&gt;에게 진심으로 감사드립니다.<br /><br />
+            (본 전시는 &lt;Meshy AI&gt;와 함께합니다.)
+          </p>
         </div>
         <div class="sponsor-card">
-          <h3>회사명</h3>
-          <p>회사 설명</p>
+          <img
+            class="sponsor-logo"
+            src="후원사 로고/yoon_black.svg"
+            alt="윤디자인 로고"
+          />
+          <h3>윤디자인</h3>
+          <p>
+            &lt;윤디자인&gt;은<br />글꼴 디자인과 브랜드의 관계를 탐구하고<br />연결하는
+            서체 디자인 전문 기업입니다.<br /><br />
+            주로 기업 및 기관의 전용서체와 헤드라인, 베이직, 손글씨 등의<br />자사서체
+            개발을 비롯해, 다양한 디바이스에 최적화된<br />폰트 및 다국어 폰트를
+            제작하며 다채로운<br />타이포그래피 콘텐츠를 선보이고 있습니다.<br /><br />
+            명지대학교 영상애니메이션디자인전공 졸업전시에<br />지원을 해주신
+            &lt;윤디자인&gt;에게 진심으로 감사드립니다.<br /><br />
+            (본 전시는 &lt;윤디자인&gt;과 함께합니다.)
+          </p>
         </div>
       </section>
     </main>
