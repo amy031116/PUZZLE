@@ -2046,9 +2046,9 @@
       orbit.minPolarAngle = Math.PI / 2;
       orbit.maxPolarAngle = Math.PI / 2;
       orbit.mouseButtons = {
-        LEFT: null,
+        LEFT: THREE.MOUSE.ROTATE,
         MIDDLE: THREE.MOUSE.DOLLY,
-        RIGHT: THREE.MOUSE.ROTATE,
+        RIGHT: null,
       };
       orbit.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
 
@@ -2289,8 +2289,28 @@
         getMouseNDC(e);
         raycaster.setFromCamera(mouse2, camera);
         const hits = raycaster.intersectObjects(allPieces, true);
-        if (hits.length) onPieceClick(hits[0].object);
+        if (hits.length) {
+          const piece = hits[0].object;
+          // 이동 가능한 조각인지 확인 (emptyCell과 같은 행 또는 열)
+          const canMove =
+            emptyCell &&
+            pieceCell.has(piece) &&
+            (() => {
+              const { row: pr, col: pc } = pieceCell.get(piece);
+              return pr === emptyCell.row || pc === emptyCell.col;
+            })();
+          if (canMove) {
+            // 실제 이동 가능한 조각 클릭 시에만 orbit 비활성화
+            orbit.enabled = false;
+            onPieceClick(piece);
+          }
+          // 이동 불가능한 조각(뒷면 포함)은 orbit 유지 → 회전 가능
+        }
         e.preventDefault();
+      });
+      // 마우스를 떼면 orbit 항상 복원
+      canvas.addEventListener("mouseup", () => {
+        orbit.enabled = true;
       });
       canvas.addEventListener("mousemove", (e) => {
         if (isAnimating) {

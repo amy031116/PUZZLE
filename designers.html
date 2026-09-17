@@ -57,7 +57,8 @@
 
       html {
         scroll-behavior: smooth;
-        background: var(--cream); /* 푸터 아래에 파란색 로 안더 변경 */
+        background: var(--cream);
+        overflow-x: hidden;
       }
 
       body {
@@ -135,7 +136,6 @@
         text-align: center;
         padding: 100px 40px 60px;
         overflow: hidden;
-        min-width: max-content;
       }
       .hero-title {
         font-family: "Built Titling", Impact, sans-serif !important;
@@ -195,18 +195,18 @@
         top: 0;
         left: 50%;
         transform: translateX(-50%) translateY(-300px);
-        width: 1600px; /* 기준 너비 고정 */
+        width: 1600px;
         height: 100%;
         pointer-events: none;
         overflow: visible;
-        /* translateY(-300px) 때문에 붕 뜬 만큼, 하단을 -300px 늘려서 푸터 선에 딱 맞게 잘리도록 보정 */
+        /* 좌우는 다 보여주고(스티커 안 잘리게), 위아래만 좀 여유있게 잘라서 페이지 구조 보호 */
         clip-path: inset(-600px -100vw -300px -100vw);
       }
 
       /* 콘텐츠 이너 스티커 (이제 deco-container extra-21~25로 지정) */
       .deco-container .sticker.extra-21 {
         position: absolute;
-        top: 40px;
+        top: 140px;
         right: 1590px;
         width: 60px;
         height: 60px;
@@ -254,15 +254,15 @@
       }
       .deco-container .sticker.extra-25 {
         position: absolute;
-        bottom: 1330px;
-        left: -30px;
+        bottom: 1730px;
+        left: 230px;
         width: 60px;
         height: 60px;
         z-index: 8;
         background-image: url("스티커 에셋/Artboard 16.svg");
         background-size: contain;
         background-repeat: no-repeat;
-        transform: rotate(-6deg);
+        transform: rotate(9deg);
       }
 
       /* 추가 커스텀 스티커 extra-6 ~ extra-10 (이미지 경로만 수정하세요) */
@@ -321,7 +321,7 @@
         transform: rotate(0deg);
       }
 
-      .deco-container .sticker.extra-5 {
+      /* .deco-container .sticker.extra-5 {
         position: absolute;
         bottom: 1520px;
         left: -70px;
@@ -332,7 +332,7 @@
         background-size: contain;
         background-repeat: no-repeat;
         transform: rotate(-4deg);
-      }
+      } */
 
       .deco-container .sticker.extra-6 {
         position: absolute;
@@ -349,15 +349,15 @@
 
       .deco-container .sticker.extra-7 {
         position: absolute;
-        top: 1040px;
-        right: 1560px;
+        top: 1050px;
+        right: 1460px;
         width: 260px;
         height: 260px;
         z-index: 2;
         background-image: url("스티커 에셋/노란-띠.svg");
         background-size: contain;
         background-repeat: no-repeat;
-        transform: rotate(45deg);
+        transform: rotate(5deg);
       }
 
       .deco-container .sticker.extra-8 {
@@ -401,15 +401,15 @@
 
       .deco-container .sticker.extra-11 {
         position: absolute;
-        bottom: 1905px;
-        left: -430px;
-        width: 510px;
-        height: 510px;
+        bottom: 1305px;
+        left: -130px;
+        width: 310px;
+        height: 310px;
         z-index: 2;
         background-image: url("웹 에셋/도향 에셋1.svg");
         background-size: contain;
         background-repeat: no-repeat;
-        transform: rotate(-5deg);
+        transform: rotate(-15deg);
       }
 
       .deco-container .sticker.extra-12 {
@@ -502,7 +502,7 @@
       .deco-container .sticker.extra-19 {
         position: absolute;
         bottom: 1900px;
-        right: 1642px;
+        right: 1402px;
         width: 259px;
         height: 259px;
         z-index: 2;
@@ -527,8 +527,8 @@
       /* extra-26 ~ 30: 신규 스티커 추가 (이미지 경로와 좌표 자유롭게 조정) */
       .deco-container .sticker.extra-26 {
         position: absolute;
-        top: 470px;
-        left: -14px;
+        top: -340px;
+        left: 94px;
         width: 82px;
         height: 82px;
         z-index: 8;
