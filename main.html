@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=1200" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PUZZLE Landing</title>
     <!-- Three.js importmap -->
     <script type="importmap">
@@ -2026,7 +2026,7 @@
 
         // 모바일 화면일 경우 퍼즐이 너무 꽉 차지 않도록 거리 뒤로 빼기
         if (window.innerWidth <= 768) {
-          camera.position.set(0, 0, 8.5);
+          camera.position.set(0, 0, 6.0);
         } else {
           camera.position.set(0, 0, 5.0);
         }
