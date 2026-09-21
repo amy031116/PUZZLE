@@ -2043,6 +2043,7 @@
       orbit.maxDistance = 14;
       orbit.target.set(0, 0, 0);
       orbit.enableZoom = false;
+      orbit.enablePan = false;
       orbit.minPolarAngle = Math.PI / 2;
       orbit.maxPolarAngle = Math.PI / 2;
       orbit.mouseButtons = {
@@ -2050,7 +2051,7 @@
         MIDDLE: THREE.MOUSE.DOLLY,
         RIGHT: null,
       };
-      orbit.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
+      orbit.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY };
 
       /* ── 조명 (광원을 한참 더 멀리 던지고 빛의 세기를 대폭 줄임) ── */
       scene.add(new THREE.AmbientLight(0xffffff, 1.2)); // 쨍함을 위해 베이스는 1.2로 다시 낮춤
