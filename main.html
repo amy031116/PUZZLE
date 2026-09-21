@@ -1397,9 +1397,17 @@
           margin-right: 15px;
         }
 
+        /* ── 티커 1.5배 확대 ── */
+        .ticker {
+          height: 75px;
+        }
+        .ticker span {
+          font-size: 36px;
+        }
+
         /* 히어로 타이포그라피 조정 */
         .hero {
-          padding: 60px 20px 40px;
+          aspect-ratio: 1920 / 1400; /* 2배 확대: 세로를 두 배로 늘림 */
           min-width: 0;
         }
         .hero-title {
@@ -2024,9 +2032,9 @@
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
 
-        // 모바일 화면일 경우 퍼즐이 너무 꽉 차지 않도록 거리 뒤로 빼기
+        // 모바일: 퍼즐 2배 크게 보이도록 카메라 가까이 당기기
         if (window.innerWidth <= 768) {
-          camera.position.set(0, 0, 6.0);
+          camera.position.set(0, 0, 2.8);
         } else {
           camera.position.set(0, 0, 5.0);
         }
