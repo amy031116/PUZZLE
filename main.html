@@ -2065,7 +2065,7 @@
         if (window.innerWidth <= 768) {
           camera.position.set(0, 0, 2.8);
         } else {
-          camera.position.set(0, 0, 3.33); /* 5.0 / 1.5 = 3.33 (1.5배 확대) */
+          camera.position.set(0, 0, 5.0); /* ← 이 숫자가 클수록 퍼즐 작아짐 */
         }
 
         camera.updateProjectionMatrix();
@@ -2180,9 +2180,7 @@
           const box = new THREE.Box3().setFromObject(puzzleRoot);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
-          const scale =
-            1.0 /
-            Math.max(size.x, size.y, size.z); /* 3.2 * 1.5 = 4.8 (1.5배 확대) */
+          const scale = 3.2 / Math.max(size.x, size.y, size.z); /* ← 이 숫자로 퍼즐 크기 조절 */
           puzzleRoot.scale.setScalar(scale);
           puzzleRoot.position.copy(center.multiplyScalar(-scale));
 
