@@ -224,7 +224,7 @@
       /* 💡 히어로 영역 — 배경/3D퍼즐/스티커 3개 레이어 */
       .hero {
         width: 100%;
-        aspect-ratio: 1920 / 700;
+        aspect-ratio: 1920 / 1050; /* 세로 1.5배 확대 */
         position: relative;
         overflow: hidden;
         scroll-margin-top: 80px;
@@ -238,11 +238,15 @@
         height: 100%;
       }
 
-      /* 레이어 1: 배경 SVG */
+      /* 레이어 1: 배경 SVG — 가로는 화면 밖으로 나가도 되고, 1.5배 확대 */
       .hero-bg {
         z-index: 1;
         object-fit: cover;
         pointer-events: none;
+        transform-origin: center center;
+        transform: scale(1.5);
+        width: 100%;
+        height: 100%;
       }
 
       /* 레이어 2: 3D 퍼즐 캔버스 래퍼 */
@@ -1411,7 +1415,7 @@
 
         /* 히어로 타이포그라피 조정 */
         .hero {
-          aspect-ratio: 1920 / 1400; /* 2배 확대: 세로를 두 배로 늘림 */
+          aspect-ratio: 1920 / 1575; /* 모바일: 1050 * 1.5 = 1575 */
           min-width: 0;
         }
         .hero-title {
@@ -1479,9 +1483,9 @@
           border-radius: 4px !important;
         }
 
-        /* ── 푸터 오버플로우 수정 ── */
+        /* ── 푸터 모바일 수정 ── */
         .footer-menu {
-          overflow: hidden;
+          overflow: visible;
         }
         .footer-menu nav {
           width: 100% !important; /* 고정 1200px 해제 */
@@ -1495,11 +1499,12 @@
         }
         footer {
           min-height: auto;
-          padding: 40px 0;
-          overflow: hidden;
+          padding: 40px 0 60px; /* 아래 여백 넉넉하게 */
+          overflow: visible; /* 컨텐츠 잘림 방지 */
         }
         .footer-inner {
           width: 100% !important; /* 고정 1200px 해제 */
+          max-width: 100%;
           box-sizing: border-box;
           padding: 0 20px;
         }
@@ -1509,10 +1514,19 @@
           display: block;
         }
         .footer-info {
-          grid-template-columns: 1fr; /* 1열 세로 스택 */
-          text-align: center;
+          display: flex;
+          flex-direction: column; /* 세로 스택 */
           gap: 24px;
+          text-align: center;
           font-size: 13px;
+          word-break: keep-all;
+          overflow-wrap: break-word;
+        }
+        .footer-info p {
+          word-break: keep-all;
+          overflow-wrap: break-word;
+          word-spacing: normal;
+          white-space: normal;
         }
         .qr {
           justify-self: center;
@@ -2003,7 +2017,7 @@
       /* scene.background 없음 → 투명 */
 
       const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 500);
-      camera.position.set(0, 0, 5.0); // 카메라 한 번 더 아주 가까이 전진
+      camera.position.set(0, 0, 3.33); // 1.5배 확대: 기존 5.0 / 1.5
 
       // 그림자가 퍼즐 밖으로 삐져나오려면, 퍼즐(약 3.3)보다 실제로 커야 함
       // 해상도를 높여서 깨짐 방지
@@ -2047,11 +2061,11 @@
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
 
-        // 모바일: 퍼즐 2배 크게 보이도록 카메라 가까이 당기기
+        // 모바일: 퍼즐 2배 크게, 데스크탑: 1.5배 확대
         if (window.innerWidth <= 768) {
           camera.position.set(0, 0, 2.8);
         } else {
-          camera.position.set(0, 0, 5.0);
+          camera.position.set(0, 0, 3.33); /* 5.0 / 1.5 = 3.33 (1.5배 확대) */
         }
 
         camera.updateProjectionMatrix();
@@ -2166,7 +2180,9 @@
           const box = new THREE.Box3().setFromObject(puzzleRoot);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
-          const scale = 3.2 / Math.max(size.x, size.y, size.z);
+          const scale =
+            4.8 /
+            Math.max(size.x, size.y, size.z); /* 3.2 * 1.5 = 4.8 (1.5배 확대) */
           puzzleRoot.scale.setScalar(scale);
           puzzleRoot.position.copy(center.multiplyScalar(-scale));
 
