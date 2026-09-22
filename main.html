@@ -2181,7 +2181,7 @@
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
           const scale =
-            4.8 /
+            4.0 /
             Math.max(size.x, size.y, size.z); /* 3.2 * 1.5 = 4.8 (1.5배 확대) */
           puzzleRoot.scale.setScalar(scale);
           puzzleRoot.position.copy(center.multiplyScalar(-scale));
