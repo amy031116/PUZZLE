@@ -2017,7 +2017,7 @@
       /* scene.background 없음 → 투명 */
 
       const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 500);
-      camera.position.set(0, 0, 2.5; // 1.5배 확대: 기존 5.0 / 1.5
+      camera.position.set(0, 0, 5.0); // 카메라 거리 (클수록 퍼즐 작아짐)
 
       // 그림자가 퍼즐 밖으로 삐져나오려면, 퍼즐(약 3.3)보다 실제로 커야 함
       // 해상도를 높여서 깨짐 방지
@@ -2180,7 +2180,9 @@
           const box = new THREE.Box3().setFromObject(puzzleRoot);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
-          const scale = 3.2 / Math.max(size.x, size.y, size.z); /* ← 이 숫자로 퍼즐 크기 조절 */
+          const scale =
+            3.2 /
+            Math.max(size.x, size.y, size.z); /* ← 이 숫자로 퍼즐 크기 조절 */
           puzzleRoot.scale.setScalar(scale);
           puzzleRoot.position.copy(center.multiplyScalar(-scale));
 
