@@ -902,11 +902,76 @@
       }
 
       /* ==========================================
+         링크 배너 섹션
+      ========================================== */
+      .banner-section {
+        background: var(--cream);
+        padding: 28px 0 0;
+      }
+
+      .banner-grid {
+        width: var(--max);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .banner-item {
+        display: block;
+        border-radius: 16px;
+        overflow: hidden;
+        aspect-ratio: 9 / 1;
+        background: #d0d5dc;
+        position: relative;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+        text-decoration: none;
+      }
+
+      .banner-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      }
+
+      .banner-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* 이미지 없을 때 보이는 플레이스홀더 */
+      .banner-item-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Built Titling", Impact, sans-serif;
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        color: rgba(0, 0, 0, 0.25);
+      }
+
+      /* ==========================================
          카테고리 버튼 섹션
       ========================================== */
       .category-section {
         background: var(--cream);
-        padding: 48px 0 52px;
+        padding: 64px 0 60px;
+      }
+
+      .category-title {
+        font-family: "Built Titling", Impact, Haettenschweiler, sans-serif;
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 1;
+        text-align: center;
+        margin: 0 0 48px;
       }
 
       .category-inner {
@@ -1237,6 +1302,146 @@
           margin-bottom: 0px;
         }
       }
+
+      /* ==========================================
+         이미지 슬라이더
+      ========================================== */
+      .slider-section {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background: #111;
+        line-height: 0;
+      }
+
+      .slider-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .slider-track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform;
+      }
+
+      .slide {
+        min-width: 100%;
+        height: 640px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      /* 좌/우 화살표 버튼 */
+      .slider-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.82);
+        color: #222;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+        padding: 0;
+      }
+      .slider-btn svg {
+        width: 18px;
+        height: 18px;
+        stroke: #222;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        flex-shrink: 0;
+      }
+      .slider-btn:hover {
+        background: #fff;
+        transform: translateY(-50%) scale(1.1);
+      }
+      .slider-btn.prev {
+        left: 20px;
+      }
+      .slider-btn.next {
+        right: 20px;
+      }
+
+      /* 하단 인디케이터 도트 */
+      .slider-dots {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 7px;
+        z-index: 10;
+      }
+      .slider-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition:
+          background 0.25s ease,
+          transform 0.25s ease;
+      }
+      .slider-dot.active {
+        background: #fff;
+        transform: scale(1.35);
+      }
+
+      /* 현재 번호 표시 */
+      .slider-counter {
+        position: absolute;
+        bottom: 12px;
+        right: 18px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 11px;
+        font-weight: 600;
+        font-family: "Paperlogy", sans-serif;
+        letter-spacing: 0.05em;
+        z-index: 10;
+      }
+
+      @media (max-width: 768px) {
+        .slider-btn {
+          width: 30px;
+          height: 30px;
+        }
+        .slider-btn svg {
+          width: 14px;
+          height: 14px;
+          stroke-width: 2.5;
+        }
+        .slider-btn.prev {
+          left: 8px;
+        }
+        .slider-btn.next {
+          right: 8px;
+        }
+      }
     </style>
   </head>
   <body id="top">
@@ -1257,8 +1462,75 @@
     </header>
 
     <main>
+      <!-- ================================================
+           이미지 슬라이더
+           ※ 이미지 경로 수정: 아래 JS의 SLIDER_IMAGES 배열만 수정하세요
+           ※ 미리보기 확인: slider-images.html 열기
+      ================================================ -->
+      <section class="slider-section" aria-label="작품 이미지 슬라이더">
+        <div class="slider-container">
+          <div class="slider-track" id="sliderTrack"></div>
+
+          <button
+            class="slider-btn prev"
+            id="sliderPrev"
+            aria-label="이전 이미지"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <button
+            class="slider-btn next"
+            id="sliderNext"
+            aria-label="다음 이미지"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+
+          <div class="slider-dots" id="sliderDots"></div>
+          <div class="slider-counter" id="sliderCounter">1 / 49</div>
+        </div>
+      </section>
+
+      <!-- ================================================
+           클릭형 배너 (3개)
+           ※ 링크 연결: 아래 각 <a> 태그의 href="" 안에 페이지 주소를 입력하세요
+           ※ 배너 이미지: <img src="..."> 태그를 안에 넣거나, 므우면 플레이스홀더로 표시됨
+      ================================================ -->
+      <section class="banner-section">
+        <div class="banner-grid">
+          <!-- 배너 1 -->
+          <a class="banner-item" href="" aria-label="배너 1">
+            <!-- 배너 이미지가 있으면 아래를 활성화:
+            <img src="배너이미지/banner1.jpg" alt="배너 1">
+            -->
+            <div class="banner-item-placeholder">BANNER 01</div>
+          </a>
+
+          <!-- 배너 2 -->
+          <a class="banner-item" href="" aria-label="배너 2">
+            <!-- 배너 이미지가 있으면 아래를 활성화:
+            <img src="배너이미지/banner2.jpg" alt="배너 2">
+            -->
+            <div class="banner-item-placeholder">BANNER 02</div>
+          </a>
+
+          <!-- 배너 3 -->
+          <a class="banner-item" href="" aria-label="배너 3">
+            <!-- 배너 이미지가 있으면 아래를 활성화:
+            <img src="배너이미지/banner3.jpg" alt="배너 3">
+            -->
+            <div class="banner-item-placeholder">BANNER 03</div>
+          </a>
+        </div>
+      </section>
+
       <!-- 카테고리 원형 버튼 섹션 -->
       <section class="category-section">
+        <h2 class="category-title">CATEGORY</h2>
         <div class="category-inner">
           <a
             class="category-btn"
@@ -2295,6 +2567,198 @@
 
         lockCardStyles();
         updateSlideable();
+      })();
+    </script>
+
+    <!-- ================================================
+         이미지 슬라이더 스크립트
+         ※ 이미지 경로 수정: slider-images.html 에서 수정 후 저장
+            → 이 창(work.html)이 열려 있으면 즉시 자동 반영됩니다.
+    ================================================ -->
+    <script>
+      (function () {
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           📌 기본 이미지 목록 (49장)
+           → slider-images.html에서 저장하면 아래 기본값 대신
+             localStorage 값이 우선 적용됩니다.
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        const DEFAULT_IMAGES = [
+          "슬라이더 이미지/01.jpg",
+          "슬라이더 이미지/02.jpg",
+          "슬라이더 이미지/03.jpg",
+          "슬라이더 이미지/04.jpg",
+          "슬라이더 이미지/05.jpg",
+          "슬라이더 이미지/06.jpg",
+          "슬라이더 이미지/07.jpg",
+          "슬라이더 이미지/08.jpg",
+          "슬라이더 이미지/09.jpg",
+          "슬라이더 이미지/10.jpg",
+          "슬라이더 이미지/11.jpg",
+          "슬라이더 이미지/12.jpg",
+          "슬라이더 이미지/13.jpg",
+          "슬라이더 이미지/14.jpg",
+          "슬라이더 이미지/15.jpg",
+          "슬라이더 이미지/16.jpg",
+          "슬라이더 이미지/17.jpg",
+          "슬라이더 이미지/18.jpg",
+          "슬라이더 이미지/19.jpg",
+          "슬라이더 이미지/20.jpg",
+          "슬라이더 이미지/21.jpg",
+          "슬라이더 이미지/22.jpg",
+          "슬라이더 이미지/23.jpg",
+          "슬라이더 이미지/24.jpg",
+          "슬라이더 이미지/25.jpg",
+          "슬라이더 이미지/26.jpg",
+          "슬라이더 이미지/27.jpg",
+          "슬라이더 이미지/28.jpg",
+          "슬라이더 이미지/29.jpg",
+          "슬라이더 이미지/30.jpg",
+          "슬라이더 이미지/31.jpg",
+          "슬라이더 이미지/32.jpg",
+          "슬라이더 이미지/33.jpg",
+          "슬라이더 이미지/34.jpg",
+          "슬라이더 이미지/35.jpg",
+          "슬라이더 이미지/36.jpg",
+          "슬라이더 이미지/37.jpg",
+          "슬라이더 이미지/38.jpg",
+          "슬라이더 이미지/39.jpg",
+          "슬라이더 이미지/40.jpg",
+          "슬라이더 이미지/41.jpg",
+          "슬라이더 이미지/42.jpg",
+          "슬라이더 이미지/43.jpg",
+          "슬라이더 이미지/44.jpg",
+          "슬라이더 이미지/45.jpg",
+          "슬라이더 이미지/46.jpg",
+          "슬라이더 이미지/47.jpg",
+          "슬라이더 이미지/48.jpg",
+          "슬라이더 이미지/49.jpg",
+        ];
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+        const LS_KEY = "puzzle_slider_images";
+        const INTERVAL = 5000;
+
+        const track = document.getElementById("sliderTrack");
+        const dotsWrap = document.getElementById("sliderDots");
+        const counter = document.getElementById("sliderCounter");
+        const btnPrev = document.getElementById("sliderPrev");
+        const btnNext = document.getElementById("sliderNext");
+
+        let current = 0;
+        let autoTimer = null;
+        let images = [];
+
+        /* localStorage에서 읽기, 없으면 기본값 사용 */
+        function loadImages() {
+          try {
+            const saved = localStorage.getItem(LS_KEY);
+            return saved ? JSON.parse(saved) : DEFAULT_IMAGES;
+          } catch (e) {
+            return DEFAULT_IMAGES;
+          }
+        }
+
+        /* 슬라이더 전체 재구성 (이미지 목록이 바뀌었을 때) */
+        function buildSlider(imgs) {
+          images = imgs;
+          clearInterval(autoTimer);
+
+          // 기존 슬라이드·도트 제거
+          track.innerHTML = "";
+          dotsWrap.innerHTML = "";
+          current = 0;
+
+          const total = images.length;
+
+          images.forEach(function (src, i) {
+            const slide = document.createElement("div");
+            slide.className = "slide";
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = "슬라이더 이미지 " + (i + 1);
+            img.loading = i < 3 ? "eager" : "lazy";
+            slide.appendChild(img);
+            track.appendChild(slide);
+
+            const dot = document.createElement("button");
+            dot.className = "slider-dot" + (i === 0 ? " active" : "");
+            dot.setAttribute("aria-label", i + 1 + "번째 이미지");
+            dot.addEventListener("click", function () {
+              goTo(i);
+              resetTimer();
+            });
+            dotsWrap.appendChild(dot);
+          });
+
+          goTo(0);
+          resetTimer();
+        }
+
+        function goTo(idx) {
+          const total = images.length;
+          current = (idx + total) % total;
+          track.style.transform = "translateX(-" + current * 100 + "%)";
+          counter.textContent = current + 1 + " / " + total;
+          dotsWrap.querySelectorAll(".slider-dot").forEach(function (d, i) {
+            d.classList.toggle("active", i === current);
+          });
+        }
+
+        function resetTimer() {
+          clearInterval(autoTimer);
+          autoTimer = setInterval(function () {
+            goTo(current + 1);
+          }, INTERVAL);
+        }
+
+        btnPrev.addEventListener("click", function () {
+          goTo(current - 1);
+          resetTimer();
+        });
+        btnNext.addEventListener("click", function () {
+          goTo(current + 1);
+          resetTimer();
+        });
+
+        /* 터치/스와이프 */
+        var touchStartX = 0;
+        track.addEventListener(
+          "touchstart",
+          function (e) {
+            touchStartX = e.touches[0].clientX;
+          },
+          { passive: true },
+        );
+        track.addEventListener(
+          "touchend",
+          function (e) {
+            var dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) {
+              goTo(current + (dx < 0 ? 1 : -1));
+              resetTimer();
+            }
+          },
+          { passive: true },
+        );
+
+        /* hover → 자동 일시정지 */
+        var section = document.querySelector(".slider-section");
+        section.addEventListener("mouseenter", function () {
+          clearInterval(autoTimer);
+        });
+        section.addEventListener("mouseleave", function () {
+          resetTimer();
+        });
+
+        /* slider-images.html에서 저장하면 즉시 자동 반영 */
+        window.addEventListener("storage", function (e) {
+          if (e.key === LS_KEY) {
+            buildSlider(loadImages());
+          }
+        });
+
+        /* 초기 실행 */
+        buildSlider(loadImages());
       })();
     </script>
   </body>

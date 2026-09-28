@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200" />
+    <title>슬라이더 이미지 관리 — PUZZLE</title>
+    <style>
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Built Titling";
+        src: url("./fonts/BuiltTitling.otf") format("opentype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      :root {
+        --pink: #ff2482;
+        --blue: #407dff;
+        --yellow: #ffc20d;
+        --cream: #f2f7f9;
+        --black: #080808;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Paperlogy", "Noto Sans KR", sans-serif;
+        background: var(--cream);
+        color: var(--black);
+        min-height: 100vh;
+      }
+
+      /* 상단 헤더 */
+      .header {
+        background: #f2f7f9;
+        border-bottom: 1px solid #cbd0d6;
+        padding: 0 40px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .header-title {
+        font-family: "Built Titling", Impact, sans-serif;
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        color: var(--black);
+      }
+      .header-sub {
+        font-size: 13px;
+        font-weight: 600;
+        color: #888;
+      }
+      .btn-save {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 32px;
+        font-family: "Paperlogy", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          background 0.2s ease,
+          transform 0.15s ease;
+        letter-spacing: 0.02em;
+      }
+      .btn-save:hover {
+        background: #e0006e;
+        transform: translateY(-2px);
+      }
+      .btn-save:active {
+        transform: translateY(0);
+      }
+
+      /* 저장 완료 토스트 */
+      .toast {
+        position: fixed;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-20px);
+        background: #22c55e;
+        color: #fff;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 700;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+        z-index: 999;
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* 메인 영역 */
+      .main {
+        max-width: 1000px;
+        margin: 40px auto 80px;
+        padding: 0 24px;
+      }
+
+      .notice {
+        background: #fff;
+        border: 1.5px solid #e0e7ef;
+        border-left: 5px solid var(--blue);
+        border-radius: 12px;
+        padding: 18px 24px;
+        margin-bottom: 36px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #444;
+      }
+      .notice strong {
+        color: var(--blue);
+      }
+      .notice code {
+        background: #eef3ff;
+        color: var(--blue);
+        padding: 2px 7px;
+        border-radius: 5px;
+        font-family: monospace;
+        font-size: 13px;
+      }
+
+      /* 이미지 목록 그리드 */
+      .image-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .image-row {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        gap: 14px;
+        align-items: center;
+        background: #fff;
+        border: 1.5px solid #e0e7ef;
+        border-radius: 12px;
+        padding: 12px 18px;
+        transition: border-color 0.2s ease;
+      }
+      .image-row:hover {
+        border-color: var(--blue);
+      }
+
+      .row-num {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--cream);
+        border: 1.5px solid #cbd0d6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #666;
+        flex-shrink: 0;
+      }
+
+      .path-input {
+        width: 100%;
+        border: 1.5px solid #e0e7ef;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-family: "Paperlogy", monospace, sans-serif;
+        font-size: 14px;
+        color: var(--black);
+        background: #fafcff;
+        outline: none;
+        transition:
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+      .path-input:focus {
+        border-color: var(--blue);
+        background: #fff;
+      }
+      .path-input.modified {
+        border-color: var(--pink);
+        background: #fff8fb;
+      }
+
+      /* 하단 도움말 */
+      .help {
+        margin-top: 40px;
+        background: #fff;
+        border: 1.5px solid #e0e7ef;
+        border-left: 5px solid var(--yellow);
+        border-radius: 12px;
+        padding: 18px 24px;
+        font-size: 13px;
+        line-height: 1.8;
+        color: #555;
+      }
+      .help strong {
+        color: #7a6000;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <div class="header">
+      <div class="header-left">
+        <a href="work.html" style="text-decoration: none; color: inherit">
+          <img
+            src="웹%20에셋/퍼즐%20로고.png"
+            alt="PUZZLE"
+            style="height: 36px"
+          />
+        </a>
+        <div>
+          <div class="header-title">슬라이더 이미지 관리</div>
+          <div class="header-sub">
+            경로를 수정하고 저장하면 work.html에 즉시 반영됩니다
+          </div>
+        </div>
+      </div>
+      <button class="btn-save" id="btnSave">💾 저장 (work에 즉시 반영)</button>
+    </div>
+
+    <div class="toast" id="toast">
+      ✅ 저장 완료! work.html에 즉시 반영되었습니다.
+    </div>
+
+    <main class="main">
+      <!-- 안내문 -->
+      <div class="notice">
+        <strong>사용 방법</strong><br />
+        1. 아래 입력창에 이미지 경로를 입력하세요. 형식:
+        <code>폴더명/파일명.jpg</code><br />
+        2. 수정이 끝나면 우측 상단 <strong>저장</strong> 버튼을 누르세요.<br />
+        3.
+        <strong>work.html이 다른 탭에 열려 있으면 즉시 자동 반영</strong>됩니다.
+        (새로고침 불필요)<br />
+        4. work.html을 새로 열면 저장된 경로가 자동으로 적용됩니다.
+      </div>
+
+      <!-- 49개 입력 -->
+      <div class="image-list" id="imageList"></div>
+
+      <!-- 도움말 -->
+      <div class="help">
+        <strong>경로 작성 팁</strong><br />
+        · 이미지 파일을 웹 폴더 안에 넣은 뒤, 그 상대 경로를 입력하세요.<br />
+        · 예: <code>슬라이더 이미지/작품1.jpg</code> &nbsp;|&nbsp;
+        <code>작품세부페이지/img1.png</code><br />
+        · 경로에 한글이나 공백이 있어도 그대로 입력하시면 됩니다.<br />
+        · 경로가 틀리면 이미지가 깨집니다(빈 슬라이드로 표시).
+      </div>
+    </main>
+
+    <script>
+      const LS_KEY = "puzzle_slider_images";
+      const TOTAL = 49;
+
+      /* 기본 경로 목록 */
+      const DEFAULT_IMAGES = Array.from({ length: TOTAL }, function (_, i) {
+        return "슬라이더 이미지/" + String(i + 1).padStart(2, "0") + ".jpg";
+      });
+
+      /* localStorage에서 불러오기 */
+      function loadImages() {
+        try {
+          var saved = localStorage.getItem(LS_KEY);
+          if (saved) {
+            var arr = JSON.parse(saved);
+            // 길이가 모자라면 기본값으로 채움
+            while (arr.length < TOTAL) arr.push(DEFAULT_IMAGES[arr.length]);
+            return arr.slice(0, TOTAL);
+          }
+        } catch (e) {}
+        return DEFAULT_IMAGES.slice();
+      }
+
+      /* 입력창 생성 */
+      var images = loadImages();
+      var list = document.getElementById("imageList");
+
+      images.forEach(function (src, i) {
+        var row = document.createElement("div");
+        row.className = "image-row";
+
+        var num = document.createElement("div");
+        num.className = "row-num";
+        num.textContent = i + 1;
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.className = "path-input";
+        input.value = src;
+        input.placeholder = "예: 슬라이더 이미지/01.jpg";
+        input.dataset.index = i;
+
+        /* 수정 시 핑크 테두리 표시 */
+        input.addEventListener("input", function () {
+          this.classList.add("modified");
+        });
+
+        row.appendChild(num);
+        row.appendChild(input);
+        list.appendChild(row);
+      });
+
+      /* 저장 */
+      document.getElementById("btnSave").addEventListener("click", function () {
+        var inputs = document.querySelectorAll(".path-input");
+        var newImages = Array.from(inputs).map(function (el) {
+          return el.value.trim();
+        });
+
+        localStorage.setItem(LS_KEY, JSON.stringify(newImages));
+
+        /* 수정 표시 초기화 */
+        inputs.forEach(function (el) {
+          el.classList.remove("modified");
+        });
+
+        /* 토스트 표시 */
+        var toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(function () {
+          toast.classList.remove("show");
+        }, 2500);
+      });
+    </script>
+  </body>
+</html>
