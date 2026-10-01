@@ -174,13 +174,13 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
-        width: 120px;
+        width: 93px;
         flex-shrink: 0;
       }
       .hero-thumb {
         background-color: #b3b3b3;
         border-radius: 15px;
-        height: 120px;
+        height: 93px; /* (525px - 4×15px gap) / 5 = 93px → 메인 이미지와 총 높이 일치 */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -188,12 +188,14 @@
         font-size: 14px;
         color: #000;
         overflow: hidden;
+        flex-shrink: 0;
       }
 
       .hero-thumb img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         border-radius: 15px;
         display: block;
       }
@@ -760,6 +762,47 @@
           margin-bottom: 0px;
         }
       }
+
+      /* ── 브레드크럼 ── */
+      .breadcrumb-bar {
+        background: #f2f7f9;
+        border-bottom: 1px solid #e2eaf0;
+        padding: 0 40px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+      }
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12.5px;
+        color: #8a9aaa;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-transform: uppercase;
+      }
+      .breadcrumb li + li::before {
+        content: ">";
+        color: #b8c8d4;
+        font-size: 11px;
+        margin-right: 6px;
+      }
+      .breadcrumb a {
+        color: #8a9aaa;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .breadcrumb a:hover {
+        color: #ff2482;
+      }
+      .breadcrumb li:last-child {
+        color: #333;
+        font-weight: 700;
+      }
     </style>
   </head>
   <body id="top">
@@ -779,6 +822,15 @@
       </div>
     </header>
 
+    <!-- 브레드크럼 경로 바 -->
+    <div class="breadcrumb-bar">
+      <ol class="breadcrumb">
+        <li><a href="work.html">PRODUCTS</a></li>
+        <li><a href="work.html">Motion Graphic</a></li>
+        <li>은단의 변신은 무죄</li>
+      </ol>
+    </div>
+
     <!-- 2. 상세 콘텐츠 -->
     <main class="detail-container">
       <!-- 2-1. 새롭게 추가된 상품 최상단 섹션 -->
@@ -788,6 +840,13 @@
         <div class="bg-decor decor-blue-circle-small"></div>
 
         <div class="hero-thumbnails">
+          <div class="hero-thumb">
+            <img
+              src="작품세부페이지/메인 이미지.png"
+              alt="메인 이미지"
+              data-src="작품세부페이지/메인 이미지.png"
+            />
+          </div>
           <div class="hero-thumb">
             <img
               src="작품세부페이지/서브0.png"
@@ -963,16 +1022,12 @@
         }
       });
 
-      // 썸네일 hover → 메인 이미지 교체, 마우스 떼면 원본 복원
+      // 썸네일 hover → 메인 이미지 교체, 다른 썸네일에 올리기 전까지 유지
       const mainImg = document.getElementById("hero-main-img");
-      const originalSrc = mainImg.src;
       const thumbImgs = document.querySelectorAll(".hero-thumb img");
       thumbImgs.forEach((thumb) => {
         thumb.addEventListener("mouseover", () => {
           mainImg.src = thumb.dataset.src;
-        });
-        thumb.addEventListener("mouseleave", () => {
-          mainImg.src = originalSrc;
         });
       });
 
