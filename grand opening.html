@@ -59,21 +59,25 @@
         height: 100vh;
         overflow: hidden;
         background-color: #000;
-        /* 내부 컨텐츠를 항상 정중앙에 배치 */
-        display: flex;
-        align-items: center;
-        justify-content: center;
       }
 
-      /* 모든 요소가 담기는 기준 캔버스 (화면 크기에 따라 통째로 자동 축소/확대됨) */
+      /* 모든 요소가 담기는 캔버스 (빈틈없이 꽉 채우기 모드) */
       .content-wrapper {
-        position: relative;
-        width: 1920px;
-        height: 1080px;
-        flex-shrink: 0; /* 강제 축소 방지 */
-        /* 모니터의 가로, 세로 중 더 좁은 쪽을 기준으로 1920x1080 비율을 그대로 줌인/줌아웃 계산 */
-        transform: scale(min(calc(100vw / 1920), calc(100vh / 1080)));
-        transform-origin: center center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: 56.25vw;
+        container-type: inline-size;
+      }
+
+      /* 화면이 16:9보다 길어질 경우: 높이를 기준으로 너비를 넘치게 하여 빈틈 메움 */
+      @media (max-aspect-ratio: 1920/1080) {
+        .content-wrapper {
+          width: 177.77vh;
+          height: 100vh;
+        }
       }
 
       /* 애니메이션 키프레임 */
@@ -127,6 +131,8 @@
       .layer-title {
         z-index: 4;
         top: 25px;
+        transform: translateZ(0) scale(0.9); /* 아까보다 10%(0.1) 다시 키움! */
+        transform-origin: top center; /* 늘어나거나 줄어들 때 상단 여백을 유지하며 축소 */
       }
 
       /* 텍스트 블록 */
@@ -134,7 +140,9 @@
         position: absolute;
         bottom: 7%;
         left: 50%;
-        transform: translateX(-50%);
+        /* 원래 크기에서 약 30%(0.3) 정도 줄임 */
+        transform: translateX(-50%) scale(0.7);
+        transform-origin: bottom center;
         z-index: 10;
         text-align: center;
         white-space: nowrap;
@@ -144,23 +152,23 @@
       }
       .info-date {
         font-weight: 500;
-        font-size: 47px;
+        font-size: 2.083cqi; /* 전체 scale(0.7) 블록 고려 시 화면상 정확히 28px로 나오는 비율 */
         display: block;
       }
       .info-venue {
         font-weight: 700;
-        font-size: 48px;
+        font-size: 2.5cqi; /* 48px 기준 반응형 */
         display: block;
       }
       .info-label {
         font-weight: 600;
-        font-size: 27px;
+        font-size: 1.41cqi; /* 27px 기준 반응형 */
         display: block;
         margin-top: 0.6em;
       }
       .info-period {
         font-weight: 400;
-        font-size: 31px;
+        font-size: 1.61cqi; /* 31px 기준 반응형 */
         display: block;
       }
 
@@ -169,7 +177,8 @@
         position: absolute;
         top: 6%;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) scale(0.9); /* 아까보다 10%(0.1) 다시 키움! */
+        transform-origin: top center;
         z-index: 10;
         pointer-events: none;
       }
@@ -181,9 +190,9 @@
       }
       .dday-number {
         display: block;
-        font-size: 58px;
+        font-size: 3.02cqi; /* 58px 기준 반응형 */
         font-weight: 800;
-        letter-spacing: -2px;
+        letter-spacing: -0.1cqi;
         line-height: 1;
       }
       /* 숨겨진 관리자 버튼 */
