@@ -59,24 +59,21 @@
         height: 100vh;
         overflow: hidden;
         background-color: #000;
+        /* 내부 컨텐츠를 항상 정중앙에 배치 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      /* 배경 이미지 비율과 일치하는 래퍼 (1920x1080 기준) */
+      /* 모든 요소가 담기는 기준 캔버스 (화면 크기에 따라 통째로 자동 축소/확대됨) */
       .content-wrapper {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 100vw;
-        height: 56.25vw; /* 100vw * 1080 / 1920 */
-      }
-
-      /* 화면 비율이 16:9보다 길어질(폰 등) 경우: 높이를 기준으로 너비 억제 */
-      @media (max-aspect-ratio: 1920/1080) {
-        .content-wrapper {
-          width: 177.77vh; /* 100vh * 1920 / 1080 */
-          height: 100vh;
-        }
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        flex-shrink: 0; /* 강제 축소 방지 */
+        /* 모니터의 가로, 세로 중 더 좁은 쪽을 기준으로 1920x1080 비율을 그대로 줌인/줌아웃 계산 */
+        transform: scale(min(calc(100vw / 1920), calc(100vh / 1080)));
+        transform-origin: center center;
       }
 
       /* 애니메이션 키프레임 */
