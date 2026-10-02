@@ -59,32 +59,23 @@
         height: 100vh;
         overflow: hidden;
         background-color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
       }
 
       /* 배경 이미지 비율과 일치하는 래퍼 (1920x1080 기준) */
       .content-wrapper {
-        position: relative;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         width: 100vw;
-        height: 100vh;
-        /* 기본적으로 cover처럼 꽉 차게 */
-        aspect-ratio: 1920 / 1080;
+        height: 56.25vw; /* 100vw * 1080 / 1920 */
       }
 
-      /* 화면 비율이 16:9보다 길어질(폰 등) 경우: 높이를 기준으로 너비 맞춤 */
+      /* 화면 비율이 16:9보다 길어질(폰 등) 경우: 높이를 기준으로 너비 억제 */
       @media (max-aspect-ratio: 1920/1080) {
         .content-wrapper {
-          width: auto;
+          width: 177.77vh; /* 100vh * 1920 / 1080 */
           height: 100vh;
-        }
-      }
-      /* 화면 비율이 16:9보다 넓어질(초광각 모니터) 경우: 너비를 기준으로 높이 맞춤 */
-      @media (min-aspect-ratio: 1920/1080) {
-        .content-wrapper {
-          width: 100vw;
-          height: auto;
         }
       }
 
@@ -128,7 +119,7 @@
       }
       .layer-star {
         z-index: 2;
-        /* animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite; */
+        animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
       }
       .layer-puzzle {
@@ -189,8 +180,6 @@
         font-family: "Paperlogy", sans-serif;
         color: #ff2482;
         white-space: nowrap;
-        /* animation: titleFloat 4s ease-in-out infinite; */
-        will-change: transform;
       }
       .dday-number {
         display: block;
