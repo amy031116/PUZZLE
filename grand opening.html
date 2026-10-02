@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grand Opening – PUZZLE</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/team-font/paperlogy@main/css/paperlogy.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Paperlogy 폰트 */
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2")
+          format("woff2");
+        font-weight: 400;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2")
+          format("woff2");
+        font-weight: 500;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-display: swap;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /* 레이어 컨테이너 – 화면 전체 채움 */
+      .scene {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* 배경 이미지 비율과 일치하는 래퍼 (1920x1080 기준) */
+      .content-wrapper {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        /* 기본적으로 cover처럼 꽉 차게 */
+        aspect-ratio: 1920 / 1080;
+      }
+
+      /* 화면 비율이 16:9보다 길어질(폰 등) 경우: 높이를 기준으로 너비 맞춤 */
+      @media (max-aspect-ratio: 1920/1080) {
+        .content-wrapper {
+          width: auto;
+          height: 100vh;
+        }
+      }
+      /* 화면 비율이 16:9보다 넓어질(초광각 모니터) 경우: 너비를 기준으로 높이 맞춤 */
+      @media (min-aspect-ratio: 1920/1080) {
+        .content-wrapper {
+          width: 100vw;
+          height: auto;
+        }
+      }
+
+      /* 애니메이션 키프레임 */
+      @keyframes starPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes titleFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      /* 공통 레이어 스타일 */
+      .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* 레이어 순서 */
+      .layer-bg {
+        z-index: 1;
+      }
+      .layer-star {
+        z-index: 2;
+        animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+        transform-origin: center center;
+      }
+      .layer-puzzle {
+        z-index: 3;
+        top: 10px;
+      }
+      .layer-title {
+        z-index: 4;
+        top: 25px;
+      }
+
+      /* 텍스트 블록 */
+      .info-text {
+        position: absolute;
+        bottom: calc(7% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        text-align: center;
+        white-space: nowrap;
+        font-family: "Paperlogy", sans-serif;
+        color: #ff2482;
+        line-height: 1.25;
+      }
+      .info-date {
+        font-weight: 500;
+        font-size: 47px;
+        display: block;
+      }
+      .info-venue {
+        font-weight: 700;
+        font-size: 48px;
+        display: block;
+      }
+      .info-label {
+        font-weight: 600;
+        font-size: 27px;
+        display: block;
+        margin-top: 0.6em;
+      }
+      .info-period {
+        font-weight: 400;
+        font-size: 31px;
+        display: block;
+      }
+
+      /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
+      .dday-outer {
+        position: absolute;
+        top: 6%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        pointer-events: none;
+      }
+      .dday-wrap {
+        text-align: center;
+        font-family: "Paperlogy", sans-serif;
+        color: #ff2482;
+        white-space: nowrap;
+        animation: titleFloat 4s ease-in-out infinite;
+      }
+      .dday-number {
+        display: block;
+        font-size: 58px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        line-height: 1;
+      }
+      /* 숨겨진 관리자 버튼 */
+      .admin-bypass {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        width: 36px;
+        height: 36px;
+        z-index: 99;
+        cursor: pointer;
+        opacity: 0.08;
+        font-size: 20px;
+        line-height: 36px;
+        text-align: center;
+        user-select: none;
+        transition: opacity 0.2s;
+      }
+      .admin-bypass:active {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene">
+      <div class="content-wrapper">
+        <!-- 1. 배경 -->
+        <img class="layer layer-bg" src="그랜드오프닝/배경.png" alt="배경" />
+        <!-- 2. 별 -->
+        <img class="layer layer-star" src="그랜드오프닝/별.png" alt="별" />
+        <!-- 3. 퍼즐 -->
+        <img
+          class="layer layer-puzzle"
+          src="그랜드오프닝/퍼즐.png"
+          alt="퍼즐"
+        />
+        <!-- 4. 타이틀 -->
+        <img
+          class="layer layer-title"
+          src="그랜드오프닝/그랜드 오프닝 타이틀.png"
+          alt="그랜드 오프닝 타이틀"
+        />
+        <!-- 5. 텍스트 -->
+        <div class="info-text">
+          <span class="info-date"
+            >2026.11.05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18:00</span
+          >
+          <span class="info-venue">강남 모나코 스페이스</span>
+          <span class="info-label">전시기간</span>
+          <span class="info-period">2026.11.05 ~ 2026.11.09</span>
+        </div>
+        <!-- 6. D-Day 타이머 -->
+        <div class="dday-outer">
+          <div class="dday-wrap">
+            <span class="dday-number" id="ddayNum">D-??</span>
+          </div>
+        </div>
+        <!-- 7. 숨겨진 관리자 버튼 (좌하단, 3번 클릭 시 메인으로) -->
+        <div class="admin-bypass" id="adminBtn">🧩</div>
+      </div>
+    </div>
+
+    <script>
+      const target = new Date("2026-11-05T18:00:00+09:00");
+
+      function update() {
+        const now = new Date();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          document.getElementById("ddayNum").textContent = "D-DAY";
+          // D-Day 도달 시 3초 후 자동으로 메인으로 이동
+          setTimeout(function () {
+            location.replace("main.html");
+          }, 3000);
+          return;
+        }
+
+        const days = Math.floor(diff / 86400000);
+        document.getElementById("ddayNum").textContent = "D-" + days;
+      }
+
+      update();
+      setInterval(update, 1000);
+
+      // 숨겨진 관리자 바이패스: 좌하단 3번 연속 클릭
+      let clickCount = 0;
+      let clickTimer = null;
+      document
+        .getElementById("adminBtn")
+        .addEventListener("click", function () {
+          clickCount++;
+          clearTimeout(clickTimer);
+          if (clickCount >= 3) {
+            clickCount = 0;
+            sessionStorage.setItem("adminBypass", "true"); // 가드 무력화 플래그
+            location.href = "main.html";
+          }
+          clickTimer = setTimeout(function () {
+            clickCount = 0;
+          }, 2000);
+        });
+    </script>
+  </body>
+</html>

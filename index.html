@@ -1,6 +1,16 @@
 ﻿<!doctype html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=main.html" />
+    <meta charset="UTF-8" />
+    <title>PUZZLE</title>
+    <script>
+      // 오픈 시각: 2026-11-05 18:00 KST
+      const openTime = new Date("2026-11-05T18:00:00+09:00");
+      if (new Date() >= openTime) {
+        location.replace("main.html");
+      } else {
+        location.replace("grand opening.html");
+      }
+    </script>
   </head>
 </html>
