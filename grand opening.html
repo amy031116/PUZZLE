@@ -125,12 +125,12 @@
       }
       .layer-puzzle {
         z-index: 3;
-        top: 10px;
+        top: calc(10 / 1080 * 100%); /* 10px 비율 유지 */
         transform: translateZ(0) scale(0.5); /* 크기 절반으로 축소 */
       }
       .layer-title {
         z-index: 4;
-        top: 40px;
+        top: calc(40 / 1080 * 100%); /* 40px 비율 유지 */
         transform: translateZ(0) scale(0.9); /* 아까보다 10%(0.1) 다시 키움! */
         transform-origin: top center; /* 늘어나거나 줄어들 때 상단 여백을 유지하며 축소 */
       }
@@ -138,7 +138,7 @@
       /* 텍스트 블록 */
       .info-text {
         position: absolute;
-        bottom: calc(7% + 25px);
+        bottom: calc(7% + (25 / 1080 * 100%));
         left: 50%;
         /* 원래 크기에서 약 30%(0.3) 정도 줄임 */
         transform: translateX(-50%) scale(0.7);
@@ -198,8 +198,8 @@
       /* 숨겨진 관리자 버튼 */
       .admin-bypass {
         position: absolute;
-        top: 20px;
-        right: 619px; /* 왼쪽으로 100px 이동 (40 + 100) */
+        top: calc(20 / 1080 * 100%);
+        right: calc(619 / 1920 * 100%); /* 619px 비율 유지 */
         width: 36px;
         height: 36px;
         z-index: 99;
