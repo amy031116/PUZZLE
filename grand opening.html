@@ -136,11 +136,11 @@
       .info-text {
         position: absolute;
         bottom: calc(
-          7% + (7 / 1080 * 100%) + 5px
-        ); /* 기존 위치에서 위로 5px 더 올림 */
+          7% + (7 / 1080 * 100%) + 50px
+        ); /* 기존 위치에서 위로 15px 올림 */
         left: 50%;
-        /* 원래 크기에서 약 30%(0.3) 정도 줄임 */
-        transform: translateX(-50%) scale(0.7);
+        /* 원래 크기에서 약 30%(0.3) 정도 줄임 (1.1배 확대) */
+        transform: translateX(-50%) scale(0.77);
         transform-origin: bottom center;
         z-index: 10;
         text-align: center;
@@ -171,7 +171,7 @@
       }
       .info-period-group {
         display: block;
-        margin-top: calc(0.9em + 5px); /* 기존 여백에 5px 추가 */
+        margin-top: 0.4em;
         transform: translateX(3.5px); /* 오른쪽으로 1px 이동 */
       }
 
@@ -245,9 +245,6 @@
         />
         <!-- 5. 텍스트 -->
         <div class="info-text">
-          <span class="info-date"
-            >2026.11.05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18:00</span
-          >
           <span class="info-venue">강남 모나코 스페이스</span>
           <div class="info-period-group">
             <span class="info-label">전시기간&nbsp;&nbsp;</span>
