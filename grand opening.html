@@ -61,33 +61,28 @@
         background-color: #000;
       }
 
-      /* 모든 요소가 담기는 캔버스 (빈틈없이 꽉 채우기 모드) */
+      /* 핵심 UI 요소가 담기는 캔버스 (비율 유지하며 화면 안에 모두 보이게 맞춤 - Safe Zone) */
       .content-wrapper {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
         width: 100vw;
-        height: 56.25vw;
+        height: 100vh;
+        max-width: calc(100vh * 16 / 9);
+        max-height: calc(100vw * 9 / 16);
         container-type: inline-size;
-      }
-
-      /* 화면이 16:9보다 길어질 경우: 높이를 기준으로 너비를 넘치게 하여 빈틈 메움 */
-      @media (max-aspect-ratio: 1920/1080) {
-        .content-wrapper {
-          width: 177.77vh;
-          height: 100vh;
-        }
+        z-index: 3;
       }
 
       /* 애니메이션 키프레임 */
       @keyframes starPulse {
         0%,
         100% {
-          transform: scale(1) translateZ(0);
+          transform: scale(1.1) translateZ(0);
         }
         50% {
-          transform: scale(1.05) translateZ(0);
+          transform: scale(1.15) translateZ(0);
         }
       }
 
@@ -117,11 +112,13 @@
       /* 레이어 순서 */
       .layer-bg {
         z-index: 1;
+        object-fit: cover; /* 배경은 잘리더라도 화면을 꽉 채움 */
       }
       .layer-star {
         z-index: 2;
         animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
+        object-fit: cover; /* 별도 잘리더라도 화면을 꽉 채움 */
       }
       .layer-puzzle {
         z-index: 3;
@@ -220,20 +217,21 @@
   </head>
   <body>
     <div class="scene">
+      <!-- 1. 배경 (화면 전체 꽉 채우기) -->
+      <img
+        class="layer layer-bg"
+        src="그랜드오프닝/배경_넓게.webp"
+        alt="배경"
+      />
+      <!-- 2. 별 (화면 전체 꽉 채우기) -->
+      <img
+        class="layer layer-star"
+        src="그랜드오프닝/별_넓게.webp"
+        alt="별"
+      />
+
       <div class="content-wrapper">
-        <!-- 1. 배경 -->
-        <img
-          class="layer layer-bg"
-          src="그랜드오프닝/배경_lossy0.webp"
-          alt="배경"
-        />
-        <!-- 2. 별 -->
-        <img
-          class="layer layer-star"
-          src="그랜드오프닝/별_lossy0.webp"
-          alt="별"
-        />
-        <!-- 3. 퍼즐 -->
+        <!-- 3. 퍼즐 (안전 영역) -->
         <img
           class="layer layer-puzzle"
           src="그랜드오프닝/퍼즐_lossy0.webp"
