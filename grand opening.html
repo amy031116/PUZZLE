@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grand Opening – PUZZLE</title>
+    <link rel="preload" href="그랜드오프닝/배경_넓게.webp" as="image" />
+    <link rel="preload" href="그랜드오프닝/그랜드 오프닝 타이틀.png" as="image" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/team-font/paperlogy@main/css/paperlogy.css"
@@ -106,7 +108,6 @@
         object-fit: contain; /* cover에서 contain으로 변경하여 이미지 잘림 방지 */
         /* 하드웨어 가속 강제 적용 (리페인트 억제) */
         transform: translateZ(0);
-        will-change: transform;
       }
 
       /* 레이어 순서 */
@@ -119,6 +120,7 @@
         animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
         object-fit: cover; /* 별도 잘리더라도 화면을 꽉 채움 */
+        will-change: transform; /* 애니메이션이 있는 요소에만 적용 */
       }
       .layer-puzzle {
         z-index: 3;
@@ -143,7 +145,9 @@
         transform: translateX(-50%) scale(0.77);
         transform-origin: bottom center;
         z-index: 10;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
         white-space: nowrap;
         font-family: "Paperlogy", sans-serif;
         color: #ff2482;
@@ -159,20 +163,22 @@
         font-weight: 700;
         font-size: 3.56cqi; /* 3.24에서 1.1배 확대 */
         display: block;
+        text-align-last: justify;
+        text-align: justify;
       }
       .info-label {
         font-weight: 600;
         font-size: 1.71cqi; /* 옆에 있는 info-period와 크기 맞춤 */
-        margin-right: 0.5em; /* 글씨 사이 간격 */
       }
       .info-period {
         font-weight: 400;
         font-size: 1.71cqi; /* 31px 기준 반응형 */
       }
       .info-period-group {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-top: 0.4em;
-        transform: translateX(3.5px); /* 오른쪽으로 1px 이동 */
       }
 
       /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
@@ -226,9 +232,11 @@
         class="layer layer-bg"
         src="그랜드오프닝/배경_넓게.webp"
         alt="배경"
+        decoding="async"
+        fetchpriority="high"
       />
       <!-- 2. 별 (화면 전체 꽉 채우기) -->
-      <img class="layer layer-star" src="그랜드오프닝/별_넓게.webp" alt="별" />
+      <img class="layer layer-star" src="그랜드오프닝/별_넓게.webp" alt="별" decoding="async" />
 
       <div class="content-wrapper">
         <!-- 3. 퍼즐 (안전 영역) -->
@@ -236,18 +244,20 @@
           class="layer layer-puzzle"
           src="그랜드오프닝/퍼즐_lossy0.webp"
           alt="퍼즐"
+          decoding="async"
         />
         <!-- 4. 타이틀 -->
         <img
           class="layer layer-title"
           src="그랜드오프닝/그랜드 오프닝 타이틀.png"
           alt="그랜드 오프닝 타이틀"
+          decoding="async"
         />
         <!-- 5. 텍스트 -->
         <div class="info-text">
           <span class="info-venue">강남 모나코 스페이스</span>
           <div class="info-period-group">
-            <span class="info-label">전시기간&nbsp;&nbsp;</span>
+            <span class="info-label">전시기간</span>
             <span class="info-period">2026.11.05 ~ 2026.11.09</span>
           </div>
         </div>
