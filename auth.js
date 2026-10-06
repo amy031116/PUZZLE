@@ -331,6 +331,7 @@
     setNickname(val.trim());
     updateAuthButton();
     closeLogin();
+    window.dispatchEvent(new CustomEvent("authChanged"));
   }
 
   /* ──────────────────────────────────────────
@@ -368,6 +369,7 @@
       clearNickname();
       updateAuthButton();
       closeLogout();
+      window.dispatchEvent(new CustomEvent("authChanged"));
     });
   logoutOverlay.addEventListener("click", function (e) {
     if (e.target === logoutOverlay) closeLogout();

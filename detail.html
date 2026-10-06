@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
@@ -693,6 +693,31 @@
         margin-bottom: 2px;
       }
 
+      /* ==========================================
+         Toast Notification
+      ========================================== */
+      .toast-popup {
+        position: fixed;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--black);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: 30px;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        pointer-events: none;
+      }
+      .toast-popup.show {
+        top: 30px;
+        opacity: 1;
+      }
+
       /* ==========================================================================
          ✅ 모바일 적응형 (Max-width: 768px)
          ========================================================================== */
@@ -851,6 +876,9 @@
     </style>
   </head>
   <body id="top">
+    <!-- Toast Popup -->
+    <div id="toastPopup" class="toast-popup">링크가 복사되었습니다!</div>
+
     <!-- 1. 상단 내비게이션 바 -->
     <header class="nav">
       <div class="nav-inner">
@@ -871,7 +899,7 @@
     <div class="breadcrumb-bar">
       <ol class="breadcrumb">
         <li><a href="work.html">PRODUCTS</a></li>
-        <li><a href="work.html">Motion Graphic</a></li>
+        <li><a href="work.html?category=%EB%AA%A8%EC%85%98%EA%B7%B8%EB%9E%98%ED%94%BD">Motion Graphic</a></li>
         <li>은단의 변신은 무죄</li>
       </ol>
     </div>
@@ -946,10 +974,7 @@
               <button
                 class="round-btn-action share"
                 aria-label="공유"
-                onclick="
-                  navigator.clipboard.writeText(window.location.href);
-                  alert('링크가 복사되었습니다!');
-                "
+                onclick="copyLink()"
               >
                 <svg viewBox="0 0 24 24">
                   <path
@@ -1138,6 +1163,19 @@
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeModal();
       });
+
+      // 링크 복사 및 토스트 팝업
+      function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          const toast = document.getElementById('toastPopup');
+          toast.classList.add('show');
+          setTimeout(() => {
+            toast.classList.remove('show');
+          }, 2500);
+        }).catch(err => {
+          console.error('클립보드 복사 실패:', err);
+        });
+      }
     </script>
     <script src="auth.js"></script>
   </body>

@@ -125,12 +125,12 @@
       }
       .layer-puzzle {
         z-index: 3;
-        top: calc(10 / 1080 * 100%); /* 10px 비율 유지 */
+        top: calc(20 / 1080 * 100%); /* 10px 추가해서 20px 분량 */
         transform: translateZ(0) scale(0.5); /* 크기 절반으로 축소 */
       }
       .layer-title {
         z-index: 4;
-        top: calc(40 / 1080 * 100%); /* 40px 비율 유지 */
+        top: calc(50 / 1080 * 100%); /* 10px 추가해서 50px 분량 */
         transform: translateZ(0) scale(0.9); /* 아까보다 10%(0.1) 다시 키움! */
         transform-origin: top center; /* 늘어나거나 줄어들 때 상단 여백을 유지하며 축소 */
       }
@@ -138,7 +138,9 @@
       /* 텍스트 블록 */
       .info-text {
         position: absolute;
-        bottom: calc(7% + (25 / 1080 * 100%));
+        bottom: calc(
+          7% + (7 / 1080 * 100%)
+        ); /* 10px 아래로 이동 (bottom 10px 감소) */
         left: 50%;
         /* 원래 크기에서 약 30%(0.3) 정도 줄임 */
         transform: translateX(-50%) scale(0.7);
@@ -151,31 +153,31 @@
         line-height: 1.25;
       }
       .info-date {
-        font-weight: 500;
-        font-size: 2.083cqi; /* 전체 scale(0.7) 블록 고려 시 화면상 정확히 28px로 나오는 비율 */
+        font-weight: 700;
+        font-size: 2.28cqi; /* 전체 scale(0.7) 블록 고려 시 화면상 정확히 28px로 나오는 비율 */
         display: block;
       }
       .info-venue {
         font-weight: 700;
-        font-size: 2.5cqi; /* 48px 기준 반응형 */
+        font-size: 2.7cqi; /* 48px 기준 반응형 */
         display: block;
       }
       .info-label {
         font-weight: 600;
-        font-size: 1.41cqi; /* 27px 기준 반응형 */
+        font-size: 1.61cqi; /* 27px 기준 반응형 */
         display: block;
-        margin-top: 0.6em;
+        margin-top: 0.9em;
       }
       .info-period {
         font-weight: 400;
-        font-size: 1.61cqi; /* 31px 기준 반응형 */
+        font-size: 1.81cqi; /* 31px 기준 반응형 */
         display: block;
       }
 
       /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
       .dday-outer {
         position: absolute;
-        top: 6%;
+        top: calc(6% + (10 / 1080 * 100%)); /* 10px 아래로 이동 */
         left: 50%;
         transform: translateX(-50%) scale(0.9); /* 아까보다 10%(0.1) 다시 키움! */
         transform-origin: top center;

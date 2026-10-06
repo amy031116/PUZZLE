@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
@@ -989,7 +989,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 14px;
+        gap: 22px; /* 라벨을 원형 버튼에서 조금 더 아래로 */
         cursor: pointer;
         text-decoration: none;
         color: var(--black);
@@ -1021,23 +1021,40 @@
       }
 
       .category-circle.c1 {
+        --ring: #ff2482;
         background: linear-gradient(135deg, #ff2482, #ff6eb4);
       }
       .category-circle.c2 {
+        --ring: #407dff;
         background: linear-gradient(135deg, #407dff, #89b4ff);
       }
       .category-circle.c3 {
+        --ring: #ffc20d;
         background: linear-gradient(135deg, #ffc20d, #ffe07a);
       }
       .category-circle.c4 {
+        --ring: #4ecdc4;
         background: linear-gradient(135deg, #4ecdc4, #a8f0eb);
       }
 
       .category-label {
-        font-size: 15px;
+        font-size: 18px;
         font-weight: 700;
         letter-spacing: 0.3px;
         color: #333;
+        transition: color 0.25s ease;
+      }
+
+      /* 선택된 카테고리 표시: 띠 색은 각 버튼 색(--ring)과 통일 */
+      .category-btn.active .category-circle {
+        transform: scale(1.06);
+        box-shadow:
+          0 0 0 4px var(--cream),
+          0 0 0 7px var(--ring),
+          0 12px 36px rgba(0, 0, 0, 0.18);
+      }
+      .category-btn.active .category-label {
+        color: var(--black);
       }
 
       /* ==========================================
@@ -1607,7 +1624,7 @@
         </div>
       </section>
 
-      <section class="section trend">
+      <section class="section trend" id="trend">
         <div class="trend-head">
           <i class="big-star" aria-hidden="true"></i>
           <h2>TRENDING NOW!</h2>
@@ -1895,7 +1912,7 @@
 
           <!-- 배너 2 ※ href="" 안에 이동할 페이지 주소 입력 -->
           <a class="banner-item" href="about.html" aria-label="배너 2">
-            <img src="웹 에셋/2_메인 영상 배너.png" alt="배너 2" />
+            <img src="웹 에셋\2_메인 영상 배너0.webp" alt="배너 2" />
           </a>
 
           <!-- 배너 3 ※ href="" 안에 이동할 페이지 주소 입력 -->
@@ -2402,8 +2419,9 @@
          TRENDING NOW 카테고리 탭 및 슬라이드 (가로스크롤)
       ============================================================ */
       (function initTrendFilter() {
-        const btns = document.querySelectorAll(".category-btn");
+        const btns = Array.from(document.querySelectorAll(".category-btn"));
         const grid = document.getElementById("trendGrid");
+        const trendSection = document.getElementById("trend");
         if (!grid || btns.length === 0) return;
 
         const allCards = Array.from(grid.querySelectorAll(".card"));
@@ -2417,36 +2435,71 @@
           return a;
         }
 
+        // 카테고리 선택: 카드 필터링 + 버튼 활성 표시
+        function selectCategory(cat) {
+          btns.forEach((b) =>
+            b.classList.toggle("active", b.getAttribute("data-category") === cat),
+          );
+
+          // 모든 카드 숨김 및 order 초기화
+          allCards.forEach((card) => {
+            card.style.display = "none";
+            card.style.order = "";
+          });
+
+          // 선택한 카테고리의 카드만 필터링
+          const targetCards = allCards.filter(
+            (card) => card.getAttribute("data-category") === cat,
+          );
+
+          // Fisher-Yates 셔플 후 CSS order로 순서 적용
+          shuffle(targetCards).forEach((card, i) => {
+            card.style.order = i;
+            card.style.display = "block";
+          });
+
+          // 스크롤 왼쪽 끝으로 초기화
+          grid.scrollLeft = 0;
+        }
+
+        // 카테고리 버튼 줄이 상단바 바로 아래에 오도록 이동 → 버튼과 TRENDING NOW가 함께 보임
+        const categoryRow = document.querySelector(".category-inner");
+        const SCROLL_TOP_OFFSET = 110; // 상단바(80px) + 여백
+        function scrollToTrend() {
+          const target = categoryRow || trendSection;
+          if (!target) return;
+          const top =
+            target.getBoundingClientRect().top +
+            window.scrollY -
+            SCROLL_TOP_OFFSET;
+          window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        }
+
+        // 카테고리 버튼 클릭 → 해당 카테고리 선택 후 TRENDING NOW로 이동
         btns.forEach((btn) => {
           btn.addEventListener("click", (e) => {
             e.preventDefault();
-
-            // 모든 카드 숨김 및 order 초기화
-            allCards.forEach((card) => {
-              card.style.display = "none";
-              card.style.order = "";
-            });
-
-            // 클릭한 카테고리의 카드만 필터링
-            const cat = btn.getAttribute("data-category");
-            const targetCards = allCards.filter(
-              (card) => card.getAttribute("data-category") === cat,
-            );
-
-            // Fisher-Yates 셔플 후 CSS order로 순서 적용
-            const shuffled = shuffle(targetCards);
-            shuffled.forEach((card, i) => {
-              card.style.order = i;
-              card.style.display = "block";
-            });
-
-            // 스크롤 왼쪽 끝으로 초기화
-            grid.scrollLeft = 0;
+            selectCategory(btn.getAttribute("data-category"));
+            scrollToTrend();
           });
         });
 
-        // 초기 로드시 첫 번째 탭 활성화 시뮬레이션
-        btns[0].click();
+        // 다른 페이지(예: detail.html 경로 바)에서 work.html?category=모션그래픽 으로 들어온 경우
+        const validCats = btns.map((b) => b.getAttribute("data-category"));
+        const paramCat = new URLSearchParams(window.location.search).get(
+          "category",
+        );
+
+        if (paramCat && validCats.includes(paramCat)) {
+          selectCategory(paramCat);
+          // 이미지/폰트 로딩으로 레이아웃이 바뀐 뒤 이동해야 위치가 정확함
+          const go = () => setTimeout(scrollToTrend, 150);
+          if (document.readyState === "complete") go();
+          else window.addEventListener("load", go, { once: true });
+        } else {
+          // 파라미터가 없으면 첫 번째 카테고리를 기본 표시 (스크롤 이동 없음)
+          selectCategory(validCats[0]);
+        }
       })();
 
       (function initMainPuzzle() {
