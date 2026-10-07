@@ -124,6 +124,7 @@
         animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
         object-fit: cover; /* 별도 잘리더라도 화면을 꽉 채움 */
+        object-position: center center; /* 별 가로세로 중앙 정렬 */
         will-change: transform; /* 애니메이션이 있는 요소에만 적용 */
       }
       .layer-puzzle {
@@ -231,6 +232,22 @@
       }
       .admin-bypass:active {
         opacity: 0.5;
+      }
+
+      /* 모바일 환경(가로 폭 768px 이하)에서 퍼즐과 타이틀 사이즈 키우기 */
+      @media (max-width: 768px) {
+        .layer-puzzle {
+          transform: translateZ(0) scale(0.75);
+        }
+        .layer-title {
+          transform: translateZ(0) scale(1.15);
+        }
+        .info-text {
+          transform: translateX(-50%) scale(0.95);
+        }
+        .dday-outer {
+          transform: translateX(-50%) scale(1.15);
+        }
       }
     </style>
   </head>
