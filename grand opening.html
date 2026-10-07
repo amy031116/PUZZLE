@@ -85,10 +85,10 @@
       @keyframes starPulse {
         0%,
         100% {
-          transform: scale(1.1) translateZ(0);
+          transform: scale(1.43) translateZ(0); /* 1.1 * 1.3배 */
         }
         50% {
-          transform: scale(1.15) translateZ(0);
+          transform: scale(1.495) translateZ(0); /* 1.15 * 1.3배 */
         }
       }
 
@@ -129,12 +129,12 @@
       }
       .layer-puzzle {
         z-index: 3;
-        top: calc(20 / 1080 * 100%);
+        top: calc(20 / 1080 * 100% - 10px); /* 위로 10px 올림 */
         transform: translateZ(0) scale(0.5); /* 원본 스케일 복구 */
       }
       .layer-title {
         z-index: 4;
-        top: calc(50 / 1080 * 100%);
+        top: calc(50 / 1080 * 100% - 10px); /* 위로 10px 올림 */
         transform: translateZ(0) scale(0.9); /* 원본 스케일 복구 */
         transform-origin: top center;
       }
@@ -187,16 +187,16 @@
         justify-content: flex-start;
         gap: 1.5em; /* 라벨과 날짜 사이 간격 */
         align-items: center;
-        margin-top: calc(0.4em - 2px); /* 오프닝 위치 조정 (-10px 에서 +8px) */
+        margin-top: calc(0.4em - 4px); /* 오프닝 위로 2px 올림 (-2px -> -4px) */
       }
       .info-period-group + .info-period-group {
-        margin-top: calc(0.1em - 3px); /* 전시기간 위치 유지 보정 */
+        margin-top: calc(0.1em - 1px); /* 전시기간 위치 유지 (-3px -> -1px) */
       }
 
       /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
       .dday-outer {
         position: absolute;
-        top: calc(6% + (10 / 1080 * 100%));
+        top: calc(6% + (10 / 1080 * 100%) - 10px); /* 위로 10px 올림 */
         left: 50%;
         transform: translateX(-50%) scale(0.9); /* 원본 스케일 복구 */
         transform-origin: top center;
