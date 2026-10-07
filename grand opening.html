@@ -72,7 +72,7 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) scale(1.35); /* 요소와 여백 비율을 유지한 채 1.35배 통합 확대 */
         width: 100vw;
         height: 100vh;
         max-width: calc(100vh * 16 / 9);
@@ -129,14 +129,14 @@
       }
       .layer-puzzle {
         z-index: 3;
-        top: calc(20 / 1080 * 100%); /* 10px 추가해서 20px 분량 */
-        transform: translateZ(0) scale(0.5); /* 크기 절반으로 축소 */
+        top: calc(20 / 1080 * 100%);
+        transform: translateZ(0) scale(0.5); /* 원본 스케일 복구 */
       }
       .layer-title {
         z-index: 4;
-        top: calc(50 / 1080 * 100%); /* 10px 추가해서 50px 분량 */
-        transform: translateZ(0) scale(0.9); /* 아까보다 10%(0.1) 다시 키움! */
-        transform-origin: top center; /* 늘어나거나 줄어들 때 상단 여백을 유지하며 축소 */
+        top: calc(50 / 1080 * 100%);
+        transform: translateZ(0) scale(0.9); /* 원본 스케일 복구 */
+        transform-origin: top center;
       }
 
       /* 텍스트 블록 */
@@ -144,10 +144,9 @@
         position: absolute;
         bottom: calc(
           7% + (7 / 1080 * 100%) + 13px
-        ); /* 2px 다시 내림 (15px -> 13px) */
+        );
         left: 50%;
-        /* 원래 크기에서 약 30%(0.3) 정도 줄임 (1.1배 확대) */
-        transform: translateX(-50%) scale(0.77);
+        transform: translateX(-50%) scale(0.77); /* 원본 스케일 복구 */
         transform-origin: bottom center;
         z-index: 10;
         display: flex;
@@ -194,9 +193,9 @@
       /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
       .dday-outer {
         position: absolute;
-        top: calc(6% + (10 / 1080 * 100%)); /* 10px 아래로 이동 */
+        top: calc(6% + (10 / 1080 * 100%));
         left: 50%;
-        transform: translateX(-50%) scale(0.9); /* 아까보다 10%(0.1) 다시 키움! */
+        transform: translateX(-50%) scale(0.9); /* 원본 스케일 복구 */
         transform-origin: top center;
         z-index: 10;
         pointer-events: none;
@@ -232,22 +231,6 @@
       }
       .admin-bypass:active {
         opacity: 0.5;
-      }
-
-      /* 모바일 환경(가로 폭 768px 이하)에서 퍼즐과 타이틀 사이즈 키우기 */
-      @media (max-width: 768px) {
-        .layer-puzzle {
-          transform: translateZ(0) scale(0.75);
-        }
-        .layer-title {
-          transform: translateZ(0) scale(1.15);
-        }
-        .info-text {
-          transform: translateX(-50%) scale(0.95);
-        }
-        .dday-outer {
-          transform: translateX(-50%) scale(1.15);
-        }
       }
     </style>
   </head>
