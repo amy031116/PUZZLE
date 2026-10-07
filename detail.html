@@ -718,6 +718,287 @@
         opacity: 1;
       }
 
+      /* ── 리뷰(방명록) 사이드바 및 별점 인터랙션 ── */
+      .hero-rating {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+      .hero-rating .stars {
+        color: #e0e0e0; /* 기본 회색 별 */
+        letter-spacing: 1px;
+        cursor: pointer;
+        display: flex;
+      }
+      .hero-rating .star {
+        transition: color 0.2s;
+      }
+      .hero-rating .star.active {
+        color: var(--pink);
+      }
+      .hero-rating .score {
+        font-weight: 700;
+        color: var(--black);
+      }
+      .hero-rating .reviews {
+        font-size: 14px;
+        color: #888;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: underline;
+        transition: color 0.2s;
+      }
+      .hero-rating .reviews:hover {
+        color: var(--pink);
+      }
+
+      /* 사이드바 오버레이 */
+      .review-sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(2px);
+        z-index: 10001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+      }
+      .review-sidebar-overlay.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* 사이드바 본체 */
+      .review-sidebar {
+        position: fixed;
+        top: 0;
+        right: -420px;
+        width: 400px;
+        max-width: 90vw;
+        height: 100vh;
+        background: #fcfcfc;
+        z-index: 10002;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: "Paperlogy", Pretendard, sans-serif;
+      }
+      .review-sidebar.visible {
+        right: 0;
+      }
+
+      .review-sidebar-header {
+        padding: 24px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ebebeb;
+        background: #fff;
+      }
+      .review-sidebar-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        color: #111;
+      }
+      .review-sidebar-close {
+        background: none;
+        border: none;
+        font-size: 30px;
+        line-height: 1;
+        cursor: pointer;
+        color: #888;
+        transition: color 0.2s;
+        padding: 0;
+      }
+      .review-sidebar-close:hover {
+        color: #111;
+      }
+
+      .review-sidebar-content {
+        flex: 1;
+        padding: 20px 30px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background: #fcfcfc;
+      }
+
+      .detail-review-item {
+        background: #fff;
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        border: 1px solid #f0f0f0;
+      }
+      .detail-review-item.mine {
+        border-color: #ffdceb;
+        background: #fff5fa;
+      }
+      .detail-review-item.creator-review {
+        border-color: #c9e0ff;
+        background: #f0f7ff;
+      }
+
+      .detail-review-author {
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .detail-review-content {
+        font-size: 15px;
+        color: #444;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+      .blind-text {
+        color: #999;
+        font-style: italic;
+        font-size: 14px;
+      }
+
+      .review-sidebar-footer {
+        padding: 20px 30px;
+        background: #fff;
+        border-top: 1px solid #ebebeb;
+      }
+
+      .detail-review-form {
+        display: none;
+        gap: 10px;
+      }
+      .detail-review-form input {
+        flex: 1;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+        font-family: inherit;
+      }
+      .detail-review-form input:focus {
+        border-color: var(--pink);
+      }
+      .detail-review-form button {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 0 20px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        white-space: nowrap;
+      }
+      .detail-review-form button:hover {
+        opacity: 0.9;
+      }
+
+      .review-login-prompt {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        background: #fff;
+        border: 2px dashed #dcdcdc;
+        border-radius: 12px;
+        padding: 16px;
+        font-weight: 700;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: inherit;
+      }
+      .review-login-prompt:hover {
+        border-color: var(--pink);
+        color: var(--pink);
+        background: #fff5fa;
+      }
+      .review-login-prompt .prompt-accent {
+        color: var(--pink);
+      }
+
+      /* 별점 팝업 */
+      .rating-popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+      }
+      .rating-popup-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .rating-popup {
+        background: #fff;
+        border-radius: 24px;
+        padding: 40px 44px 36px;
+        width: 340px;
+        max-width: calc(100vw - 48px);
+        box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+        transform: translateY(28px) scale(0.97);
+        transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+        position: relative;
+        text-align: center;
+        font-family: "Paperlogy", Pretendard, sans-serif;
+      }
+      .rating-popup-overlay.visible .rating-popup {
+        transform: translateY(0) scale(1);
+      }
+      .rating-popup-close {
+        position: absolute;
+        top: 16px;
+        right: 18px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #aaa;
+        font-size: 22px;
+        line-height: 1;
+        padding: 4px 8px;
+        border-radius: 8px;
+        transition: color 0.15s, background 0.15s;
+      }
+      .rating-popup-close:hover { color: #333; background: #f0f0f0; }
+      .rating-popup-emoji { font-size: 44px; margin-bottom: 10px; }
+      .rating-popup-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: #111;
+        margin: 0 0 20px;
+      }
+      .rating-popup-stars {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        font-size: 38px;
+        color: #e0e0e0;
+        cursor: pointer;
+      }
+      .rating-popup-stars .popup-star {
+        transition: color 0.2s, transform 0.2s;
+      }
+      .rating-popup-stars .popup-star:hover {
+        transform: scale(1.15);
+      }
+      .rating-popup-stars .popup-star.active {
+        color: var(--pink);
+      }
+
       /* ==========================================================================
          ✅ 모바일 적응형 (Max-width: 768px)
          ========================================================================== */
@@ -985,10 +1266,16 @@
             </div>
           </div>
           <h2>고려은단의 새로운 모습으로의 변신!</h2>
-          <div class="hero-rating">
-            <span class="stars">★★★★★</span>
-            <span class="score">5.0</span>
-            <span class="reviews">(152)</span>
+          <div class="hero-rating" id="heroRatingContainer">
+            <span class="stars" id="starRatingUI">
+              <span class="star" data-value="1">★</span>
+              <span class="star" data-value="2">★</span>
+              <span class="star" data-value="3">★</span>
+              <span class="star" data-value="4">★</span>
+              <span class="star" data-value="5">★</span>
+            </span>
+            <span class="score" id="userScoreDisplay">0.0</span>
+            <span class="reviews" id="reviewCountBtn">(0)</span>
           </div>
 
           <div class="meta-tags">#즐거운 #신나는 #리듬적인</div>
@@ -1177,6 +1464,54 @@
         });
       }
     </script>
+    <!-- 5. 리뷰(방명록) 사이드바 -->
+    <div class="review-sidebar-overlay" id="reviewSidebarOverlay"></div>
+    <div class="review-sidebar" id="reviewSidebar">
+      <div class="review-sidebar-header">
+        <h2>REVIEW</h2>
+        <button class="review-sidebar-close" id="reviewSidebarClose" aria-label="닫기">&times;</button>
+      </div>
+      <div class="review-sidebar-content" id="detailReviewsList">
+        <!-- 리뷰 아이템들이 여기에 렌더링됩니다 -->
+      </div>
+      <div class="review-sidebar-footer">
+        <form id="detailReviewForm" class="detail-review-form">
+          <input type="text" id="detailReviewInput" placeholder="리뷰를 남겨보세요!" required autocomplete="off" maxlength="150" disabled />
+          <button type="submit" id="detailReviewSubmit" disabled>전송</button>
+        </form>
+        <button type="button" class="review-login-prompt" id="detailReviewLoginPrompt">
+          <span>🧩</span>
+          <span><span class="prompt-accent">로그인</span>하고 리뷰를 남겨보세요</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 6. 별점 팝업 -->
+    <div class="rating-popup-overlay" id="ratingPopupOverlay">
+      <div class="rating-popup" id="ratingPopup">
+        <button class="rating-popup-close" id="ratingPopupClose" aria-label="닫기">&times;</button>
+        <div class="rating-popup-emoji">⭐</div>
+        <h2 class="rating-popup-title">별점을 남겨보세요</h2>
+        <div class="rating-popup-stars" id="popupStarUI">
+          <span class="popup-star" data-value="1">★</span>
+          <span class="popup-star" data-value="2">★</span>
+          <span class="popup-star" data-value="3">★</span>
+          <span class="popup-star" data-value="4">★</span>
+          <span class="popup-star" data-value="5">★</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 커스텀 알림 팝업 (자체 팝업) -->
+    <div class="rating-popup-overlay" id="customAlertOverlay">
+      <div class="rating-popup" style="padding: 40px 30px 30px; width: 320px;">
+        <button class="rating-popup-close" id="customAlertClose" aria-label="닫기">&times;</button>
+        <div class="rating-popup-emoji" id="customAlertEmoji" style="font-size: 40px; margin-bottom: 15px;">💬</div>
+        <h2 class="rating-popup-title" style="font-size: 18px; margin-bottom: 0; word-break: keep-all;" id="customAlertMessage">메시지</h2>
+      </div>
+    </div>
+
     <script src="auth.js"></script>
+    <script type="module" src="detail-reviews.js"></script>
   </body>
 </html>
