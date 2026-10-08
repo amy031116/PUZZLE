@@ -159,7 +159,8 @@
       .info-text {
         position: absolute;
         bottom: calc(
-          7% + (7 / 1080 * 100%) + 18px /* 웹 기본: 위로 5px 올림 (15px + 3px) */
+          7% + (7 / 1080 * 100%) + 18px
+            /* 웹 기본: 위로 5px 올림 (15px + 3px) */
         );
         left: 50%;
         transform: translateX(-50%) scale(0.77); /* 원본 스케일 복구 */
@@ -275,7 +276,9 @@
           top: calc(50 / 1080 * 100% - 10px);
         }
         .info-text {
-          bottom: calc(7% + (7 / 1080 * 100%) + 12px); /* 모바일: 아래로 3px 내림 (15px - 3px) */
+          bottom: calc(
+            7% + (7 / 1080 * 100%) + 10px
+          ); /* 모바일: 아래로 3px 내림 (15px - 3px) */
         }
         .info-period-wrapper {
           margin-top: calc(0.4em - 4px);
