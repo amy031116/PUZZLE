@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 항상 최신 버전을 불러오도록 브라우저 캐시(임시저장) 방지 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Grand Opening – PUZZLE</title>
     <link rel="preload" href="그랜드오프닝/배경_넓게.webp" as="image" />
     <link
@@ -72,7 +76,7 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%) scale(2.4); /* 요소와 여백 비율을 유지한 채 2.6배 통합 확대 */
+        transform: translate(-50%, -50%) scale(2.3); /* 요소와 여백 비율을 유지한 채 2.3배 통합 확대 */
         width: 100vw;
         height: 100vh;
         max-width: calc(100vh * 16 / 9);
@@ -124,7 +128,7 @@
         animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
         object-fit: cover; /* 별도 잘리더라도 화면을 꽉 채움 */
-        object-position: center calc(50% - 15px); /* 중앙에서 위로 15px 올림 */
+        object-position: center center; /* 별 가로세로 중앙 정렬 */
         will-change: transform; /* 애니메이션이 있는 요소에만 적용 */
       }
       .layer-puzzle {
