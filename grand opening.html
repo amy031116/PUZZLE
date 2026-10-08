@@ -4,11 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      // 카카오톡/네이버 등 안드로이드 앱 내 브라우저일 때만 inapp 클래스 추가 (크롬/삼성 등 일반 브라우저는 영향 없음)
-      if (
-        /Android/i.test(navigator.userAgent) &&
-        /KAKAOTALK|NAVER|; wv\)/i.test(navigator.userAgent)
-      ) {
+      // 카카오톡/네이버 등 앱 내 브라우저(안드로이드+아이폰)일 때만 inapp 클래스 추가 (크롬/삼성/사파리 등 일반 브라우저는 영향 없음)
+      if (/KAKAOTALK|NAVER|; wv\)/i.test(navigator.userAgent)) {
         document.documentElement.classList.add("inapp");
       }
     </script>
