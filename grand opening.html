@@ -406,23 +406,43 @@
     </div>
 
     <script>
-      const target = new Date("2026-11-05T18:00:00+09:00");
+      // 이벤트 시작 시간 (한국시간 2026년 11월 5일 18:00)
+      const eventTimeKst = new Date("2026-11-05T18:00:00+09:00");
 
       function update() {
         const now = new Date();
-        const diff = target - now;
+        
+        // 1. 현재 접속자의 시간을 한국 시간(KST, UTC+9)으로 변환
+        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+        const kstNow = new Date(utc + (9 * 3600000));
+        
+        // 2. KST 기준 오늘 자정과 목표일 자정(11월 5일) 만들기
+        // (JavaScript에서 월은 0부터 시작하므로 11월은 10입니다)
+        const todayDate = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate());
+        const targetDate = new Date(2026, 10, 5); 
+        
+        // 3. 자정 기준 날짜 차이 계산
+        const dayDiff = Math.floor((targetDate - todayDate) / 86400000);
 
-        if (diff <= 0) {
+        // 4. 실제 이벤트 시간이 지났는지 확인
+        const timeDiff = eventTimeKst - now;
+
+        if (timeDiff <= 0) {
           document.getElementById("ddayNum").textContent = "D-DAY";
-          // D-Day 도달 시 3초 후 자동으로 메인으로 이동
+          // 이벤트 시간(18:00) 도달 시 3초 후 자동으로 메인으로 이동
           setTimeout(function () {
             location.replace("main.html");
           }, 3000);
           return;
         }
 
-        const days = Math.floor(diff / 86400000);
-        document.getElementById("ddayNum").textContent = "D-" + days;
+        if (dayDiff <= 0) {
+          // 날짜상으로는 11월 5일이 되었지만 아직 오후 6시 전일 때
+          document.getElementById("ddayNum").textContent = "D-DAY";
+        } else {
+          // 그 외의 경우 (밤 12시 땡 치면 숫자가 바뀜)
+          document.getElementById("ddayNum").textContent = "D-" + dayDiff;
+        }
       }
 
       update();
