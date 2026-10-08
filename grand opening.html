@@ -157,8 +157,18 @@
         z-index: 1;
         object-fit: cover; /* 배경은 잘리더라도 화면을 꽉 채움 */
       }
-      .layer-star {
+      .star-wrapper {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: 100vh;
+        max-width: calc(100vh * 16 / 9);
+        max-height: calc(100vw * 9 / 16);
         z-index: 2;
+      }
+      .layer-star {
         animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
         object-fit: cover; /* 별도 잘리더라도 화면을 꽉 채움 */
@@ -220,22 +230,29 @@
       .opening-label {
         letter-spacing: 0.4em;
       }
-      .info-period {
-        font-weight: 400;
-        font-size: 6.84cqi; /* 1.71cqi × 4 */
-      }
       .info-period-wrapper {
+        display: flex;
+        flex-direction: column;
         align-self: center;
         margin-top: 0.4em; /* 웹 기본 */
+        width: max-content;
       }
       .info-period-group {
         display: flex;
         justify-content: flex-start;
         gap: calc(0.2em + 32px); /* 웹 기본: 8px × 4 */
         align-items: center;
+        width: 100%;
       }
       .info-period-group + .info-period-group {
         margin-top: 0.1em; /* 웹 기본 */
+      }
+      .info-period {
+        font-weight: 400;
+        font-size: 6.84cqi; /* 1.71cqi × 4 */
+        display: flex;
+        justify-content: space-between;
+        flex: 1;
       }
 
       /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
@@ -289,6 +306,10 @@
           top: 50%;
           transform: translate(-50%, -50%) scale(2.3);
         }
+        .star-wrapper {
+          max-width: none;
+          max-height: none;
+        }
         /* 앱 브라우저(카톡 등): 크롬/삼성인터넷과 동일한 화면 높이(가로폭의 약 1.965배)로 계산 */
         html.inapp .scene {
           height: max(100vh, calc(100vw * 1.965));
@@ -333,13 +354,15 @@
         decoding="async"
         fetchpriority="high"
       />
-      <!-- 2. 별 (화면 전체 꽉 채우기) -->
-      <img
-        class="layer layer-star"
-        src="그랜드오프닝/별_넓게.webp"
-        alt="별"
-        decoding="async"
-      />
+      <!-- 2. 별 (콘텐츠와 동일한 16:9 비율 유지 래퍼) -->
+      <div class="star-wrapper">
+        <img
+          class="layer layer-star"
+          src="그랜드오프닝/별_넓게.webp"
+          alt="별"
+          decoding="async"
+        />
+      </div>
 
       <div class="content-wrapper">
         <!-- 3. 퍼즐 (안전 영역) -->
@@ -356,17 +379,22 @@
           alt="그랜드 오프닝 타이틀"
           decoding="async"
         />
-        <!-- 5. 텍스트 -->
         <div class="info-text">
           <span class="info-venue">강남 모나코 스페이스</span>
           <div class="info-period-wrapper">
             <div class="info-period-group">
               <span class="info-label opening-label">오프닝</span>
-              <span class="info-period">2026.11.05&emsp;&emsp;06:00 PM</span>
+              <span class="info-period">
+                <span>2026.11.05</span>
+                <span>06:00 PM</span>
+              </span>
             </div>
             <div class="info-period-group">
               <span class="info-label">전시기간</span>
-              <span class="info-period">2026.11.05 ~ 2026.11.09</span>
+              <span class="info-period">
+                <span>2026.11.05</span>
+                <span>~ 2026.11.09</span>
+              </span>
             </div>
           </div>
         </div>
