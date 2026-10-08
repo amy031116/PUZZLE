@@ -376,6 +376,37 @@
       update();
       setInterval(update, 1000);
 
+      // 진단용 표시: 주소 끝에 ?debug=1 이 있을 때만 화면 좌상단에 표시됨
+      if (location.search.indexOf("debug") !== -1) {
+        window.addEventListener("load", function () {
+          const wrap = document.querySelector(".content-wrapper");
+          const grp = document.querySelector(".info-period-group");
+          const cs = wrap ? getComputedStyle(wrap) : null;
+          const gs = grp ? getComputedStyle(grp) : null;
+          const lines = [
+            "BUILD 2026-10-08-A",
+            "inner " + innerWidth + "x" + innerHeight + " dpr " + devicePixelRatio,
+            "screen " + screen.width + "x" + screen.height,
+            "mobileMQ " +
+              matchMedia("(max-width: 1024px), (orientation: portrait)").matches,
+            "cqi " + (window.CSS && CSS.supports("width", "1cqi")),
+            "flexgap " + (window.CSS && CSS.supports("gap", "1px")),
+            "wrap " + (cs ? cs.transform : "-"),
+            "gap " + (gs ? gs.columnGap : "-"),
+            "font " +
+              (document.fonts ? document.fonts.check("700 16px Paperlogy") : "-"),
+            navigator.userAgent.replace(/\(Linux; Android/, "(A").slice(0, 120),
+          ];
+          const box = document.createElement("pre");
+          box.style.cssText =
+            "position:fixed;left:0;top:0;z-index:99999;margin:0;padding:6px;" +
+            "background:rgba(0,0,0,.8);color:#0f0;font:11px/1.35 monospace;" +
+            "white-space:pre-wrap;max-width:100vw;pointer-events:none;";
+          box.textContent = lines.join("\n");
+          document.body.appendChild(box);
+        });
+      }
+
       // 숨겨진 관리자 바이패스: 좌하단 3번 연속 클릭
       let clickCount = 0;
       let clickTimer = null;
