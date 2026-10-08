@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- 항상 최신 버전을 불러오도록 브라우저 캐시(임시저장) 방지 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Grand Opening – PUZZLE</title>
@@ -156,7 +159,7 @@
       .info-text {
         position: absolute;
         bottom: calc(
-          7% + (7 / 1080 * 100%) + 13px /* 웹 기본 */
+          7% + (7 / 1080 * 100%) + 15px /* 웹 기본: 위로 2px 올림 */
         );
         left: 50%;
         transform: translateX(-50%) scale(0.77); /* 원본 스케일 복구 */
@@ -203,7 +206,7 @@
       .info-period-group {
         display: flex;
         justify-content: flex-start;
-        gap: 0.2em; /* 라벨과 날짜 사이 간격을 줄여서 전체 너비를 좁힘 (원래 1.5em) */
+        gap: calc(0.2em + 8px); /* 웹 기본: 라벨과 날짜 사이 간격 2px 넓힘 */
         align-items: center;
       }
       .info-period-group + .info-period-group {
@@ -258,7 +261,7 @@
          ========================================================= */
       @media (max-width: 768px) {
         .content-wrapper {
-          top: calc(50% + 12px);
+          top: 50%;
           transform: translate(-50%, -50%) scale(2.3);
         }
         .layer-star {
@@ -276,6 +279,9 @@
         }
         .info-period-wrapper {
           margin-top: calc(0.4em - 4px);
+        }
+        .info-period-group {
+          gap: 0.2em; /* 모바일은 기존 좁은 간격 유지 */
         }
         .info-period-group + .info-period-group {
           margin-top: calc(0.1em - 1px);
