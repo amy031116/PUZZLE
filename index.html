@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -7,9 +7,9 @@
       // 오픈 시각: 2026-11-05 18:00 KST
       const openTime = new Date("2026-11-05T18:00:00+09:00");
       if (new Date() >= openTime) {
-        location.replace("main.html");
+        location.replace("main.html?v=" + new Date().getTime());
       } else {
-        location.replace("grand opening.html");
+        location.replace("grand opening.html?v=" + new Date().getTime());
       }
     </script>
   </head>
