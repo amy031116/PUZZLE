@@ -157,18 +157,8 @@
         z-index: 1;
         object-fit: cover; /* 배경은 잘리더라도 화면을 꽉 채움 */
       }
-      .star-wrapper {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 100vw;
-        height: 100vh;
-        max-width: calc(100vh * 16 / 9);
-        max-height: calc(100vw * 9 / 16);
-        z-index: 2;
-      }
       .layer-star {
+        z-index: 2;
         animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
         object-fit: cover; /* 별도 잘리더라도 화면을 꽉 채움 */
@@ -306,10 +296,6 @@
           top: 50%;
           transform: translate(-50%, -50%) scale(2.3);
         }
-        .star-wrapper {
-          max-width: none;
-          max-height: none;
-        }
         /* 앱 브라우저(카톡 등): 크롬/삼성인터넷과 동일한 화면 높이(가로폭의 약 1.965배)로 계산 */
         html.inapp .scene {
           height: max(100vh, calc(100vw * 1.965));
@@ -354,15 +340,13 @@
         decoding="async"
         fetchpriority="high"
       />
-      <!-- 2. 별 (콘텐츠와 동일한 16:9 비율 유지 래퍼) -->
-      <div class="star-wrapper">
-        <img
-          class="layer layer-star"
-          src="그랜드오프닝/별_넓게.webp"
-          alt="별"
-          decoding="async"
-        />
-      </div>
+      <!-- 2. 별 (화면 전체 꽉 채우기) -->
+      <img
+        class="layer layer-star"
+        src="그랜드오프닝/별_넓게.webp"
+        alt="별"
+        decoding="async"
+      />
 
       <div class="content-wrapper">
         <!-- 3. 퍼즐 (안전 영역) -->
