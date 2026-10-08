@@ -75,8 +75,8 @@
       .content-wrapper {
         position: absolute;
         left: 50%;
-        top: calc(50% + 12px); /* 메인 요소 전체를 아래로 12px 내림 (10px + 2px) */
-        transform: translate(-50%, -50%) scale(2.3); /* 요소와 여백 비율을 유지한 채 2.3배 통합 확대 */
+        top: 50%; /* 웹 기본: 정중앙 */
+        transform: translate(-50%, -50%) scale(1); /* 웹 기본: 원본 크기 */
         width: 100vw;
         height: 100vh;
         max-width: calc(100vh * 16 / 9);
@@ -89,10 +89,19 @@
       @keyframes starPulse {
         0%,
         100% {
-          transform: scale(1.43) translateZ(0); /* 1.1 * 1.3배 */
+          transform: scale(1.1) translateZ(0); /* 웹 기본 */
         }
         50% {
-          transform: scale(1.495) translateZ(0); /* 1.15 * 1.3배 */
+          transform: scale(1.15) translateZ(0); /* 웹 기본 */
+        }
+      }
+      @keyframes starPulseMobile {
+        0%,
+        100% {
+          transform: scale(1.43) translateZ(0); /* 모바일: 1.3배 */
+        }
+        50% {
+          transform: scale(1.495) translateZ(0); /* 모바일: 1.3배 */
         }
       }
 
@@ -128,17 +137,17 @@
         animation: starPulse 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
         transform-origin: center center;
         object-fit: cover; /* 별도 잘리더라도 화면을 꽉 채움 */
-        object-position: center center; /* 별 가로세로 중앙 정렬 */
+        object-position: center center; /* 웹 기본 */
         will-change: transform; /* 애니메이션이 있는 요소에만 적용 */
       }
       .layer-puzzle {
         z-index: 3;
-        top: calc(20 / 1080 * 100% - 10px); /* 위로 10px 올림 */
+        top: calc(20 / 1080 * 100%); /* 웹 기본 */
         transform: translateZ(0) scale(0.5); /* 원본 스케일 복구 */
       }
       .layer-title {
         z-index: 4;
-        top: calc(50 / 1080 * 100% - 10px); /* 위로 10px 올림 */
+        top: calc(50 / 1080 * 100%); /* 웹 기본 */
         transform: translateZ(0) scale(0.9); /* 원본 스케일 복구 */
         transform-origin: top center;
       }
@@ -147,7 +156,7 @@
       .info-text {
         position: absolute;
         bottom: calc(
-          7% + (7 / 1080 * 100%) + 15px /* 3px 아래로 내림 (+18px -> +15px) */
+          7% + (7 / 1080 * 100%) + 13px /* 웹 기본 */
         );
         left: 50%;
         transform: translateX(-50%) scale(0.77); /* 원본 스케일 복구 */
@@ -189,7 +198,7 @@
       }
       .info-period-wrapper {
         align-self: center;
-        margin-top: calc(0.4em - 4px); /* 오프닝 위로 2px 올림 (-2px -> -4px) */
+        margin-top: 0.4em; /* 웹 기본 */
       }
       .info-period-group {
         display: flex;
@@ -198,13 +207,13 @@
         align-items: center;
       }
       .info-period-group + .info-period-group {
-        margin-top: calc(0.1em - 1px); /* 전시기간 위치 유지 (-3px -> -1px) */
+        margin-top: 0.1em; /* 웹 기본 */
       }
 
       /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
       .dday-outer {
         position: absolute;
-        top: calc(6% + (10 / 1080 * 100%) - 10px); /* 위로 10px 올림 */
+        top: calc(6% + (10 / 1080 * 100%)); /* 웹 기본 */
         left: 50%;
         transform: translateX(-50%) scale(0.9); /* 원본 스케일 복구 */
         transform-origin: top center;
@@ -242,6 +251,38 @@
       }
       .admin-bypass:active {
         opacity: 0.5;
+      }
+
+      /* =========================================================
+         모바일 전용 레이아웃 (지금까지 수정한 2.3배 확대 및 픽셀 보정)
+         ========================================================= */
+      @media (max-width: 768px) {
+        .content-wrapper {
+          top: calc(50% + 12px);
+          transform: translate(-50%, -50%) scale(2.3);
+        }
+        .layer-star {
+          animation: starPulseMobile 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+          object-position: center calc(50% - 15px);
+        }
+        .layer-puzzle {
+          top: calc(20 / 1080 * 100% - 10px);
+        }
+        .layer-title {
+          top: calc(50 / 1080 * 100% - 10px);
+        }
+        .info-text {
+          bottom: calc(7% + (7 / 1080 * 100%) + 15px);
+        }
+        .info-period-wrapper {
+          margin-top: calc(0.4em - 4px);
+        }
+        .info-period-group + .info-period-group {
+          margin-top: calc(0.1em - 1px);
+        }
+        .dday-outer {
+          top: calc(6% + (10 / 1080 * 100%) - 10px);
+        }
       }
     </style>
   </head>
