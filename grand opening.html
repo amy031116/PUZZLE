@@ -3,6 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // 카카오톡/네이버 등 안드로이드 앱 내 브라우저일 때만 inapp 클래스 추가 (크롬/삼성 등 일반 브라우저는 영향 없음)
+      if (
+        /Android/i.test(navigator.userAgent) &&
+        /KAKAOTALK|NAVER|; wv\)/i.test(navigator.userAgent)
+      ) {
+        document.documentElement.classList.add("inapp");
+      }
+    </script>
     <!-- 항상 최신 버전을 불러오도록 브라우저 캐시(임시저장) 방지 -->
     <meta
       http-equiv="Cache-Control"
@@ -282,6 +291,10 @@
         .content-wrapper {
           top: 50%;
           transform: translate(-50%, -50%) scale(2.3);
+        }
+        /* 앱 브라우저(카톡 등): 크롬/삼성인터넷과 동일한 화면 높이(가로폭의 약 1.965배)로 계산 */
+        html.inapp .scene {
+          height: max(100vh, calc(100vw * 1.965));
         }
         .layer-star {
           animation: starPulseMobile 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
