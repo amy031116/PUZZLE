@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <script src="gate-guard.js"></script>
     <meta name="viewport" content="width=1200" />
+    <!-- ========================================================
+         ★ [수정 1] 브라우저 상단 탭 제목 (선택 사항)
+         ======================================================== -->
     <title>PUZZLE - Detail</title>
     <style>
       /* ==========================================
@@ -232,6 +235,8 @@
         padding-left: 20px;
         display: flex;
         flex-direction: column;
+        height: 600px;
+        box-sizing: border-box;
       }
 
       .hero-title-row {
@@ -283,6 +288,7 @@
 
       .hero-info h2 {
         font-size: 18px;
+        line-height: 23px;
         margin: 0 0 10px 0;
         font-weight: 600;
       }
@@ -314,8 +320,32 @@
       .hero-details {
         font-size: 15px;
         line-height: 1.8;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         font-weight: 600;
+        overflow-y: scroll;
+        padding-right: 14px;
+        margin-right: -16px;
+      }
+      .hero-details::-webkit-scrollbar {
+        width: 6px;
+      }
+      .hero-details::-webkit-scrollbar-track {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
+      .hero-details::-webkit-scrollbar-thumb {
+        background: #64748b;
+        border-radius: 10px;
+        transition: background 0.2s ease;
+      }
+      .hero-details::-webkit-scrollbar-thumb:hover {
+        background: var(--pink, #ff2482);
+      }
+      @supports not selector(::-webkit-scrollbar) {
+        .hero-details {
+          scrollbar-width: thin;
+          scrollbar-color: #64748b #e2e8f0;
+        }
       }
 
       .hero-extra-meta {
@@ -324,18 +354,25 @@
       .meta-table {
         border-top: 1px solid #e0e5ea;
         border-bottom: 1px solid #e0e5ea;
-        margin: 10px 0 20px 0;
+        margin: 10px 0 0 0;
       }
       .meta-row {
         display: flex;
         padding: 12px 10px;
         border-bottom: 1px solid #f2f7f9;
         font-size: 14px;
+        line-height: 18px;
         color: #333;
         gap: 15px;
       }
       .meta-row:last-child {
         border-bottom: none;
+      }
+      .meta-col {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex: 1;
       }
       .meta-label {
         width: 70px;
@@ -1058,6 +1095,12 @@
           padding-left: 0;
           order: 3;
           margin-top: 20px;
+          height: auto;
+        }
+        .hero-details {
+          margin-right: 0;
+          padding-right: 0;
+          overflow-y: visible;
         }
         .bg-decor {
           display: none !important;
@@ -1180,7 +1223,9 @@
     <div class="breadcrumb-bar">
       <ol class="breadcrumb">
         <li><a href="work.html">PRODUCTS</a></li>
+        <!-- ★ [수정 2] 섹션 (카테고리/학과 링크 및 이름) -->
         <li><a href="work.html?category=%EB%AA%A8%EC%85%98%EA%B7%B8%EB%9E%98%ED%94%BD">Motion Graphic</a></li>
+        <!-- ★ [수정 3] 상단 경로 작품 이름 -->
         <li>은단의 변신은 무죄</li>
       </ol>
     </div>
@@ -1193,6 +1238,7 @@
         <div class="bg-decor decor-pink-rect"></div>
         <div class="bg-decor decor-blue-circle-small"></div>
 
+        <!-- ★ [수정 4] 좌측 세로 썸네일 이미지들 (5개) -->
         <div class="hero-thumbnails">
           <div class="hero-thumb">
             <img
@@ -1230,6 +1276,8 @@
             />
           </div>
         </div>
+
+        <!-- ★ [수정 5] 가운데 대표 메인 이미지 -->
         <div class="hero-main-image">
           <img
             id="hero-main-img"
@@ -1237,7 +1285,10 @@
             alt="메인 이미지"
           />
         </div>
+
+        <!-- 우측 작품 정보 영역 -->
         <div class="hero-info">
+          <!-- ★ [수정 6] 작품 이름 (메인 제목) -->
           <div class="hero-title-row">
             <h1>은단의 변신은 무죄</h1>
             <div class="hero-round-actions">
@@ -1265,7 +1316,10 @@
               </button>
             </div>
           </div>
+
+          <!-- ★ [수정 7] 한 줄 소개 (부제목) -->
           <h2>고려은단의 새로운 모습으로의 변신!</h2>
+
           <div class="hero-rating" id="heroRatingContainer">
             <span class="stars" id="starRatingUI">
               <span class="star" data-value="1">★</span>
@@ -1278,8 +1332,10 @@
             <span class="reviews" id="reviewCountBtn">(0)</span>
           </div>
 
+          <!-- ★ [수정 8] 해시태그 키워드 -->
           <div class="meta-tags">#즐거운 #신나는 #리듬적인</div>
 
+          <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
             오래되고, 익숙하지 않은 형태의 은단.<br />
             현대의 1020 세대들도 쉽고 맛있고 즐겁게 누릴 수 있는<br />
@@ -1290,12 +1346,21 @@
             새로운 브랜드와 모습을 즐겨보세요!<br />
           </div>
 
+          <!-- 메타 테이블 -->
           <div class="hero-extra-meta">
             <div class="meta-table">
+              <!-- ★ [수정 10] 학생 이름 (제작자) 및 지도 교수 -->
               <div class="meta-row">
-                <span class="meta-label">제작자</span>
-                <span class="meta-value">이희서</span>
+                <div class="meta-col">
+                  <span class="meta-label">제작자</span>
+                  <span class="meta-value">이희서</span>
+                </div>
+                <div class="meta-col">
+                  <span class="meta-label">지도 교수</span>
+                  <span class="meta-value">지도교수</span>
+                </div>
               </div>
+              <!-- ★ [수정 11] 제작기간, 영상포멧, 사용 툴 -->
               <div class="meta-row">
                 <span class="meta-label">제작기간</span>
                 <span class="meta-value">2026.03 ~ 2026.11</span>
@@ -1315,7 +1380,7 @@
         </div>
       </div>
 
-      <!-- 2-2. 영상 섹션 -->
+      <!-- ★ [수정 12] 영상 섹션 (유튜브 썸네일 이미지) -->
       <div class="video-section" id="videoThumb">
         <img
           class="video-thumb"
@@ -1342,7 +1407,7 @@
         </div>
       </div>
 
-      <!-- 2-3. 작품 세부 이미지 -->
+      <!-- ★ [수정 13] 하단 작품 세부 이미지들 -->
       <div class="detail-images">
         <img src="작품세부페이지/1.png" alt="작품 세부 이미지 1" />
         <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
@@ -1429,6 +1494,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
+      // ★ [수정 14] 유튜브 영상 고유 ID (유튜브 링크 watch?v= 뒤의 영문/숫자 코드)
       const YT_ID = "r2eoeCk171I";
 
       videoThumb.addEventListener("click", () => {
