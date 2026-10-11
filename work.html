@@ -1486,24 +1486,16 @@
            ※ 이미지 경로 수정: 아래 JS의 SLIDER_IMAGES 배열만 수정하세요
            ※ 미리보기 확인: slider-images.html 열기
       ================================================ -->
-      <section class="slider-section" aria-label="작품 이미지 슬라이더">
+      <section class="slider-section">
         <div class="slider-container">
           <div class="slider-track" id="sliderTrack"></div>
 
-          <button
-            class="slider-btn prev"
-            id="sliderPrev"
-            aria-label="이전 이미지"
-          >
+          <button class="slider-btn prev" id="sliderPrev">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
-          <button
-            class="slider-btn next"
-            id="sliderNext"
-            aria-label="다음 이미지"
-          >
+          <button class="slider-btn next" id="sliderNext">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <polyline points="9 18 15 12 9 6" />
             </svg>
@@ -1518,12 +1510,7 @@
       <section class="category-section">
         <h2 class="category-title">CATEGORY</h2>
         <div class="category-inner">
-          <a
-            class="category-btn"
-            href="#trend"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠"
-          >
+          <a class="category-btn" href="#trend" data-category="게임컨텐츠">
             <div class="category-circle c1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1545,12 +1532,7 @@
             </div>
             <span class="category-label">게임컨텐츠</span>
           </a>
-          <a
-            class="category-btn"
-            href="#trend"
-            data-category="멀티미디어"
-            aria-label="멀티미디어"
-          >
+          <a class="category-btn" href="#trend" data-category="멀티미디어">
             <div class="category-circle c2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1566,12 +1548,7 @@
             </div>
             <span class="category-label">멀티미디어</span>
           </a>
-          <a
-            class="category-btn"
-            href="#trend"
-            data-category="모션그래픽"
-            aria-label="모션그래픽"
-          >
+          <a class="category-btn" href="#trend" data-category="모션그래픽">
             <div class="category-circle c3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1590,12 +1567,7 @@
             </div>
             <span class="category-label">모션그래픽</span>
           </a>
-          <a
-            class="category-btn"
-            href="#trend"
-            data-category="애니메이션"
-            aria-label="애니메이션"
-          >
+          <a class="category-btn" href="#trend" data-category="애니메이션">
             <div class="category-circle c4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1632,262 +1604,297 @@
         <div class="trend-grid" id="trendGrid">
           <a
             class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 1"
-            style="background-color: #ff2482"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 2"
-            style="background-color: #ff6b6b"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 3"
-            style="background-color: #ff4500"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 4"
-            style="background-color: #ff8000"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 5"
-            style="background-color: #ffc20d"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 6"
-            style="background-color: #c6ff00"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 7"
-            style="background-color: #00c853"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="게임컨텐츠"
-            aria-label="게임컨텐츠 작품 8"
-            style="background-color: #00e5aa"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="멀티미디어"
-            aria-label="멀티미디어 작품 1"
-            style="background-color: #4ecdc4"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="멀티미디어"
-            aria-label="멀티미디어 작품 2"
-            style="background-color: #00bcd4"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="멀티미디어"
-            aria-label="멀티미디어 작품 3"
+            href="detail_1.html"
+            data-category="애니메이션"
             style="background-color: #407dff"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_2.html"
+            data-category="모션그래픽"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_3.html"
+            data-category="애니메이션"
+            style="background-color: #00c853"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_4.html"
+            data-category="게임컨텐츠"
+            style="background-color: #9b0045"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_5.html"
             data-category="멀티미디어"
-            aria-label="멀티미디어 작품 4"
-            style="background-color: #3d5afe"
+            style="background-color: #ff2482"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_6.html"
+            data-category="모션그래픽"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_7.html"
+            data-category="애니메이션"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_8.html"
+            data-category="게임컨텐츠"
+            style="background-color: #00c853"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_9.html"
             data-category="멀티미디어"
-            aria-label="멀티미디어 작품 5"
-            style="background-color: #651fff"
+            style="background-color: #9b0045"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_10.html"
+            data-category="모션그래픽"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_11.html"
+            data-category="애니메이션"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_12.html"
+            data-category="게임컨텐츠"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_13.html"
             data-category="멀티미디어"
-            aria-label="멀티미디어 작품 6"
-            style="background-color: #aa00ff"
+            style="background-color: #00c853"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_14.html"
+            data-category="모션그래픽"
+            style="background-color: #9b0045"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_15.html"
+            data-category="애니메이션"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_16.html"
+            data-category="게임컨텐츠"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_17.html"
             data-category="멀티미디어"
-            aria-label="멀티미디어 작품 7"
-            style="background-color: #be6edd"
+            style="background-color: #ffc20d"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_18.html"
+            data-category="모션그래픽"
+            style="background-color: #00c853"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_19.html"
+            data-category="애니메이션"
+            style="background-color: #9b0045"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_20.html"
+            data-category="게임컨텐츠"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_21.html"
             data-category="멀티미디어"
-            aria-label="멀티미디어 작품 8"
-            style="background-color: #ff40fb"
+            style="background-color: #407dff"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_22.html"
             data-category="모션그래픽"
-            aria-label="모션그래픽 작품 1"
-            style="background-color: #ff1744"
+            style="background-color: #ffc20d"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_23.html"
+            data-category="애니메이션"
+            style="background-color: #00c853"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_24.html"
+            data-category="게임컨텐츠"
+            style="background-color: #9b0045"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_25.html"
+            data-category="멀티미디어"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_26.html"
             data-category="모션그래픽"
-            aria-label="모션그래픽 작품 2"
-            style="background-color: #ff6d00"
+            style="background-color: #407dff"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_27.html"
+            data-category="애니메이션"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_28.html"
+            data-category="게임컨텐츠"
+            style="background-color: #00c853"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_29.html"
+            data-category="멀티미디어"
+            style="background-color: #9b0045"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_30.html"
             data-category="모션그래픽"
-            aria-label="모션그래픽 작품 3"
-            style="background-color: #ffab40"
+            style="background-color: #ff2482"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_31.html"
+            data-category="애니메이션"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_32.html"
+            data-category="게임컨텐츠"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_33.html"
+            data-category="멀티미디어"
+            style="background-color: #00c853"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_34.html"
             data-category="모션그래픽"
-            aria-label="모션그래픽 작품 4"
-            style="background-color: #b5cc18"
+            style="background-color: #9b0045"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_35.html"
+            data-category="애니메이션"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_36.html"
+            data-category="게임컨텐츠"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_37.html"
+            data-category="멀티미디어"
+            style="background-color: #ffc20d"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_38.html"
             data-category="모션그래픽"
-            aria-label="모션그래픽 작품 5"
-            style="background-color: #40c057"
+            style="background-color: #00c853"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_39.html"
+            data-category="애니메이션"
+            style="background-color: #9b0045"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_40.html"
+            data-category="게임컨텐츠"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_41.html"
+            data-category="멀티미디어"
+            style="background-color: #407dff"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_42.html"
             data-category="모션그래픽"
-            aria-label="모션그래픽 작품 6"
-            style="background-color: #26a69a"
+            style="background-color: #ffc20d"
           ></a>
           <a
             class="card tall"
-            href="#"
+            href="detail_43.html"
+            data-category="애니메이션"
+            style="background-color: #00c853"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_44.html"
+            data-category="게임컨텐츠"
+            style="background-color: #9b0045"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_45.html"
+            data-category="멀티미디어"
+            style="background-color: #ff2482"
+          ></a>
+          <a
+            class="card tall"
+            href="detail_46.html"
             data-category="모션그래픽"
-            aria-label="모션그래픽 작품 7"
-            style="background-color: #29b6f6"
+            style="background-color: #407dff"
           ></a>
           <a
             class="card tall"
-            href="#"
-            data-category="모션그래픽"
-            aria-label="모션그래픽 작품 8"
-            style="background-color: #42a5f5"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="모션그래픽"
-            aria-label="모션그래픽 작품 9"
-            style="background-color: #5c6bc0"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
+            href="detail_47.html"
             data-category="애니메이션"
-            aria-label="애니메이션 작품 1"
-            style="background-color: #ab47bc"
+            style="background-color: #ffc20d"
           ></a>
           <a
             class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 2"
-            style="background-color: #ec407a"
+            href="detail_48.html"
+            data-category="게임컨텐츠"
+            style="background-color: #00c853"
           ></a>
           <a
             class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 3"
-            style="background-color: #ff7043"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 4"
-            style="background-color: #ffca28"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 5"
-            style="background-color: #a5d6a7"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 6"
-            style="background-color: #26c6da"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 7"
-            style="background-color: #1565c0"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 8"
-            style="background-color: #7e57c2"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 9"
-            style="background-color: #e91e63"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 10"
-            style="background-color: #78909c"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 11"
-            style="background-color: #bf360c"
-          ></a>
-          <a
-            class="card tall"
-            href="#"
-            data-category="애니메이션"
-            aria-label="애니메이션 작품 12"
-            style="background-color: #37474f"
+            href="detail_49.html"
+            data-category="멀티미디어"
+            style="background-color: #9b0045"
           ></a>
         </div>
       </section>
@@ -1905,18 +1912,17 @@
             href="https://www.mju.ac.kr/mjukr/index.do"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="배너 1"
           >
             <img src="웹 에셋/1_명지대 배너.webp" alt="배너 1" />
           </a>
 
           <!-- 배너 2 ※ href="" 안에 이동할 페이지 주소 입력 -->
-          <a class="banner-item" href="about.html" aria-label="배너 2">
+          <a class="banner-item" href="about.html">
             <img src="웹 에셋\2_메인 영상 배너0.webp" alt="배너 2" />
           </a>
 
           <!-- 배너 3 ※ href="" 안에 이동할 페이지 주소 입력 -->
-          <a class="banner-item" href="" aria-label="배너 3">
+          <a class="banner-item" href="">
             <img src="웹 에셋/3_명지대 종준 인스타 배너.webp" alt="배너 3" />
           </a>
         </div>
@@ -1936,409 +1942,593 @@
         <i class="sticker extra9" aria-hidden="true"></i>
         <i class="sticker extra10" aria-hidden="true"></i>
         <div class="works-grid">
-          <article class="work-item">
+          <article class="work-item" data-category="멀티미디어">
             <a
               class="card tall"
-              href="detail.html"
-              aria-label="작품 상세 1"
+              href="detail_1.html"
+              style="background-color: #407dff"
             ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>PHOENIX</strong>
+              <span class="name">강재준</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 2"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_2.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 2</strong>
+              <span class="name">디자이너 2</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 3"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_3.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 3</strong>
+              <span class="name">디자이너 3</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_4.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 4</strong>
+              <span class="name">디자이너 4</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 5"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_5.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 5</strong>
+              <span class="name">디자이너 5</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 6"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_6.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 6</strong>
+              <span class="name">디자이너 6</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 7"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_7.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 7</strong>
+              <span class="name">디자이너 7</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card tall" href="#" aria-label="작품 상세 8"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_8.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 8</strong>
+              <span class="name">디자이너 8</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_9.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 9</strong>
+              <span class="name">디자이너 9</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_10.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 10</strong>
+              <span class="name">디자이너 10</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_11.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 11</strong>
+              <span class="name">디자이너 11</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_12.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 12</strong>
+              <span class="name">디자이너 12</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_13.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 13</strong>
+              <span class="name">디자이너 13</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_14.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 14</strong>
+              <span class="name">디자이너 14</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_15.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 15</strong>
+              <span class="name">디자이너 15</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_16.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 16</strong>
+              <span class="name">디자이너 16</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_17.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 17</strong>
+              <span class="name">디자이너 17</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_18.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 18</strong>
+              <span class="name">디자이너 18</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_19.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 19</strong>
+              <span class="name">디자이너 19</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_20.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 20</strong>
+              <span class="name">디자이너 20</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_21.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 21</strong>
+              <span class="name">디자이너 21</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_22.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 22</strong>
+              <span class="name">디자이너 22</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_23.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 23</strong>
+              <span class="name">디자이너 23</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_24.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 24</strong>
+              <span class="name">디자이너 24</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_25.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 25</strong>
+              <span class="name">디자이너 25</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_26.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 26</strong>
+              <span class="name">디자이너 26</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_27.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 27</strong>
+              <span class="name">디자이너 27</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_28.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 28</strong>
+              <span class="name">디자이너 28</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_29.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 29</strong>
+              <span class="name">디자이너 29</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_30.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 30</strong>
+              <span class="name">디자이너 30</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_31.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 31</strong>
+              <span class="name">디자이너 31</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_32.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 32</strong>
+              <span class="name">디자이너 32</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_33.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 33</strong>
+              <span class="name">디자이너 33</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_34.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 34</strong>
+              <span class="name">디자이너 34</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_35.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 35</strong>
+              <span class="name">디자이너 35</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_36.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 36</strong>
+              <span class="name">디자이너 36</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_37.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 37</strong>
+              <span class="name">디자이너 37</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_38.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 38</strong>
+              <span class="name">디자이너 38</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_39.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 39</strong>
+              <span class="name">디자이너 39</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_40.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 40</strong>
+              <span class="name">디자이너 40</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_41.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 41</strong>
+              <span class="name">디자이너 41</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_42.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 42</strong>
+              <span class="name">디자이너 42</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_43.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 43</strong>
+              <span class="name">디자이너 43</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_44.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 44</strong>
+              <span class="name">디자이너 44</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_45.html"
+              style="background-color: #ff2482"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 45</strong>
+              <span class="name">디자이너 45</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="모션그래픽">
+            <a
+              class="card tall"
+              href="detail_46.html"
+              style="background-color: #407dff"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">모션그래픽</span>
+              <strong>작품 제목 46</strong>
+              <span class="name">디자이너 46</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="애니메이션">
+            <a
+              class="card tall"
+              href="detail_47.html"
+              style="background-color: #ffc20d"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">애니메이션</span>
+              <strong>작품 제목 47</strong>
+              <span class="name">디자이너 47</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="게임컨텐츠">
+            <a
+              class="card tall"
+              href="detail_48.html"
+              style="background-color: #00c853"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">게임컨텐츠</span>
+              <strong>작품 제목 48</strong>
+              <span class="name">디자이너 48</span>
             </div>
           </article>
-          <article class="work-item">
-            <a class="card" href="#" aria-label="작품 카드 4"></a>
+          <article class="work-item" data-category="멀티미디어">
+            <a
+              class="card tall"
+              href="detail_49.html"
+              style="background-color: #9b0045"
+            ></a>
             <div class="meta">
-              <span class="major">전공 - Light 14px</span>
-              <strong>작품 제목 - Bold 18px</strong>
-              <span class="name">이름 - Semibold 16px</span>
+              <span class="major">멀티미디어</span>
+              <strong>작품 제목 49</strong>
+              <span class="name">디자이너 49</span>
             </div>
-          </article>
-
-          <article class="work-item">
-            <div
-              class="card empty"
-              aria-hidden="true"
-              style="background-color: var(--wine)"
-            ></div>
           </article>
         </div>
       </section>
@@ -2360,7 +2550,7 @@
     <!-- 5. 하단 푸터 본문 (공통 유지) -->
     <footer>
       <div class="footer-inner">
-        <a class="top-btn" href="#top" aria-label="맨 위로 이동">TOP</a>
+        <a class="top-btn" href="#top">TOP</a>
         <img class="footer-logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
 
         <div class="footer-info">
@@ -2438,7 +2628,10 @@
         // 카테고리 선택: 카드 필터링 + 버튼 활성 표시
         function selectCategory(cat) {
           btns.forEach((b) =>
-            b.classList.toggle("active", b.getAttribute("data-category") === cat),
+            b.classList.toggle(
+              "active",
+              b.getAttribute("data-category") === cat,
+            ),
           );
 
           // 모든 카드 숨김 및 order 초기화
