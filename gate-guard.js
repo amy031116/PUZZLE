@@ -1,7 +1,7 @@
 // gate-guard.js
 // 관리자 접근 허용 시(sessionStorage에 기록됨) 리다이렉트를 건너뜀
 (function () {
-  if (sessionStorage.getItem("adminBypass") === "true") {
+  if (sessionStorage.getItem("adminBypass") === "true" || localStorage.getItem("adminBypass") === "true") {
     return;
   }
 

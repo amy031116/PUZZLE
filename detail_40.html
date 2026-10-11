@@ -1,0 +1,1583 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <script src="gate-guard.js"></script>
+    <meta name="viewport" content="width=1200" />
+    <!-- ========================================================
+         ★ [수정 1] 브라우저 상단 탭 제목 (선택 사항)
+         ======================================================== -->
+    <title>PUZZLE - 게임컨텐츠 40</title>
+    <style>
+      /* ==========================================
+         1. 브랜드 고유 폰트 에셋 세팅 
+      ========================================== */
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2")
+          format("woff2");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Hackensack";
+        src: url("./fonts/Hackensack.otf") format("opentype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Built Titling";
+        src: url("./fonts/BuiltTitling.otf") format("opentype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      /* ==========================================
+         2. 글로벌 디자인 시스템 토큰
+      ========================================== */
+      :root {
+        --pink: #ff2482;
+        --blue: #407dff;
+        --yellow: #ffc20d;
+        --cream: #f2f7f9;
+        --gray: #b7b7b7;
+        --black: #080808;
+        --wine: #9b0045;
+        --max: 1200px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background: #ffffff; /* 상세페이지 배경은 흰색으로 보임 */
+      }
+
+      body {
+        margin: 0;
+        color: var(--black);
+        font-family: "Paperlogy", Pretendard, sans-serif;
+        font-weight: 500;
+        overflow-x: auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ==========================================
+         3. 공통 컴포넌트: 내비게이션 바
+      ========================================== */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 80px;
+        background: #f2f7f9;
+        border-bottom: 1px solid #cbd0d6;
+      }
+
+      .nav-inner {
+        width: 100%;
+        padding: 0 40px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        width: 60px;
+        height: auto;
+        display: block;
+        flex: 0 0 auto;
+        margin-right: 40px;
+        margin-top: 2px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 18px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .nav-links a,
+      .auth {
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a.active {
+        color: #407dff;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible,
+      .auth:hover,
+      .auth:focus-visible {
+        color: #ff2b85;
+      }
+
+      .auth {
+        margin-left: auto;
+        font-size: 18px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      /* ==========================================
+         4. 상세 페이지 콘텐츠
+      ========================================== */
+      .detail-container {
+        width: var(--max);
+        margin: 60px auto 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+      }
+
+      /* 새롭게 추가된 상품 최상단 섹션 */
+      .product-hero-section {
+        display: flex;
+        gap: 30px;
+        position: relative;
+        z-index: 10;
+        margin-top: 40px;
+        transform: scale(1.1);
+        transform-origin: top center;
+        margin-bottom: 60px; /* 10% 커지며 늘어난 세로 높이 보정 */
+      }
+
+      .hero-thumbnails {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 108px;
+        flex-shrink: 0;
+      }
+      .hero-thumb {
+        background-color: #b3b3b3;
+        border-radius: 15px;
+        height: 108px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        color: #000;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .hero-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 15px;
+        display: block;
+      }
+
+      .hero-main-image {
+        background-color: #b3b3b3;
+        border-radius: 40px;
+        width: 600px;
+        flex-shrink: 0;
+        height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #000;
+        overflow: hidden;
+      }
+
+      .hero-main-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 40px;
+        display: block;
+      }
+
+      .hero-info {
+        flex-grow: 1;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        box-sizing: border-box;
+      }
+
+      .hero-title-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2px;
+      }
+      .hero-title-row h1 {
+        font-size: 28px;
+        margin: 0;
+        line-height: 1.2;
+      }
+      .hero-round-actions {
+        display: flex;
+        gap: 12px;
+      }
+      .round-btn-action {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 2px solid #e0e5ea;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease;
+      }
+      .round-btn-action:hover {
+        transform: translateY(-2px);
+        border-color: var(--pink);
+      }
+      .round-btn-action svg {
+        width: 22px;
+        height: 22px;
+        fill: #333;
+        transition: fill 0.2s ease;
+      }
+      .round-btn-action:hover svg,
+      .round-btn-action.active svg {
+        fill: var(--pink);
+      }
+      .round-btn-action.active {
+        border-color: var(--pink);
+      }
+
+      .hero-info h2 {
+        font-size: 18px;
+        line-height: 23px;
+        margin: 0 0 10px 0;
+        font-weight: 600;
+      }
+
+      .hero-rating {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+
+      .hero-rating .stars {
+        color: var(--pink);
+        letter-spacing: 1px;
+      }
+
+      .hero-rating .score {
+        font-weight: 700;
+        color: var(--black);
+      }
+
+      .hero-rating .reviews {
+        font-size: 14px;
+        color: #888;
+        font-weight: 500;
+      }
+
+      .hero-details {
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        font-weight: 600;
+        overflow-y: scroll;
+        padding-right: 14px;
+        margin-right: -16px;
+      }
+      .hero-details::-webkit-scrollbar {
+        width: 6px;
+      }
+      .hero-details::-webkit-scrollbar-track {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
+      .hero-details::-webkit-scrollbar-thumb {
+        background: #64748b;
+        border-radius: 10px;
+        transition: background 0.2s ease;
+      }
+      .hero-details::-webkit-scrollbar-thumb:hover {
+        background: var(--pink, #ff2482);
+      }
+      @supports not selector(::-webkit-scrollbar) {
+        .hero-details {
+          scrollbar-width: thin;
+          scrollbar-color: #64748b #e2e8f0;
+        }
+      }
+
+      .hero-extra-meta {
+        margin-top: auto;
+      }
+      .meta-table {
+        border-top: 1px solid #e0e5ea;
+        border-bottom: 1px solid #e0e5ea;
+        margin: 10px 0 0 0;
+      }
+      .meta-row {
+        display: flex;
+        padding: 12px 10px;
+        border-bottom: 1px solid #f2f7f9;
+        font-size: 14px;
+        line-height: 18px;
+        color: #333;
+        gap: 15px;
+      }
+      .meta-row:last-child {
+        border-bottom: none;
+      }
+      .meta-col {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex: 1;
+      }
+      .meta-label {
+        width: 70px;
+        font-weight: 700;
+        color: #555;
+      }
+      .meta-value {
+        font-weight: 600;
+        flex: 1;
+      }
+      .meta-tags {
+        font-size: 15px;
+        color: var(--pink);
+        font-weight: 700;
+        margin-bottom: 30px;
+      }
+
+      /* 배경 데코레이션 */
+      .bg-decor {
+        position: absolute;
+        z-index: -1;
+      }
+      /* .decor-blue-circle {
+        top: 20px;
+        left: -150px;
+        width: 150px;
+        height: 150px;
+        background-color: var(--blue);
+        border-radius: 50%;
+      }
+      .decor-pink-rect {
+        top: 30px;
+        right: -80px;
+        width: 100px;
+        height: 60px;
+        background-color: var(--pink);
+        transform: rotate(-15deg);
+        border-radius: 10px;
+      }
+      .decor-blue-circle-small {
+        top: 60px;
+        right: -100px;
+        width: 50px;
+        height: 50px;
+        background-color: var(--blue);
+        border-radius: 50%;
+      } */
+
+      .top-section {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr;
+        gap: 30px;
+      }
+
+      .placeholder-box {
+        background-color: #b3b3b3;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #000;
+        min-height: 500px;
+      }
+
+      .info-box {
+        background-color: var(--blue);
+        border-radius: 40px;
+        padding: 50px 40px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        /* To create the overlapping circle effect seen in mockup */
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box::after {
+        content: "";
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 250px;
+        height: 250px;
+        background-color: #558dff;
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .info-box > * {
+        position: relative;
+        z-index: 2;
+      }
+
+      .info-box h2 {
+        margin: 0 0 20px 0;
+        font-size: 24px;
+        color: #000;
+      }
+
+      .info-box p {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #000;
+        font-weight: 700;
+      }
+
+      .video-section {
+        width: 1200px;
+        height: 675px;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        transform: scale(1.1);
+        transform-origin: top center;
+        margin-bottom: 67.5px; /* 10% 증가된 세로 길이만큼 여백 보정 */
+      }
+
+      .video-section img.video-thumb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .video-play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+        pointer-events: none;
+      }
+
+      .video-section:hover .video-play-btn {
+        background: rgba(255, 255, 255, 1);
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+
+      .video-play-btn svg {
+        width: 32px;
+        height: 32px;
+        margin-left: 4px;
+        fill: var(--black);
+      }
+
+      /* 영상 전체화면 모달 */
+      .video-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .video-modal.open {
+        display: flex;
+      }
+
+      .video-modal-inner {
+        position: relative;
+        width: min(100vw, 177.78vh);
+        aspect-ratio: 16 / 9;
+      }
+
+      .video-modal-inner iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .modal-close {
+        position: fixed;
+        top: 20px;
+        right: 28px;
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: 36px;
+        cursor: pointer;
+        line-height: 1;
+        transition: opacity 0.2s;
+        z-index: 10000;
+      }
+
+      .modal-close:hover {
+        opacity: 0.7;
+      }
+
+      .detail-images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 0;
+      }
+
+      .detail-images img {
+        width: 900px;
+        height: auto;
+        display: block;
+      }
+
+      /* ==========================================
+         6. 공통 컴포넌트: 푸터 내비게이션 & 본문
+      ========================================== */
+      .footer-menu {
+        background: var(--cream);
+        border-bottom: 1px solid #cbd0d6;
+        border-top: 1px solid #cbd0d6;
+      }
+
+      .footer-menu nav {
+        width: var(--max);
+        margin: 0 auto;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      footer {
+        position: relative;
+        min-height: 390px;
+        padding: 62px 0 54px;
+        background: var(--cream);
+        color: #282828;
+      }
+
+      .footer-inner {
+        width: var(--max);
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .footer-logo {
+        width: 100px;
+        margin-bottom: 42px;
+      }
+
+      .footer-info {
+        display: grid;
+        grid-template-columns: minmax(500px, 1.5fr) minmax(200px, 1fr) 250px;
+        gap: 54px;
+        font-size: 15px;
+        line-height: 1.62;
+      }
+
+      .footer-info p {
+        margin: 0 0 12px;
+      }
+
+      .qr {
+        justify-self: end;
+        align-self: end;
+        text-align: center;
+        margin-bottom: 58px; /* 박스를 위로 들어올림 */
+      }
+
+      .qr-label {
+        font-size: 15px;
+        font-weight: 700;
+        color: #282828;
+        margin: 0 0 4px;
+        line-height: 1;
+        text-align: center;
+      }
+
+      .qr-box {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 24px;
+        background: #ffffff;
+        border-radius: 18px;
+        object-fit: contain;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+
+      .socials {
+        display: flex;
+        gap: 22px;
+        justify-content: center;
+      }
+
+      .socials a {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background: #c9c2bf;
+        display: grid;
+        place-items: center;
+        color: #eee8e4;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .top-btn {
+        position: fixed;
+        right: 38px;
+        bottom: 38px;
+        z-index: 20;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: var(--cream);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+        color: #888;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+
+        /* 스크롤 시 등장 애니메이션 초기 상태 */
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          visibility 0.3s ease;
+      }
+
+      .top-btn.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .top-btn::before {
+        content: "⌃";
+        display: block;
+        font-size: 30px;
+        line-height: 0.55;
+        margin-bottom: 2px;
+      }
+
+      /* ==========================================
+         Toast Notification
+      ========================================== */
+      .toast-popup {
+        position: fixed;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--black);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: 30px;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        pointer-events: none;
+      }
+      .toast-popup.show {
+        top: 30px;
+        opacity: 1;
+      }
+
+      /* ── 리뷰(방명록) 사이드바 및 별점 인터랙션 ── */
+      .hero-rating {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+      .hero-rating .stars {
+        color: #e0e0e0; /* 기본 회색 별 */
+        letter-spacing: 1px;
+        cursor: pointer;
+        display: flex;
+      }
+      .hero-rating .star {
+        transition: color 0.2s;
+      }
+      .hero-rating .star.active {
+        color: var(--pink);
+      }
+      .hero-rating .score {
+        font-weight: 700;
+        color: var(--black);
+      }
+      .hero-rating .reviews {
+        font-size: 14px;
+        color: #888;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: underline;
+        transition: color 0.2s;
+      }
+      .hero-rating .reviews:hover {
+        color: var(--pink);
+      }
+
+      /* 사이드바 오버레이 */
+      .review-sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(2px);
+        z-index: 10001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+      }
+      .review-sidebar-overlay.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* 사이드바 본체 */
+      .review-sidebar {
+        position: fixed;
+        top: 0;
+        right: -420px;
+        width: 400px;
+        max-width: 90vw;
+        height: 100vh;
+        background: #fcfcfc;
+        z-index: 10002;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: "Paperlogy", Pretendard, sans-serif;
+      }
+      .review-sidebar.visible {
+        right: 0;
+      }
+
+      .review-sidebar-header {
+        padding: 24px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ebebeb;
+        background: #fff;
+      }
+      .review-sidebar-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        color: #111;
+      }
+      .review-sidebar-close {
+        background: none;
+        border: none;
+        font-size: 30px;
+        line-height: 1;
+        cursor: pointer;
+        color: #888;
+        transition: color 0.2s;
+        padding: 0;
+      }
+      .review-sidebar-close:hover {
+        color: #111;
+      }
+
+      .review-sidebar-content {
+        flex: 1;
+        padding: 20px 30px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background: #fcfcfc;
+      }
+
+      .detail-review-item {
+        background: #fff;
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        border: 1px solid #f0f0f0;
+      }
+      .detail-review-item.mine {
+        border-color: #ffdceb;
+        background: #fff5fa;
+      }
+      .detail-review-item.creator-review {
+        border-color: #c9e0ff;
+        background: #f0f7ff;
+      }
+
+      .detail-review-author {
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .detail-review-content {
+        font-size: 15px;
+        color: #444;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+      .blind-text {
+        color: #999;
+        font-style: italic;
+        font-size: 14px;
+      }
+
+      .review-sidebar-footer {
+        padding: 20px 30px;
+        background: #fff;
+        border-top: 1px solid #ebebeb;
+      }
+
+      .detail-review-form {
+        display: none;
+        gap: 10px;
+      }
+      .detail-review-form input {
+        flex: 1;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+        font-family: inherit;
+      }
+      .detail-review-form input:focus {
+        border-color: var(--pink);
+      }
+      .detail-review-form button {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 0 20px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        white-space: nowrap;
+      }
+      .detail-review-form button:hover {
+        opacity: 0.9;
+      }
+
+      .review-login-prompt {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        background: #fff;
+        border: 2px dashed #dcdcdc;
+        border-radius: 12px;
+        padding: 16px;
+        font-weight: 700;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: inherit;
+      }
+      .review-login-prompt:hover {
+        border-color: var(--pink);
+        color: var(--pink);
+        background: #fff5fa;
+      }
+      .review-login-prompt .prompt-accent {
+        color: var(--pink);
+      }
+
+      /* 별점 팝업 */
+      .rating-popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+      }
+      .rating-popup-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .rating-popup {
+        background: #fff;
+        border-radius: 24px;
+        padding: 40px 44px 36px;
+        width: 340px;
+        max-width: calc(100vw - 48px);
+        box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+        transform: translateY(28px) scale(0.97);
+        transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+        position: relative;
+        text-align: center;
+        font-family: "Paperlogy", Pretendard, sans-serif;
+      }
+      .rating-popup-overlay.visible .rating-popup {
+        transform: translateY(0) scale(1);
+      }
+      .rating-popup-close {
+        position: absolute;
+        top: 16px;
+        right: 18px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #aaa;
+        font-size: 22px;
+        line-height: 1;
+        padding: 4px 8px;
+        border-radius: 8px;
+        transition: color 0.15s, background 0.15s;
+      }
+      .rating-popup-close:hover { color: #333; background: #f0f0f0; }
+      .rating-popup-emoji { font-size: 44px; margin-bottom: 10px; }
+      .rating-popup-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: #111;
+        margin: 0 0 20px;
+      }
+      .rating-popup-stars {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        font-size: 38px;
+        color: #e0e0e0;
+        cursor: pointer;
+      }
+      .rating-popup-stars .popup-star {
+        transition: color 0.2s, transform 0.2s;
+      }
+      .rating-popup-stars .popup-star:hover {
+        transform: scale(1.15);
+      }
+      .rating-popup-stars .popup-star.active {
+        color: var(--pink);
+      }
+
+      /* ==========================================================================
+         ✅ 모바일 적응형 (Max-width: 768px)
+         ========================================================================== */
+      @media (max-width: 768px) {
+        :root {
+          --max: 100%;
+        }
+        body,
+        html {
+          min-width: 0 !important;
+          overflow-x: hidden !important;
+        }
+        .nav-inner {
+          padding: 0 15px;
+        }
+        .nav-links {
+          gap: 15px;
+          font-size: 14px;
+        }
+        .auth {
+          font-size: 13px;
+          margin-left: 10px;
+        }
+        .logo {
+          width: 40px;
+          margin-right: 15px;
+        }
+
+        /* 상세페이지 공통 컨테이너 */
+        .detail-container {
+          padding: 0 15px;
+          gap: 40px;
+          margin: 30px auto 60px;
+        }
+
+        /* 히어로 (썸네일 + 메인이미지 + 상세) 세로 정렬 */
+        .product-hero-section {
+          flex-direction: column;
+          align-items: center;
+        }
+        .hero-thumbnails {
+          flex-direction: row;
+          width: 100%;
+          justify-content: space-between;
+          order: 2; /* 메인 이미지 밑으로 */
+        }
+        .hero-thumb {
+          width: 22%;
+          height: 80px;
+        }
+        .hero-main-image {
+          width: 100%;
+          height: 350px;
+          order: 1; /* 제일 위로 */
+        }
+        .hero-info {
+          padding-left: 0;
+          order: 3;
+          margin-top: 20px;
+          height: auto;
+        }
+        .hero-details {
+          margin-right: 0;
+          padding-right: 0;
+          overflow-y: visible;
+        }
+        .bg-decor {
+          display: none !important;
+        }
+
+        /* 히어로 액션 버튼들 */
+        .hero-actions {
+          flex-direction: column;
+        }
+        .btn-buy,
+        .btn-wish {
+          width: 100%;
+          padding: 15px;
+        }
+
+        /* 비디오 영역 */
+        .video-section {
+          height: 300px;
+        }
+
+        /* 모바일에서 이미지 폭 조정 */
+        .detail-images img {
+          width: 100%;
+        }
+
+        /* 푸터 */
+        .footer-menu nav {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 15px;
+          padding: 15px;
+          height: auto;
+        }
+        footer {
+          min-height: auto;
+          padding: 40px 0;
+        }
+        .footer-inner {
+          padding: 0 15px;
+        }
+        .footer-logo {
+          margin: 0 auto 30px;
+          display: block;
+        }
+        .footer-info {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 30px;
+        }
+        .qr {
+          justify-self: center;
+          align-self: center;
+          margin-bottom: 0px;
+        }
+      }
+
+      /* ── 브레드크럼 ── */
+      .breadcrumb-bar {
+        background: #f2f7f9;
+        border-bottom: 1px solid #e2eaf0;
+        padding: 0 40px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+      }
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12.5px;
+        color: #8a9aaa;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-transform: uppercase;
+      }
+      .breadcrumb li + li::before {
+        content: ">";
+        color: #b8c8d4;
+        font-size: 11px;
+        margin-right: 6px;
+      }
+      .breadcrumb a {
+        color: #8a9aaa;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .breadcrumb a:hover {
+        color: #ff2482;
+      }
+      .breadcrumb li:last-child {
+        color: #333;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body id="top">
+    <!-- Toast Popup -->
+    <div id="toastPopup" class="toast-popup">링크가 복사되었습니다!</div>
+
+    <!-- 1. 상단 내비게이션 바 -->
+    <header class="nav">
+      <div class="nav-inner">
+        <a href="main.html">
+          <img class="logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+        </a>
+        <nav class="nav-links">
+          <a href="about.html">About</a>
+          <a href="work.html" class="active">PRODUCTS</a>
+          <a href="designers.html">Designers</a>
+          <a href="sponsors.html">Partners</a>
+        </nav>
+        <a class="auth" href="#">로그인 / 회원가입</a>
+      </div>
+    </header>
+
+    <!-- 브레드크럼 경로 바 -->
+    <div class="breadcrumb-bar">
+      <ol class="breadcrumb">
+        <li><a href="work.html">PRODUCTS</a></li>
+        <!-- ★ [수정 2] 섹션 (카테고리/학과 링크 및 이름) -->
+        <li><a href="work.html?category=%EB%AA%A8%EC%85%98%EA%B7%B8%EB%9E%98%ED%94%BD">Motion Graphic</a></li>
+        <!-- ★ [수정 3] 상단 경로 작품 이름 -->
+        <li>은단의 변신은 무죄</li>
+      </ol>
+    </div>
+
+    <!-- 2. 상세 콘텐츠 -->
+    <main class="detail-container">
+      <!-- 2-1. 새롭게 추가된 상품 최상단 섹션 -->
+      <div class="product-hero-section">
+        <div class="bg-decor decor-blue-circle"></div>
+        <div class="bg-decor decor-pink-rect"></div>
+        <div class="bg-decor decor-blue-circle-small"></div>
+
+        <!-- ★ [수정 4] 좌측 세로 썸네일 이미지들 (5개) -->
+        <div class="hero-thumbnails">
+          <div class="hero-thumb">
+            <img
+              src="작품세부페이지/메인 이미지.png"
+              alt="메인 이미지"
+              data-src="작품세부페이지/메인 이미지.png"
+            />
+          </div>
+          <div class="hero-thumb">
+            <img
+              src="작품세부페이지/서브0.png"
+              alt="서브 이미지 0"
+              data-src="작품세부페이지/서브0.png"
+            />
+          </div>
+          <div class="hero-thumb">
+            <img
+              src="작품세부페이지/서브1.png"
+              alt="서브 이미지 1"
+              data-src="작품세부페이지/서브1.png"
+            />
+          </div>
+          <div class="hero-thumb">
+            <img
+              src="작품세부페이지/서브2.png"
+              alt="서브 이미지 2"
+              data-src="작품세부페이지/서브2.png"
+            />
+          </div>
+          <div class="hero-thumb">
+            <img
+              src="작품세부페이지/서브3.png"
+              alt="서브 이미지 3"
+              data-src="작품세부페이지/서브3.png"
+            />
+          </div>
+        </div>
+
+        <!-- ★ [수정 5] 가운데 대표 메인 이미지 -->
+        <div class="hero-main-image">
+          <img
+            id="hero-main-img"
+            src="작품세부페이지/메인 이미지.png"
+            alt="메인 이미지"
+          />
+        </div>
+
+        <!-- 우측 작품 정보 영역 -->
+        <div class="hero-info">
+          <!-- ★ [수정 6] 작품 이름 (메인 제목) -->
+          <div class="hero-title-row">
+            <h1>은단의 변신은 무죄</h1>
+            <div class="hero-round-actions">
+              <button
+                class="round-btn-action like"
+                aria-label="좋아요"
+                onclick="this.classList.toggle('active')"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="round-btn-action share"
+                aria-label="공유"
+                onclick="copyLink()"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ★ [수정 7] 한 줄 소개 (부제목) -->
+          <h2>고려은단의 새로운 모습으로의 변신!</h2>
+
+          <div class="hero-rating" id="heroRatingContainer">
+            <span class="stars" id="starRatingUI">
+              <span class="star" data-value="1">★</span>
+              <span class="star" data-value="2">★</span>
+              <span class="star" data-value="3">★</span>
+              <span class="star" data-value="4">★</span>
+              <span class="star" data-value="5">★</span>
+            </span>
+            <span class="score" id="userScoreDisplay">0.0</span>
+            <span class="reviews" id="reviewCountBtn">(0)</span>
+          </div>
+
+          <!-- ★ [수정 8] 해시태그 키워드 -->
+          <div class="meta-tags">#즐거운 #신나는 #리듬적인</div>
+
+          <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
+          <div class="hero-details">
+            오래되고, 익숙하지 않은 형태의 은단.<br />
+            현대의 1020 세대들도 쉽고 맛있고 즐겁게 누릴 수 있는<br />
+            형태로의 대변신을 은단의 시점에서 표현한 작품입니다.<br />
+            단순한 도형과 다채로운 색감으로 시각적으로도 즐거움을 전달합니다.<br />
+            <br />
+            고려은단의 새로운 변신!<br />
+            새로운 브랜드와 모습을 즐겨보세요!<br />
+          </div>
+
+          <!-- 메타 테이블 -->
+          <div class="hero-extra-meta">
+            <div class="meta-table">
+              <!-- ★ [수정 10] 학생 이름 (제작자) 및 지도 교수 -->
+              <div class="meta-row">
+                <div class="meta-col">
+                  <span class="meta-label">제작자</span>
+                  <span class="meta-value">이희서</span>
+                </div>
+                <div class="meta-col">
+                  <span class="meta-label">지도 교수</span>
+                  <span class="meta-value">지도교수</span>
+                </div>
+              </div>
+              <!-- ★ [수정 11] 제작기간, 영상포멧, 사용 툴 -->
+              <div class="meta-row">
+                <span class="meta-label">제작기간</span>
+                <span class="meta-value">2026.03 ~ 2026.11</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">영상포멧</span>
+                <span class="meta-value">1080*1920, 1분 30초</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">사용 툴</span>
+                <span class="meta-value"
+                  >Illustrator, Photoshop, After Effects</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ★ [수정 12] 영상 섹션 (유튜브 썸네일 이미지) -->
+      <div class="video-section" id="videoThumb">
+        <img
+          class="video-thumb"
+          src="https://img.youtube.com/vi/r2eoeCk171I/maxresdefault.jpg"
+          alt="영상 썸네일"
+        />
+        <div class="video-play-btn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- 영상 모달 -->
+      <div class="video-modal" id="videoModal">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="video-modal-inner">
+          <iframe
+            id="videoIframe"
+            src=""
+            allow="autoplay; fullscreen"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- ★ [수정 13] 하단 작품 세부 이미지들 -->
+      <div class="detail-images">
+        <img src="작품세부페이지/1.png" alt="작품 세부 이미지 1" />
+        <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
+        <img src="작품세부페이지/3.png" alt="작품 세부 이미지 3" />
+        <img src="작품세부페이지/4.png" alt="작품 세부 이미지 4" />
+        <img src="작품세부페이지/5.png" alt="작품 세부 이미지 5" />
+      </div>
+    </main>
+
+    <!-- 3. 하단 푸터 링크 바 -->
+    <div class="footer-menu">
+      <nav>
+        <a href="#">회사소개</a>
+        <a href="#">채용정보</a>
+        <a href="#">이용약관</a>
+        <a href="#">입점문의</a>
+        <a href="#">제휴광고</a>
+      </nav>
+    </div>
+
+    <!-- 4. 하단 푸터 본문 -->
+    <footer>
+      <div class="footer-inner">
+        <a class="top-btn" href="#top" aria-label="맨 위로 이동">TOP</a>
+        <img class="footer-logo" src="웹%20에셋/퍼즐%20로고.png" alt="PUZZLE" />
+
+        <div class="footer-info">
+          <div>
+            <p>
+              <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
+              용인시 처인구 명지로 116<br />전화번호: 1577-0020
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              임경훈 김종환 유형준 김형규
+            </p>
+            <p>
+              사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
+              않습니다.<br />해당 상품들은 편하게 감상해주시면 되며, (주)퍼즐은
+              판매 당사자가 아닙니다.<br />상품정보 및 거래는 개인적인 컨택
+              바랍니다.
+            </p>
+            <p>COPYRIGHT © PUZZLE ALL RIGHTS RESERVED</p>
+          </div>
+          <div>
+            <p>
+              <strong>고객센터 운영시간 &gt;</strong><br />이용시간: 10:00 ~
+              18:00<br />점심시간: 없음
+            </p>
+          </div>
+          <div class="qr">
+            <p class="qr-label">INSTAGRAM</p>
+            <img
+              class="qr-box"
+              src="웹 에셋/인스타_바코드.png"
+              alt="인스타그램 QR 코드"
+            />
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // TOP 버튼
+      const topBtn = document.querySelector(".top-btn");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 500) {
+          topBtn.classList.add("show");
+        } else {
+          topBtn.classList.remove("show");
+        }
+      });
+
+      // 썸네일 hover → 메인 이미지 교체, 다른 썸네일에 올리기 전까지 유지
+      const mainImg = document.getElementById("hero-main-img");
+      const thumbImgs = document.querySelectorAll(".hero-thumb img");
+      thumbImgs.forEach((thumb) => {
+        thumb.addEventListener("mouseover", () => {
+          mainImg.src = thumb.dataset.src;
+        });
+      });
+
+      // 영상 모달
+      const videoThumb = document.getElementById("videoThumb");
+      const videoModal = document.getElementById("videoModal");
+      const videoIframe = document.getElementById("videoIframe");
+      const modalClose = document.getElementById("modalClose");
+      // ★ [수정 14] 유튜브 영상 고유 ID (유튜브 링크 watch?v= 뒤의 영문/숫자 코드)
+      const YT_ID = "r2eoeCk171I";
+
+      videoThumb.addEventListener("click", () => {
+        videoIframe.src = `https://www.youtube.com/embed/${YT_ID}?autoplay=1&rel=0`;
+        videoModal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      });
+
+      function closeModal() {
+        videoModal.classList.remove("open");
+        videoIframe.src = "";
+        document.body.style.overflow = "";
+      }
+
+      modalClose.addEventListener("click", closeModal);
+      videoModal.addEventListener("click", (e) => {
+        if (e.target === videoModal) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      // 링크 복사 및 토스트 팝업
+      function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          const toast = document.getElementById('toastPopup');
+          toast.classList.add('show');
+          setTimeout(() => {
+            toast.classList.remove('show');
+          }, 2500);
+        }).catch(err => {
+          console.error('클립보드 복사 실패:', err);
+        });
+      }
+    </script>
+    <!-- 5. 리뷰(방명록) 사이드바 -->
+    <div class="review-sidebar-overlay" id="reviewSidebarOverlay"></div>
+    <div class="review-sidebar" id="reviewSidebar">
+      <div class="review-sidebar-header">
+        <h2>REVIEW</h2>
+        <button class="review-sidebar-close" id="reviewSidebarClose" aria-label="닫기">&times;</button>
+      </div>
+      <div class="review-sidebar-content" id="detailReviewsList">
+        <!-- 리뷰 아이템들이 여기에 렌더링됩니다 -->
+      </div>
+      <div class="review-sidebar-footer">
+        <form id="detailReviewForm" class="detail-review-form">
+          <input type="text" id="detailReviewInput" placeholder="리뷰를 남겨보세요!" required autocomplete="off" maxlength="150" disabled />
+          <button type="submit" id="detailReviewSubmit" disabled>전송</button>
+        </form>
+        <button type="button" class="review-login-prompt" id="detailReviewLoginPrompt">
+          <span>🧩</span>
+          <span><span class="prompt-accent">로그인</span>하고 리뷰를 남겨보세요</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 6. 별점 팝업 -->
+    <div class="rating-popup-overlay" id="ratingPopupOverlay">
+      <div class="rating-popup" id="ratingPopup">
+        <button class="rating-popup-close" id="ratingPopupClose" aria-label="닫기">&times;</button>
+        <div class="rating-popup-emoji">⭐</div>
+        <h2 class="rating-popup-title">별점을 남겨보세요</h2>
+        <div class="rating-popup-stars" id="popupStarUI">
+          <span class="popup-star" data-value="1">★</span>
+          <span class="popup-star" data-value="2">★</span>
+          <span class="popup-star" data-value="3">★</span>
+          <span class="popup-star" data-value="4">★</span>
+          <span class="popup-star" data-value="5">★</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 커스텀 알림 팝업 (자체 팝업) -->
+    <div class="rating-popup-overlay" id="customAlertOverlay">
+      <div class="rating-popup" style="padding: 40px 30px 30px; width: 320px;">
+        <button class="rating-popup-close" id="customAlertClose" aria-label="닫기">&times;</button>
+        <div class="rating-popup-emoji" id="customAlertEmoji" style="font-size: 40px; margin-bottom: 15px;">💬</div>
+        <h2 class="rating-popup-title" style="font-size: 18px; margin-bottom: 0; word-break: keep-all;" id="customAlertMessage">메시지</h2>
+      </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script type="module" src="detail-reviews.js"></script>
+  </body>
+</html>
