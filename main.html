@@ -1089,7 +1089,9 @@
         aspect-ratio: 1 / 1;
         width: 100%;
         overflow: hidden;
-        transition: transform 0.3s ease, filter 0.2s ease;
+        transition:
+          transform 0.3s ease,
+          filter 0.2s ease;
         background-size: cover;
         background-position: center;
         padding: 24px;
@@ -1952,53 +1954,223 @@
         // 48개 상세 페이지(작품) 정보 목록
         const ALL_WORKS = [
           { id: 1, category: "애니메이션", title: "PHOENIX", author: "강재준" },
-          { id: 2, category: "모션그래픽", title: "PUBG X Supreme", author: "강재준" },
-          { id: 3, category: "멀티미디어", title: "사랑의 잔여물", author: "고예원" },
-          { id: 4, category: "애니메이션", title: "The Old Curtain", author: "곽지윤" },
-          { id: 5, category: "애니메이션", title: "Only One Piece!", author: "곽지윤" },
+          {
+            id: 2,
+            category: "모션그래픽",
+            title: "PUBG X Supreme",
+            author: "강재준",
+          },
+          {
+            id: 3,
+            category: "멀티미디어",
+            title: "사랑의 잔여물",
+            author: "고예원",
+          },
+          {
+            id: 4,
+            category: "애니메이션",
+            title: "The Old Curtain",
+            author: "곽지윤",
+          },
+          {
+            id: 5,
+            category: "애니메이션",
+            title: "Only One Piece!",
+            author: "곽지윤",
+          },
           { id: 6, category: "게임 콘텐츠", title: "巳侍", author: "권다혜" },
-          { id: 7, category: "게임 콘텐츠", title: "49 DAYS", author: "권다혜" },
+          {
+            id: 7,
+            category: "게임 콘텐츠",
+            title: "49 DAYS",
+            author: "권다혜",
+          },
           { id: 8, category: "모션그래픽", title: "TASMAN", author: "김연진" },
           { id: 9, category: "모션그래픽", title: "RE:CUBE", author: "김연진" },
-          { id: 10, category: "게임 콘텐츠", title: "SLUMBER", author: "김지은" },
-          { id: 11, category: "게임 콘텐츠", title: "NEON_PHANTOM", author: "김지은" },
+          {
+            id: 10,
+            category: "게임 콘텐츠",
+            title: "SLUMBER",
+            author: "김지은",
+          },
+          {
+            id: 11,
+            category: "게임 콘텐츠",
+            title: "NEON_PHANTOM",
+            author: "김지은",
+          },
           { id: 12, category: "모션그래픽", title: "Wings", author: "노유민" },
-          { id: 13, category: "모션그래픽", title: "23:59:59", author: "노유민" },
+          {
+            id: 13,
+            category: "모션그래픽",
+            title: "23:59:59",
+            author: "노유민",
+          },
           { id: 14, category: "모션그래픽", title: "PUZZLE", author: "박서현" },
           { id: 15, category: "애니메이션", title: "편지", author: "심가애" },
-          { id: 16, category: "애니메이션", title: "먼지토끼", author: "심가애" },
-          { id: 17, category: "애니메이션", title: "FPS Unplugged", author: "안지윤" },
+          {
+            id: 16,
+            category: "애니메이션",
+            title: "먼지토끼",
+            author: "심가애",
+          },
+          {
+            id: 17,
+            category: "애니메이션",
+            title: "FPS Unplugged",
+            author: "안지윤",
+          },
           { id: 18, category: "멀티미디어", title: "GAZING", author: "안지윤" },
-          { id: 19, category: "애니메이션", title: "PROJECT: BEE", author: "양미진" },
-          { id: 20, category: "애니메이션", title: "COOKER-01", author: "양미진" },
-          { id: 21, category: "모션그래픽", title: "동화 종이 인형극", author: "양소정" },
-          { id: 22, category: "게임 콘텐츠", title: "Feast for the Dragon", author: "양소정" },
+          {
+            id: 19,
+            category: "애니메이션",
+            title: "PROJECT: BEE",
+            author: "양미진",
+          },
+          {
+            id: 20,
+            category: "애니메이션",
+            title: "COOKER-01",
+            author: "양미진",
+          },
+          {
+            id: 21,
+            category: "모션그래픽",
+            title: "동화 종이 인형극",
+            author: "양소정",
+          },
+          {
+            id: 22,
+            category: "게임 콘텐츠",
+            title: "Feast for the Dragon",
+            author: "양소정",
+          },
           { id: 23, category: "멀티미디어", title: "해방", author: "염화영" },
           { id: 24, category: "애니메이션", title: "허무", author: "염화영" },
-          { id: 25, category: "게임 콘텐츠", title: "우당탕탕 학교생활", author: "이경민" },
-          { id: 26, category: "게임 콘텐츠", title: "Room Sweet Room", author: "이경민" },
-          { id: 27, category: "애니메이션", title: "퓨어 메모리즈", author: "이영윤" },
-          { id: 28, category: "게임 콘텐츠", title: "다운 투 바벨", author: "이영윤" },
-          { id: 29, category: "애니메이션", title: "Lovers In Apocalypse", author: "이준규" },
+          {
+            id: 25,
+            category: "게임 콘텐츠",
+            title: "우당탕탕 학교생활",
+            author: "이경민",
+          },
+          {
+            id: 26,
+            category: "게임 콘텐츠",
+            title: "Room Sweet Room",
+            author: "이경민",
+          },
+          {
+            id: 27,
+            category: "애니메이션",
+            title: "퓨어 메모리즈",
+            author: "이영윤",
+          },
+          {
+            id: 28,
+            category: "게임 콘텐츠",
+            title: "다운 투 바벨",
+            author: "이영윤",
+          },
+          {
+            id: 29,
+            category: "애니메이션",
+            title: "Lovers In Apocalypse",
+            author: "이준규",
+          },
           { id: 30, category: "모션그래픽", title: "KeyGen", author: "이준규" },
           { id: 31, category: "멀티미디어", title: "PUZZLE", author: "이희서" },
-          { id: 32, category: "애니메이션", title: "꽃 위에 핀 기억", author: "임재윤" },
-          { id: 33, category: "멀티미디어", title: "기계의 열반", author: "임재윤" },
-          { id: 34, category: "게임 콘텐츠", title: "NOID : (부제 고민중입니다)", author: "임호진" },
-          { id: 35, category: "게임 콘텐츠", title: "COSMIQ DUEL", author: "임호진" },
-          { id: 36, category: "모션그래픽", title: "레이디 두아", author: "장명경" },
-          { id: 37, category: "모션그래픽", title: "LUSH : BATH BOMB JOURNEY", author: "장명경" },
-          { id: 38, category: "모션그래픽", title: "향수 : 어느 살인자의 이야기 | 타이틀 시퀀스", author: "장영찬" },
-          { id: 39, category: "멀티미디어", title: "피어나고 흩어지다", author: "장영찬" },
+          {
+            id: 32,
+            category: "애니메이션",
+            title: "꽃 위에 핀 기억",
+            author: "임재윤",
+          },
+          {
+            id: 33,
+            category: "멀티미디어",
+            title: "기계의 열반",
+            author: "임재윤",
+          },
+          {
+            id: 34,
+            category: "게임 콘텐츠",
+            title: "NOID : (부제 고민중입니다)",
+            author: "임호진",
+          },
+          {
+            id: 35,
+            category: "게임 콘텐츠",
+            title: "COSMIQ DUEL",
+            author: "임호진",
+          },
+          {
+            id: 36,
+            category: "모션그래픽",
+            title: "레이디 두아",
+            author: "장명경",
+          },
+          {
+            id: 37,
+            category: "모션그래픽",
+            title: "LUSH : BATH BOMB JOURNEY",
+            author: "장명경",
+          },
+          {
+            id: 38,
+            category: "모션그래픽",
+            title: "향수 : 어느 살인자의 이야기 | 타이틀 시퀀스",
+            author: "장영찬",
+          },
+          {
+            id: 39,
+            category: "멀티미디어",
+            title: "피어나고 흩어지다",
+            author: "장영찬",
+          },
           { id: 40, category: "애니메이션", title: "+82", author: "정인서" },
-          { id: 41, category: "모션그래픽", title: "Song of the Stars", author: "정인서" },
-          { id: 42, category: "애니메이션", title: "Carpe Diem", author: "정지우" },
-          { id: 43, category: "게임 콘텐츠", title: "폭풍의 눈", author: "정지우" },
+          {
+            id: 41,
+            category: "모션그래픽",
+            title: "Song of the Stars",
+            author: "정인서",
+          },
+          {
+            id: 42,
+            category: "애니메이션",
+            title: "Carpe Diem",
+            author: "정지우",
+          },
+          {
+            id: 43,
+            category: "게임 콘텐츠",
+            title: "폭풍의 눈",
+            author: "정지우",
+          },
           { id: 44, category: "애니메이션", title: "몽상가", author: "진서연" },
-          { id: 45, category: "모션그래픽", title: "Jelly Fight!", author: "진서연" },
-          { id: 46, category: "멀티미디어", title: "버츄얼 유튜버 퐁듀", author: "채민서" },
-          { id: 47, category: "게임 콘텐츠", title: "NINEVEH", author: "홍민영" },
-          { id: 48, category: "멀티미디어", title: "홍당무밭의 홍토실!", author: "홍민영" }
+          {
+            id: 45,
+            category: "모션그래픽",
+            title: "Jelly Fight!",
+            author: "진서연",
+          },
+          {
+            id: 46,
+            category: "멀티미디어",
+            title: "버츄얼 유튜버 퐁듀",
+            author: "채민서",
+          },
+          {
+            id: 47,
+            category: "게임 콘텐츠",
+            title: "NINEVEH",
+            author: "홍민영",
+          },
+          {
+            id: 48,
+            category: "멀티미디어",
+            title: "홍당무밭의 홍토실!",
+            author: "홍민영",
+          },
         ];
 
         function escapeHtml(str) {
@@ -2011,7 +2183,9 @@
 
         // 새로고침 또는 사이트 접속 시마다 48개 작품 중 27개를 랜덤 선택하여 퍼즐 카드에 배치
         function renderRandomWorks() {
-          const cards = Array.from(grid.querySelectorAll(".puzzle-item:not(.empty)"));
+          const cards = Array.from(
+            grid.querySelectorAll(".puzzle-item:not(.empty)"),
+          );
           const shuffled = [...ALL_WORKS];
           for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

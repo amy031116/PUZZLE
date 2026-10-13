@@ -1002,8 +1002,8 @@
 
       
       .category-icon {
-        width: 72px;
-        height: 72px;
+        width: 88px;
+        height: 88px;
         object-fit: contain;
         display: block;
         pointer-events: none;
@@ -1034,19 +1034,19 @@
 
       .category-circle.c1 {
         --ring: #ff2482;
-        background: linear-gradient(135deg, #ff2482, #ff6eb4);
+        background: #f9fbfd;
       }
       .category-circle.c2 {
         --ring: #407dff;
-        background: linear-gradient(135deg, #407dff, #89b4ff);
+        background: #f9fbfd;
       }
       .category-circle.c3 {
         --ring: #ffc20d;
-        background: linear-gradient(135deg, #ffc20d, #ffe07a);
+        background: #f9fbfd;
       }
       .category-circle.c4 {
         --ring: #4ecdc4;
-        background: linear-gradient(135deg, #4ecdc4, #a8f0eb);
+        background: #f9fbfd;
       }
 
       .category-label {
@@ -1057,12 +1057,11 @@
         transition: color 0.25s ease;
       }
 
-      /* 선택된 카테고리 표시: 띠 색은 각 버튼 색(--ring)과 통일 */
+      /* 선택된 카테고리 표시: 핑크 띠, 버튼과 여백 없이 6px */
       .category-btn.active .category-circle {
         transform: scale(1.06);
         box-shadow:
-          0 0 0 4px var(--cream),
-          0 0 0 7px var(--ring),
+          0 0 0 6px var(--pink),
           0 12px 36px rgba(0, 0, 0, 0.18);
       }
       .category-btn.active .category-label {
@@ -2609,10 +2608,10 @@
         }
 
         // 카테고리 버튼 줄이 상단바 바로 아래에 오도록 이동 → 버튼과 TRENDING NOW가 함께 보임
-        const categoryRow = document.querySelector(".category-inner");
-        const SCROLL_TOP_OFFSET = 110; // 상단바(80px) + 여백
+        const categorySection = document.querySelector(".category-section");
+        const SCROLL_TOP_OFFSET = 80; // 상단바(80px)
         function scrollToTrend() {
-          const target = categoryRow || trendSection;
+          const target = categorySection || trendSection;
           if (!target) return;
           const top =
             target.getBoundingClientRect().top +
