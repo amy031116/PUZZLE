@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <script src="gate-guard.js"></script>
-    <meta name="viewport" content="width=1200" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PUZZLE - PARTNERS</title>
     <style>
       @font-face {
@@ -555,63 +555,86 @@
           padding: 40px 20px;
         }
 
-                /* ── 푸터 모바일 수정 (양쪽 여백 확보 및 중앙 집중 배치) ── */
+                        /* ── 푸터 모바일 수정 (양쪽 여백 확보 및 중앙 집중 배치) ── */
         .footer-menu {
-          overflow: visible;
+          overflow: hidden !important;
+          width: 100% !important;
         }
         .footer-menu nav {
-          width: 100% !important; /* 고정 1200px 해제 */
-          max-width: 480px;
-          margin: 0 auto;
-          box-sizing: border-box;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 10px 16px;
-          padding: 16px 24px;
-          height: auto;
-          font-size: 13.5px;
+          width: 100% !important;
+          max-width: 380px !important;
+          margin: 0 auto !important;
+          box-sizing: border-box !important;
+          display: flex !important;
+          flex-wrap: wrap !important;
+          justify-content: center !important;
+          align-items: center !important;
+          gap: 10px 18px !important;
+          padding: 14px 20px !important;
+          height: auto !important;
+          font-size: 13px !important;
+        }
+        .footer-menu nav a {
+          white-space: nowrap !important;
         }
         footer {
-          min-height: auto;
-          padding: 40px 0 60px; /* 아래 여백 넉넉하게 */
-          overflow: visible; /* 컨텐츠 잘림 방지 */
+          min-height: auto !important;
+          padding: 36px 0 54px !important;
+          overflow: hidden !important;
+          width: 100% !important;
+          box-sizing: border-box !important;
         }
         .footer-inner {
-          width: 100% !important; /* 고정 1200px 해제 */
-          max-width: 460px;
-          margin: 0 auto;
-          box-sizing: border-box;
-          padding: 0 32px; /* 양쪽 여백을 넓혀 내용이 잘리지 않고 중앙에 정돈되도록 함 */
+          width: 100% !important;
+          max-width: 380px !important;
+          margin: 0 auto !important;
+          box-sizing: border-box !important;
+          padding: 0 24px !important;
+          text-align: center !important;
         }
         .footer-logo {
-          width: 72px;
-          margin: 0 auto 22px;
-          display: block;
+          width: 70px !important;
+          margin: 0 auto 20px !important;
+          display: block !important;
         }
         .footer-info {
-          display: flex;
-          flex-direction: column; /* 세로 스택 */
-          gap: 18px;
-          text-align: center;
-          font-size: 12px;
-          line-height: 1.6;
-          word-break: keep-all;
-          overflow-wrap: break-word;
-          max-width: 100%;
-          margin: 0 auto;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          text-align: center !important;
+          gap: 16px !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 auto !important;
+          font-size: 11.5px !important;
+          line-height: 1.65 !important;
+          word-break: keep-all !important;
+          overflow-wrap: anywhere !important;
+        }
+        .footer-info > div {
+          width: 100% !important;
+          text-align: center !important;
         }
         .footer-info p {
-          word-break: keep-all;
-          overflow-wrap: break-word;
-          word-spacing: normal;
-          white-space: normal;
-          letter-spacing: -0.02em;
-          margin: 0 0 8px;
+          word-break: keep-all !important;
+          overflow-wrap: anywhere !important;
+          white-space: normal !important;
+          letter-spacing: -0.02em !important;
+          margin: 0 0 6px !important;
+          text-align: center !important;
         }
         .qr {
-          justify-self: center;
-          align-self: center;
-          margin-bottom: 0;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          margin-top: 4px !important;
+          margin-bottom: 0 !important;
+        }
+        .qr-box {
+          width: 90px !important;
+          height: 90px !important;
+          margin: 0 auto !important;
         }
       }
     </style>
