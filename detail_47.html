@@ -603,6 +603,7 @@
       .footer-menu nav {
         width: var(--max);
         margin: 0 auto;
+        padding: 0 80px;
         height: 76px;
         display: flex;
         align-items: center;
@@ -623,6 +624,7 @@
         width: var(--max);
         margin: 0 auto;
         position: relative;
+        padding: 0 80px;
       }
 
       .footer-logo {
@@ -633,7 +635,7 @@
       .footer-info {
         display: grid;
         grid-template-columns: minmax(500px, 1.5fr) minmax(200px, 1fr) 250px;
-        gap: 54px;
+        gap: 40px;
         font-size: 15px;
         line-height: 1.62;
       }
@@ -1058,43 +1060,14 @@
           min-width: 0 !important;
           overflow-x: hidden !important;
         }
-        /* ── 상단바 PC 스타일 모바일 반영 ── */
-        .nav {
-          height: 64px !important;
-          background: #f2f7f9 !important;
-          border-bottom: 1px solid #cbd0d6 !important;
+        /* ── 상단바 PC 스타일 그대로: 1200px 레이아웃 고정 후 JS(zoom)로 화면 너비에 맞춰 축소 ── */
+        .nav,
+        .footer-menu,
+        footer {
+          width: 1200px !important;
+          min-width: 1200px !important;
         }
-        .nav-inner {
-          padding: 0 14px !important;
-          width: 100% !important;
-          box-sizing: border-box !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: space-between !important;
-        }
-        .logo {
-          width: 30px !important;
-          margin-right: 8px !important;
-          margin-top: 0 !important;
-          flex-shrink: 0 !important;
-        }
-        .nav-links {
-          display: flex !important;
-          align-items: center !important;
-          gap: 8px !important;
-          font-size: 11px !important;
-          letter-spacing: -0.02em !important;
-          font-weight: 800 !important;
-          flex-shrink: 1 !important;
-        }
-        .auth {
-          font-size: 10px !important;
-          font-weight: 800 !important;
-          margin-left: auto !important;
-          white-space: nowrap !important;
-          flex-shrink: 0 !important;
-          letter-spacing: -0.03em !important;
-        }
+
 
         /* ── 브레드크럼 ── */
         .breadcrumb-bar {
@@ -1250,119 +1223,17 @@
           display: block !important;
         }
 
-        /* ── 푸터 PC 형태 모바일 반영 (양쪽 잘림 방지: 왼쪽 요소 오른쪽으로, 오른쪽 요소 왼쪽으로 이동) ── */
-        .footer-menu {
-          background: var(--cream) !important;
-          border-top: 1px solid #cbd0d6 !important;
-          border-bottom: 1px solid #cbd0d6 !important;
-          overflow: hidden !important;
-          width: 100% !important;
-        }
-        .footer-menu nav {
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 auto !important;
-          box-sizing: border-box !important;
-          display: flex !important;
-          flex-wrap: nowrap !important;
-          justify-content: space-between !important;
-          align-items: center !important;
-          padding: 0 22px !important;
-          height: 52px !important;
-          font-size: 12.5px !important;
-          font-weight: 700 !important;
-        }
-        .footer-menu nav a {
-          white-space: nowrap !important;
-        }
-        footer {
-          min-height: auto !important;
-          padding: 38px 0 46px !important;
-          background: var(--cream) !important;
-          color: #282828 !important;
-          width: 100% !important;
-          box-sizing: border-box !important;
-        }
+        /* ── 푸터 PC 스타일 그대로 (nav/footer 와 함께 JS zoom 으로 축소) ── */
+        .footer-menu nav,
         .footer-inner {
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 auto !important;
-          box-sizing: border-box !important;
-          padding: 0 22px !important; /* 양쪽 여백 22px: 왼쪽 요소는 오른쪽으로, 오른쪽 요소는 왼쪽으로 이동 */
-          position: relative !important;
-          text-align: left !important;
-        }
-        .footer-logo {
-          width: 76px !important;
-          margin: 0 0 20px 0 !important;
-          display: block !important;
+          width: 1200px !important;
+          max-width: none !important;
         }
         .top-btn {
-          position: absolute !important;
-          top: 0 !important;
-          right: 22px !important; /* 오른쪽에서 22px 안쪽으로 */
-          width: 44px !important;
-          height: 44px !important;
-          background: #e2eaf0 !important;
-          border-radius: 10px !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          font-weight: 800 !important;
-          font-size: 12px !important;
-          color: #7b8e9f !important;
-          text-decoration: none !important;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
-        }
-        .footer-info {
-          display: flex !important;
-          flex-direction: row !important;
-          justify-content: space-between !important;
-          align-items: flex-start !important;
-          gap: 16px !important;
-          width: 100% !important;
-          text-align: left !important;
-        }
-        .footer-info > div:first-child {
-          flex: 1 1 auto !important;
-          text-align: left !important;
-          font-size: 11px !important;
-          line-height: 1.6 !important;
-        }
-        .footer-info > div:first-child p {
-          margin: 0 0 8px 0 !important;
-          text-align: left !important;
-          word-break: keep-all !important;
-        }
-        .footer-info > div:nth-child(2) {
-          margin-top: 10px !important;
-          font-size: 11px !important;
-          line-height: 1.5 !important;
-          text-align: left !important;
-        }
-        .qr {
-          flex: 0 0 auto !important;
-          display: flex !important;
-          flex-direction: column !important;
-          align-items: center !important;
-          justify-content: flex-start !important;
-          margin: 0 !important;
-          text-align: center !important;
-        }
-        .qr-label {
-          font-size: 11px !important;
-          font-weight: 700 !important;
-          color: #282828 !important;
-          margin: 0 0 4px !important;
-        }
-        .qr-box {
-          width: 72px !important;
-          height: 72px !important;
-          margin: 0 !important;
-          background: #ffffff !important;
-          border-radius: 10px !important;
-          padding: 4px !important;
-          box-sizing: border-box !important;
+          right: 16px !important;
+          bottom: 16px !important;
+          width: 48px !important;
+          height: 48px !important;
         }
       }
 
@@ -1835,6 +1706,24 @@
         </h2>
       </div>
     </div>
+    <script>
+      // 모바일: 상단바/푸터를 PC(1200px) 레이아웃 그대로 두고 화면 너비에 맞춰 비율 축소
+      (function () {
+        var els = document.querySelectorAll(".nav, .footer-menu, footer");
+        var topBtn = document.querySelector(".top-btn");
+        function fit() {
+          var mobile = window.matchMedia("(max-width: 768px)").matches;
+          var z = document.documentElement.clientWidth / 1200;
+          els.forEach(function (el) {
+            el.style.zoom = mobile ? z : "";
+          });
+          if (topBtn) topBtn.style.zoom = mobile ? 1 / z : "";
+        }
+        fit();
+        window.addEventListener("resize", fit);
+        window.addEventListener("load", fit);
+      })();
+    </script>
 
     <script src="auth.js"></script>
     <script type="module" src="detail-reviews.js"></script>
