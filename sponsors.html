@@ -364,8 +364,10 @@
         height: 76px;
         display: flex;
         align-items: center;
-        gap: 60px; /* 고정 간격 */
-        font-size: 16px; /* 고정 크기 */
+        gap: 50px;
+        padding: 0 60px; /* 양쪽 여백: 왼쪽 메뉴 오른쪽으로, 오른쪽 메뉴 왼쪽으로 이동 */
+        box-sizing: border-box;
+        font-size: 16px;
         font-weight: 700;
       }
 
@@ -382,6 +384,8 @@
         width: var(--max); /* 1200px 고정 */
         margin: 0 auto;
         position: relative;
+        padding: 0 60px; /* 양쪽 여백: 왼쪽 요소는 오른쪽으로, 오른쪽 요소는 왼쪽으로 이동 */
+        box-sizing: border-box;
       }
 
       .footer-logo {
