@@ -1058,34 +1058,49 @@
           min-width: 0 !important;
           overflow-x: hidden !important;
         }
-        /* ── 상단바 1.5배 확대 ── */
+        /* ── 상단바 모바일 최적화 (PC 비율 유지 & 잘림 방지) ── */
         .nav {
-          height: 120px;
+          height: 56px !important;
         }
         .nav-inner {
-          padding: 0 20px;
+          padding: 0 12px !important;
+          width: 100% !important;
+          box-sizing: border-box !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
         }
         .logo {
-          width: 72px;
-          margin-right: 20px;
+          width: clamp(28px, 7vw, 36px) !important;
+          margin-right: clamp(4px, 1.5vw, 10px) !important;
+          margin-top: 0 !important;
+          flex-shrink: 0 !important;
         }
         .nav-links {
-          gap: 20px;
-          font-size: 20px;
+          display: flex !important;
+          align-items: center !important;
+          gap: clamp(5px, 1.8vw, 12px) !important;
+          font-size: clamp(10px, 2.5vw, 13px) !important;
+          letter-spacing: -0.02em !important;
+          font-weight: 800 !important;
+          flex-shrink: 1 !important;
         }
         .auth {
-          font-size: 18px;
-          margin-left: 12px;
+          font-size: clamp(9.5px, 2.4vw, 12px) !important;
+          margin-left: auto !important;
+          white-space: nowrap !important;
+          flex-shrink: 0 !important;
+          letter-spacing: -0.03em !important;
         }
 
         /* ── 브레드크럼 ── */
         .breadcrumb-bar {
-          padding: 0 20px;
-          height: 48px;
+          padding: 0 16px !important;
+          height: 38px !important;
         }
         .breadcrumb {
-          font-size: 14px;
-          gap: 8px;
+          font-size: 11px !important;
+          gap: 6px !important;
         }
 
         /* 상세페이지 공통 컨테이너 */
@@ -1109,17 +1124,23 @@
           gap: 20px;
         }
         .hero-thumbnails {
-          flex-direction: row;
-          width: 100%;
-          justify-content: space-between;
-          gap: 10px;
-          order: 2; /* 메인 이미지 밑으로 */
+          display: flex !important;
+          flex-direction: row !important;
+          width: 100% !important;
+          justify-content: space-between !important;
+          gap: 8px !important;
+          order: 2 !important;
+          box-sizing: border-box !important;
         }
         .hero-thumb {
-          width: calc((100% - 30px) / 4);
+          width: calc((100% - 32px) / 5) !important;
+          max-width: calc((100% - 32px) / 5) !important;
+          flex: 0 0 calc((100% - 32px) / 5) !important;
           height: auto !important;
-          aspect-ratio: 1 / 1;
-          border-radius: 14px;
+          aspect-ratio: 1 / 1 !important;
+          border-radius: 10px !important;
+          box-sizing: border-box !important;
+          overflow: hidden !important;
         }
         .hero-main-image {
           width: 100% !important;
