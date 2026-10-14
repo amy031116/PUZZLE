@@ -577,6 +577,78 @@
         line-height: 1.55;
       }
 
+      /* ==========================================
+         작품 정렬 버튼 (파란 영역, 첫 작품 위 왼쪽 정렬)
+         윗줄: 이름 / 작품   아랫줄: 오름차순 / 내림차순
+      ========================================== */
+      .sort-bar {
+        position: relative;
+        z-index: 3;
+        width: var(--max);
+        margin: 0 auto 36px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .sort-group {
+        display: flex;
+        gap: 10px;
+        position: relative;
+      }
+
+      /* 하위 개념: 상위와 왼쪽 정렬 일치 */
+      .sort-group--child {
+        margin-left: 0;
+      }
+
+      .sort-btn {
+        min-width: 96px;
+        padding: 9px 22px;
+        border: 2px solid #fff;
+        border-radius: 999px;
+        background: transparent;
+        color: #fff;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.2;
+        cursor: pointer;
+        transition:
+          background-color 0.2s ease,
+          color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .sort-btn:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .sort-btn.active {
+        background: #fff;
+        color: var(--blue);
+      }
+
+      .sort-btn:focus-visible {
+        outline: 3px solid var(--yellow);
+        outline-offset: 2px;
+      }
+
+      /* 하위 버튼: 상위보다 작고 연한 톤 */
+      .sort-group--child .sort-btn {
+        min-width: 84px;
+        padding: 6px 18px;
+        border-width: 1.5px;
+        border-color: rgba(255, 255, 255, 0.75);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .sort-group--child .sort-btn.active {
+        border-color: #fff;
+      }
+
       .sticker {
         position: absolute;
         pointer-events: none;
@@ -1246,27 +1318,70 @@
           display: none !important;
         }
 
+        /* 카테고리 섹션 전체 사이즈 1.2배 확대 및 균형 배치 */
         .category-section {
-          padding: 30px 10px;
+          padding: 44px 16px 40px;
+        }
+        .category-title {
+          font-size: 44px !important;
+          margin: 0 0 32px !important;
         }
         .category-inner {
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 15px;
-          padding: 0 15px;
+          display: flex !important;
+          flex-wrap: wrap !important;
+          justify-content: center !important;
+          gap: 24px 22px !important;
+          padding: 0 10px !important;
+          max-width: 360px !important;
+          margin: 0 auto !important;
+        }
+        .category-btn {
+          gap: 14px !important;
+        }
+        .category-circle {
+          width: 136px !important;
+          height: 136px !important;
+        }
+        .category-label {
+          font-size: 19px !important;
+          font-weight: 800 !important;
         }
 
+        /* 트렌딩 나우 섹션: 영역 확대, 별 & 타이틀 오른쪽 이동 (잘림 방지) */
+        .trend {
+          padding: 48px 0 36px !important;
+          overflow: hidden !important;
+        }
         .trend-head {
-          padding: 0 15px;
-          margin-bottom: 20px;
+          padding: 0 16px !important;
+          margin-bottom: 24px !important;
+          min-height: 80px !important;
+          display: flex !important;
+          align-items: center !important;
+          position: relative !important;
         }
         .trend-head h2 {
-          font-size: 32px;
+          font-size: 38px !important;
+          margin-left: 62px !important; /* 타이틀을 오른쪽으로 이동 */
+          line-height: 1 !important;
         }
+        .big-star {
+          display: block !important;
+          width: 210px !important;
+          height: 125px !important;
+          left: 12px !important; /* 별을 오른쪽으로 이동시켜 화면 안쪽으로 안착 */
+          top: -24px !important;
+          transform: rotate(-15deg) !important;
+        }
+
+        /* 트렌딩 나우 카드 그리드: 한 번에 3개씩 시원하게 표시 */
         .trend-grid {
-          gap: 15px;
-          padding: 0 15px 20px;
-          grid-auto-columns: calc((100% - 30px) / 2.5);
+          gap: 10px !important;
+          padding: 0 14px 24px !important;
+          grid-auto-columns: calc((100% - 14px) / 3) !important;
+        }
+        .trend-grid .card {
+          border-radius: 18px !important;
         }
 
         .works-grid,
@@ -1280,6 +1395,16 @@
 
         .blue-works {
           padding: 70px 0;
+        }
+        .sort-bar {
+          width: 100% !important;
+          padding: 0 15px;
+          margin-bottom: 24px;
+        }
+        .sort-btn {
+          min-width: 84px;
+          padding: 8px 16px;
+          font-size: 14px;
         }
         .blue-works::before,
         .blue-works::after {
@@ -1916,6 +2041,24 @@
         <i class="sticker extra8" aria-hidden="true"></i>
         <i class="sticker extra9" aria-hidden="true"></i>
         <i class="sticker extra10" aria-hidden="true"></i>
+        <div class="sort-bar" id="workSortBar">
+          <div class="sort-group sort-group--parent" role="group" aria-label="정렬 기준">
+            <button type="button" class="sort-btn" data-sort-key="name">
+              이름
+            </button>
+            <button type="button" class="sort-btn" data-sort-key="title">
+              작품
+            </button>
+          </div>
+          <div class="sort-group sort-group--child" role="group" aria-label="정렬 방향">
+            <button type="button" class="sort-btn" data-sort-dir="asc">
+              오름차순
+            </button>
+            <button type="button" class="sort-btn" data-sort-dir="desc">
+              내림차순
+            </button>
+          </div>
+        </div>
         <div class="works-grid">
           <article class="work-item" data-category="멀티미디어">
             <a
@@ -2979,6 +3122,62 @@
 
         /* 초기 실행 */
         buildSlider(loadImages());
+      })();
+    </script>
+    <script>
+      // 파란 영역 작품 정렬: 기준(이름/작품) + 방향(오름차순/내림차순)
+      (function () {
+        var bar = document.getElementById("workSortBar");
+        var grid = document.querySelector(".blue-works .works-grid");
+        if (!bar || !grid) return;
+
+        var items = Array.from(grid.querySelectorAll(".work-item"));
+        items.forEach(function (el, i) {
+          el.dataset.origIndex = i; // 원래 순서 기억 (동률 시 안정 정렬)
+        });
+
+        var collator = new Intl.Collator("ko", { numeric: true, sensitivity: "base" });
+        var state = { key: null, dir: null };
+        var keyBtns = bar.querySelectorAll("[data-sort-key]");
+        var dirBtns = bar.querySelectorAll("[data-sort-dir]");
+
+        function textOf(el, key) {
+          var node = el.querySelector(key === "name" ? ".meta .name" : ".meta strong");
+          return node ? node.textContent.trim() : "";
+        }
+
+        function render() {
+          keyBtns.forEach(function (b) {
+            b.classList.toggle("active", b.dataset.sortKey === state.key);
+          });
+          dirBtns.forEach(function (b) {
+            b.classList.toggle("active", b.dataset.sortDir === state.dir);
+          });
+
+          var sign = state.dir === "desc" ? -1 : 1;
+          var sorted = items.slice().sort(function (a, b) {
+            var r = collator.compare(textOf(a, state.key), textOf(b, state.key)) * sign;
+            return r || a.dataset.origIndex - b.dataset.origIndex;
+          });
+          sorted.forEach(function (el) {
+            grid.appendChild(el);
+          });
+        }
+
+        keyBtns.forEach(function (b) {
+          b.addEventListener("click", function () {
+            state.key = b.dataset.sortKey;
+            if (!state.dir) state.dir = "asc";
+            render();
+          });
+        });
+        dirBtns.forEach(function (b) {
+          b.addEventListener("click", function () {
+            state.dir = b.dataset.sortDir;
+            if (!state.key) state.key = "name";
+            render();
+          });
+        });
       })();
     </script>
     <script src="auth.js"></script>

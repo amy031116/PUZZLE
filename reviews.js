@@ -31,22 +31,33 @@ import { firebaseConfig } from "./firebase-config.js";
       bottom: 30px;
       left: 40px;
       width: 25vw;
-      min-width: 280px;
-      max-width: 400px;
+      min-width: 300px;
+      max-width: 420px;
       height: 45vh;
       max-height: 400px;
       z-index: 9999;
       display: flex;
       flex-direction: column;
       pointer-events: none; /* Allows clicking behind it for the container itself */
+      transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reviews-container.collapsed {
+      height: auto;
+      max-height: 48px;
+      width: auto;
+      min-width: 0;
     }
     
     @media (max-width: 768px) {
       .reviews-container {
-        left: 20px;
-        bottom: 20px;
-        width: calc(100vw - 40px);
+        left: 16px;
+        bottom: 16px;
+        width: calc(100vw - 32px);
         height: 35vh;
+      }
+      .reviews-container.collapsed {
+        width: auto;
       }
     }
 
@@ -60,6 +71,18 @@ import { firebaseConfig } from "./firebase-config.js";
       /* Mask to fade out the top part */
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 100%);
       mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 100%);
+      max-height: 400px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 0.35s ease;
+    }
+
+    .reviews-container.collapsed .reviews-list-wrapper {
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(15px);
+      margin-bottom: 0;
+      pointer-events: none;
     }
 
     .reviews-list {
@@ -101,6 +124,36 @@ import { firebaseConfig } from "./firebase-config.js";
       font-size: 14.5px;
       color: #333;
       line-height: 1.4;
+    }
+
+    /* 하단 채팅바 영역 (입력창 + 우측 접기/펼치기 버튼) */
+    .reviews-bottom-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      pointer-events: auto;
+    }
+
+    .reviews-container.collapsed .reviews-bottom-bar {
+      width: auto;
+    }
+
+    .review-bar-content {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      max-width: 500px;
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reviews-container.collapsed .review-bar-content {
+      max-width: 0;
+      opacity: 0;
+      transform: translateX(-15px);
+      pointer-events: none;
     }
 
     .review-form-wrapper {
@@ -203,6 +256,70 @@ import { firebaseConfig } from "./firebase-config.js";
     .review-login-prompt .prompt-accent {
       color: #ff2482;
     }
+
+    /* 우측 채팅창 접기/펼치기 토글 버튼 */
+    .review-toggle-btn {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #555;
+      pointer-events: auto;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .review-toggle-btn:hover {
+      transform: scale(1.08);
+      color: #ff2482;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+    }
+
+    .review-toggle-btn:active {
+      transform: scale(0.95);
+    }
+
+    .reviews-container.collapsed .review-toggle-btn {
+      background: #ffffff;
+      color: #ff2482;
+      box-shadow: 0 6px 20px rgba(255, 36, 130, 0.3);
+      animation: gentlePulse 2.4s infinite;
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    .review-toggle-btn .toggle-icon {
+      width: 20px;
+      height: 20px;
+      display: block;
+      transition: transform 0.25s ease;
+      pointer-events: none;
+    }
+
+    /* 열림 상태: 접기(chevron-down) 아이콘 표시 */
+    .review-toggle-btn .icon-chat {
+      display: none;
+    }
+    .review-toggle-btn .icon-collapse {
+      display: block;
+    }
+
+    /* 접힘 상태: 말풍선(chat) 아이콘 표시 */
+    .reviews-container.collapsed .review-toggle-btn .icon-collapse {
+      display: none;
+    }
+    .reviews-container.collapsed .review-toggle-btn .icon-chat {
+      display: block;
+    }
   `;
   document.head.appendChild(style);
 
@@ -213,16 +330,30 @@ import { firebaseConfig } from "./firebase-config.js";
     <div class="reviews-list-wrapper">
       <div class="reviews-list" id="reviewsList"></div>
     </div>
-    <div class="review-form-wrapper" id="reviewFormWrapper">
-      <form class="review-form" id="reviewForm">
-        <input type="text" class="review-input" id="reviewInput" placeholder="리뷰를 남겨주세요..." required autocomplete="off" maxlength="150" />
-        <button type="submit" class="review-submit-btn">전송</button>
-      </form>
+    <div class="reviews-bottom-bar">
+      <div class="review-bar-content">
+        <div class="review-form-wrapper" id="reviewFormWrapper">
+          <form class="review-form" id="reviewForm">
+            <input type="text" class="review-input" id="reviewInput" placeholder="리뷰를 남겨주세요..." required autocomplete="off" maxlength="150" />
+            <button type="submit" class="review-submit-btn">전송</button>
+          </form>
+        </div>
+        <button type="button" class="review-login-prompt" id="reviewLoginPrompt">
+          <span>🧩</span>
+          <span><span class="prompt-accent">로그인</span>하고 리뷰를 남겨보세요</span>
+        </button>
+      </div>
+      <button type="button" class="review-toggle-btn" id="reviewToggleBtn" aria-label="채팅창 접기" title="채팅창 접기">
+        <!-- 접기 아이콘 (아래 화살표) -->
+        <svg class="toggle-icon icon-collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        <!-- 열기 아이콘 (말풍선) -->
+        <svg class="toggle-icon icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+      </button>
     </div>
-    <button type="button" class="review-login-prompt" id="reviewLoginPrompt">
-      <span>🧩</span>
-      <span><span class="prompt-accent">로그인</span>하고 리뷰를 남겨보세요</span>
-    </button>
   `;
   document.body.appendChild(container);
 
@@ -235,6 +366,23 @@ import { firebaseConfig } from "./firebase-config.js";
   const form = document.getElementById("reviewForm");
   const input = document.getElementById("reviewInput");
   const loginPrompt = document.getElementById("reviewLoginPrompt");
+  const toggleBtn = document.getElementById("reviewToggleBtn");
+
+  // 채팅창 접기/펼치기 토글
+  toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    const isCollapsed = container.classList.toggle("collapsed");
+    localStorage.setItem("puzzle_chat_collapsed", isCollapsed ? "true" : "false");
+    toggleBtn.setAttribute("aria-label", isCollapsed ? "채팅창 펼치기" : "채팅창 접기");
+    toggleBtn.setAttribute("title", isCollapsed ? "채팅창 펼치기" : "채팅창 접기");
+  });
+
+  // 이전 접힘 상태 복원
+  if (localStorage.getItem("puzzle_chat_collapsed") === "true") {
+    container.classList.add("collapsed");
+    toggleBtn.setAttribute("aria-label", "채팅창 펼치기");
+    toggleBtn.setAttribute("title", "채팅창 펼치기");
+  }
 
   // 로그인 유도 박스 클릭 → auth.js의 로그인 팝업 열기 (nav 로그인 버튼 클릭과 동일)
   loginPrompt.addEventListener("click", function () {
