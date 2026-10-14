@@ -8,6 +8,11 @@
       if (/KAKAOTALK|NAVER|; wv\)/i.test(navigator.userAgent)) {
         document.documentElement.classList.add("inapp");
       }
+      // URL에 ?admin=true 또는 ?bypass 가 있으면 관리자 인증 저장 후 메인으로 자동 이동
+      if (location.search.indexOf("admin") !== -1 || location.search.indexOf("bypass") !== -1) {
+        try { localStorage.setItem("adminBypass", "true"); } catch(e) {}
+        location.replace("main.html");
+      }
     </script>
     <!-- 항상 최신 버전을 불러오도록 브라우저 캐시(임시저장) 방지 -->
     <meta

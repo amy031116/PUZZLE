@@ -4,9 +4,26 @@
     <meta charset="UTF-8" />
     <title>PUZZLE</title>
     <script>
+      // ★ [설정] 방화벽(오픈 전 리다이렉트) ON/OFF 스위치 (현재: ON)
+      const ENABLE_GUARD = true;
+
       // 오픈 시각: 2026-11-05 18:00 KST
       const openTime = new Date("2026-11-05T18:00:00+09:00");
-      if (new Date() >= openTime) {
+
+      // 로그아웃 / 권한 초기화 확인
+      if (location.search.indexOf("logout") !== -1 || location.search.indexOf("admin=false") !== -1) {
+        try {
+          localStorage.removeItem("adminBypass");
+          sessionStorage.removeItem("adminBypass");
+        } catch(e) {}
+      }
+
+      const isAdmin = localStorage.getItem("adminBypass") === "true" || (location.search.indexOf("admin") !== -1 && location.search.indexOf("admin=false") === -1);
+      if (isAdmin) {
+        try { localStorage.setItem("adminBypass", "true"); } catch(e) {}
+      }
+
+      if (!ENABLE_GUARD || isAdmin || new Date() >= openTime) {
         location.replace("main.html?v=" + new Date().getTime());
       } else {
         location.replace("grand opening.html?v=" + new Date().getTime());
