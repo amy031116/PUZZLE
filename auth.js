@@ -7,6 +7,11 @@
 
   const STORAGE_KEY = "puzzle_nickname";
 
+  // 비속어 및 금칙어 필터 모듈 동적 로드
+  import("./profanity-filter.js").catch(function (e) {
+    console.warn("profanity-filter 로드 실패:", e);
+  });
+
   /* ──────────────────────────────────────────
      CSS 삽입
   ────────────────────────────────────────── */
@@ -312,6 +317,14 @@
     if (val.trim().length > 10) return "닉네임은 10자 이하여야 해요.";
     if (!/^[가-힣a-zA-Z0-9_\-.]+$/.test(val.trim()))
       return "특수문자는 _ - . 만 사용 가능해요.";
+
+    // 비속어 및 금칙어 검사
+    if (window.checkProfanity) {
+      const profanity = window.checkProfanity(val.trim());
+      if (profanity.isBad) {
+        return "사용 불가능한 단어가 포함되어 있습니다.";
+      }
+    }
     return "";
   }
 
@@ -324,6 +337,9 @@
     if (err) {
       input.classList.add("error");
       errMsg.textContent = err;
+      if (err === "사용 불가능한 단어가 포함되어 있습니다." && window.showProfanityAlert) {
+        window.showProfanityAlert("사용 불가능한 단어가 포함되어 있습니다.");
+      }
       input.focus();
       return;
     }

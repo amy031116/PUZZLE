@@ -10,6 +10,7 @@ import {
   set
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { firebaseConfig } from "./firebase-config.js";
+import { checkProfanity } from "./profanity-filter.js";
 
 // 해당 작품의 고유 ID와 창작자 닉네임 설정
 const WORK_ID = "eundan";
@@ -263,6 +264,14 @@ form.addEventListener("submit", (e) => {
 
   const text = input.value.trim();
   if (!text) return;
+
+  // 비속어 및 금칙어 검사
+  const profanity = checkProfanity(text);
+  if (profanity.isBad) {
+    showCustomAlert("사용 불가능한 단어가 포함되어 있습니다.", "⚠️");
+    input.focus();
+    return;
+  }
 
   const now = Date.now();
   if (now - lastSentAt < 2000) return;

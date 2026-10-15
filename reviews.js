@@ -10,6 +10,7 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { firebaseConfig } from "./firebase-config.js";
+import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
 
 (function () {
   "use strict";
@@ -477,6 +478,14 @@ import { firebaseConfig } from "./firebase-config.js";
 
     const text = input.value.trim();
     if (!text) return;
+
+    // 비속어 및 금칙어 검사
+    const profanity = checkProfanity(text);
+    if (profanity.isBad) {
+      showProfanityAlert("사용 불가능한 단어가 포함되어 있습니다.");
+      input.focus();
+      return;
+    }
 
     const now = Date.now();
     if (now - lastSentAt < SEND_COOLDOWN_MS) return;
