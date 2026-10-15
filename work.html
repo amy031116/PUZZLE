@@ -1637,8 +1637,10 @@
           overflow-x: scroll !important;
         }
 
-        /* [요구사항 4] 파란 영역 정렬 버튼 1.5배 확대 및 좌측 여백 정렬 */
+        /* [요구사항 4] 파란 영역 정렬 버튼 1.5배 확대 및 좌측 여백 정렬 (위로 10px 이동) */
         .sort-bar {
+          position: relative !important;
+          top: -10px !important;
           width: 1110px !important;
           margin: 0 auto 36px !important;
           padding: 0 !important;
@@ -1750,8 +1752,10 @@
         overflow-x: scroll !important;
       }
 
-      /* [요구사항 4] 파란 영역 정렬 버튼 1.5배 확대 및 좌측 여백 정렬 */
+      /* [요구사항 4] 파란 영역 정렬 버튼 1.5배 확대 및 좌측 여백 정렬 (위로 10px 이동) */
       html.puzzle-mobile-view .sort-bar {
+        position: relative !important;
+        top: -10px !important;
         width: 1110px !important;
         margin: 0 auto 36px !important;
         padding: 0 !important;
