@@ -1613,40 +1613,40 @@
           padding: 0 !important;
         }
         .big-star {
-          left: -170px !important; /* 기존 -180px에서 오른쪽으로 10px 이동 */
+          left: -170px !important;
           top: -138px !important;
-          width: 504px !important; /* 420px * 1.2 */
-          height: 288px !important; /* 240px * 1.2 */
+          width: 504px !important;
+          height: 288px !important;
         }
-        /* [요구사항 1] TRENDING NOW 타이틀만 15px 오른쪽으로 이동 */
+        /* [요구사항 1] TRENDING NOW 타이틀만 15px 더 오른쪽으로 이동 (총 30px) */
         .trend-head h2 {
-          font-size: 77px !important; /* 64px * 1.2 */
-          margin-left: 15px !important;
+          font-size: 77px !important;
+          margin-left: 30px !important;
         }
 
-        /* [요구사항 3] TRENDING NOW 카드 5px 줄여서 3개씩 표시 */
+        /* [요구사항 3] TRENDING NOW 카드 영역 좌우 여백(30px) 확보 및 카드 사이 여백 축소(25px), 3개 표시 */
         .trend-grid {
           width: var(--max) !important;
           margin: 0 auto !important;
-          padding: 0 0 20px !important;
-          gap: 40px !important;
-          grid-auto-columns: calc((100% - 80px) / 3 - 5px) !important;
+          padding: 0 30px 20px !important;
+          gap: 25px !important;
+          grid-auto-columns: calc((100% - 110px) / 3) !important;
         }
 
-        /* [요구사항 2] 파란 영역 정렬 버튼 전체 오른쪽으로 15px 이동 */
+        /* [요구사항 2] 파란 영역 정렬 버튼 전체 15px 더 오른쪽으로 이동 (총 30px, 카드 좌측 여백과 일치) */
         .sort-bar {
           width: var(--max) !important;
           margin: 0 auto 36px !important;
-          padding-left: 15px !important;
+          padding-left: 30px !important;
         }
 
-        /* [요구사항 4] 파란 영역 카드 한 줄에 3개씩 그리드 변경 및 사이즈 확대 */
+        /* [요구사항 4] 파란 영역 카드 사이즈 약간 줄이고 좌우 여백 확보 (너비 축소 및 3개 그리드) */
         .works-grid {
           width: var(--max) !important;
           margin: 0 auto !important;
+          padding: 0 30px !important;
           grid-template-columns: repeat(3, 1fr) !important;
-          gap: 60px 40px !important;
-          padding: 0 !important;
+          gap: 50px 30px !important;
         }
       }
 
@@ -1693,35 +1693,35 @@
         width: 504px !important;
         height: 288px !important;
       }
-      /* [요구사항 1] TRENDING NOW 타이틀만 15px 오른쪽으로 이동 */
+      /* [요구사항 1] TRENDING NOW 타이틀만 15px 더 오른쪽으로 이동 (총 30px) */
       html.puzzle-mobile-view .trend-head h2 {
         font-size: 77px !important;
-        margin-left: 15px !important;
+        margin-left: 30px !important;
       }
 
-      /* [요구사항 3] TRENDING NOW 카드 5px 줄여서 3개씩 표시 */
+      /* [요구사항 3] TRENDING NOW 카드 영역 좌우 여백(30px) 확보 및 카드 사이 여백 축소(25px), 3개 표시 */
       html.puzzle-mobile-view .trend-grid {
         width: var(--max) !important;
         margin: 0 auto !important;
-        padding: 0 0 20px !important;
-        gap: 40px !important;
-        grid-auto-columns: calc((100% - 80px) / 3 - 5px) !important;
+        padding: 0 30px 20px !important;
+        gap: 25px !important;
+        grid-auto-columns: calc((100% - 110px) / 3) !important;
       }
 
-      /* [요구사항 2] 파란 영역 정렬 버튼 전체 오른쪽으로 15px 이동 */
+      /* [요구사항 2] 파란 영역 정렬 버튼 전체 15px 더 오른쪽으로 이동 (총 30px, 카드 좌측 여백과 일치) */
       html.puzzle-mobile-view .sort-bar {
         width: var(--max) !important;
         margin: 0 auto 36px !important;
-        padding-left: 15px !important;
+        padding-left: 30px !important;
       }
 
-      /* [요구사항 4] 파란 영역 카드 한 줄에 3개씩 그리드 변경 및 사이즈 확대 */
+      /* [요구사항 4] 파란 영역 카드 사이즈 약간 줄이고 좌우 여백 확보 (너비 축소 및 3개 그리드) */
       html.puzzle-mobile-view .works-grid {
         width: var(--max) !important;
         margin: 0 auto !important;
+        padding: 0 30px !important;
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 60px 40px !important;
-        padding: 0 !important;
+        gap: 50px 30px !important;
       }
     </style>
   </head>
