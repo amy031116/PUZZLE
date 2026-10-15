@@ -3,6 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <script src="gate-guard.js"></script>
+        <script>
+      (function () {
+        var isMobile = /Android|iPhone|iPad|iPod|Mobile|Silk/i.test(navigator.userAgent) ||
+                       (navigator.maxTouchPoints > 1 && !/Windows/i.test(navigator.userAgent)) ||
+                       (window.matchMedia && window.matchMedia('(pointer: coarse) and (max-device-width: 1024px)').matches);
+        if (isMobile) {
+          document.documentElement.classList.add('puzzle-mobile-view');
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=1200" />
     <title>PUZZLE Landing</title>
     <style>
@@ -441,7 +451,7 @@
 
       .trend {
         background: var(--cream);
-        padding: 40px 0; /* 고정 크기 */
+        padding: 56px 0;
         position: relative;
         z-index: 3;
         overflow: visible;
@@ -1131,7 +1141,6 @@
         transition: color 0.25s ease;
       }
 
-      /* 선택된 카테고리 표시: 모든 버튼 핑크 띠, 버튼과 간격 없이 안쪽으로 6px */
       .category-btn.active .category-circle {
         transform: scale(1.06);
         box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
@@ -1318,70 +1327,27 @@
           display: none !important;
         }
 
-        /* 카테고리 섹션 전체 사이즈 1.2배 확대 및 균형 배치 */
         .category-section {
-          padding: 44px 16px 40px;
-        }
-        .category-title {
-          font-size: 44px !important;
-          margin: 0 0 32px !important;
+          padding: 30px 10px;
         }
         .category-inner {
-          display: flex !important;
-          flex-wrap: wrap !important;
-          justify-content: center !important;
-          gap: 24px 22px !important;
-          padding: 0 10px !important;
-          max-width: 360px !important;
-          margin: 0 auto !important;
-        }
-        .category-btn {
-          gap: 14px !important;
-        }
-        .category-circle {
-          width: 136px !important;
-          height: 136px !important;
-        }
-        .category-label {
-          font-size: 19px !important;
-          font-weight: 800 !important;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 15px;
+          padding: 0 15px;
         }
 
-        /* 트렌딩 나우 섹션: 영역 확대, 별 & 타이틀 오른쪽 이동 (잘림 방지) */
-        .trend {
-          padding: 48px 0 36px !important;
-          overflow: hidden !important;
-        }
         .trend-head {
-          padding: 0 16px !important;
-          margin-bottom: 24px !important;
-          min-height: 80px !important;
-          display: flex !important;
-          align-items: center !important;
-          position: relative !important;
+          padding: 0 15px;
+          margin-bottom: 20px;
         }
         .trend-head h2 {
-          font-size: 38px !important;
-          margin-left: 70px !important; /* 타이틀을 오른쪽으로 이동 */
-          line-height: 1 !important;
+          font-size: 32px;
         }
-        .big-star {
-          display: block !important;
-          width: 210px !important;
-          height: 125px !important;
-          left: 15px !important; /* 별을 오른쪽으로 이동시켜 화면 안쪽으로 안착 */
-          top: -24px !important;
-          transform: rotate(-15deg) !important;
-        }
-
-        /* 트렌딩 나우 카드 그리드: 한 번에 3개씩 시원하게 표시 */
         .trend-grid {
-          gap: 10px !important;
-          padding: 0 14px 24px !important;
-          grid-auto-columns: calc((100% - 14px) / 3) !important;
-        }
-        .trend-grid .card {
-          border-radius: 18px !important;
+          gap: 15px;
+          padding: 0 15px 20px;
+          grid-auto-columns: calc((100% - 30px) / 2.5);
         }
 
         .works-grid,
@@ -1600,6 +1566,128 @@
           right: 8px;
         }
       }
+    
+      /* ==========================================================================
+         📱 모바일 기기 전용 (1200px 뷰포트 비율 유지 상태에서 요구사항 적용)
+         - PC 화면에서는 puzzle-mobile-view 클래스가 없으므로 절대 변경되지 않음
+         ========================================================================== */
+      @media (pointer: coarse) and (max-device-width: 1024px) {
+        /* 1. 카테고리 섹션 전체 1.2배 확대 (가로 1줄 정렬 유지) */
+        .category-section {
+          padding: 77px 0 72px !important;
+        }
+        .category-title {
+          font-size: 58px !important;
+          margin: 0 0 58px !important;
+        }
+        .category-inner {
+          display: flex !important;
+          flex-wrap: nowrap !important;
+          justify-content: center !important;
+          gap: 72px !important;
+          width: var(--max) !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          max-width: none !important;
+        }
+        .category-btn {
+          gap: 26px !important;
+        }
+        .category-circle {
+          width: 144px !important;
+          height: 144px !important;
+        }
+        .category-label {
+          font-size: 22px !important;
+        }
+
+        /* 2. TRENDING NOW 전체 1.2배 확대 */
+        .trend {
+          padding: 67px 0 !important;
+        }
+        .trend-head {
+          width: var(--max) !important;
+          margin: 0 auto 36px !important;
+          min-height: 72px !important;
+          padding: 0 !important;
+        }
+        /* 3. 별과 타이틀 오른쪽으로 10px 이동 */
+        .big-star {
+          left: -170px !important; /* 기존 -180px에서 오른쪽으로 10px 이동 */
+          top: -138px !important;
+          width: 504px !important; /* 420px * 1.2 */
+          height: 288px !important; /* 240px * 1.2 */
+        }
+        .trend-head h2 {
+          font-size: 77px !important; /* 64px * 1.2 */
+          margin-left: 10px !important; /* 기존 0에서 오른쪽으로 10px 이동 */
+        }
+
+        /* 4. 영역 속 카드가 한 번에 3개씩 보이게 */
+        .trend-grid {
+          width: var(--max) !important;
+          margin: 0 auto !important;
+          padding: 0 0 20px !important;
+          gap: 40px !important;
+          grid-auto-columns: calc((100% - 80px) / 3) !important;
+        }
+      }
+
+      html.puzzle-mobile-view .category-section {
+        padding: 77px 0 72px !important;
+      }
+      html.puzzle-mobile-view .category-title {
+        font-size: 58px !important;
+        margin: 0 0 58px !important;
+      }
+      html.puzzle-mobile-view .category-inner {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        gap: 72px !important;
+        width: var(--max) !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        max-width: none !important;
+      }
+      html.puzzle-mobile-view .category-btn {
+        gap: 26px !important;
+      }
+      html.puzzle-mobile-view .category-circle {
+        width: 144px !important;
+        height: 144px !important;
+      }
+      html.puzzle-mobile-view .category-label {
+        font-size: 22px !important;
+      }
+
+      html.puzzle-mobile-view .trend {
+        padding: 67px 0 !important;
+      }
+      html.puzzle-mobile-view .trend-head {
+        width: var(--max) !important;
+        margin: 0 auto 36px !important;
+        min-height: 72px !important;
+        padding: 0 !important;
+      }
+      html.puzzle-mobile-view .big-star {
+        left: -170px !important; /* 기존 -180px에서 오른쪽으로 10px 이동 */
+        top: -138px !important;
+        width: 504px !important; /* 420px * 1.2 */
+        height: 288px !important; /* 240px * 1.2 */
+      }
+      html.puzzle-mobile-view .trend-head h2 {
+        font-size: 77px !important; /* 64px * 1.2 */
+        margin-left: 10px !important; /* 기존 0에서 오른쪽으로 10px 이동 */
+      }
+      html.puzzle-mobile-view .trend-grid {
+        width: var(--max) !important;
+        margin: 0 auto !important;
+        padding: 0 0 20px !important;
+        gap: 40px !important;
+        grid-auto-columns: calc((100% - 80px) / 3) !important;
+      }
+
     </style>
   </head>
   <body id="top">
