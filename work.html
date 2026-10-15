@@ -5,7 +5,8 @@
     <script src="gate-guard.js"></script>
         <script>
       (function () {
-        var isMobile = /Android|iPhone|iPad|iPod|Mobile|Silk/i.test(navigator.userAgent) ||
+        var isMobile = location.search.indexOf('mobile') !== -1 ||
+                       /Android|iPhone|iPad|iPod|Mobile|Silk/i.test(navigator.userAgent) ||
                        (navigator.maxTouchPoints > 1 && !/Windows/i.test(navigator.userAgent)) ||
                        (window.matchMedia && window.matchMedia('(pointer: coarse) and (max-device-width: 1024px)').matches);
         if (isMobile) {
@@ -1568,7 +1569,7 @@
       }
     
       /* ==========================================================================
-         📱 모바일 기기 전용 (1200px 뷰포트 비율 유지 상태에서 요구사항 적용)
+         📱 모바일 기기 및 ?mobile=1 전용 (1200px 뷰포트 비율 유지 상태에서 요구사항 적용)
          - PC 화면에서는 puzzle-mobile-view 클래스가 없으므로 절대 변경되지 않음
          ========================================================================== */
       @media (pointer: coarse) and (max-device-width: 1024px) {
@@ -1611,25 +1612,41 @@
           min-height: 72px !important;
           padding: 0 !important;
         }
-        /* 3. 별과 타이틀 오른쪽으로 10px 이동 */
         .big-star {
           left: -170px !important; /* 기존 -180px에서 오른쪽으로 10px 이동 */
           top: -138px !important;
           width: 504px !important; /* 420px * 1.2 */
           height: 288px !important; /* 240px * 1.2 */
         }
+        /* [요구사항 1] TRENDING NOW 타이틀만 15px 오른쪽으로 이동 */
         .trend-head h2 {
           font-size: 77px !important; /* 64px * 1.2 */
-          margin-left: 10px !important; /* 기존 0에서 오른쪽으로 10px 이동 */
+          margin-left: 15px !important;
         }
 
-        /* 4. 영역 속 카드가 한 번에 3개씩 보이게 */
+        /* [요구사항 3] TRENDING NOW 카드 5px 줄여서 3개씩 표시 */
         .trend-grid {
           width: var(--max) !important;
           margin: 0 auto !important;
           padding: 0 0 20px !important;
           gap: 40px !important;
-          grid-auto-columns: calc((100% - 80px) / 3) !important;
+          grid-auto-columns: calc((100% - 80px) / 3 - 5px) !important;
+        }
+
+        /* [요구사항 2] 파란 영역 정렬 버튼 전체 오른쪽으로 15px 이동 */
+        .sort-bar {
+          width: var(--max) !important;
+          margin: 0 auto 36px !important;
+          padding-left: 15px !important;
+        }
+
+        /* [요구사항 4] 파란 영역 카드 한 줄에 3개씩 그리드 변경 및 사이즈 확대 */
+        .works-grid {
+          width: var(--max) !important;
+          margin: 0 auto !important;
+          grid-template-columns: repeat(3, 1fr) !important;
+          gap: 60px 40px !important;
+          padding: 0 !important;
         }
       }
 
@@ -1671,23 +1688,41 @@
         padding: 0 !important;
       }
       html.puzzle-mobile-view .big-star {
-        left: -170px !important; /* 기존 -180px에서 오른쪽으로 10px 이동 */
+        left: -170px !important;
         top: -138px !important;
-        width: 504px !important; /* 420px * 1.2 */
-        height: 288px !important; /* 240px * 1.2 */
+        width: 504px !important;
+        height: 288px !important;
       }
+      /* [요구사항 1] TRENDING NOW 타이틀만 15px 오른쪽으로 이동 */
       html.puzzle-mobile-view .trend-head h2 {
-        font-size: 77px !important; /* 64px * 1.2 */
-        margin-left: 10px !important; /* 기존 0에서 오른쪽으로 10px 이동 */
+        font-size: 77px !important;
+        margin-left: 15px !important;
       }
+
+      /* [요구사항 3] TRENDING NOW 카드 5px 줄여서 3개씩 표시 */
       html.puzzle-mobile-view .trend-grid {
         width: var(--max) !important;
         margin: 0 auto !important;
         padding: 0 0 20px !important;
         gap: 40px !important;
-        grid-auto-columns: calc((100% - 80px) / 3) !important;
+        grid-auto-columns: calc((100% - 80px) / 3 - 5px) !important;
       }
 
+      /* [요구사항 2] 파란 영역 정렬 버튼 전체 오른쪽으로 15px 이동 */
+      html.puzzle-mobile-view .sort-bar {
+        width: var(--max) !important;
+        margin: 0 auto 36px !important;
+        padding-left: 15px !important;
+      }
+
+      /* [요구사항 4] 파란 영역 카드 한 줄에 3개씩 그리드 변경 및 사이즈 확대 */
+      html.puzzle-mobile-view .works-grid {
+        width: var(--max) !important;
+        margin: 0 auto !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 60px 40px !important;
+        padding: 0 !important;
+      }
     </style>
   </head>
   <body id="top">
