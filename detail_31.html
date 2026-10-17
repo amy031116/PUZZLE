@@ -1068,7 +1068,6 @@
           min-width: 1200px !important;
         }
 
-
         /* ── 브레드크럼 ── */
         .breadcrumb-bar {
           padding: 0 16px !important;
@@ -1322,37 +1321,37 @@
         <div class="hero-thumbnails">
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/메인 이미지.png"
+              src="ㅎ_이희서\썸네일1.png"
               alt="메인 이미지"
-              data-src="작품세부페이지/메인 이미지.png"
+              data-src="ㅎ_이희서\썸네일1.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브0.png"
+              src="ㅎ_이희서\썸네일2.png"
               alt="서브 이미지 0"
-              data-src="작품세부페이지/서브0.png"
+              data-src="ㅎ_이희서\썸네일2.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브1.png"
+              src="ㅎ_이희서\썸네일3.png"
               alt="서브 이미지 1"
-              data-src="작품세부페이지/서브1.png"
+              data-src="ㅎ_이희서\썸네일3.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브2.png"
+              src="ㅎ_이희서\썸네일4.png"
               alt="서브 이미지 2"
-              data-src="작품세부페이지/서브2.png"
+              data-src="ㅎ_이희서\썸네일4.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브3.png"
+              src="ㅎ_이희서\썸네일5.png"
               alt="서브 이미지 3"
-              data-src="작품세부페이지/서브3.png"
+              data-src="ㅎ_이희서\썸네일5.png"
             />
           </div>
         </div>
@@ -1361,7 +1360,7 @@
         <div class="hero-main-image">
           <img
             id="hero-main-img"
-            src="작품세부페이지/메인 이미지.png"
+            src="ㅎ_이희서\대표 썸네일.png"
             alt="메인 이미지"
           />
         </div>
@@ -1562,7 +1561,12 @@
       const thumbImgs = document.querySelectorAll(".hero-thumb img");
       thumbImgs.forEach((thumb) => {
         thumb.addEventListener("mouseover", () => {
-          mainImg.src = thumb.dataset.src;
+          const targetSrc =
+            thumb.dataset.src &&
+            !thumb.dataset.src.includes("작품세부페이지/")
+              ? thumb.dataset.src
+              : thumb.getAttribute("src") || thumb.src;
+          mainImg.src = targetSrc;
         });
       });
 

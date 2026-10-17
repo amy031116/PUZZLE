@@ -1068,7 +1068,6 @@
           min-width: 1200px !important;
         }
 
-
         /* ── 브레드크럼 ── */
         .breadcrumb-bar {
           padding: 0 16px !important;
@@ -1567,7 +1566,11 @@
       const thumbImgs = document.querySelectorAll(".hero-thumb img");
       thumbImgs.forEach((thumb) => {
         thumb.addEventListener("mouseover", () => {
-          mainImg.src = thumb.dataset.src;
+          const targetSrc =
+            thumb.dataset.src && !thumb.dataset.src.includes("작품세부페이지/")
+              ? thumb.dataset.src
+              : thumb.getAttribute("src") || thumb.src;
+          mainImg.src = targetSrc;
         });
       });
 

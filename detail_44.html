@@ -1422,13 +1422,13 @@
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
             현실에 지친 주인공이 비눗방울에 붙잡혀 하늘로 떠오르고, 잊고 있던
-            어린 시절의 꿈과 마주하는 2D 애니메이션. <br />
-            <br />비눗방울을 현실과 몽상을 잇는 매개체로 삼아, 몸이 떠오르는
-            움직임과 마음속에 꿈이 떠오르는 순간을 연결했다. <br />
-            <br />몽상은 현실을 외면하는 헛된 상상으로 여겨지기도 하지만,
-            반복되는 일상에 색을 더하고 세상을 아름답게 바라보게 하는 힘이
-            되기도 한다. 현실과 몽상 중 어느 한쪽이 옳다고 단정하기보다, 현실을
-            살아가는 우리에게 몽상은 어떤 의미인지 질문한다.
+            어린 시절의 꿈과 마주하는 2D 애니메이션.<br /><br />비눗방울을
+            현실과 몽상을 잇는 매개체로 삼아, 몸이 떠오르는 움직임과 마음속에
+            꿈이 떠오르는 순간을 연결했다.<br /><br />몽상은 현실을 외면하는
+            헛된 상상으로 여겨지기도 하지만, 반복되는<br />일상에 색을 더하고
+            세상을 아름답게 바라보게 하는 힘이 되기도 한다. 현실과 몽상 중 어느
+            한쪽이 옳다고 단정하기보다, 현실을 살아가는<br />우리에게 몽상은
+            어떤 의미인지 질문한다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1452,7 +1452,7 @@
               </div>
               <div class="meta-row">
                 <span class="meta-label">영상포멧</span>
-                <span class="meta-value">1920*1080, 1분50초</span>
+                <span class="meta-value">1920*1080, 2분20초</span>
               </div>
               <div class="meta-row">
                 <span class="meta-label">사용 툴</span>
@@ -1568,7 +1568,11 @@
       const thumbImgs = document.querySelectorAll(".hero-thumb img");
       thumbImgs.forEach((thumb) => {
         thumb.addEventListener("mouseover", () => {
-          mainImg.src = thumb.dataset.src;
+          const targetSrc =
+            thumb.dataset.src && !thumb.dataset.src.includes("작품세부페이지/")
+              ? thumb.dataset.src
+              : thumb.getAttribute("src") || thumb.src;
+          mainImg.src = targetSrc;
         });
       });
 

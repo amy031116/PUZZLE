@@ -3,14 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <script src="gate-guard.js"></script>
-        <script>
+    <script>
       (function () {
-        var isMobile = location.search.indexOf('mobile') !== -1 ||
-                       /Android|iPhone|iPad|iPod|Mobile|Silk/i.test(navigator.userAgent) ||
-                       (navigator.maxTouchPoints > 1 && !/Windows/i.test(navigator.userAgent)) ||
-                       (window.matchMedia && window.matchMedia('(pointer: coarse) and (max-device-width: 1024px)').matches);
+        var isMobile =
+          location.search.indexOf("mobile") !== -1 ||
+          /Android|iPhone|iPad|iPod|Mobile|Silk/i.test(navigator.userAgent) ||
+          (navigator.maxTouchPoints > 1 &&
+            !/Windows/i.test(navigator.userAgent)) ||
+          (window.matchMedia &&
+            window.matchMedia(
+              "(pointer: coarse) and (max-device-width: 1024px)",
+            ).matches);
         if (isMobile) {
-          document.documentElement.classList.add('puzzle-mobile-view');
+          document.documentElement.classList.add("puzzle-mobile-view");
         }
       })();
     </script>
@@ -389,9 +394,20 @@
         border-radius: 34px;
         aspect-ratio: 1 / 1;
         width: 100%;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         transition:
           transform 0.35s ease,
           filter 0.35s ease;
+      }
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: inherit;
       }
 
       .card:hover,
@@ -1452,17 +1468,29 @@
       }
 
       .slide {
-        min-width: 100%;
-        height: 640px;
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 1920 / 641;
+        max-height: 860px;
+        min-height: 200px;
         overflow: hidden;
         flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #080808;
+        position: relative;
+        box-sizing: border-box;
       }
 
       .slide img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         display: block;
+        transform: scale(1.008);
         pointer-events: none;
         user-select: none;
       }
@@ -1567,7 +1595,7 @@
           right: 8px;
         }
       }
-    
+
       /* ==========================================================================
          📱 모바일 기기 및 ?mobile=1 전용 (1200px 뷰포트 비율 유지 상태에서 요구사항 적용)
          - PC 화면에서는 puzzle-mobile-view 클래스가 없으므로 절대 변경되지 않음
@@ -1709,6 +1737,10 @@
       }
       html.puzzle-mobile-view .category-btn {
         gap: 28px !important;
+      }
+      html.puzzle-mobile-view .slide {
+        height: auto !important;
+        aspect-ratio: 1920 / 641 !important;
       }
       html.puzzle-mobile-view .category-circle {
         width: 156px !important;
@@ -2238,7 +2270,11 @@
         <i class="sticker extra9" aria-hidden="true"></i>
         <i class="sticker extra10" aria-hidden="true"></i>
         <div class="sort-bar" id="workSortBar">
-          <div class="sort-group sort-group--parent" role="group" aria-label="정렬 기준">
+          <div
+            class="sort-group sort-group--parent"
+            role="group"
+            aria-label="정렬 기준"
+          >
             <button type="button" class="sort-btn" data-sort-key="name">
               이름
             </button>
@@ -2246,7 +2282,11 @@
               작품
             </button>
           </div>
-          <div class="sort-group sort-group--child" role="group" aria-label="정렬 방향">
+          <div
+            class="sort-group sort-group--child"
+            role="group"
+            aria-label="정렬 방향"
+          >
             <button type="button" class="sort-btn" data-sort-dir="asc">
               오름차순
             </button>
@@ -2256,6 +2296,7 @@
           </div>
         </div>
         <div class="works-grid">
+          <!-- 개인이미지 -->
           <article class="work-item" data-category="애니메이션">
             <a
               class="card tall"
@@ -2617,11 +2658,9 @@
             </div>
           </article>
           <article class="work-item" data-category="멀티미디어">
-            <a
-              class="card tall"
-              href="detail_31.html"
-              style="background-color: #407dff"
-            ></a>
+            <a class="card tall" href="detail_31.html">
+              <img src="ㅎ_이희서/작품1.png" alt="PUZZLE Webpage" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>PUZZLE Webpage</strong>
@@ -3125,12 +3164,11 @@
     <script>
       (function () {
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           📌 기본 이미지 목록 (48장)
-           → slider-images.html에서 저장하면 아래 기본값 대신
-             localStorage 값이 우선 적용됩니다.
+           📌 슬라이더 이미지 목록 (48장)
+           ※ 슬라이더 이미지를 변경하려면 아래 배열의 경로를 직접 수정하세요.
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        const DEFAULT_IMAGES = [
-          "슬라이더 이미지/01.jpg",
+        const SLIDER_IMAGES = [
+          "ㅎ_이희서/상단 슬라이더.png",
           "슬라이더 이미지/02.jpg",
           "슬라이더 이미지/03.jpg",
           "슬라이더 이미지/04.jpg",
@@ -3179,6 +3217,7 @@
           "슬라이더 이미지/47.jpg",
           "슬라이더 이미지/48.jpg",
         ];
+        const DEFAULT_IMAGES = SLIDER_IMAGES;
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         const LS_KEY = "puzzle_slider_images";
@@ -3194,14 +3233,13 @@
         let autoTimer = null;
         let images = [];
 
-        /* localStorage에서 읽기, 없으면 기본값 사용 */
+        /* 이미지 목록 불러오기 (코드의 SLIDER_IMAGES를 최우선 적용) */
         function loadImages() {
           try {
-            const saved = localStorage.getItem(LS_KEY);
-            return saved ? JSON.parse(saved) : DEFAULT_IMAGES;
-          } catch (e) {
-            return DEFAULT_IMAGES;
-          }
+            // 브라우저에 남아있던 구버전 로컬스토리지 캐시가 코드 수정을 덮어쓰지 않도록 정리
+            localStorage.removeItem(LS_KEY);
+          } catch (e) {}
+          return SLIDER_IMAGES;
         }
 
         /* 슬라이더 전체 재구성 (이미지 목록이 바뀌었을 때) */
@@ -3242,6 +3280,7 @@
 
         function goTo(idx) {
           const total = images.length;
+          if (!total) return;
           current = (idx + total) % total;
           track.style.transform = "translateX(-" + current * 100 + "%)";
           counter.textContent = current + 1 + " / " + total;
@@ -3296,10 +3335,12 @@
           resetTimer();
         });
 
-        /* slider-images.html에서 저장하면 즉시 자동 반영 */
+        /* slider-images.html에서 실시간 저장 시 즉시 반영 */
         window.addEventListener("storage", function (e) {
-          if (e.key === LS_KEY) {
-            buildSlider(loadImages());
+          if (e.key === LS_KEY && e.newValue) {
+            try {
+              buildSlider(JSON.parse(e.newValue));
+            } catch (err) {}
           }
         });
 
@@ -3319,13 +3360,18 @@
           el.dataset.origIndex = i; // 원래 순서 기억 (동률 시 안정 정렬)
         });
 
-        var collator = new Intl.Collator("ko", { numeric: true, sensitivity: "base" });
+        var collator = new Intl.Collator("ko", {
+          numeric: true,
+          sensitivity: "base",
+        });
         var state = { key: null, dir: null };
         var keyBtns = bar.querySelectorAll("[data-sort-key]");
         var dirBtns = bar.querySelectorAll("[data-sort-dir]");
 
         function textOf(el, key) {
-          var node = el.querySelector(key === "name" ? ".meta .name" : ".meta strong");
+          var node = el.querySelector(
+            key === "name" ? ".meta .name" : ".meta strong",
+          );
           return node ? node.textContent.trim() : "";
         }
 
@@ -3339,7 +3385,9 @@
 
           var sign = state.dir === "desc" ? -1 : 1;
           var sorted = items.slice().sort(function (a, b) {
-            var r = collator.compare(textOf(a, state.key), textOf(b, state.key)) * sign;
+            var r =
+              collator.compare(textOf(a, state.key), textOf(b, state.key)) *
+              sign;
             return r || a.dataset.origIndex - b.dataset.origIndex;
           });
           sorted.forEach(function (el) {
