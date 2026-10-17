@@ -439,13 +439,22 @@
         transform: rotate(15deg);
       }
 
-      .deco-container .sticker.extra-14 {
+      .sticker-bottom-wrapper {
         position: absolute;
-        bottom: -1181px;
+        bottom: -300px;
         right: -500px;
         width: 1200px;
-        height: 1200px;
+        height: 600px;
+        overflow: hidden;
+        pointer-events: none;
         z-index: 2;
+      }
+      .deco-container .sticker.extra-14 {
+        position: absolute;
+        bottom: -881px;
+        right: 0;
+        width: 1200px;
+        height: 1200px;
         background-image: url("스티커 에셋/노-네모.svg");
         background-size: contain;
         background-repeat: no-repeat;
@@ -1031,7 +1040,7 @@
         <i class="sticker extra-11" aria-hidden="true"></i>
         <i class="sticker extra-12" aria-hidden="true"></i>
         <i class="sticker extra-13" aria-hidden="true"></i>
-        <i class="sticker extra-14" aria-hidden="true"></i>
+        <div class="sticker-bottom-wrapper"><i class="sticker extra-14" aria-hidden="true"></i></div>
         <i class="sticker extra-15" aria-hidden="true"></i>
         <i class="sticker extra-16" aria-hidden="true"></i>
         <i class="sticker extra-17" aria-hidden="true"></i>
@@ -1354,5 +1363,7 @@
       });
     </script>
     <script src="auth.js"></script>
-  </body>
+  
+
+</body>
 </html>
