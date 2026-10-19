@@ -196,6 +196,7 @@
         color: #000;
         overflow: hidden;
         flex-shrink: 0;
+        cursor: pointer;
       }
 
       .hero-thumb img {
@@ -235,7 +236,8 @@
         padding-left: 20px;
         display: flex;
         flex-direction: column;
-        height: 600px;
+        min-height: 600px;
+        height: auto;
         box-sizing: border-box;
       }
 
@@ -319,33 +321,10 @@
 
       .hero-details {
         font-size: 15px;
-        line-height: 1.8;
+        line-height: 1.7;
         margin-bottom: 10px;
         font-weight: 600;
-        overflow-y: auto;
-        padding-right: 14px;
-        margin-right: -16px;
-      }
-      .hero-details::-webkit-scrollbar {
-        width: 6px;
-      }
-      .hero-details::-webkit-scrollbar-track {
-        background: #e2e8f0;
-        border-radius: 10px;
-      }
-      .hero-details::-webkit-scrollbar-thumb {
-        background: #64748b;
-        border-radius: 10px;
-        transition: background 0.2s ease;
-      }
-      .hero-details::-webkit-scrollbar-thumb:hover {
-        background: var(--pink, #ff2482);
-      }
-      @supports not selector(::-webkit-scrollbar) {
-        .hero-details {
-          scrollbar-width: thin;
-          scrollbar-color: #64748b #e2e8f0;
-        }
+        overflow: visible;
       }
 
       .hero-extra-meta {
@@ -586,7 +565,8 @@
       }
 
       .detail-images img {
-        width: 900px;
+        width: 1080px;
+        max-width: 100%;
         height: auto;
         display: block;
       }
@@ -1144,7 +1124,10 @@
           padding: 15px;
           height: auto;
         }
-         30px 0 20px;
+        footer {
+          min-height: auto;
+          padding: 30px 0 20px;
+        }
         .footer-inner {
           padding: 0 15px;
         }
@@ -1254,37 +1237,37 @@
         <div class="hero-thumbnails">
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/메인 이미지.png"
+              src="ㅎ_강재준/강재준_작품1번_상단썸네일_Main.png"
               alt="메인 이미지"
-              data-src="작품세부페이지/메인 이미지.png"
+              data-src="ㅎ_강재준/강재준_작품1번_상단썸네일_Main.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브0.png"
+              src="ㅎ_강재준/강재준_작품1번_상단썸네일_v02.png"
               alt="서브 이미지 0"
-              data-src="작품세부페이지/서브0.png"
+              data-src="ㅎ_강재준/강재준_작품1번_상단썸네일_v02.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브1.png"
+              src="ㅎ_강재준/강재준_작품1번_상단썸네일_v03.png"
               alt="서브 이미지 1"
-              data-src="작품세부페이지/서브1.png"
+              data-src="ㅎ_강재준/강재준_작품1번_상단썸네일_v03.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브2.png"
+              src="ㅎ_강재준/강재준_작품1번_상단썸네일_v04.png"
               alt="서브 이미지 2"
-              data-src="작품세부페이지/서브2.png"
+              data-src="ㅎ_강재준/강재준_작품1번_상단썸네일_v04.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브3.png"
+              src="ㅎ_강재준/강재준_작품1번_상단썸네일_v05.png"
               alt="서브 이미지 3"
-              data-src="작품세부페이지/서브3.png"
+              data-src="ㅎ_강재준/강재준_작품1번_상단썸네일_v05.png"
             />
           </div>
         </div>
@@ -1293,7 +1276,7 @@
         <div class="hero-main-image">
           <img
             id="hero-main-img"
-            src="작품세부페이지/메인 이미지.png"
+            src="ㅎ_강재준/강재준_작품1번_상단썸네일_Main.png"
             alt="메인 이미지"
           />
         </div>
@@ -1349,8 +1332,16 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            거대 메카 로봇 ‘PHOENIX’의<br />장엄한 출격 과정을 담은 3D 시네마틱
-            영상이다.
+            거대 메카 로봇 'PHOENIX'의<br />
+            장엄한 출격 과정을 담아낸 3D 시네마틱 영상이다.<br /><br />
+
+            'PHOENIX'가 새로운 파츠를 장착하며<br />
+            세상의 수호자로 거듭나는 과정을 시각적으로 그려냈다.<br /><br />
+
+            메카닉 특유의 정교한 디테일과 작동 모션을 구현하여<br />
+            메카닉의 무게감을 깊이 있게 전달했으며 극적인 조명과 다각도의<br />
+            카메라 구도를 적극적으로 활용해 시네마틱한 분위기를 한층 더 강조해
+            깊은 몰입감을 선사한다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1364,7 +1355,7 @@
                 </div>
                 <div class="meta-col">
                   <span class="meta-label">지도 교수</span>
-                  <span class="meta-value">유형준</span>
+                  <span class="meta-value">김좋훈</span>
                 </div>
               </div>
               <!-- ★ [수정 11] 제작기간, 영상포멧, 사용 툴 -->
@@ -1416,11 +1407,14 @@
 
       <!-- ★ [수정 13] 하단 작품 세부 이미지들 -->
       <div class="detail-images">
-        <img src="작품세부페이지/1.png" alt="작품 세부 이미지 1" />
-        <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
+        <img
+          src="ㅎ_강재준/강재준_작품1_상세하단.svg"
+          alt="작품 세부 이미지 1"
+        />
+        <!-- <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
         <img src="작품세부페이지/3.png" alt="작품 세부 이미지 3" />
         <img src="작품세부페이지/4.png" alt="작품 세부 이미지 4" />
-        <img src="작품세부페이지/5.png" alt="작품 세부 이미지 5" />
+        <img src="작품세부페이지/5.png" alt="작품 세부 이미지 5" /> -->
       </div>
     </main>
 
@@ -1487,18 +1481,23 @@
         }
       });
 
-      // 썸네일 hover → 메인 이미지 교체, 다른 썸네일에 올리기 전까지 유지
+      // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
       const mainImg = document.getElementById("hero-main-img");
-      const thumbImgs = document.querySelectorAll(".hero-thumb img");
-      thumbImgs.forEach((thumb) => {
-        thumb.addEventListener("mouseover", () => {
+      const heroThumbBoxes = document.querySelectorAll(".hero-thumb");
+      heroThumbBoxes.forEach((box) => {
+        const thumb = box.querySelector("img");
+        if (!thumb) return;
+        const updateMain = () => {
           const targetSrc =
-            thumb.dataset.src &&
-            !thumb.dataset.src.includes("작품세부페이지/")
-              ? thumb.dataset.src
-              : thumb.getAttribute("src") || thumb.src;
-          mainImg.src = targetSrc;
-        });
+            thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
+          if (targetSrc && mainImg) {
+            mainImg.src = targetSrc;
+          }
+        };
+        box.addEventListener("mouseenter", updateMain);
+        box.addEventListener("click", updateMain);
+        thumb.addEventListener("mouseover", updateMain);
+        thumb.addEventListener("click", updateMain);
       });
 
       // 영상 모달

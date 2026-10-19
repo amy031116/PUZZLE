@@ -196,6 +196,7 @@
         color: #000;
         overflow: hidden;
         flex-shrink: 0;
+        cursor: pointer;
       }
 
       .hero-thumb img {
@@ -235,7 +236,8 @@
         padding-left: 20px;
         display: flex;
         flex-direction: column;
-        height: 600px;
+        min-height: 600px;
+        height: auto;
         box-sizing: border-box;
       }
 
@@ -319,33 +321,10 @@
 
       .hero-details {
         font-size: 15px;
-        line-height: 1.8;
+        line-height: 1.7;
         margin-bottom: 10px;
         font-weight: 600;
-        overflow-y: auto;
-        padding-right: 14px;
-        margin-right: -16px;
-      }
-      .hero-details::-webkit-scrollbar {
-        width: 6px;
-      }
-      .hero-details::-webkit-scrollbar-track {
-        background: #e2e8f0;
-        border-radius: 10px;
-      }
-      .hero-details::-webkit-scrollbar-thumb {
-        background: #64748b;
-        border-radius: 10px;
-        transition: background 0.2s ease;
-      }
-      .hero-details::-webkit-scrollbar-thumb:hover {
-        background: var(--pink, #ff2482);
-      }
-      @supports not selector(::-webkit-scrollbar) {
-        .hero-details {
-          scrollbar-width: thin;
-          scrollbar-color: #64748b #e2e8f0;
-        }
+        overflow: visible;
       }
 
       .hero-extra-meta {
@@ -586,7 +565,8 @@
       }
 
       .detail-images img {
-        width: 900px;
+        width: 1080px;
+        max-width: 100%;
         height: auto;
         display: block;
       }
@@ -1233,37 +1213,37 @@
         <div class="hero-thumbnails">
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/메인 이미지.png"
+              src="ㅎ_박서현/Top_Thumbnail_01(Main).png"
               alt="메인 이미지"
-              data-src="작품세부페이지/메인 이미지.png"
+              data-src="ㅎ_박서현/Top_Thumbnail_01(Main).png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브0.png"
+              src="ㅎ_박서현/Top_Thumbnail_02.png"
               alt="서브 이미지 0"
-              data-src="작품세부페이지/서브0.png"
+              data-src="ㅎ_박서현/Top_Thumbnail_02.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브1.png"
+              src="ㅎ_박서현/Top_Thumbnail_03.png"
               alt="서브 이미지 1"
-              data-src="작품세부페이지/서브1.png"
+              data-src="ㅎ_박서현/Top_Thumbnail_03.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브2.png"
+              src="ㅎ_박서현/Top_Thumbnail_04.png"
               alt="서브 이미지 2"
-              data-src="작품세부페이지/서브2.png"
+              data-src="ㅎ_박서현/Top_Thumbnail_04.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브3.png"
+              src="ㅎ_박서현/Top_Thumbnail_05.png"
               alt="서브 이미지 3"
-              data-src="작품세부페이지/서브3.png"
+              data-src="ㅎ_박서현/Top_Thumbnail_05.png"
             />
           </div>
         </div>
@@ -1272,7 +1252,7 @@
         <div class="hero-main-image">
           <img
             id="hero-main-img"
-            src="작품세부페이지/메인 이미지.png"
+            src="ㅎ_박서현/Top_Thumbnail_01(Main).png"
             alt="메인 이미지"
           />
         </div>
@@ -1330,12 +1310,11 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            자사 슬라이딩 퍼즐 제품을 홍보하는 광고 영상으로, 퍼즐을 맞추며 겪는
-            시행착오의 과정을 종이접기, 칠교놀이, 인형 만들기에 비유하여
-            표현했다.<br />수많은 경험과 실패가 모여 마침내 완성과 새로운
-            도약으로 이어짐을 보여주고, 이를 직접 경험할 수 있는 슬라이딩 퍼즐
-            제품을 소개하며<br />시청자가 직접 경험을 시작해보라는 메시지를
-            전달한다.
+            회사 'PUZZLE'의 슬라이딩 퍼즐을 홍보하는,<br />홈쇼핑
+            모션그래픽으로,<br />퍼즐을 맞추며 겪는 시행착오의 과정을<br />종이접기
+            / 칠교놀이 / 인형 만들기에 비유하여 표현했다.<br /><br />실패하더라도
+            두려움 없이 도전하여 '말'을 완성해 내고,<br />이러한 경험들이
+            모여<br />우리를 성장시키는 원동력이 된다는 메시지를 전한다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1402,10 +1381,11 @@
       <!-- ★ [수정 13] 하단 작품 세부 이미지들 -->
       <div class="detail-images">
         <img src="작품세부페이지/1.png" alt="작품 세부 이미지 1" />
-        <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
+        <!-- <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
         <img src="작품세부페이지/3.png" alt="작품 세부 이미지 3" />
         <img src="작품세부페이지/4.png" alt="작품 세부 이미지 4" />
         <img src="작품세부페이지/5.png" alt="작품 세부 이미지 5" />
+        -->
       </div>
     </main>
 
@@ -1472,18 +1452,23 @@
         }
       });
 
-      // 썸네일 hover → 메인 이미지 교체, 다른 썸네일에 올리기 전까지 유지
+      // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
       const mainImg = document.getElementById("hero-main-img");
-      const thumbImgs = document.querySelectorAll(".hero-thumb img");
-      thumbImgs.forEach((thumb) => {
-        thumb.addEventListener("mouseover", () => {
+      const heroThumbBoxes = document.querySelectorAll(".hero-thumb");
+      heroThumbBoxes.forEach((box) => {
+        const thumb = box.querySelector("img");
+        if (!thumb) return;
+        const updateMain = () => {
           const targetSrc =
-            thumb.dataset.src &&
-            !thumb.dataset.src.includes("작품세부페이지/")
-              ? thumb.dataset.src
-              : thumb.getAttribute("src") || thumb.src;
-          mainImg.src = targetSrc;
-        });
+            thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
+          if (targetSrc && mainImg) {
+            mainImg.src = targetSrc;
+          }
+        };
+        box.addEventListener("mouseenter", updateMain);
+        box.addEventListener("click", updateMain);
+        thumb.addEventListener("mouseover", updateMain);
+        thumb.addEventListener("click", updateMain);
       });
 
       // 영상 모달

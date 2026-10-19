@@ -196,6 +196,7 @@
         color: #000;
         overflow: hidden;
         flex-shrink: 0;
+        cursor: pointer;
       }
 
       .hero-thumb img {
@@ -235,7 +236,8 @@
         padding-left: 20px;
         display: flex;
         flex-direction: column;
-        height: 600px;
+        min-height: 600px;
+        height: auto;
         box-sizing: border-box;
       }
 
@@ -319,33 +321,10 @@
 
       .hero-details {
         font-size: 15px;
-        line-height: 1.8;
+        line-height: 1.7;
         margin-bottom: 10px;
         font-weight: 600;
-        overflow-y: auto;
-        padding-right: 14px;
-        margin-right: -16px;
-      }
-      .hero-details::-webkit-scrollbar {
-        width: 6px;
-      }
-      .hero-details::-webkit-scrollbar-track {
-        background: #e2e8f0;
-        border-radius: 10px;
-      }
-      .hero-details::-webkit-scrollbar-thumb {
-        background: #64748b;
-        border-radius: 10px;
-        transition: background 0.2s ease;
-      }
-      .hero-details::-webkit-scrollbar-thumb:hover {
-        background: var(--pink, #ff2482);
-      }
-      @supports not selector(::-webkit-scrollbar) {
-        .hero-details {
-          scrollbar-width: thin;
-          scrollbar-color: #64748b #e2e8f0;
-        }
+        overflow: visible;
       }
 
       .hero-extra-meta {
@@ -586,7 +565,8 @@
       }
 
       .detail-images img {
-        width: 900px;
+        width: 1080px;
+        max-width: 100%;
         height: auto;
         display: block;
       }
@@ -1321,9 +1301,9 @@
         <div class="hero-thumbnails">
           <div class="hero-thumb">
             <img
-              src="ㅎ_이희서\썸네일1.png"
+              src="ㅎ_이희서\대표 썸네일.png"
               alt="메인 이미지"
-              data-src="ㅎ_이희서\썸네일1.png"
+              data-src="ㅎ_이희서\대표 썸네일.png"
             />
           </div>
           <div class="hero-thumb">
@@ -1416,10 +1396,13 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            슬라이딩 퍼즐 장난감 회사 PUZZLE의 쇼핑몰 컨셉의 졸업전시 웹<br />
+            슬라이딩 퍼즐 장난감 회사 PUZZLE의 쇼핑몰이 컨셉인<br />졸업 전시 웹
             사이트이다.<br />
-            작품만 볼 수 있는 딱딱한 전시페이지를 넘어, 소통하고 참여할 수 있는
-            인터랙티브한 웹 공간을 제작했다.
+            컨셉을 돋보이게 하면서도 작품을 적극적으로<br />노출할 수 있게
+            화면을 구성했다.<br /><br />
+            작품만 볼 수 있던 진부하고 딱딱한 전시 페이지를 넘어,<br />소통하고
+            참여할 수 있는 인터랙티브한 웹 공간을 제작하여<br />
+            전시에 대한 관심도와 몰입도를 높이고자 했다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1486,10 +1469,11 @@
       <!-- ★ [수정 13] 하단 작품 세부 이미지들 -->
       <div class="detail-images">
         <img src="작품세부페이지/1.png" alt="작품 세부 이미지 1" />
-        <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
+        <!-- <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
         <img src="작품세부페이지/3.png" alt="작품 세부 이미지 3" />
         <img src="작품세부페이지/4.png" alt="작품 세부 이미지 4" />
         <img src="작품세부페이지/5.png" alt="작품 세부 이미지 5" />
+        -->
       </div>
     </main>
 
@@ -1556,18 +1540,23 @@
         }
       });
 
-      // 썸네일 hover → 메인 이미지 교체, 다른 썸네일에 올리기 전까지 유지
+      // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
       const mainImg = document.getElementById("hero-main-img");
-      const thumbImgs = document.querySelectorAll(".hero-thumb img");
-      thumbImgs.forEach((thumb) => {
-        thumb.addEventListener("mouseover", () => {
+      const heroThumbBoxes = document.querySelectorAll(".hero-thumb");
+      heroThumbBoxes.forEach((box) => {
+        const thumb = box.querySelector("img");
+        if (!thumb) return;
+        const updateMain = () => {
           const targetSrc =
-            thumb.dataset.src &&
-            !thumb.dataset.src.includes("작품세부페이지/")
-              ? thumb.dataset.src
-              : thumb.getAttribute("src") || thumb.src;
-          mainImg.src = targetSrc;
-        });
+            thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
+          if (targetSrc && mainImg) {
+            mainImg.src = targetSrc;
+          }
+        };
+        box.addEventListener("mouseenter", updateMain);
+        box.addEventListener("click", updateMain);
+        thumb.addEventListener("mouseover", updateMain);
+        thumb.addEventListener("click", updateMain);
       });
 
       // 영상 모달

@@ -196,6 +196,7 @@
         color: #000;
         overflow: hidden;
         flex-shrink: 0;
+        cursor: pointer;
       }
 
       .hero-thumb img {
@@ -235,7 +236,8 @@
         padding-left: 20px;
         display: flex;
         flex-direction: column;
-        height: 600px;
+        min-height: 600px;
+        height: auto;
         box-sizing: border-box;
       }
 
@@ -319,33 +321,10 @@
 
       .hero-details {
         font-size: 15px;
-        line-height: 1.8;
+        line-height: 1.7;
         margin-bottom: 10px;
         font-weight: 600;
-        overflow-y: auto;
-        padding-right: 14px;
-        margin-right: -16px;
-      }
-      .hero-details::-webkit-scrollbar {
-        width: 6px;
-      }
-      .hero-details::-webkit-scrollbar-track {
-        background: #e2e8f0;
-        border-radius: 10px;
-      }
-      .hero-details::-webkit-scrollbar-thumb {
-        background: #64748b;
-        border-radius: 10px;
-        transition: background 0.2s ease;
-      }
-      .hero-details::-webkit-scrollbar-thumb:hover {
-        background: var(--pink, #ff2482);
-      }
-      @supports not selector(::-webkit-scrollbar) {
-        .hero-details {
-          scrollbar-width: thin;
-          scrollbar-color: #64748b #e2e8f0;
-        }
+        overflow: visible;
       }
 
       .hero-extra-meta {
@@ -586,7 +565,8 @@
       }
 
       .detail-images img {
-        width: 900px;
+        width: 1080px;
+        max-width: 100%;
         height: auto;
         display: block;
       }
@@ -1326,48 +1306,44 @@
         <div class="hero-thumbnails">
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/메인 이미지.png"
+              src="ㅎ_권다혜/1메인.png"
               alt="메인 이미지"
-              data-src="작품세부페이지/메인 이미지.png"
+              data-src="ㅎ_권다혜/1-1.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브0.png"
+              src="ㅎ_권다혜/1-1.png"
               alt="서브 이미지 0"
-              data-src="작품세부페이지/서브0.png"
+              data-src="ㅎ_권다혜/1-1.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브1.png"
+              src="ㅎ_권다혜/1-2.png"
               alt="서브 이미지 1"
-              data-src="작품세부페이지/서브1.png"
+              data-src="ㅎ_권다혜/1-2.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브2.png"
+              src="ㅎ_권다혜/1-3.png"
               alt="서브 이미지 2"
-              data-src="작품세부페이지/서브2.png"
+              data-src="ㅎ_권다혜/1-3.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브3.png"
+              src="ㅎ_권다혜/1-4.png"
               alt="서브 이미지 3"
-              data-src="작품세부페이지/서브3.png"
+              data-src="ㅎ_권다혜/1-4.png"
             />
           </div>
         </div>
 
         <!-- ★ [수정 5] 가운데 대표 메인 이미지 -->
         <div class="hero-main-image">
-          <img
-            id="hero-main-img"
-            src="작품세부페이지/메인 이미지.png"
-            alt="메인 이미지"
-          />
+          <img id="hero-main-img" src="ㅎ_권다혜/1메인.png" alt="메인 이미지" />
         </div>
 
         <!-- 우측 작품 정보 영역 -->
@@ -1420,7 +1396,18 @@
           <div class="meta-tags">#판타지 #퓨전 #모델링</div>
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
-          <div class="hero-details">독사라고 불리는 사무라이 무사.</div>
+          <div class="hero-details">
+            뱀과 사무라이를 모티브로 현대 판타지 세계관에 어울리는 남성 검사
+            캐릭터를 제작했다.<br />
+            <br />
+            의상과 장신구에는 뱀의 형태를 응용한 장식을 적용했으며, 금속과 천,
+            피부 등 다양한 재질의 차이를 사실적으로 표현하는 데 중점을
+            두었다.<br />
+            <br />
+            또한 인체의 구조와 의상의 형태를 고려하여 자연스러운 조형과 실루엣을
+            구현하고자 했다. 이를 통해 사실적인 캐릭터 제작 능력과 조형에<br />대한
+            이해도를 높이고자 했다.
+          </div>
 
           <!-- 메타 테이블 -->
           <div class="hero-extra-meta">
@@ -1486,10 +1473,11 @@
       <!-- ★ [수정 13] 하단 작품 세부 이미지들 -->
       <div class="detail-images">
         <img src="작품세부페이지/1.png" alt="작품 세부 이미지 1" />
-        <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
+        <!-- <img src="작품세부페이지/2.png" alt="작품 세부 이미지 2" />
         <img src="작품세부페이지/3.png" alt="작품 세부 이미지 3" />
         <img src="작품세부페이지/4.png" alt="작품 세부 이미지 4" />
         <img src="작품세부페이지/5.png" alt="작품 세부 이미지 5" />
+        -->
       </div>
     </main>
 
@@ -1556,18 +1544,23 @@
         }
       });
 
-      // 썸네일 hover → 메인 이미지 교체, 다른 썸네일에 올리기 전까지 유지
+      // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
       const mainImg = document.getElementById("hero-main-img");
-      const thumbImgs = document.querySelectorAll(".hero-thumb img");
-      thumbImgs.forEach((thumb) => {
-        thumb.addEventListener("mouseover", () => {
+      const heroThumbBoxes = document.querySelectorAll(".hero-thumb");
+      heroThumbBoxes.forEach((box) => {
+        const thumb = box.querySelector("img");
+        if (!thumb) return;
+        const updateMain = () => {
           const targetSrc =
-            thumb.dataset.src &&
-            !thumb.dataset.src.includes("작품세부페이지/")
-              ? thumb.dataset.src
-              : thumb.getAttribute("src") || thumb.src;
-          mainImg.src = targetSrc;
-        });
+            thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
+          if (targetSrc && mainImg) {
+            mainImg.src = targetSrc;
+          }
+        };
+        box.addEventListener("mouseenter", updateMain);
+        box.addEventListener("click", updateMain);
+        thumb.addEventListener("mouseover", updateMain);
+        thumb.addEventListener("click", updateMain);
       });
 
       // 영상 모달

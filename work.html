@@ -409,6 +409,10 @@
         display: block;
         border-radius: inherit;
       }
+      .card img:not([src]),
+      .card img[src=""] {
+        display: none !important;
+      }
 
       .card:hover,
       .card:focus-visible {
@@ -524,28 +528,75 @@
         grid-auto-flow: column;
         grid-auto-columns: calc((100% - 120px) / 4);
         gap: 40px;
-        padding-bottom: 20px;
+        padding-bottom: 8px;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
+        cursor: grab;
+        user-select: none;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* 브라우저 기본 스크롤바 숨김 */
+        -ms-overflow-style: none;
+      }
+      .trend-grid.is-dragging {
+        cursor: grabbing;
+        scroll-snap-type: none !important;
       }
       .trend-grid::-webkit-scrollbar {
-        height: 8px;
-        background: transparent;
+        display: none;
+        width: 0;
+        height: 0;
       }
-      .trend-grid::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.15);
-        border-radius: 4px;
+
+      /* TRENDING NOW 하단 커스텀 슬라이더 바 */
+      .trend-slider-wrap {
+        width: var(--max);
+        margin: 20px auto 0;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 5;
+      }
+      .trend-slider-track {
+        width: 100%;
+        height: 10px;
+        background: rgba(0, 0, 0, 0.08);
+        border-radius: 5px;
+        position: relative;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .trend-slider-track:hover {
+        background: rgba(0, 0, 0, 0.12);
+      }
+      .trend-slider-thumb {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        min-width: 60px;
+        background: #555555;
+        border-radius: 5px;
+        cursor: grab;
+        transition: background 0.15s ease;
+        will-change: transform;
+      }
+      .trend-slider-thumb:hover {
+        background: #222222;
+      }
+      .trend-slider-thumb.is-dragging {
+        background: #000000;
+        cursor: grabbing;
       }
       .trend-grid .card {
         scroll-snap-align: start;
         /* grid auto column이 flex grow처럼 동작하지 않을경우 대비 */
         min-width: 0;
+        cursor: pointer;
       }
       .trend-grid .card:hover,
       .trend-grid .card:focus-visible {
-        transform: none !important;
-        filter: none !important;
-        cursor: default;
+        transform: translateY(-4px);
+        transition: transform 0.2s ease;
       }
 
       .blue-works {
@@ -1363,8 +1414,13 @@
         }
         .trend-grid {
           gap: 15px;
-          padding: 0 15px 20px;
+          padding: 0 15px 12px;
           grid-auto-columns: calc((100% - 30px) / 2.5);
+        }
+        .trend-slider-wrap {
+          width: 100% !important;
+          padding: 0 15px !important;
+          margin: 10px auto 0 !important;
         }
 
         .works-grid,
@@ -1490,9 +1546,17 @@
         object-fit: cover;
         object-position: center;
         display: block;
-        transform: scale(1.008);
         pointer-events: none;
         user-select: none;
+      }
+
+      .slide-link {
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
       }
 
       /* 좌/우 화살표 버튼 */
@@ -1664,6 +1728,14 @@
           grid-auto-columns: 344px !important;
           overflow-x: scroll !important;
         }
+        .trend-slider-wrap {
+          position: relative !important;
+          left: -25px !important;
+          width: 1110px !important;
+          margin: 16px auto 0 !important;
+          padding: 0 30px !important;
+          box-sizing: border-box !important;
+        }
 
         /* [요구사항 4] 파란 영역 정렬 버튼 1.5배 확대 및 좌측 여백 정렬 (위로 20px 이동) */
         .sort-bar {
@@ -1782,6 +1854,14 @@
         gap: 24px !important;
         grid-auto-columns: 344px !important;
         overflow-x: scroll !important;
+      }
+      html.puzzle-mobile-view .trend-slider-wrap {
+        position: relative !important;
+        left: -25px !important;
+        width: 1110px !important;
+        margin: 16px auto 0 !important;
+        padding: 0 30px !important;
+        box-sizing: border-box !important;
       }
 
       /* [요구사항 4] 파란 영역 정렬 버튼 1.5배 확대 및 좌측 여백 정렬 (위로 20px 이동) */
@@ -2225,6 +2305,21 @@
             style="background-color: #00c853"
           ></a>
         </div>
+        <div
+          class="trend-slider-wrap"
+          id="trendSliderWrap"
+          aria-label="트렌딩 카드 슬라이더"
+        >
+          <div class="trend-slider-track" id="trendSliderTrack">
+            <div
+              class="trend-slider-thumb"
+              id="trendSliderThumb"
+              role="scrollbar"
+              aria-controls="trendGrid"
+              tabindex="0"
+            ></div>
+          </div>
+        </div>
       </section>
 
       <!-- ================================================
@@ -2302,7 +2397,9 @@
               class="card tall"
               href="detail_1.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_강재준/강재준_작품1번.webp" alt="PHOENIX" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>PHOENIX</strong>
@@ -2314,7 +2411,9 @@
               class="card tall"
               href="detail_2.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="ㅎ_강재준/강재준_작품2번.webp" alt="PUBG X Supreme" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>PUBG X Supreme</strong>
@@ -2326,7 +2425,9 @@
               class="card tall"
               href="detail_3.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="ㅎ_고예원/고예원_썸네일.webp" alt="사랑의 잔여물" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>사랑의 잔여물</strong>
@@ -2338,7 +2439,12 @@
               class="card tall"
               href="detail_4.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img
+                src="ㅎ_곽지윤/main, work 작품 1.webp"
+                alt="The Old Curtain"
+              />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>The Old Curtain</strong>
@@ -2350,7 +2456,12 @@
               class="card tall"
               href="detail_5.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img
+                src="ㅎ_곽지윤/main, work 작품 2.webp"
+                alt="Only One Piece!"
+              />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>Only One Piece!</strong>
@@ -2362,7 +2473,9 @@
               class="card tall"
               href="detail_6.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_권다혜/작품1.webp" alt="巳侍" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>巳侍</strong>
@@ -2374,7 +2487,9 @@
               class="card tall"
               href="detail_7.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="ㅎ_권다혜/작품2.webp" alt="49 DAYS" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>49 DAYS</strong>
@@ -2386,7 +2501,9 @@
               class="card tall"
               href="detail_8.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="ㅎ_김연진/작품1.webp" alt="TASMAN" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>TASMAN</strong>
@@ -2398,7 +2515,9 @@
               class="card tall"
               href="detail_9.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img src="ㅎ_김연진/작품2.webp" alt="RE:CUBE" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>RE:CUBE</strong>
@@ -2410,7 +2529,9 @@
               class="card tall"
               href="detail_10.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="ㅎ_김지은/작품1.webp" alt="SLUMBER" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>SLUMBER</strong>
@@ -2422,7 +2543,9 @@
               class="card tall"
               href="detail_11.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_김지은/작품2.webp" alt="NEON_PHANTOM" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>NEON_PHANTOM</strong>
@@ -2434,7 +2557,9 @@
               class="card tall"
               href="detail_12.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="ㅎ_노유민/노유민_작품1_썸네일.webp" alt="Wings" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>Wings</strong>
@@ -2446,7 +2571,9 @@
               class="card tall"
               href="detail_13.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="ㅎ_노유민/노유민_작품2_썸네일.webp" alt="23:59:59" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>23:59:59</strong>
@@ -2458,7 +2585,9 @@
               class="card tall"
               href="detail_14.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img src="ㅎ_박서현/Page_Thumbnail.webp" alt="PUZZLE" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>PUZZLE</strong>
@@ -2470,7 +2599,9 @@
               class="card tall"
               href="detail_15.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="ㅎ_심가애/심가애_작품1.webp" alt="편지" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>편지</strong>
@@ -2482,7 +2613,9 @@
               class="card tall"
               href="detail_16.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_심가애/심가애_작품2.webp" alt="먼지토끼" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>먼지토끼</strong>
@@ -2494,7 +2627,9 @@
               class="card tall"
               href="detail_17.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="ㅎ_안지윤/작품1.webp" alt="FPS Unplugged" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>FPS Unplugged</strong>
@@ -2506,7 +2641,9 @@
               class="card tall"
               href="detail_18.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="ㅎ_안지윤/작품2.webp" alt="GAZING" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>GAZING</strong>
@@ -2518,7 +2655,9 @@
               class="card tall"
               href="detail_19.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img src="ㅎ_양미진/작품1.webp" alt="PROJECT: BEE" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>PROJECT: BEE</strong>
@@ -2530,7 +2669,9 @@
               class="card tall"
               href="detail_20.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="ㅎ_양미진/작품2.webp" alt="COOKER-01" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>COOKER-01</strong>
@@ -2542,7 +2683,9 @@
               class="card tall"
               href="detail_21.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="" alt="동화 종이 인형극" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>동화 종이 인형극</strong>
@@ -2554,7 +2697,9 @@
               class="card tall"
               href="detail_22.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="" alt="Feast for the Dragon" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>Feast for the Dragon</strong>
@@ -2566,7 +2711,9 @@
               class="card tall"
               href="detail_23.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="ㅎ_염화영/작품1.webp" alt="해방" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>해방</strong>
@@ -2578,10 +2725,12 @@
               class="card tall"
               href="detail_24.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img src="ㅎ_염화영/작품2.webp" alt="의태" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
-              <strong>허무</strong>
+              <strong>의태</strong>
               <span class="name">염화영</span>
             </div>
           </article>
@@ -2590,7 +2739,9 @@
               class="card tall"
               href="detail_25.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="ㅎ_이경민/작품1.webp" alt="우당탕탕 학교생활" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>우당탕탕 학교생활</strong>
@@ -2602,7 +2753,9 @@
               class="card tall"
               href="detail_26.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_이경민/작품2.webp" alt="Room Sweet Room" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>Room Sweet Room</strong>
@@ -2614,7 +2767,12 @@
               class="card tall"
               href="detail_27.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img
+                src="ㅎ_이영윤/이영윤_작품1_Main,Work.webp"
+                alt="퓨어 메모리즈"
+              />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>퓨어 메모리즈</strong>
@@ -2626,7 +2784,12 @@
               class="card tall"
               href="detail_28.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img
+                src="ㅎ_이영윤/이영윤_작품2_Main,Work.webp"
+                alt="다운 투 바벨"
+              />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>다운 투 바벨</strong>
@@ -2638,7 +2801,9 @@
               class="card tall"
               href="detail_29.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img src="" alt="Lovers In Apocalypse" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>Lovers In Apocalypse</strong>
@@ -2650,7 +2815,9 @@
               class="card tall"
               href="detail_30.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="" alt="KeyGen" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>KeyGen</strong>
@@ -2659,7 +2826,7 @@
           </article>
           <article class="work-item" data-category="멀티미디어">
             <a class="card tall" href="detail_31.html">
-              <img src="ㅎ_이희서/작품1.png" alt="PUZZLE Webpage" />
+              <img src="ㅎ_이희서/작품1.webp" alt="PUZZLE Webpage" />
             </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
@@ -2672,7 +2839,9 @@
               class="card tall"
               href="detail_32.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="ㅎ_임재윤/작품1.webp" alt="꽃 위에 핀 기억" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>꽃 위에 핀 기억</strong>
@@ -2684,7 +2853,9 @@
               class="card tall"
               href="detail_33.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="ㅎ_임재윤/작품2.webp" alt="기계의 열반" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>기계의 열반</strong>
@@ -2696,7 +2867,12 @@
               class="card tall"
               href="detail_34.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img
+                src="ㅎ_임호진/임호진_썸네일_작품1.webp"
+                alt="NOID : (부제 고민중입니다)"
+              />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>NOID : (부제 고민중입니다)</strong>
@@ -2708,7 +2884,9 @@
               class="card tall"
               href="detail_35.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="ㅎ_임호진/임호진_썸네일_작품2.webp" alt="COSMIQ DUEL" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>COSMIQ DUEL</strong>
@@ -2720,7 +2898,9 @@
               class="card tall"
               href="detail_36.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_장명경/작품 1.webp" alt="레이디 두아" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>레이디 두아</strong>
@@ -2732,7 +2912,9 @@
               class="card tall"
               href="detail_37.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="ㅎ_장명경/작품 2.webp" alt="LUSH : BATH BOMB JOURNEY" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>LUSH : BATH BOMB JOURNEY</strong>
@@ -2744,7 +2926,12 @@
               class="card tall"
               href="detail_38.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img
+                src="ㅎ_장영찬/작품 1.webp"
+                alt="향수 : 어느 살인자의 이야기 | 타이틀 시퀀스"
+              />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>향수 : 어느 살인자의 이야기 | 타이틀 시퀀스</strong>
@@ -2756,7 +2943,9 @@
               class="card tall"
               href="detail_39.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img src="ㅎ_장영찬/작품 2.webp" alt="피어나고 흩어지다" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>피어나고 흩어지다</strong>
@@ -2768,7 +2957,9 @@
               class="card tall"
               href="detail_40.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="ㅎ_정인서/작품1.webp" alt="+82" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>+82</strong>
@@ -2780,7 +2971,9 @@
               class="card tall"
               href="detail_41.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_정인서/작품2.webp" alt="Song of the Stars" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>Song of the Stars</strong>
@@ -2792,7 +2985,9 @@
               class="card tall"
               href="detail_42.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="ㅎ_정지우/작품 1.webp" alt="Carpe Diem" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>Carpe Diem</strong>
@@ -2804,7 +2999,9 @@
               class="card tall"
               href="detail_43.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="ㅎ_정지우/작품 2.webp" alt="폭풍의 눈" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>폭풍의 눈</strong>
@@ -2816,7 +3013,9 @@
               class="card tall"
               href="detail_44.html"
               style="background-color: #9b0045"
-            ></a>
+            >
+              <img src="ㅎ_진서연/진서연_작품1.webp" alt="몽상가" />
+            </a>
             <div class="meta">
               <span class="major">애니메이션</span>
               <strong>몽상가</strong>
@@ -2828,7 +3027,9 @@
               class="card tall"
               href="detail_45.html"
               style="background-color: #ff2482"
-            ></a>
+            >
+              <img src="ㅎ_진서연/진서연_작품2.webp" alt="Jelly Fight!" />
+            </a>
             <div class="meta">
               <span class="major">모션그래픽</span>
               <strong>Jelly Fight!</strong>
@@ -2840,7 +3041,9 @@
               class="card tall"
               href="detail_46.html"
               style="background-color: #407dff"
-            ></a>
+            >
+              <img src="ㅎ_채민서/작품1.webp" alt="버츄얼 유튜버 퐁듀" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>버츄얼 유튜버 퐁듀</strong>
@@ -2852,7 +3055,9 @@
               class="card tall"
               href="detail_47.html"
               style="background-color: #ffc20d"
-            ></a>
+            >
+              <img src="" alt="NINEVEH" />
+            </a>
             <div class="meta">
               <span class="major">게임컨텐츠</span>
               <strong>NINEVEH</strong>
@@ -2864,7 +3069,9 @@
               class="card tall"
               href="detail_48.html"
               style="background-color: #00c853"
-            ></a>
+            >
+              <img src="" alt="홍당무밭의 홍토실!" />
+            </a>
             <div class="meta">
               <span class="major">멀티미디어</span>
               <strong>홍당무밭의 홍토실!</strong>
@@ -2947,12 +3154,14 @@
       ============================================================ */
 
       /* ============================================================
-         TRENDING NOW 카테고리 탭 및 슬라이드 (가로스크롤)
+         TRENDING NOW 카테고리 탭 및 하단 슬라이더 바 연동
       ============================================================ */
       (function initTrendFilter() {
         const btns = Array.from(document.querySelectorAll(".category-btn"));
         const grid = document.getElementById("trendGrid");
         const trendSection = document.getElementById("trend");
+        const sliderTrack = document.getElementById("trendSliderTrack");
+        const sliderThumb = document.getElementById("trendSliderThumb");
         if (!grid || btns.length === 0) return;
 
         const allCards = Array.from(grid.querySelectorAll(".card"));
@@ -2964,6 +3173,32 @@
             [a[i], a[j]] = [a[j], a[i]];
           }
           return a;
+        }
+
+        // 하단 슬라이더 바 위치 및 너비 실시간 갱신
+        function updateBottomSlider() {
+          if (!sliderTrack || !sliderThumb) return;
+          const maxScroll = grid.scrollWidth - grid.clientWidth;
+          const trackWidth = sliderTrack.clientWidth;
+          if (maxScroll <= 5 || trackWidth <= 0) {
+            sliderThumb.style.width = trackWidth + "px";
+            sliderThumb.style.left = "0px";
+            return;
+          }
+          const visibleRatio = grid.clientWidth / grid.scrollWidth;
+          const thumbWidth = Math.max(
+            60,
+            Math.floor(trackWidth * visibleRatio),
+          );
+          const maxThumbTravel = trackWidth - thumbWidth;
+          const progress = Math.min(
+            1,
+            Math.max(0, grid.scrollLeft / maxScroll),
+          );
+          const thumbLeft = Math.round(progress * maxThumbTravel);
+
+          sliderThumb.style.width = thumbWidth + "px";
+          sliderThumb.style.left = thumbLeft + "px";
         }
 
         // 카테고리 선택: 카드 필터링 + 버튼 활성 표시
@@ -2994,7 +3229,156 @@
 
           // 스크롤 왼쪽 끝으로 초기화
           grid.scrollLeft = 0;
+          setTimeout(updateBottomSlider, 80);
         }
+
+        grid.addEventListener("scroll", updateBottomSlider, { passive: true });
+        window.addEventListener("resize", updateBottomSlider, {
+          passive: true,
+        });
+
+        // 1. 하단 슬라이더 트랙 클릭 시 해당 위치로 부드럽게 이동
+        if (sliderTrack) {
+          sliderTrack.addEventListener("click", (e) => {
+            if (e.target === sliderThumb) return;
+            const rect = sliderTrack.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const ratio = clickX / rect.width;
+            const maxScroll = grid.scrollWidth - grid.clientWidth;
+            grid.scrollTo({ left: ratio * maxScroll, behavior: "smooth" });
+          });
+        }
+
+        // 2. 하단 슬라이더 썸(막대) 직접 마우스/터치 드래그 이동
+        if (sliderThumb) {
+          let isThumbDragging = false;
+          let thumbStartX = 0;
+          let thumbStartScroll = 0;
+
+          const startThumbDrag = (clientX) => {
+            isThumbDragging = true;
+            thumbStartX = clientX;
+            thumbStartScroll = grid.scrollLeft;
+            sliderThumb.classList.add("is-dragging");
+            document.body.style.userSelect = "none";
+          };
+
+          const moveThumbDrag = (clientX) => {
+            if (!isThumbDragging) return;
+            const deltaX = clientX - thumbStartX;
+            const trackWidth = sliderTrack.clientWidth;
+            const thumbWidth = sliderThumb.clientWidth;
+            const maxThumbTravel = trackWidth - thumbWidth;
+            const maxScroll = grid.scrollWidth - grid.clientWidth;
+            if (maxThumbTravel <= 0 || maxScroll <= 0) return;
+
+            const scrollDelta = (deltaX / maxThumbTravel) * maxScroll;
+            grid.scrollLeft = thumbStartScroll + scrollDelta;
+          };
+
+          const endThumbDrag = () => {
+            if (isThumbDragging) {
+              isThumbDragging = false;
+              sliderThumb.classList.remove("is-dragging");
+              document.body.style.userSelect = "";
+            }
+          };
+
+          sliderThumb.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            startThumbDrag(e.clientX);
+          });
+
+          window.addEventListener("mousemove", (e) => {
+            moveThumbDrag(e.clientX);
+          });
+
+          window.addEventListener("mouseup", endThumbDrag);
+
+          // 터치 지원
+          sliderThumb.addEventListener(
+            "touchstart",
+            (e) => {
+              startThumbDrag(e.touches[0].clientX);
+            },
+            { passive: true },
+          );
+
+          window.addEventListener(
+            "touchmove",
+            (e) => {
+              if (isThumbDragging) {
+                moveThumbDrag(e.touches[0].clientX);
+              }
+            },
+            { passive: true },
+          );
+
+          window.addEventListener("touchend", endThumbDrag);
+        }
+
+        // 3. PC 마우스 카드 영역 직접 드래그 가로 슬라이딩 (Drag to Scroll)
+        let isDown = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+        let hasDragged = false;
+
+        grid.addEventListener("mousedown", (e) => {
+          if (e.target.closest("button")) return;
+          isDown = true;
+          hasDragged = false;
+          grid.classList.add("is-dragging");
+          startX = e.pageX - grid.offsetLeft;
+          startScrollLeft = grid.scrollLeft;
+        });
+
+        window.addEventListener("mousemove", (e) => {
+          if (!isDown) return;
+          const x = e.pageX - grid.offsetLeft;
+          const walk = x - startX;
+          if (Math.abs(walk) > 5) {
+            hasDragged = true;
+          }
+          grid.scrollLeft = startScrollLeft - walk;
+        });
+
+        window.addEventListener("mouseup", () => {
+          if (isDown) {
+            isDown = false;
+            grid.classList.remove("is-dragging");
+            setTimeout(updateBottomSlider, 60);
+          }
+        });
+
+        // 드래그 중 실수로 상세페이지 이동 방지
+        allCards.forEach((card) => {
+          card.addEventListener("click", (e) => {
+            if (hasDragged) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          });
+        });
+
+        // 4. PC 마우스 휠 가로 슬라이딩 (영역 위에서 휠 시 가로 슬라이드 연동)
+        grid.addEventListener(
+          "wheel",
+          (e) => {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+              const maxScroll = grid.scrollWidth - grid.clientWidth;
+              if (maxScroll <= 0) return;
+              if (
+                (e.deltaY > 0 && grid.scrollLeft < maxScroll - 2) ||
+                (e.deltaY < 0 && grid.scrollLeft > 2)
+              ) {
+                e.preventDefault();
+                grid.scrollLeft += e.deltaY;
+              }
+            }
+          },
+          { passive: false },
+        );
 
         // 카테고리 섹션(타이틀 포함)이 상단바 바로 아래에 오도록 이동
         const categorySection = document.querySelector(".category-section");
@@ -3027,7 +3411,11 @@
         if (paramCat && validCats.includes(paramCat)) {
           selectCategory(paramCat);
           // 이미지/폰트 로딩으로 레이아웃이 바뀐 뒤 이동해야 위치가 정확함
-          const go = () => setTimeout(scrollToTrend, 150);
+          const go = () =>
+            setTimeout(() => {
+              scrollToTrend();
+              updateBottomSlider();
+            }, 150);
           if (document.readyState === "complete") go();
           else window.addEventListener("load", go, { once: true });
         } else {
@@ -3168,56 +3556,122 @@
            ※ 슬라이더 이미지를 변경하려면 아래 배열의 경로를 직접 수정하세요.
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         const SLIDER_IMAGES = [
+          "ㅎ_박서현/Slider_Thumbnail.png",
           "ㅎ_이희서/상단 슬라이더.png",
-          "슬라이더 이미지/02.jpg",
-          "슬라이더 이미지/03.jpg",
-          "슬라이더 이미지/04.jpg",
-          "슬라이더 이미지/05.jpg",
-          "슬라이더 이미지/06.jpg",
-          "슬라이더 이미지/07.jpg",
-          "슬라이더 이미지/08.jpg",
+          "ㅎ_장명경/장명경_슬라이더작품 2.png",
+          "ㅎ_김연진/김연진_슬라이더_작품1.png",
+          "ㅎ_양미진/양미진_슬라이더_작품1.png",
+          "ㅎ_채민서/채민서_상단슬라이더.png",
+          "ㅎ_강재준/강재준_슬라이더_작품2번.png",
+          "ㅎ_임호진/임호진_슬라이더_작품1.png",
           "슬라이더 이미지/09.jpg",
-          "슬라이더 이미지/10.jpg",
-          "슬라이더 이미지/11.jpg",
-          "슬라이더 이미지/12.jpg",
-          "슬라이더 이미지/13.jpg",
-          "슬라이더 이미지/14.jpg",
-          "슬라이더 이미지/15.jpg",
-          "슬라이더 이미지/16.jpg",
-          "슬라이더 이미지/17.jpg",
-          "슬라이더 이미지/18.jpg",
-          "슬라이더 이미지/19.jpg",
+          "ㅎ_안지윤/안지윤_슬라이더_작품2.png",
+          "ㅎ_진서연/진서연_슬라이더_작품1.png",
+          "ㅎ_이경민/이경민_슬라이더_작품2.png",
+          "ㅎ_염화영/염화영_슬라이더_작품1.png",
+          "ㅎ_임재윤/임재윤_슬라이더_작품1.png",
+          "ㅎ_이영윤/이영윤_작품1_상단 슬라이더.png",
+          "ㅎ_고예원/고예원_작품1_슬라이더.png",
+          "ㅎ_정인서/정인서_슬라이더_작품1.png",
+          "ㅎ_권다혜/권다혜_슬라이더_작품2.png",
+          "ㅎ_곽지윤/곽지윤_슬라이더 작품 2.png",
           "슬라이더 이미지/20.jpg",
-          "슬라이더 이미지/21.jpg",
+          "ㅎ_김지은/김지은_슬라이더_작품2.png",
           "슬라이더 이미지/22.jpg",
-          "슬라이더 이미지/23.jpg",
-          "슬라이더 이미지/24.jpg",
+          "ㅎ_노유민/노유민_작품1_슬라이더.png",
+          "ㅎ_심가애/심가애_슬라이더_작품1.png",
           "슬라이더 이미지/25.jpg",
-          "슬라이더 이미지/26.jpg",
-          "슬라이더 이미지/27.jpg",
-          "슬라이더 이미지/28.jpg",
-          "슬라이더 이미지/29.jpg",
-          "슬라이더 이미지/30.jpg",
-          "슬라이더 이미지/31.jpg",
-          "슬라이더 이미지/32.jpg",
-          "슬라이더 이미지/33.jpg",
-          "슬라이더 이미지/34.jpg",
-          "슬라이더 이미지/35.jpg",
+          "ㅎ_양미진/양미진_슬라이더_작품2.png",
+          "ㅎ_염화영/염화영_슬라이더_작품2.png",
+          "ㅎ_장영찬/장영찬_슬라이더 썸네일 작품 1.png",
+          "ㅎ_이영윤/이영윤_작품2_상단 슬라이더.png",
+          "ㅎ_임호진/임호진_슬라이더_작품2.png",
+          "ㅎ_권다혜/권다혜_슬라이더_작품1.png",
+          "ㅎ_장명경/장명경_슬라이더_작품 1.png",
+          "ㅎ_김지은/김지은_슬라이더_작품1.png",
+          "ㅎ_진서연/진서연_슬라이더_작품2.png",
+          "ㅎ_안지윤/안지윤_슬라이더_작품1.png",
           "슬라이더 이미지/36.jpg",
-          "슬라이더 이미지/37.jpg",
-          "슬라이더 이미지/38.jpg",
-          "슬라이더 이미지/39.jpg",
-          "슬라이더 이미지/40.jpg",
-          "슬라이더 이미지/41.jpg",
+          "ㅎ_강재준/강재준_슬라이더_작품1번.png",
+          "ㅎ_정인서/정인서_슬라이더_작품2.png",
+          "ㅎ_노유민/노유민_작품2_슬라이더.png",
+          "ㅎ_장영찬/장영찬_슬라이더 썸네일 작품 2.png",
+          "ㅎ_곽지윤/곽지윤_슬라이더 작품 1.png",
           "슬라이더 이미지/42.jpg",
-          "슬라이더 이미지/43.jpg",
-          "슬라이더 이미지/44.jpg",
+          "ㅎ_심가애/심가애_슬라이더_작품2.png",
+          "ㅎ_김연진/김연진_슬라이더_작품2.png",
           "슬라이더 이미지/45.jpg",
-          "슬라이더 이미지/46.jpg",
-          "슬라이더 이미지/47.jpg",
+          "ㅎ_임재윤/임재윤_슬라이더_작품2.png",
+          "ㅎ_이경민/이경민_슬라이더_작품1.png",
           "슬라이더 이미지/48.jpg",
         ];
         const DEFAULT_IMAGES = SLIDER_IMAGES;
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           🔗 슬라이더 클릭 시 이동할 상세페이지(detail) 목록 (48개)
+           ※ 각 슬라이드 이미지 번호(1~48)와 1:1로 매칭됩니다.
+           ※ 'detail_31.html' 또는 숫자만 '31' 형식으로 편리하게 입력하세요.
+           ※ 링크를 비워두거나 빈 따옴표("")로 두면 클릭해도 페이지 이동하지 않습니다.
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        const SLIDER_LINKS = [
+          "detail_14.html", // 01번 (박서현 / PUZZLE) - 수정: 기존 detail_31에서 변경
+          "detail_31.html", // 02번 (이희서 / PUZZLE Webpage)
+          "detail_37.html", // 03번 (장명경 / LUSH : BATH BOMB JOURNEY)
+          "detail_8.html", // 04번 (김연진 / TASMAN)
+          "detail_19.html", // 05번 (양미진 / PROJECT: BEE)
+          "detail_46.html", // 06번 (채민서 / 버츄얼 유튜버 퐁듀)
+          "detail_2.html", // 07번 (강재준 / PUBG X Supreme)
+          "detail_34.html", // 08번 (임호진 / NOID : (부제 고민중입니다))
+          "", // 09번 (미제출)
+          "detail_18.html", // 10번 (안지윤 / GAZING)
+          "detail_44.html", // 11번 (진서연 / 몽상가)
+          "detail_26.html", // 12번 (이경민 / Room Sweet Room)
+          "detail_23.html", // 13번 (염화영 / 해방)
+          "detail_32.html", // 14번 (임재윤 / 꽃 위에 핀 기억)
+          "detail_27.html", // 15번 (이영윤 / 퓨어 메모리즈)
+          "detail_3.html", // 16번 (고예원 / 사랑의 잔여물)
+          "detail_40.html", // 17번 (정인서 / +82)
+          "detail_7.html", // 18번 (권다혜 / 49 DAYS)
+          "detail_5.html", // 19번 (곽지윤 / Only One Piece!) - 수정: 기존 detail_1에서 변경
+          "", // 20번 (미제출)
+          "detail_11.html", // 21번 (김지은 / NEON_PHANTOM)
+          "", // 22번 (미제출)
+          "detail_12.html", // 23번 (노유민 / Wings)
+          "detail_15.html", // 24번 (심가애 / 편지)
+          "", // 25번 (미제출)
+          "detail_20.html", // 26번 (양미진 / COOKER-01)
+          "detail_24.html", // 27번 (염화영 / 의태)
+          "detail_38.html", // 28번 (장영찬 / 향수 : 어느 살인자의 이야기 | 타이틀 시퀀스)
+          "detail_28.html", // 29번 (이영윤 / 다운 투 바벨)
+          "detail_35.html", // 30번 (임호진 / COSMIQ DUEL)
+          "detail_6.html", // 31번 (권다혜 / 巳侍)
+          "detail_36.html", // 32번 (장명경 / 레이디 두아)
+          "detail_10.html", // 33번 (김지은 / SLUMBER)
+          "detail_45.html", // 34번 (진서연 / Jelly Fight!)
+          "detail_17.html", // 35번 (안지윤 / FPS Unplugged)
+          "", // 36번 (미제출)
+          "detail_1.html", // 37번 (강재준 / PHOENIX)
+          "detail_41.html", // 38번 (정인서 / Song of the Stars)
+          "detail_13.html", // 39번 (노유민 / 23:59:59)
+          "detail_39.html", // 40번 (장영찬 / 피어나고 흩어지다)
+          "detail_4.html", // 41번 (곽지윤 / The Old Curtain)
+          "", // 42번 (미제출)
+          "detail_16.html", // 43번 (심가애 / 먼지토끼)
+          "detail_9.html", // 44번 (김연진 / RE:CUBE)
+          "", // 45번 (미제출)
+          "detail_33.html", // 46번 (임재윤 / 기계의 열반)
+          "detail_25.html", // 47번 (이경민 / 우당탕탕 학교생활)
+          "", // 48번 (미제출)
+        ];
+
+        /* 링크 값 정규화 ("31" or 31 -> "detail_31.html") */
+        function getDetailUrl(val) {
+          if (!val && val !== 0) return "";
+          var s = String(val).trim();
+          if (!s) return "";
+          if (/^\d+$/.test(s)) return "detail_" + s + ".html";
+          return s;
+        }
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         const LS_KEY = "puzzle_slider_images";
@@ -3257,11 +3711,29 @@
           images.forEach(function (src, i) {
             const slide = document.createElement("div");
             slide.className = "slide";
+
+            const rawLink = Array.isArray(SLIDER_LINKS) ? SLIDER_LINKS[i] : "";
+            const targetUrl = getDetailUrl(rawLink);
+
             const img = document.createElement("img");
             img.src = src;
             img.alt = "슬라이더 이미지 " + (i + 1);
             img.loading = i < 3 ? "eager" : "lazy";
-            slide.appendChild(img);
+
+            if (targetUrl) {
+              const a = document.createElement("a");
+              a.className = "slide-link";
+              a.href = targetUrl;
+              a.setAttribute(
+                "aria-label",
+                i + 1 + "번째 작품 상세페이지로 이동",
+              );
+              a.appendChild(img);
+              slide.appendChild(a);
+            } else {
+              slide.appendChild(img);
+            }
+
             track.appendChild(slide);
 
             const dot = document.createElement("button");
@@ -3307,13 +3779,31 @@
 
         /* 터치/스와이프 */
         var touchStartX = 0;
+        var touchStartY = 0;
+        var isSwiping = false;
+
         track.addEventListener(
           "touchstart",
           function (e) {
             touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            isSwiping = false;
           },
           { passive: true },
         );
+
+        track.addEventListener(
+          "touchmove",
+          function (e) {
+            var dx = e.touches[0].clientX - touchStartX;
+            var dy = e.touches[0].clientY - touchStartY;
+            if (Math.abs(dx) > 12 || Math.abs(dy) > 12) {
+              isSwiping = true;
+            }
+          },
+          { passive: true },
+        );
+
         track.addEventListener(
           "touchend",
           function (e) {
@@ -3322,8 +3812,22 @@
               goTo(current + (dx < 0 ? 1 : -1));
               resetTimer();
             }
+            setTimeout(function () {
+              isSwiping = false;
+            }, 120);
           },
           { passive: true },
+        );
+
+        track.addEventListener(
+          "click",
+          function (e) {
+            if (isSwiping) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          },
+          true,
         );
 
         /* hover → 자동 일시정지 */
@@ -3411,6 +3915,7 @@
         });
       })();
     </script>
+    <script src="work-thumbs.js"></script>
     <script src="auth.js"></script>
   </body>
 </html>

@@ -1110,6 +1110,10 @@
         filter: brightness(1.06);
       }
 
+      .puzzle-item .pcard.has-thumb {
+        background-color: #1a1a1a;
+      }
+
       .pcard-info {
         display: flex;
         flex-direction: column;
@@ -1949,6 +1953,7 @@
       });
     </script>
 
+    <script src="work-thumbs.js"></script>
     <!-- 2D 슬라이딩 퍼즐 JS -->
     <script>
       (function initMainPuzzle() {
@@ -2050,7 +2055,7 @@
             author: "양소정",
           },
           { id: 23, category: "멀티미디어", title: "해방", author: "염화영" },
-          { id: 24, category: "애니메이션", title: "허무", author: "염화영" },
+          { id: 24, category: "애니메이션", title: "의태", author: "염화영" },
           {
             id: 25,
             category: "게임 콘텐츠",
@@ -2081,8 +2086,18 @@
             title: "Lovers In Apocalypse",
             author: "이준규",
           },
-          { id: 30, category: "모션그래픽", title: "KeyGen", author: "이준규" },
-          { id: 31, category: "멀티미디어", title: "PUZZLE", author: "이희서" },
+          {
+            id: 30,
+            category: "모션그래픽",
+            title: "KeyGen",
+            author: "이준규",
+          },
+          {
+            id: 31,
+            category: "멀티미디어",
+            title: "PUZZLE Webpage",
+            author: "이희서",
+          },
           {
             id: 32,
             category: "애니메이션",
@@ -2239,8 +2254,18 @@
             if (!work) return;
 
             item.setAttribute("data-id", work.id);
+            const thumb =
+              typeof window.getWorkThumb === "function"
+                ? window.getWorkThumb(work.id)
+                : window.WORK_THUMBS
+                  ? window.WORK_THUMBS[work.id]
+                  : "";
+            const hasThumb = Boolean(thumb);
+            const bgStyle = hasThumb
+              ? `background-image: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0.35) 100%), url('${thumb.replace(/'/g, "\\'")}'); background-size: cover; background-position: center;`
+              : "";
             item.innerHTML = `
-              <a class="pcard" href="detail_${work.id}.html">
+              <a class="pcard ${hasThumb ? "has-thumb" : ""}" href="detail_${work.id}.html" style="${bgStyle}">
                 <div class="pcard-info">
                   <span class="pcard-badge">${escapeHtml(work.category)}</span>
                   <div class="pcard-text">
@@ -2252,6 +2277,33 @@
             `;
           });
         }
+
+        window.refreshPuzzleThumbs = function () {
+          const cards = Array.from(
+            grid.querySelectorAll(".puzzle-item:not(.empty)"),
+          );
+          cards.forEach((item) => {
+            const id = item.getAttribute("data-id");
+            if (!id) return;
+            const thumb =
+              typeof window.getWorkThumb === "function"
+                ? window.getWorkThumb(id)
+                : window.WORK_THUMBS
+                  ? window.WORK_THUMBS[id]
+                  : "";
+            const pcard = item.querySelector(".pcard");
+            if (!pcard) return;
+            if (thumb) {
+              pcard.classList.add("has-thumb");
+              pcard.style.backgroundImage = `linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0.35) 100%), url('${thumb.replace(/'/g, "\\'")}');`;
+              pcard.style.backgroundSize = "cover";
+              pcard.style.backgroundPosition = "center";
+            } else {
+              pcard.classList.remove("has-thumb");
+              pcard.style.backgroundImage = "";
+            }
+          });
+        };
 
         const COLS = 4;
         const ANIM_MS = 350;
