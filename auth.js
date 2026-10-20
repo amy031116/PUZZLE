@@ -71,7 +71,19 @@
     }
     .auth-card-close:hover { color: #333; background: #f0f0f0; }
 
-    .auth-card-emoji { font-size: 44px; margin-bottom: 10px; }
+    .auth-card-emoji {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+    .auth-card-emoji img {
+      width: 57.2px;
+      height: 57.2px;
+      display: block;
+      object-fit: contain;
+    }
 
     .auth-card-title {
       font-size: 22px;
@@ -148,7 +160,26 @@
       transform: translateY(0) scale(1);
     }
 
-    .logout-card-emoji { font-size: 38px; margin-bottom: 10px; }
+    .logout-card-emoji {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+    .logout-card-emoji img {
+      width: 57.2px;
+      height: 57.2px;
+      display: block;
+      object-fit: contain;
+    }
+    @keyframes authPopIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .auth-complete-pop {
+      animation: authPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
     .logout-card-title {
       font-size: 18px;
       font-weight: 800;
@@ -194,6 +225,10 @@
 
     /* ── nav .auth 버튼 로그인 후 스타일 ── */
     .auth.logged-in {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
       background: linear-gradient(135deg, #ff2482, #ff6aab) !important;
       color: #fff !important;
       border-radius: 20px !important;
@@ -201,8 +236,30 @@
       font-weight: 700 !important;
       transition: opacity 0.2s !important;
       text-decoration: none !important;
+      line-height: 1.2 !important;
+      vertical-align: middle !important;
     }
     .auth.logged-in:hover { opacity: 0.85 !important; }
+    .auth-person-icon {
+      width: 20.4px;
+      height: 20.4px;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .review-login-prompt .review-prompt-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      vertical-align: middle;
+      object-fit: contain;
+      flex-shrink: 0;
+      transform: translateX(5px);
+    }
+    .auth-nickname-text {
+      display: inline-block;
+      vertical-align: middle;
+    }
   `;
   document.head.appendChild(style);
 
@@ -219,7 +276,9 @@
   loginOverlay.innerHTML = `
     <div class="auth-card" id="authLoginCard">
       <button class="auth-card-close" id="authLoginClose" aria-label="닫기">✕</button>
-      <div class="auth-card-emoji">🧩</div>
+      <div class="auth-card-emoji">
+        <img src="웹 에셋/로그인 아이콘.svg" alt="로그인" />
+      </div>
       <h2 class="auth-card-title">닉네임으로 시작하기</h2>
       <p class="auth-card-sub">2~10자의 닉네임을 입력하면<br>리뷰를 작성할 수 있어요!</p>
       <div class="auth-input-wrap">
@@ -247,10 +306,12 @@
   logoutOverlay.setAttribute("aria-label", "로그아웃 확인");
   logoutOverlay.innerHTML = `
     <div class="logout-card" id="authLogoutCard">
-      <div class="logout-card-emoji">👋</div>
+      <div class="logout-card-emoji" id="logoutCardEmoji">
+        <img src="웹 에셋/로그아웃 질문 아이콘.svg" alt="로그아웃 확인" />
+      </div>
       <h2 class="logout-card-title" id="logoutTitle">로그아웃 할까요?</h2>
       <p class="logout-card-sub" id="logoutSub"></p>
-      <div class="logout-btn-row">
+      <div class="logout-btn-row" id="logoutBtnRow">
         <button class="logout-btn-cancel" id="logoutCancelBtn">취소</button>
         <button class="logout-btn-confirm" id="logoutConfirmBtn">로그아웃</button>
       </div>
@@ -273,18 +334,30 @@
     localStorage.removeItem(STORAGE_KEY);
   }
 
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function updateAuthButton() {
     const nickname = getNickname();
-    const authBtn = document.querySelector("a.auth");
-    if (!authBtn) return;
-
-    if (nickname) {
-      authBtn.textContent = "👤 " + nickname;
-      authBtn.classList.add("logged-in");
-    } else {
-      authBtn.textContent = "로그인 / 회원가입";
-      authBtn.classList.remove("logged-in");
-    }
+    const authBtns = document.querySelectorAll("a.auth");
+    authBtns.forEach(function (authBtn) {
+      if (nickname) {
+        authBtn.innerHTML =
+          '<img src="웹 에셋/사람 아이콘.svg" alt="" class="auth-person-icon" aria-hidden="true" /><span class="auth-nickname-text">' +
+          escapeHtml(nickname) +
+          "</span>";
+        authBtn.classList.add("logged-in");
+      } else {
+        authBtn.textContent = "로그인 / 회원가입";
+        authBtn.classList.remove("logged-in");
+      }
+    });
   }
 
   function openLogin() {
@@ -301,14 +374,64 @@
     loginOverlay.classList.remove("visible");
   }
 
-  function openLogout() {
-    const nickname = getNickname();
+  let logoutTimer = null;
+
+  function renderLogoutQuestion() {
+    if (logoutTimer) {
+      clearTimeout(logoutTimer);
+      logoutTimer = null;
+    }
+    const emojiWrap = document.getElementById("logoutCardEmoji");
+    const title = document.getElementById("logoutTitle");
     const sub = document.getElementById("logoutSub");
-    sub.textContent = nickname ? nickname + " 님, 조금 더 머물다 가세요!" : "";
+    const btnRow = document.getElementById("logoutBtnRow");
+    const nickname = getNickname();
+
+    if (emojiWrap) {
+      emojiWrap.innerHTML =
+        '<img src="웹 에셋/로그아웃 질문 아이콘.svg" alt="로그아웃 확인" />';
+    }
+    if (title) title.textContent = "로그아웃 할까요?";
+    if (sub) {
+      sub.textContent = nickname
+        ? nickname + " 님, 조금 더 머물다 가세요!"
+        : "";
+    }
+    if (btnRow) {
+      btnRow.style.display = "flex";
+    }
+  }
+
+  function renderLogoutComplete() {
+    const emojiWrap = document.getElementById("logoutCardEmoji");
+    const title = document.getElementById("logoutTitle");
+    const sub = document.getElementById("logoutSub");
+    const btnRow = document.getElementById("logoutBtnRow");
+
+    if (emojiWrap) {
+      emojiWrap.innerHTML =
+        '<img src="웹 에셋/로그아웃 완료 아이콘.svg" alt="로그아웃 완료" class="auth-complete-pop" />';
+    }
+    if (title) title.textContent = "로그아웃 되었습니다";
+    if (sub) sub.textContent = "다음에 또 만나요!";
+    if (btnRow) btnRow.style.display = "none";
+
+    logoutTimer = setTimeout(function () {
+      closeLogout();
+      setTimeout(renderLogoutQuestion, 300);
+    }, 1200);
+  }
+
+  function openLogout() {
+    renderLogoutQuestion();
     logoutOverlay.classList.add("visible");
   }
 
   function closeLogout() {
+    if (logoutTimer) {
+      clearTimeout(logoutTimer);
+      logoutTimer = null;
+    }
     logoutOverlay.classList.remove("visible");
   }
 
@@ -384,8 +507,8 @@
     .addEventListener("click", function () {
       clearNickname();
       updateAuthButton();
-      closeLogout();
       window.dispatchEvent(new CustomEvent("authChanged"));
+      renderLogoutComplete();
     });
   logoutOverlay.addEventListener("click", function (e) {
     if (e.target === logoutOverlay) closeLogout();
@@ -401,15 +524,33 @@
 
   // nav .auth 버튼 클릭 이벤트
   function bindAuthButton() {
-    const authBtn = document.querySelector("a.auth");
-    if (!authBtn) return;
-    authBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      if (getNickname()) {
-        openLogout();
-      } else {
-        openLogin();
-      }
+    const authBtns = document.querySelectorAll("a.auth");
+    authBtns.forEach(function (authBtn) {
+      authBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (getNickname()) {
+          openLogout();
+        } else {
+          openLogin();
+        }
+      });
+    });
+  }
+
+  // 채팅바/리뷰 로그인 유도 버튼의 퍼즐 아이콘을 커스텀 로그인 아이콘으로 자동 변환 (호환성 보장)
+  function upgradeReviewLoginPrompts() {
+    document.querySelectorAll(".review-login-prompt").forEach(function (promptBtn) {
+      const spans = promptBtn.querySelectorAll("span");
+      spans.forEach(function (s) {
+        if (s.textContent.trim() === "🧩") {
+          const img = document.createElement("img");
+          img.src = "웹 에셋/로그인 아이콘.svg";
+          img.alt = "";
+          img.className = "review-prompt-icon";
+          img.setAttribute("aria-hidden", "true");
+          s.replaceWith(img);
+        }
+      });
     });
   }
 
@@ -420,9 +561,11 @@
     document.addEventListener("DOMContentLoaded", function () {
       updateAuthButton();
       bindAuthButton();
+      upgradeReviewLoginPrompts();
     });
   } else {
     updateAuthButton();
     bindAuthButton();
+    upgradeReviewLoginPrompts();
   }
 })();

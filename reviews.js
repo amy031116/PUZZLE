@@ -258,6 +258,16 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
       color: #ff2482;
     }
 
+    .review-login-prompt .review-prompt-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      vertical-align: middle;
+      object-fit: contain;
+      flex-shrink: 0;
+      transform: translateX(5px);
+    }
+
     /* 우측 채팅창 접기/펼치기 토글 버튼 */
     .review-toggle-btn {
       width: 46px;
@@ -340,7 +350,7 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
           </form>
         </div>
         <button type="button" class="review-login-prompt" id="reviewLoginPrompt">
-          <span>🧩</span>
+          <img src="웹 에셋/로그인 아이콘.svg" alt="" class="review-prompt-icon" aria-hidden="true" />
           <span><span class="prompt-accent">로그인</span>하고 리뷰를 남겨보세요</span>
         </button>
       </div>

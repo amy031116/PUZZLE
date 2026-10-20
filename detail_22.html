@@ -1048,7 +1048,6 @@
           min-width: 1200px !important;
         }
 
-
         /* ── 브레드크럼 ── */
         .breadcrumb-bar {
           padding: 0 16px !important;
@@ -1307,37 +1306,37 @@
         <div class="hero-thumbnails">
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/메인 이미지.png"
+              src="ㅎ_양소정/2-5 메인.png"
               alt="메인 이미지"
-              data-src="작품세부페이지/메인 이미지.png"
+              data-src="ㅎ_양소정/2-5 메인.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브0.png"
+              src="ㅎ_양소정/2-1.png"
               alt="서브 이미지 0"
-              data-src="작품세부페이지/서브0.png"
+              data-src="ㅎ_양소정/2-1.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브1.png"
+              src="ㅎ_양소정/2-2.png"
               alt="서브 이미지 1"
-              data-src="작품세부페이지/서브1.png"
+              data-src="ㅎ_양소정/2-2.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브2.png"
+              src="ㅎ_양소정/2-3.png"
               alt="서브 이미지 2"
-              data-src="작품세부페이지/서브2.png"
+              data-src="ㅎ_양소정/2-3.png"
             />
           </div>
           <div class="hero-thumb">
             <img
-              src="작품세부페이지/서브3.png"
+              src="ㅎ_양소정/2-4.png"
               alt="서브 이미지 3"
-              data-src="작품세부페이지/서브3.png"
+              data-src="ㅎ_양소정/2-4.png"
             />
           </div>
         </div>
@@ -1346,7 +1345,7 @@
         <div class="hero-main-image">
           <img
             id="hero-main-img"
-            src="작품세부페이지/메인 이미지.png"
+            src="ㅎ_양소정/2-5 메인.png"
             alt="메인 이미지"
           />
         </div>
@@ -1545,14 +1544,15 @@
         }
       });
 
-            // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
+      // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
       const mainImg = document.getElementById("hero-main-img");
       const heroThumbBoxes = document.querySelectorAll(".hero-thumb");
       heroThumbBoxes.forEach((box) => {
         const thumb = box.querySelector("img");
         if (!thumb) return;
         const updateMain = () => {
-          const targetSrc = thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
+          const targetSrc =
+            thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
           if (targetSrc && mainImg) {
             mainImg.src = targetSrc;
           }
@@ -1641,7 +1641,12 @@
           class="review-login-prompt"
           id="detailReviewLoginPrompt"
         >
-          <span>🧩</span>
+          <img
+            src="웹 에셋/로그인 아이콘.svg"
+            alt=""
+            class="review-prompt-icon"
+            aria-hidden="true"
+          />
           <span
             ><span class="prompt-accent">로그인</span>하고 리뷰를
             남겨보세요</span
