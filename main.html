@@ -1022,7 +1022,7 @@
       ========================================== */
       .puzzle-section {
         background: var(--pink);
-        padding: 80px 0 90px;
+        padding: 80px 0 130px;
       }
 
       .puzzle-title-area {
@@ -1115,12 +1115,7 @@
       }
 
       .pcard-info {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-        width: 100%;
-        pointer-events: none;
+        display: none !important;
       }
 
       .pcard-badge {
@@ -2262,18 +2257,10 @@
                   : "";
             const hasThumb = Boolean(thumb);
             const bgStyle = hasThumb
-              ? `background-image: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0.35) 100%), url('${thumb.replace(/'/g, "\\'")}'); background-size: cover; background-position: center;`
+              ? `background-image: url('${thumb.replace(/'/g, "\\'")}'); background-size: cover; background-position: center;`
               : "";
             item.innerHTML = `
-              <a class="pcard ${hasThumb ? "has-thumb" : ""}" href="detail_${work.id}.html" style="${bgStyle}">
-                <div class="pcard-info">
-                  <span class="pcard-badge">${escapeHtml(work.category)}</span>
-                  <div class="pcard-text">
-                    <strong class="pcard-title">${escapeHtml(work.title)}</strong>
-                    <span class="pcard-author">${escapeHtml(work.author)}</span>
-                  </div>
-                </div>
-              </a>
+              <a class="pcard ${hasThumb ? "has-thumb" : ""}" href="detail_${work.id}.html" style="${bgStyle}" aria-label="${escapeHtml(work.title)}"></a>
             `;
           });
         }
@@ -2295,7 +2282,7 @@
             if (!pcard) return;
             if (thumb) {
               pcard.classList.add("has-thumb");
-              pcard.style.backgroundImage = `linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0.35) 100%), url('${thumb.replace(/'/g, "\\'")}');`;
+              pcard.style.backgroundImage = `url('${thumb.replace(/'/g, "\\'")}');`;
               pcard.style.backgroundSize = "cover";
               pcard.style.backgroundPosition = "center";
             } else {
