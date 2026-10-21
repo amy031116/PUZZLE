@@ -3,6 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <script src="gate-guard.js"></script>
+    <script>
+      // 해시(#about-content 등) 진입 시 상단 화면이 팍 튀거나 번쩍이는 깜빡임 방지
+      if (window.location.hash) {
+        try {
+          history.scrollRestoration = "manual";
+        } catch (e) {}
+        document.documentElement.classList.add("hash-navigating");
+      }
+    </script>
+    <style>
+      /* 해시 진입 시 스크롤 안착 전 상단 화면 노출 방지 & 즉각 스크롤 */
+      html.hash-navigating {
+        scroll-behavior: auto !important;
+      }
+      html.hash-navigating body {
+        opacity: 0 !important;
+      }
+    </style>
     <meta name="viewport" content="width=1200" />
     <title>PUZZLE - About</title>
     <style>
@@ -401,6 +419,7 @@
         position: relative;
         overflow: hidden;
         background: #ffffff;
+        scroll-margin-top: 80px;
       }
 
       /* 컨텐츠 영역 내부용 광고 슬라이더 (박스형 레이아웃) */
@@ -1277,7 +1296,7 @@
       </div>
 
       <!-- 3. 하단 포스터 및 전시 스토리 섹션 -->
-      <section class="about-content" aria-label="전시 소개">
+      <section class="about-content" id="about-content" aria-label="전시 소개">
         <div class="content-inner">
           <!-- 우하단 인테리어 노란색 사각형 레이어 -->
           <i class="bg-deco yellow-rect" aria-hidden="true"></i>
@@ -1634,11 +1653,11 @@
     <!-- 4. 고정 푸터 상단 메뉴 -->
     <div class="footer-menu">
       <nav aria-label="푸터 메뉴">
-        <a href="#">회사소개</a>
-        <a href="#">채용정보</a>
-        <a href="#">이용약관</a>
-        <a href="#">입점문의</a>
-        <a href="#">제휴광고</a>
+        <a href="#about-content">회사소개</a>
+        <span style="cursor: default;">채용정보</span>
+        <span style="cursor: default;">이용약관</span>
+        <span style="cursor: default;">입점문의</span>
+        <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
 
@@ -1731,10 +1750,39 @@
       // 최상단에서 아래로 스크롤 시 about-content로 자동 스냅
       // (사용자의 스크롤 개입 시 즉시 중단하여 영향을 최소화)
       // ─────────────────────────────────────────────
+      // ─────────────────────────────────────────────
+      // 해시(#about-content) 진입 시 즉시 정확한 위치로 안착 (화면 튐/점프 방지)
+      // ─────────────────────────────────────────────
+      (function () {
+        if (window.location.hash) {
+          const hash = window.location.hash;
+          function alignHashPosition() {
+            const target = document.querySelector(hash);
+            if (target) {
+              const nav = document.querySelector(".nav");
+              const navH = nav ? nav.offsetHeight : 80;
+              const y = target.getBoundingClientRect().top + window.scrollY - navH;
+              window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
+            }
+            requestAnimationFrame(() => {
+              document.documentElement.classList.remove("hash-navigating");
+            });
+          }
+
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", alignHashPosition);
+          } else {
+            alignHashPosition();
+          }
+
+          window.addEventListener("load", alignHashPosition);
+        }
+      })();
+
       const snapTarget = document.querySelector(".about-content");
       let isSnapping = false;
-      let wasAtTop = true; // 페이지 로드 시 최상단
-      let prevScrollY = 0; // 이전 스크롤 위치 (방향 감지용)
+      let wasAtTop = !window.location.hash && window.scrollY < 5; // 해시 진입 시 스냅 발동 차단
+      let prevScrollY = window.scrollY; // 현재 스크롤 위치로 초기화
       let isInterrupted = false;
       let snapAnimationId = null;
       let snapStartTime = 0; // 시작 시간 기록

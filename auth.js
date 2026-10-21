@@ -17,6 +17,45 @@
   ────────────────────────────────────────── */
   const style = document.createElement("style");
   style.textContent = `
+    /* ── 페이퍼로지 웹폰트 보장 ── */
+    @font-face {
+      font-family: "Paperlogy";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Paperlogy";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Paperlogy";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Paperlogy";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2") format("woff2");
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    /* ── 로그인/로그아웃 팝업 내 모든 폰트 페이퍼로지 통일 ── */
+    .auth-overlay,
+    .auth-card,
+    .auth-card *,
+    .logout-card,
+    .logout-card *,
+    .auth-input,
+    .auth-btn-primary,
+    .logout-btn-cancel,
+    .logout-btn-confirm {
+      font-family: "Paperlogy", sans-serif !important;
+    }
+
     /* ── 공통 오버레이 ── */
     .auth-overlay {
       position: fixed;
@@ -49,7 +88,7 @@
       transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
       position: relative;
       text-align: center;
-      font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
+      font-family: "Paperlogy", sans-serif !important;
     }
     .auth-overlay.visible .auth-card {
       transform: translateY(0) scale(1);
@@ -91,6 +130,7 @@
       color: #111;
       margin: 0 0 6px;
       letter-spacing: -0.3px;
+      transform: translateY(-3px);
     }
     .auth-card-sub {
       font-size: 13.5px;
@@ -107,11 +147,15 @@
       border-radius: 12px;
       padding: 13px 16px;
       font-size: 15px;
-      font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
+      font-family: "Paperlogy", sans-serif !important;
       outline: none;
       transition: border-color 0.2s;
       background: #fafafa;
       color: #111;
+    }
+    .auth-input::placeholder {
+      font-family: "Paperlogy", sans-serif !important;
+      color: #aaa;
     }
     .auth-input:focus { border-color: #ff2482; background: #fff; }
     .auth-input.error { border-color: #e74c3c; }
@@ -138,6 +182,7 @@
       letter-spacing: 0.3px;
       transition: opacity 0.2s, transform 0.15s;
       box-shadow: 0 6px 20px rgba(255, 36, 130, 0.35);
+      font-family: "Paperlogy", sans-serif !important;
     }
     .auth-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
     .auth-btn-primary:active { opacity: 1; transform: translateY(0); }
@@ -154,7 +199,7 @@
       transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
       text-align: center;
       position: relative;
-      font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
+      font-family: "Paperlogy", sans-serif !important;
     }
     .auth-overlay.visible .logout-card {
       transform: translateY(0) scale(1);
@@ -185,6 +230,7 @@
       font-weight: 800;
       color: #111;
       margin: 0 0 6px;
+      transform: translateY(-3px);
     }
     .logout-card-sub {
       font-size: 13px;
