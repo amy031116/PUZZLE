@@ -1367,7 +1367,7 @@
                     "
                     >ADVISOR</strong
                   ><br />
-                  임경훈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;김종환&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유형준&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;김형규
+                  김종환&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유형준&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;임경훈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;김형규
                 </p>
                 <p style="margin-top: 90px; line-height: 1.6">
                   <strong
@@ -1654,9 +1654,9 @@
     <div class="footer-menu">
       <nav aria-label="푸터 메뉴">
         <a href="#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1674,7 +1674,7 @@
               용인시 처인구 명지로 116<br />
               전화번호: 1577-0020 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail :
               mju.ac.kr<br />
-              임원진: 임경훈 김종환 유형준 김형규
+              임원진: 김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1687,8 +1687,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간 &gt;</strong><br />
-              이용시간: 10:00 ~ 18:00<br />
+              <strong>고객센터 운영시간</strong><br />
+              이용시간: 11:00 ~ 18:00<br />
               점심시간: 없음
             </p>
           </div>
@@ -1761,7 +1761,8 @@
             if (target) {
               const nav = document.querySelector(".nav");
               const navH = nav ? nav.offsetHeight : 80;
-              const y = target.getBoundingClientRect().top + window.scrollY - navH;
+              const y =
+                target.getBoundingClientRect().top + window.scrollY - navH;
               window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
             }
             requestAnimationFrame(() => {
