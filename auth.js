@@ -12,6 +12,19 @@
     console.warn("profanity-filter 로드 실패:", e);
   });
 
+  // 총괄 관리자 계정 목록 동적 로드
+  let globalAdminsList = ["야무지니", "관리자"];
+  import("./creator-accounts.js?t=" + Date.now())
+    .then(function (mod) {
+      if (mod && Array.isArray(mod.GLOBAL_ADMINS)) {
+        globalAdminsList = mod.GLOBAL_ADMINS;
+      }
+      updateAuthButton();
+    })
+    .catch(function (e) {
+      console.warn("creator-accounts 로드 실패:", e);
+    });
+
   /* ──────────────────────────────────────────
      CSS 삽입
   ────────────────────────────────────────── */
@@ -287,8 +300,8 @@
     }
     .auth.logged-in:hover { opacity: 0.85 !important; }
     .auth-person-icon {
-      width: 20.4px;
-      height: 20.4px;
+      width: 26.52px;
+      height: 26.52px;
       display: inline-block;
       vertical-align: middle;
       flex-shrink: 0;
@@ -392,12 +405,18 @@
   function updateAuthButton() {
     const nickname = getNickname();
     const authBtns = document.querySelectorAll("a.auth");
+    const isGlobalAdmin = nickname && Array.isArray(globalAdminsList) && globalAdminsList.includes(nickname);
+
     authBtns.forEach(function (authBtn) {
       if (nickname) {
+        const adminBadgeHtml = isGlobalAdmin
+          ? '<span class="auth-admin-badge" style="background: rgba(255,255,255,0.3); border-radius: 12px; padding: 2px 7px; font-size: 11px; margin-left: 5px; font-weight: 800; vertical-align: middle; letter-spacing: -0.2px;">👑 관리자</span>'
+          : "";
         authBtn.innerHTML =
           '<img src="웹 에셋/사람 아이콘.svg" alt="" class="auth-person-icon" aria-hidden="true" /><span class="auth-nickname-text">' +
           escapeHtml(nickname) +
-          "</span>";
+          "</span>" +
+          adminBadgeHtml;
         authBtn.classList.add("logged-in");
       } else {
         authBtn.textContent = "로그인 / 회원가입";
