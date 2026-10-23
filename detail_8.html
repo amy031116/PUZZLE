@@ -1404,17 +1404,12 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            도시의 어두운 도로 위로 차량들이 하나둘씩 지나가고, 차량의 움직임을
-            따라 빛의 흔적이 길처럼 이어진다. 그 흐름 속에서 타스만이 등장해
-            시동을 걸고 천천히 출발한다.<br />처음에는 다른 차량들과 마찬가지로
-            정해진 라이트 트레일을 따라 주행하며 도시의 흐름에 자연스럽게
-            어우러진다. 하지만 타스만은 점차 정해진 길에서 벗어나기 시작한다.
-            라이트 트레일을 가로지르는 움직임과 함께 기존의 빛의 흐름이 깨지고,
-            타스만이 지나간 자리에는 새로운 길이 만들어진다.<br />이후 타스만은
-            더 이상 정해진 방향을 따라가지 않고, 자신이 원하는 방향으로 자유롭고
-            역동적으로 나아간다. 정해진 길을 따라가는 대신, 직접 새로운 길을
-            만들어가는 타스만의 자유와 강렬한 존재감을 보여주며 영상은
-            마무리된다.
+            정해진 길이 아닌, 내가 선택한 길.<br />기아 타스만의 강인함과
+            역동성을 바탕으로 자유의 의미를 담아낸 3D 시네마틱 광고이다.<br /><br />
+            정해진 흐름을 따라가던 타스만은 자신만의 길을 찾기 위해 기존의 길을
+            벗어나 새로운 방향으로 나아간다.<br />익숙한 길에서 벗어나 스스로
+            길을 개척하는 모습을 통해 자유란 단순히 어디든 갈 수 있는 것이
+            아니라, 자신의 의지로 방향을 선택하고 나아가는 것임을 전달한다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1493,9 +1488,9 @@
     <div class="footer-menu">
       <nav>
         <a href="about.html#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1512,7 +1507,8 @@
               <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
               용인시 처인구 명지로 116<br />전화번호: 1577-0020
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진: 김종환 유형준 임경훈 김형규
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1524,8 +1520,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~
-              18:00<br />점심시간: 없음
+              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~ 18:00<br />점심시간:
+              없음
             </p>
           </div>
           <div class="qr">
@@ -1575,7 +1571,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
       const VIDEO_SOURCE = "r2eoeCk171I";
 
       // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
@@ -1584,7 +1580,9 @@
         source = String(source).trim();
 
         // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
-        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        const vimeoMatch = source.match(
+          /vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/,
+        );
         let vimeoId = null;
         let vimeoHash = null;
 
@@ -1607,13 +1605,13 @@
 
         // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
         const ytMatch = source.match(
-          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/,
         );
         const ytId = ytMatch
           ? ytMatch[1]
           : source.length === 11
-          ? source
-          : null;
+            ? source
+            : null;
 
         if (ytId) {
           return {
@@ -1636,7 +1634,7 @@
         if (parsed.type === "vimeo" && parsed.id) {
           // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
           fetch(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`,
           )
             .then((res) => res.json())
             .then((data) => {
@@ -1727,7 +1725,12 @@
           class="review-login-prompt"
           id="detailReviewLoginPrompt"
         >
-          <img src="웹 에셋/로그인 아이콘.svg" alt="" class="review-prompt-icon" aria-hidden="true" />
+          <img
+            src="웹 에셋/로그인 아이콘.svg"
+            alt=""
+            class="review-prompt-icon"
+            aria-hidden="true"
+          />
           <span
             ><span class="prompt-accent">로그인</span>하고 리뷰를
             남겨보세요</span
