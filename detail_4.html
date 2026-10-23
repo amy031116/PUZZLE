@@ -1466,7 +1466,7 @@
           <iframe
             id="videoIframe"
             src=""
-            allow="autoplay; fullscreen"
+            allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
           ></iframe>
         </div>
@@ -1569,11 +1569,90 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-      // ★ [수정 14] 유튜브 영상 고유 ID (유튜브 링크 watch?v= 뒤의 영문/숫자 코드)
-      const YT_ID = "r2eoeCk171I";
+            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      const VIDEO_SOURCE = "r2eoeCk171I";
+
+      // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
+      function parseVideoSource(source) {
+        if (!source) return { type: null, embedUrl: "" };
+        source = String(source).trim();
+
+        // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
+        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        let vimeoId = null;
+        let vimeoHash = null;
+
+        if (vimeoMatch) {
+          vimeoId = vimeoMatch[1];
+          vimeoHash =
+            vimeoMatch[2] ||
+            (source.includes("?")
+              ? new URL(source, "https://vimeo.com").searchParams.get("h")
+              : null);
+        } else if (/^\d+$/.test(source)) {
+          vimeoId = source;
+        }
+
+        if (vimeoId) {
+          let embed = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&badge=0&autopause=0&player_id=0`;
+          if (vimeoHash) embed += `&h=${vimeoHash}`;
+          return { type: "vimeo", id: vimeoId, embedUrl: embed };
+        }
+
+        // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
+        const ytMatch = source.match(
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+        );
+        const ytId = ytMatch
+          ? ytMatch[1]
+          : source.length === 11
+          ? source
+          : null;
+
+        if (ytId) {
+          return {
+            type: "youtube",
+            id: ytId,
+            embedUrl: `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`,
+          };
+        }
+
+        return { type: "raw", embedUrl: source };
+      }
+
+      // 비메오/유튜브 썸네일 자동 동기화 (수정 12의 이미지를 자동으로 채움)
+      function initVideoThumbnail(source) {
+        if (!source) return;
+        const parsed = parseVideoSource(source);
+        const thumbImg = document.querySelector("#videoThumb .video-thumb");
+        if (!thumbImg) return;
+
+        if (parsed.type === "vimeo" && parsed.id) {
+          // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
+          fetch(
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              if (data && data.thumbnail_url) {
+                thumbImg.src = data.thumbnail_url;
+              }
+            })
+            .catch((err) => {
+              console.warn("비메오 썸네일 자동 조회 실패:", err);
+            });
+        } else if (parsed.type === "youtube" && parsed.id) {
+          thumbImg.src = `https://img.youtube.com/vi/${parsed.id}/maxresdefault.jpg`;
+        }
+      }
+
+      // 썸네일 자동 세팅 실행
+      initVideoThumbnail(VIDEO_SOURCE);
 
       videoThumb.addEventListener("click", () => {
-        videoIframe.src = `https://www.youtube.com/embed/${YT_ID}?autoplay=1&rel=0`;
+        const parsed = parseVideoSource(VIDEO_SOURCE);
+        if (!parsed.embedUrl) return;
+        videoIframe.src = parsed.embedUrl;
         videoModal.classList.add("open");
         document.body.style.overflow = "hidden";
       });

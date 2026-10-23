@@ -1289,7 +1289,7 @@
           <iframe
             id="videoIframe"
             src=""
-            allow="autoplay; fullscreen"
+            allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
           ></iframe>
         </div>
@@ -1709,11 +1709,55 @@
       // 영상 모달: 재생 버튼 클릭 시 전체화면 모달 열기
       // ─────────────────────────────────────────────
 
-      // ★ 영상 링크를 여기에 넣어주세요 ★
-      // YouTube를 사용할 경우 embed 형식: https://www.youtube.com/embed/영상ID?autoplay=1
-      // 예) const VIDEO_URL = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
+            // ★ 영상 링크를 여기에 넣어주세요 (Vimeo 일반링크, Vimeo ID, YouTube 링크/ID 모두 지원!)
       const VIDEO_URL =
         "https://www.youtube.com/embed/tnHop6WSIk8?autoplay=1&rel=0"; // ← 여기에 영상 URL 입력
+
+      // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
+      function parseVideoSource(source) {
+        if (!source) return { type: null, embedUrl: "" };
+        source = String(source).trim();
+
+        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        let vimeoId = null;
+        let vimeoHash = null;
+
+        if (vimeoMatch) {
+          vimeoId = vimeoMatch[1];
+          vimeoHash =
+            vimeoMatch[2] ||
+            (source.includes("?")
+              ? new URL(source, "https://vimeo.com").searchParams.get("h")
+              : null);
+        } else if (/^\d+$/.test(source)) {
+          vimeoId = source;
+        }
+
+        if (vimeoId) {
+          let embed = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&badge=0&autopause=0&player_id=0`;
+          if (vimeoHash) embed += `&h=${vimeoHash}`;
+          return { type: "vimeo", id: vimeoId, embedUrl: embed };
+        }
+
+        const ytMatch = source.match(
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+        );
+        const ytId = ytMatch
+          ? ytMatch[1]
+          : source.length === 11
+          ? source
+          : null;
+
+        if (ytId) {
+          return {
+            type: "youtube",
+            id: ytId,
+            embedUrl: `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`,
+          };
+        }
+
+        return { type: "raw", embedUrl: source };
+      }
 
       const playBtn = document.getElementById("playBtn");
       const videoModal = document.getElementById("videoModal");
@@ -1722,7 +1766,9 @@
 
       // 재생 버튼 클릭 → 모달 열기
       playBtn.addEventListener("click", () => {
-        videoIframe.src = VIDEO_URL;
+        const parsed = parseVideoSource(VIDEO_URL);
+        if (!parsed.embedUrl) return;
+        videoIframe.src = parsed.embedUrl;
         videoModal.classList.add("open");
         document.body.style.overflow = "hidden";
       });
