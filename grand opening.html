@@ -9,10 +9,48 @@
         document.documentElement.classList.add("inapp");
       }
       // URL에 ?admin=true 또는 ?bypass 가 있으면 관리자 인증 저장 후 메인으로 자동 이동
-      if (location.search.indexOf("admin") !== -1 || location.search.indexOf("bypass") !== -1) {
-        try { localStorage.setItem("adminBypass", "true"); } catch(e) {}
+      if (
+        location.search.indexOf("admin") !== -1 ||
+        location.search.indexOf("bypass") !== -1
+      ) {
+        try {
+          localStorage.setItem("adminBypass", "true");
+        } catch (e) {}
         location.replace("main.html");
       }
+
+      // 화면 크기(PC, 태블릿, 모바일)에 상관없이 PC 레이아웃의 완벽한 비율과 간격을 그대로 유지하도록 스케일 계산
+      function updateContentScale() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const aspect = w / h;
+        let scale;
+        let starMin = 1.1;
+        let starMax = 1.15;
+
+        if (aspect >= 16 / 9) {
+          // 와이드 화면 (16:9 이상): 높이 1080 기준 꽉 채움
+          scale = h / 1080;
+        } else if (aspect >= 1.2) {
+          // 일반적인 가로 화면 (노트북/데스크톱): 가로 1920, 세로 1080 중 맞는 쪽에 맞춤
+          scale = Math.min(w / 1920, h / 1080);
+        } else {
+          // 세로 화면 (모바일 폰, 태블릿 세로):
+          // PC 기준 콘텐츠 전체(너비 약 450px, 높이 약 820px)가 모바일 별 안쪽 영역에 여유 있게 쏙 들어가도록 맞춤
+          scale = Math.min(w / 480, (h / 1080) * 0.78);
+          // 모바일 세로 화면에서는 별의 상하 꼭짓점이 중앙으로 좁혀지므로,
+          // PC 화면처럼 흰색 별 내부가 위아래로 시원하게 열려 텍스트/로고가 별 안에 안정감 있게 배치되도록 스케일 보정
+          const targetStar = Math.min(2.0, Math.max(1.65, (h / w) * 0.85));
+          starMin = targetStar;
+          starMax = targetStar * 1.04;
+        }
+        document.documentElement.style.setProperty("--content-scale", scale);
+        document.documentElement.style.setProperty("--star-scale-min", starMin);
+        document.documentElement.style.setProperty("--star-scale-max", starMax);
+      }
+      updateContentScale();
+      window.addEventListener("resize", updateContentScale);
+      window.addEventListener("orientationchange", updateContentScale);
     </script>
     <!-- 항상 최신 버전을 불러오도록 브라우저 캐시(임시저장) 방지 -->
     <meta
@@ -22,12 +60,13 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Grand Opening – PUZZLE</title>
-    <link rel="preload" href="그랜드오프닝/배경_넓게.webp" as="image" />
     <link
       rel="preload"
-      href="그랜드오프닝/그랜드 오프닝 타이틀.png"
+      href="웹 에셋/전시타이틀.svg"
       as="image"
+      type="image/svg+xml"
     />
+    <link rel="preload" href="그랜드오프닝/배경_넓게.webp" as="image" />
     <link
       rel="preload"
       href="fonts/Paperlogy-4Regular.woff2"
@@ -101,47 +140,28 @@
         background-color: #000;
       }
 
-      /* 핵심 UI 요소가 담기는 캔버스 (비율 유지하며 화면 안에 모두 보이게 맞춤 - Safe Zone) */
+      /* 핵심 UI 요소가 담기는 캔버스 (1920x1080 원본 비율을 완벽하게 유지하며 모든 화면에서 동일하게 스케일링) */
       .content-wrapper {
         position: absolute;
         left: 50%;
-        top: 50%; /* 웹 기본: 정중앙 */
-        transform: translate(-50%, -50%) scale(1); /* 웹 기본: 원본 크기 */
-        width: 100vw;
-        height: 100vh;
-        max-width: calc(100vh * 16 / 9);
-        max-height: calc(100vw * 9 / 16);
+        top: 50%;
+        width: 1920px;
+        height: 1080px;
+        transform: translate(-50%, -50%) scale(var(--content-scale, 1));
+        transform-origin: center center;
         container-type: inline-size;
         z-index: 3;
+        pointer-events: none;
       }
 
       /* 애니메이션 키프레임 */
       @keyframes starPulse {
         0%,
         100% {
-          transform: scale(1.1) translateZ(0); /* 웹 기본 */
+          transform: scale(var(--star-scale-min, 1.1)) translateZ(0);
         }
         50% {
-          transform: scale(1.15) translateZ(0); /* 웹 기본 */
-        }
-      }
-      @keyframes starPulseMobile {
-        0%,
-        100% {
-          transform: scale(1.43) translateZ(0); /* 모바일: 1.3배 */
-        }
-        50% {
-          transform: scale(1.495) translateZ(0); /* 모바일: 1.3배 */
-        }
-      }
-
-      @keyframes titleFloat {
-        0%,
-        100% {
-          transform: translateY(0px) translateZ(0);
-        }
-        50% {
-          transform: translateY(-3px) translateZ(0);
+          transform: scale(var(--star-scale-max, 1.15)) translateZ(0);
         }
       }
 
@@ -172,32 +192,40 @@
       }
       .layer-puzzle {
         z-index: 3;
-        top: calc(20 / 1080 * 100%); /* 웹 기본 */
-        transform: translateZ(0) scale(0.5); /* 원본 스케일 복구 */
-      }
-      .layer-title {
-        z-index: 4;
-        top: calc(50 / 1080 * 100%); /* 웹 기본 */
-        transform: translateZ(0) scale(0.9); /* 원본 스케일 복구 */
-        transform-origin: top center;
+        top: calc(-21 / 1080 * 100%); /* 아래로 20px 이동 (-41px -> -21px) */
+        transform: translateZ(0) scale(0.384); /* 1px 사이즈 축소 */
       }
 
-      /* 텍스트 블록 */
+      /* 전시 타이틀 SVG (상단 PUZZLE 로고 - 1px 사이즈 축소) */
+      .exhibition-title {
+        position: absolute;
+        top: calc(
+          10% + (5 / 1080 * 100%)
+        ); /* 아래로 20px 이동 (-20px -> 0px) */
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(16.65cqi + 2px); /* 1px 축소 */
+        max-width: 344px;
+        height: auto;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      /* 텍스트 블록 (타이머 밑 하단글 - 1px 축소) */
       .info-text {
         position: absolute;
-        bottom: calc(
-          7% + (7 / 1080 * 100%) + 18px
-            /* 웹 기본: 위로 5px 올림 (15px + 3px) */
-        );
+        top: calc(
+          25.5% + (10 / 1080 * 100%) - 30px
+        ); /* 아래로 20px 이동 (-50px -> -30px) */
         left: 50%;
-        /* 글자를 4배 크게 배치한 뒤 1/4로 축소 (앱 브라우저의 최소 글자 크기 제한 회피): 0.77 / 4 = 0.1925 */
+        /* 글자를 4배 크게 배치한 뒤 1/4로 축소 (앱 브라우저의 최소 글자 크기 제한 회피) */
         font-size: 64px; /* 4배 기준 (기존 16px × 4) */
-        transform: translateX(-50%) scale(0.1925);
-        transform-origin: bottom center;
+        transform: translateX(-50%) scale(0.146); /* 1px 축소 (기존 0.154 -> 0.146) */
+        transform-origin: top center;
         z-index: 10;
         display: flex;
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
         white-space: nowrap;
         font-family: "Paperlogy", sans-serif;
         color: #ff2482;
@@ -208,14 +236,6 @@
         font-size: 3.01cqi; /* 2.74에서 1.1배 확대 */
         display: block;
         margin-bottom: -5px; /* 첫째 줄과 둘째 줄 사이 간격 3px 축소 */
-      }
-      .info-venue {
-        font-weight: 700;
-        font-size: 14.24cqi; /* 3.56cqi × 4 */
-        display: block;
-        text-align-last: justify;
-        text-align: justify;
-        padding: 0 0.5em; /* 양쪽 글자가 너무 퍼지지 않게 안으로 모아줌 */
       }
       .info-label {
         font-weight: 600;
@@ -229,7 +249,7 @@
         display: flex;
         flex-direction: column;
         align-self: center;
-        margin-top: 0.4em; /* 웹 기본 */
+        margin-top: 0; /* 강남 모나코 스페이스가 있던 최상단 위치로 바로 올림 */
         width: max-content;
       }
       .info-period-group {
@@ -250,10 +270,10 @@
         flex: 1;
       }
 
-      /* D-Day 타이머 - 외부(위치), 내부(애니메이션) 분리 */
+      /* D-Day 타이머 (아래로 20px 이동: -38px -> -18px) */
       .dday-outer {
         position: absolute;
-        top: calc(6% + (10 / 1080 * 100%)); /* 웹 기본 */
+        top: calc(18% + (10 / 1080 * 100%) - 18px); /* 아래로 20px 이동 */
         left: 50%;
         transform: translateX(-50%) scale(0.9); /* 원본 스케일 복구 */
         transform-origin: top center;
@@ -268,10 +288,50 @@
       }
       .dday-number {
         display: block;
-        font-size: 3.48cqi; /* 63px 기준 반응형 (기존대비 5px 큼) */
+        font-size: calc(3.48cqi - 1px); /* 1px 축소 */
         font-weight: 800;
         letter-spacing: -0.1cqi;
         line-height: 1;
+      }
+
+      /* 하단 소개 글 (아래로 20px 이동: -80px -> -60px) */
+      .bottom-desc {
+        position: absolute;
+        top: calc(
+          73.8% - 60px
+        ); /* 아래로 20px 이동 (-80px -> -60px) */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+        font-family: "Paperlogy", sans-serif;
+        color: #ff2482;
+        font-size: 1.05cqi; /* 오프닝 글과 동일한 폰트 사이즈 (6.84cqi × 0.154) */
+        font-weight: 500;
+        line-height: 1.65;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .bottom-desc-p + .bottom-desc-p {
+        margin-top: 0.55em;
+      }
+      .bottom-venue {
+        margin-top: 1.25em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35em;
+      }
+      .bottom-venue-name {
+        font-weight: 700;
+        font-size: 1.3cqi;
+        line-height: 1.25;
+      }
+      .bottom-venue-address {
+        font-weight: 400;
+        font-size: 1.05cqi; /* 날짜와 동일한 폰트, 크기, 두께 */
+        line-height: 1.25;
       }
       /* 숨겨진 관리자 버튼 */
       .admin-bypass {
@@ -287,62 +347,17 @@
         line-height: 36px;
         text-align: center;
         user-select: none;
+        pointer-events: auto;
         transition: opacity 0.2s;
       }
       .admin-bypass:active {
         opacity: 0.5;
       }
 
-      /* =========================================================
-         태블릿 전용 레이아웃 (아이패드 등에서 텍스트 위치 미세 조정)
-         ========================================================= */
-      @media (min-width: 601px) and (max-width: 1024px) {
-        .content-wrapper {
-          transform: translate(-50%, -50%) scale(1.3);
-        }
-        .info-text {
-          bottom: 9.5%; /* 위치를 확실히 띄워보기 위해 18%로 적용했습니다. */
-        }
-      }
-
-      /* =========================================================
-         모바일 전용 레이아웃 (지금까지 수정한 2.3배 확대 및 픽셀 보정)
-         ========================================================= */
+      /* 앱 브라우저(카톡/네이버 등) 전용 높이 보정 */
       @media (max-width: 600px) {
-        .content-wrapper {
-          top: 50%;
-          transform: translate(-50%, -50%) scale(2.3);
-        }
-        /* 앱 브라우저(카톡 등): 크롬/삼성인터넷과 동일한 화면 높이(가로폭의 약 1.965배)로 계산 */
         html.inapp .scene {
           height: max(100vh, calc(100vw * 1.965));
-        }
-        .layer-star {
-          animation: starPulseMobile 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
-          object-position: center calc(50% - 15px);
-        }
-        .layer-puzzle {
-          top: calc(20 / 1080 * 100% - 10px);
-        }
-        .layer-title {
-          top: calc(50 / 1080 * 100% - 10px);
-        }
-        .info-text {
-          bottom: calc(
-            7% + (7 / 1080 * 100%) + 13px
-          ); /* 모바일: 아래로 3px 내림 (15px - 3px) */
-        }
-        .info-period-wrapper {
-          margin-top: calc(0.4em - 16px); /* -4px × 4 */
-        }
-        .info-period-group {
-          gap: 0.2em; /* 모바일은 기존 좁은 간격 유지 */
-        }
-        .info-period-group + .info-period-group {
-          margin-top: calc(0.1em - 4px); /* -1px × 4 */
-        }
-        .dday-outer {
-          top: calc(6% + (10 / 1080 * 100%) - 10px);
         }
       }
     </style>
@@ -366,22 +381,23 @@
       />
 
       <div class="content-wrapper">
-        <!-- 3. 퍼즐 (안전 영역) -->
+        <!-- 3. 전시 타이틀 SVG (최상단) -->
+        <img
+          class="exhibition-title"
+          src="웹 에셋/전시타이틀.svg"
+          alt="전시 타이틀"
+          decoding="async"
+        />
+
+        <!-- 4. 퍼즐 (안전 영역) -->
         <img
           class="layer layer-puzzle"
           src="그랜드오프닝/퍼즐_lossy0.webp"
           alt="퍼즐"
           decoding="async"
         />
-        <!-- 4. 타이틀 -->
-        <img
-          class="layer layer-title"
-          src="그랜드오프닝/그랜드 오프닝 타이틀.png"
-          alt="그랜드 오프닝 타이틀"
-          decoding="async"
-        />
+
         <div class="info-text">
-          <span class="info-venue">강남 모나코 스페이스</span>
           <div class="info-period-wrapper">
             <div class="info-period-group">
               <span class="info-label opening-label">오프닝</span>
@@ -405,7 +421,25 @@
             <span class="dday-number" id="ddayNum">D-??</span>
           </div>
         </div>
-        <!-- 7. 숨겨진 관리자 버튼 (좌하단, 3번 클릭 시 메인으로) -->
+
+        <!-- 7. 하단 소개 글 -->
+        <div class="bottom-desc">
+          <p class="bottom-desc-p">
+            이번 전시는 26명이 각자의 방식으로 고민하고 시도하며 완성한
+            결과물입니다.<br />
+            슬라이딩 퍼즐처럼 수많은 시행착오를 거쳐 완성된 다양한 형태의
+            작품을<br />
+            하나의 2026 PRODUCT COLLECTION으로 담았습니다.
+          </p>
+          <div class="bottom-venue">
+            <span class="bottom-venue-name">강남 모나코 스페이스</span>
+            <span class="bottom-venue-address"
+              >서울 서초구 서초대로 397 부띠크모나코 지하1층</span
+            >
+          </div>
+        </div>
+
+        <!-- 8. 숨겨진 관리자 버튼 (좌하단, 3번 클릭 시 메인으로) -->
         <div class="admin-bypass" id="adminBtn">🧩</div>
       </div>
     </div>
@@ -416,16 +450,20 @@
 
       function update() {
         const now = new Date();
-        
+
         // 1. 현재 접속자의 시간을 한국 시간(KST, UTC+9)으로 변환
-        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-        const kstNow = new Date(utc + (9 * 3600000));
-        
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const kstNow = new Date(utc + 9 * 3600000);
+
         // 2. KST 기준 오늘 자정과 목표일 자정(11월 5일) 만들기
         // (JavaScript에서 월은 0부터 시작하므로 11월은 10입니다)
-        const todayDate = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate());
-        const targetDate = new Date(2026, 10, 5); 
-        
+        const todayDate = new Date(
+          kstNow.getFullYear(),
+          kstNow.getMonth(),
+          kstNow.getDate(),
+        );
+        const targetDate = new Date(2026, 10, 5);
+
         // 3. 자정 기준 날짜 차이 계산
         const dayDiff = Math.floor((targetDate - todayDate) / 86400000);
 
