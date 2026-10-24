@@ -18,47 +18,47 @@ export const GLOBAL_ADMINS = ["야무지니"];
 export const CREATOR_ACCOUNTS = {
   detail_1: {
     creatorName: "강재준",
-    secretNicknames: ["강재준_admin"],
+    secretNicknames: ["강재준짱짱맨"],
   },
   detail_2: {
     creatorName: "강재준",
-    secretNicknames: ["강재준_admin"],
+    secretNicknames: ["강재준짱짱맨"],
   },
   detail_3: {
     creatorName: "고예원",
-    secretNicknames: ["고예원_admin"],
+    secretNicknames: ["rhthzhd"],
   },
   detail_4: {
     creatorName: "곽지윤",
-    secretNicknames: ["곽지윤_admin"],
+    secretNicknames: ["28P"],
   },
   detail_5: {
     creatorName: "곽지윤",
-    secretNicknames: ["곽지윤_admin"],
+    secretNicknames: ["28P"],
   },
   detail_6: {
     creatorName: "권다혜",
-    secretNicknames: ["권다혜_admin"],
+    secretNicknames: ["YYFeea"],
   },
   detail_7: {
     creatorName: "권다혜",
-    secretNicknames: ["권다혜_admin"],
+    secretNicknames: ["YYFeea"],
   },
   detail_8: {
     creatorName: "김연진",
-    secretNicknames: ["김연진_admin"],
+    secretNicknames: ["wlsdusrla_26"],
   },
   detail_9: {
     creatorName: "김연진",
-    secretNicknames: ["김연진_admin"],
+    secretNicknames: ["wlsdusrla_26"],
   },
   detail_10: {
     creatorName: "김지은",
-    secretNicknames: ["김지은_admin"],
+    secretNicknames: ["지지"],
   },
   detail_11: {
     creatorName: "김지은",
-    secretNicknames: ["김지은_admin"],
+    secretNicknames: ["지지"],
   },
   detail_12: {
     creatorName: "노유민",
@@ -82,27 +82,27 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_17: {
     creatorName: "안지윤",
-    secretNicknames: ["안지윤_admin"],
+    secretNicknames: ["강호동"],
   },
   detail_18: {
     creatorName: "안지윤",
-    secretNicknames: ["안지윤_admin"],
+    secretNicknames: ["강호동"],
   },
   detail_19: {
     creatorName: "양미진",
-    secretNicknames: ["양미진_admin"],
+    secretNicknames: ["마리오"],
   },
   detail_20: {
     creatorName: "양미진",
-    secretNicknames: ["양미진_admin"],
+    secretNicknames: ["마리오"],
   },
   detail_21: {
     creatorName: "양소정",
-    secretNicknames: ["양소정_admin"],
+    secretNicknames: ["렌트라"],
   },
   detail_22: {
     creatorName: "양소정",
-    secretNicknames: ["양소정_admin"],
+    secretNicknames: ["렌트라"],
   },
   detail_23: {
     creatorName: "염화영",
@@ -114,27 +114,27 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_25: {
     creatorName: "이경민",
-    secretNicknames: ["이경민_admin"],
+    secretNicknames: ["sophia0150"],
   },
   detail_26: {
     creatorName: "이경민",
-    secretNicknames: ["이경민_admin"],
+    secretNicknames: ["sophia0150"],
   },
   detail_27: {
     creatorName: "이영윤",
-    secretNicknames: ["이영윤_admin"],
+    secretNicknames: ["TANTALBO"],
   },
   detail_28: {
     creatorName: "이영윤",
-    secretNicknames: ["이영윤_admin"],
+    secretNicknames: ["TANTALBO"],
   },
   detail_29: {
     creatorName: "이준규",
-    secretNicknames: ["이준규_admin"],
+    secretNicknames: ["ENA"],
   },
   detail_30: {
     creatorName: "이준규",
-    secretNicknames: ["이준규_admin"],
+    secretNicknames: ["ENA"],
   },
   detail_31: {
     creatorName: "이희서",
@@ -150,11 +150,11 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_34: {
     creatorName: "임호진",
-    secretNicknames: ["임호진_admin"],
+    secretNicknames: ["Eula_Lorence"],
   },
   detail_35: {
     creatorName: "임호진",
-    secretNicknames: ["임호진_admin"],
+    secretNicknames: ["Eula_Lorence"],
   },
   detail_36: {
     creatorName: "장명경",
@@ -198,7 +198,7 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_46: {
     creatorName: "채민서",
-    secretNicknames: ["채민서_admin"],
+    secretNicknames: ["채민서랍니다"],
   },
   detail_47: {
     creatorName: "홍민영",

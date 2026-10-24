@@ -1404,17 +1404,15 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            평범한 주방, 수많은 생활 가전 사이에 아무렇지 않게 놓여 있는 밥솥
-            COOKER-01. 하지만 그 정체는 사용자를 보호하기 위해 일상 속에 숨어
-            활동하는 정찰용 로봇이다.<br />
-            평소에는 일반적인 밥솥의 모습을 유지하며 주변을 관찰하던 COOKER-01은
-            외부의 위협을 감지한다. 잠들어 있던 기계 장치가 작동하고 밥솥의
-            외형이 분해되기 시작하면서, 숨겨져 있던 로봇의 본래 모습이 드러난다.
-            또한 COOKER-01은 변신을 완료한 뒤 위협을 분석하고 사용자에게 신호를
-            전달한다. 임무를 마친 로봇은 다시 밥솥의 형태로 돌아가 주방 속에
-            숨어든다.<br />
-            익숙한 일상 속 평범한 사물 뒤에 또 다른 정체성을 가진 존재가 숨어
-            있을지도 모른다는 상상에서 출발한 작품이다.
+            일상 속 익숙한 밥솥이 로봇으로 변신한다는 상상에서<br />
+            출발한 3D 애니메이션 작품이다. <br />
+            밥솥의 외형과 구조적 특징을 활용해 로봇을 설계하고,<br />
+            각 부품이 맞물리며 변형되는 기계적 구조를 표현했다.<br /><br />
+
+            밥솥이 사실은 로봇으로 변신할 수 있다면 어떨까?<br />
+            주변에서 흔히 볼 수 있는 사물에 움직임과 생명력을<br />
+            부여함으로써, 평범한 일상 속 사물에 숨겨진<br />
+            상상의 재미와 새로운 가능성을 표현했다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1493,9 +1491,9 @@
     <div class="footer-menu">
       <nav>
         <a href="about.html#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1512,7 +1510,8 @@
               <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
               용인시 처인구 명지로 116<br />전화번호: 1577-0020
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진: 김종환 유형준 임경훈 김형규
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1524,8 +1523,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~
-              18:00<br />점심시간: 없음
+              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~ 18:00<br />점심시간:
+              없음
             </p>
           </div>
           <div class="qr">
@@ -1575,7 +1574,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
       const VIDEO_SOURCE = "r2eoeCk171I";
 
       // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
@@ -1584,7 +1583,9 @@
         source = String(source).trim();
 
         // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
-        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        const vimeoMatch = source.match(
+          /vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/,
+        );
         let vimeoId = null;
         let vimeoHash = null;
 
@@ -1607,13 +1608,13 @@
 
         // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
         const ytMatch = source.match(
-          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/,
         );
         const ytId = ytMatch
           ? ytMatch[1]
           : source.length === 11
-          ? source
-          : null;
+            ? source
+            : null;
 
         if (ytId) {
           return {
@@ -1636,7 +1637,7 @@
         if (parsed.type === "vimeo" && parsed.id) {
           // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
           fetch(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`,
           )
             .then((res) => res.json())
             .then((data) => {
@@ -1727,7 +1728,12 @@
           class="review-login-prompt"
           id="detailReviewLoginPrompt"
         >
-          <img src="웹 에셋/로그인 아이콘.svg" alt="" class="review-prompt-icon" aria-hidden="true" />
+          <img
+            src="웹 에셋/로그인 아이콘.svg"
+            alt=""
+            class="review-prompt-icon"
+            aria-hidden="true"
+          />
           <span
             ><span class="prompt-accent">로그인</span>하고 리뷰를
             남겨보세요</span

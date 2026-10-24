@@ -1404,13 +1404,13 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            엄마의 부탁으로 오랫동안 찾지 않았던 본가를 찾은 주인공.<br />낡은
-            커튼을 여는 순간, 그녀는 어린 시절의 기억 속으로 돌아간다.<br />거친
-            욕설과 함께 점점 커지는 검은 액체는 커튼으로 변해 어린 주인공에게
-            폭력을 가하고, 주인공은 끝내 그로부터 벗어나지 못한 채<br />어린
-            시절을 보낸다. 어느새 성인이 된 주인공은 자신보다 작아진 검은 액체와
-            낡은 커튼을 버리기로 마음먹는다.<br />그리고 현실로 돌아와 새로운
-            커튼을 달고 따뜻한 햇빛을 마주한다.
+            본가로 돌아간 한 여자가 어린시절의 트라우마와 마주한다.<br /><br />
+
+            커튼과 햇빛이라는 소재를 활용하여<br />트라우마의 극복에 대한 주제를
+            나타낸 2D 애니메이션.<br />
+            폭력을 직접적인 표현이 아닌, 애니메이션적 연출로 살리는 것에<br />중점을
+            두었다.<br />
+            이 작품을 통해 다른 이들의 상처를 보듬고자 하였다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1487,9 +1487,9 @@
     <div class="footer-menu">
       <nav>
         <a href="about.html#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1506,7 +1506,8 @@
               <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
               용인시 처인구 명지로 116<br />전화번호: 1577-0020
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진: 김종환 유형준 임경훈 김형규
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1518,8 +1519,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~
-              18:00<br />점심시간: 없음
+              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~ 18:00<br />점심시간:
+              없음
             </p>
           </div>
           <div class="qr">
@@ -1569,7 +1570,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
       const VIDEO_SOURCE = "r2eoeCk171I";
 
       // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
@@ -1578,7 +1579,9 @@
         source = String(source).trim();
 
         // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
-        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        const vimeoMatch = source.match(
+          /vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/,
+        );
         let vimeoId = null;
         let vimeoHash = null;
 
@@ -1601,13 +1604,13 @@
 
         // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
         const ytMatch = source.match(
-          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/,
         );
         const ytId = ytMatch
           ? ytMatch[1]
           : source.length === 11
-          ? source
-          : null;
+            ? source
+            : null;
 
         if (ytId) {
           return {
@@ -1630,7 +1633,7 @@
         if (parsed.type === "vimeo" && parsed.id) {
           // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
           fetch(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`,
           )
             .then((res) => res.json())
             .then((data) => {
@@ -1721,7 +1724,12 @@
           class="review-login-prompt"
           id="detailReviewLoginPrompt"
         >
-          <img src="웹 에셋/로그인 아이콘.svg" alt="" class="review-prompt-icon" aria-hidden="true" />
+          <img
+            src="웹 에셋/로그인 아이콘.svg"
+            alt=""
+            class="review-prompt-icon"
+            aria-hidden="true"
+          />
           <span
             ><span class="prompt-accent">로그인</span>하고 리뷰를
             남겨보세요</span

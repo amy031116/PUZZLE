@@ -1048,7 +1048,6 @@
           min-width: 1200px !important;
         }
 
-
         /* ── 브레드크럼 ── */
         .breadcrumb-bar {
           padding: 0 16px !important;
@@ -1405,10 +1404,13 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            서로 다른 두 개의 화면에서 ‘시선의 주체’와 ‘시선의 객체’를
-            연상시키는 영상이 동시에 재생된다.<br />두 영상은 서로 다른 크기와
-            위치에 배치되며, 관람자는 두 화면 사이를 이동하고 선택하는 과정에서
-            자신의 시선이 어디에 머무르고 있는지를 직접 경험하게 된다.
+            이 작업은 '시선'의 경계 한가운데에 관람자를 위치시키고자 한다.<br />
+            ‘시선’을 단순한 현상이 아닌 주체와 객체 사이의 관계이자 권력 구조로
+            바라보고, 관람자가 자신의 ‘보는 위치’를 인식하도록 구성한 작품이다.
+            <br /><br />
+            두 영상 사이에서 관람자의 시선이 지속적으로 이동하도록 유도하여<br />
+            관람자 스스로 시선의 주체이면서 동시에 객체가 될 수 있음을<br />경험하게
+            한다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1485,9 +1487,9 @@
     <div class="footer-menu">
       <nav>
         <a href="about.html#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1504,7 +1506,8 @@
               <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
               용인시 처인구 명지로 116<br />전화번호: 1577-0020
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진: 김종환 유형준 임경훈 김형규
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1516,8 +1519,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~
-              18:00<br />점심시간: 없음
+              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~ 18:00<br />점심시간:
+              없음
             </p>
           </div>
           <div class="qr">
@@ -1543,14 +1546,15 @@
         }
       });
 
-            // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
+      // 썸네일 hover 및 클릭 → 메인 이미지 즉시 연동 (src 교체 시 바로 반영)
       const mainImg = document.getElementById("hero-main-img");
       const heroThumbBoxes = document.querySelectorAll(".hero-thumb");
       heroThumbBoxes.forEach((box) => {
         const thumb = box.querySelector("img");
         if (!thumb) return;
         const updateMain = () => {
-          const targetSrc = thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
+          const targetSrc =
+            thumb.getAttribute("src") || thumb.dataset.src || thumb.src;
           if (targetSrc && mainImg) {
             mainImg.src = targetSrc;
           }
@@ -1566,7 +1570,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
       const VIDEO_SOURCE = "r2eoeCk171I";
 
       // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
@@ -1575,7 +1579,9 @@
         source = String(source).trim();
 
         // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
-        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        const vimeoMatch = source.match(
+          /vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/,
+        );
         let vimeoId = null;
         let vimeoHash = null;
 
@@ -1598,13 +1604,13 @@
 
         // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
         const ytMatch = source.match(
-          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/,
         );
         const ytId = ytMatch
           ? ytMatch[1]
           : source.length === 11
-          ? source
-          : null;
+            ? source
+            : null;
 
         if (ytId) {
           return {
@@ -1627,7 +1633,7 @@
         if (parsed.type === "vimeo" && parsed.id) {
           // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
           fetch(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`,
           )
             .then((res) => res.json())
             .then((data) => {
@@ -1718,7 +1724,12 @@
           class="review-login-prompt"
           id="detailReviewLoginPrompt"
         >
-          <img src="웹 에셋/로그인 아이콘.svg" alt="" class="review-prompt-icon" aria-hidden="true" />
+          <img
+            src="웹 에셋/로그인 아이콘.svg"
+            alt=""
+            class="review-prompt-icon"
+            aria-hidden="true"
+          />
           <span
             ><span class="prompt-accent">로그인</span>하고 리뷰를
             남겨보세요</span

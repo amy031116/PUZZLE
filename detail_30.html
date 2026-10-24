@@ -1341,6 +1341,15 @@
           </div>
         </div>
 
+        <!-- ★ [수정 5] 가운데 대표 메인 이미지 -->
+        <div class="hero-main-image">
+          <img
+            id="hero-main-img"
+            src="ㅎ_이준규/(메인)2-2.png"
+            alt="메인 이미지"
+          />
+        </div>
+
         <!-- 우측 작품 정보 영역 -->
         <div class="hero-info">
           <!-- ★ [수정 6] 작품 이름 (메인 제목) -->
@@ -1392,8 +1401,14 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            플러그를 꼽으며 스스로를 디지털화 하고, 또 다시 복제하는 한 인간에
-            관한 전자 음악 뮤직 비디오이다.
+            디지털화 되는 인간, 그리고 복제되는 인간을 표현한<br />전자음악 뮤직
+            비디오다.<br /><br />
+
+            육체의 포기, 현실속의 인간과 디지털을 넘나드는<br />
+            픽셀 형상의 인간들의 침투와 복제,<br /><br />
+
+            그리고 다시 화면속으로의 귀환을 보여주며 <br />
+            인간 육체의 불안함과 동시에 디지털화에 대한 불안감을 그렸다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1470,9 +1485,9 @@
     <div class="footer-menu">
       <nav>
         <a href="about.html#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1489,7 +1504,8 @@
               <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
               용인시 처인구 명지로 116<br />전화번호: 1577-0020
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진: 김종환 유형준 임경훈 김형규
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1501,8 +1517,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~
-              18:00<br />점심시간: 없음
+              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~ 18:00<br />점심시간:
+              없음
             </p>
           </div>
           <div class="qr">
@@ -1552,7 +1568,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
       const VIDEO_SOURCE = "r2eoeCk171I";
 
       // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
@@ -1561,7 +1577,9 @@
         source = String(source).trim();
 
         // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
-        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        const vimeoMatch = source.match(
+          /vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/,
+        );
         let vimeoId = null;
         let vimeoHash = null;
 
@@ -1584,13 +1602,13 @@
 
         // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
         const ytMatch = source.match(
-          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/,
         );
         const ytId = ytMatch
           ? ytMatch[1]
           : source.length === 11
-          ? source
-          : null;
+            ? source
+            : null;
 
         if (ytId) {
           return {
@@ -1613,7 +1631,7 @@
         if (parsed.type === "vimeo" && parsed.id) {
           // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
           fetch(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`,
           )
             .then((res) => res.json())
             .then((data) => {

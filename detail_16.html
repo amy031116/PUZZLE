@@ -1404,19 +1404,13 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            생명의 꽃 한가운데, 작은 방울 속에서 먼지와 깃털이 빙글빙글 춤을
-            춘다. 그렇게 세상에 태어난 작은 뭉치, 먼지토끼.<br />하지만 친구들이
-            방울을 톡! 터뜨리는 순간, 먼지토끼는 바람을 타고 마을 밖으로 멀리
-            날아가 버린다. 어디로 가야 할지 몰라 헤매던 먼지토끼는 커다란 딸기
-            위에 내려앉고, 그곳에서 딸기를 옮기던 개미들을 만난다. 개미의
-            도움으로 벌레마을에 도착한 먼지토끼는 달팽이 이장과 솔방울의 도움을
-            받아 모험가 자갈 형제를 만나게 된다. 자갈 형제와 함께 집을 찾아 길을
-            나선 먼지토끼. 해가 지고 어둠이 찾아온 어느 날, 갑자기 비가 내리기
-            시작한다. 빗물에 몸이 녹아 움직일 수 없게 된 먼지토끼를 위해 자갈
-            형제는 나뭇잎으로 조심스레 감싸 주고, 따뜻한 주전자 안으로 함께 몸을
-            피한다. 서로의 온기에 기대어 밤을 보낸 세 친구.<br />다시 해가
-            떠오르자, 먼지토끼와 자갈 형제는 새로운 길을 향해 한 걸음씩
-            나아간다.
+            〈먼지토끼〉는 고등학교 시절 만든 캐릭터에<br />새로운 세계와
+            이야기를 부여한 2D 애니메이션이다.<br /><br />먼지토끼가 친구들과
+            집을 찾아가는 여정을 통해 작은 존재들의 만남과 도움, 소소한 일상 속
+            따뜻함을 담은 작품이다.<br />동화적인 세계와 몽실몽실한 캐릭터로
+            관람객에게 잠시 쉬어갈 수 있는 편안함을 전하고, 캐릭터의 움직임과
+            배경 표현을 발전시켜 이야기를 시각적으로 전달하는 역량을 기르고자 한
+            작품이다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1579,7 +1573,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
       const VIDEO_SOURCE = "r2eoeCk171I";
 
       // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
@@ -1588,7 +1582,9 @@
         source = String(source).trim();
 
         // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
-        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        const vimeoMatch = source.match(
+          /vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/,
+        );
         let vimeoId = null;
         let vimeoHash = null;
 
@@ -1611,13 +1607,13 @@
 
         // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
         const ytMatch = source.match(
-          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/,
         );
         const ytId = ytMatch
           ? ytMatch[1]
           : source.length === 11
-          ? source
-          : null;
+            ? source
+            : null;
 
         if (ytId) {
           return {
@@ -1640,7 +1636,7 @@
         if (parsed.type === "vimeo" && parsed.id) {
           // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
           fetch(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`,
           )
             .then((res) => res.json())
             .then((data) => {

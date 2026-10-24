@@ -1404,16 +1404,15 @@
 
           <!-- ★ [수정 9] 작품 본문 상세 설명 내용 -->
           <div class="hero-details">
-            꿀벌이 멸종한 미래, 꽃과 식물이 사라지고 이를 먹이로 삼던 생물들의
-            개체 수가 감소하면서 생태계는 서서히 붕괴한다. 식량 부족과 물가
-            상승까지 이어지자 인류는 사라진 꿀벌의 역할을 대신할 새로운 존재를
-            만들어내기 시작한다.<br />
-            멸종한 꿀벌의 형태와 비행 방식, 수분 활동을 기반으로 개발된 ‘로봇
-            벌’은 황폐해진 자연으로 보내져 꽃과 꽃 사이를 오가며 수분을
-            수행한다. 로봇 벌의 활동과 함께 사라졌던 꽃이 다시 피어나고,
-            멈춰버린 생태계는 조금씩 움직이기 시작한다.<br />
-            이 작품은 생명이 사라진 미래, 인간의 기술이 자연의 빈자리를 대신하고
-            생태계를 다시 회복시킬 수 있는 가능성을 상상으로 표현한다.
+            꿀벌이 멸종한 미래, 생태계의 균형을 유지하기 위해<br />
+            탄생한 로봇 벌을 담은 3D 모델링 작품이다.<br /><br />
+
+            꿀벌의 형태와 특징을 기계적으로 재해석하고,<br />
+            식물과 금속 구조물이 어우러진 인공 서식지를 구성했다.<br /><br />
+
+            사라진 꿀벌의 역할을 기계가 대신한다는 상상에서 출발해,<br />기술을
+            통해 생태계를 유지하고 자연과 기계가<br />
+            함께 살아가는 미래의 모습을 표현했다.
           </div>
 
           <!-- 메타 테이블 -->
@@ -1492,9 +1491,9 @@
     <div class="footer-menu">
       <nav>
         <a href="about.html#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1511,7 +1510,8 @@
               <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
               용인시 처인구 명지로 116<br />전화번호: 1577-0020
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진: 김종환 유형준 임경훈 김형규
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1523,8 +1523,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~
-              18:00<br />점심시간: 없음
+              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~ 18:00<br />점심시간:
+              없음
             </p>
           </div>
           <div class="qr">
@@ -1574,7 +1574,7 @@
       const videoModal = document.getElementById("videoModal");
       const videoIframe = document.getElementById("videoIframe");
       const modalClose = document.getElementById("modalClose");
-            // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
+      // ★ [수정 14] 영상 링크 또는 ID (비메오 일반링크, 비메오ID, 유튜브 링크, 유튜브ID 모두 지원!)
       const VIDEO_SOURCE = "r2eoeCk171I";
 
       // 비메오 / 유튜브 주소 자동 분석 및 임베드 URL 생성
@@ -1583,7 +1583,9 @@
         source = String(source).trim();
 
         // 1) Vimeo 확인 (일반 링크, 공유 링크, 해시 포함 링크, ID 단독)
-        const vimeoMatch = source.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+        const vimeoMatch = source.match(
+          /vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/,
+        );
         let vimeoId = null;
         let vimeoHash = null;
 
@@ -1606,13 +1608,13 @@
 
         // 2) YouTube 확인 (watch?v=, youtu.be/, embed/, ID 단독 11자)
         const ytMatch = source.match(
-          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+          /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/,
         );
         const ytId = ytMatch
           ? ytMatch[1]
           : source.length === 11
-          ? source
-          : null;
+            ? source
+            : null;
 
         if (ytId) {
           return {
@@ -1635,7 +1637,7 @@
         if (parsed.type === "vimeo" && parsed.id) {
           // 비메오 oEmbed 공식 API로 고화질(1280px) 썸네일 자동 수신
           fetch(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`
+            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${parsed.id}&width=1280`,
           )
             .then((res) => res.json())
             .then((data) => {
@@ -1726,7 +1728,12 @@
           class="review-login-prompt"
           id="detailReviewLoginPrompt"
         >
-          <img src="웹 에셋/로그인 아이콘.svg" alt="" class="review-prompt-icon" aria-hidden="true" />
+          <img
+            src="웹 에셋/로그인 아이콘.svg"
+            alt=""
+            class="review-prompt-icon"
+            aria-hidden="true"
+          />
           <span
             ><span class="prompt-accent">로그인</span>하고 리뷰를
             남겨보세요</span
