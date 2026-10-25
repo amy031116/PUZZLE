@@ -166,11 +166,11 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_38: {
     creatorName: "장영찬",
-    secretNicknames: ["장영찬_admin"],
+    secretNicknames: ["SeizeTheDay"],
   },
   detail_39: {
     creatorName: "장영찬",
-    secretNicknames: ["장영찬_admin"],
+    secretNicknames: ["SeizeTheDay"],
   },
   detail_40: {
     creatorName: "정인서",
