@@ -70,7 +70,7 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_14: {
     creatorName: "박서현",
-    secretNicknames: ["박서현_admin"],
+    secretNicknames: ["박버디"],
   },
   detail_15: {
     creatorName: "심가애",
@@ -106,11 +106,11 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_23: {
     creatorName: "염화영",
-    secretNicknames: ["염화영_admin"],
+    secretNicknames: ["감자최고"],
   },
   detail_24: {
     creatorName: "염화영",
-    secretNicknames: ["염화영_admin"],
+    secretNicknames: ["감자최고"],
   },
   detail_25: {
     creatorName: "이경민",
@@ -142,11 +142,11 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_32: {
     creatorName: "임재윤",
-    secretNicknames: ["임재윤_admin"],
+    secretNicknames: ["jeyoun0103"],
   },
   detail_33: {
     creatorName: "임재윤",
-    secretNicknames: ["임재윤_admin"],
+    secretNicknames: ["jeyoun0103"],
   },
   detail_34: {
     creatorName: "임호진",
@@ -158,11 +158,11 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_36: {
     creatorName: "장명경",
-    secretNicknames: ["장명경_admin"],
+    secretNicknames: ["애옹"],
   },
   detail_37: {
     creatorName: "장명경",
-    secretNicknames: ["장명경_admin"],
+    secretNicknames: ["애옹"],
   },
   detail_38: {
     creatorName: "장영찬",
@@ -182,11 +182,11 @@ export const CREATOR_ACCOUNTS = {
   },
   detail_42: {
     creatorName: "정지우",
-    secretNicknames: ["정지우_admin"],
+    secretNicknames: ["CW"],
   },
   detail_43: {
     creatorName: "정지우",
-    secretNicknames: ["정지우_admin"],
+    secretNicknames: ["CW"],
   },
   detail_44: {
     creatorName: "진서연",
