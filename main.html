@@ -23,6 +23,13 @@
         font-weight: 700;
         font-style: normal;
       }
+      @font-face {
+        font-family: "Paperlogy";
+        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2")
+          format("woff2");
+        font-weight: 800;
+        font-style: normal;
+      }
 
       @font-face {
         font-family: "Paperlogy";
@@ -1618,6 +1625,220 @@
           margin-bottom: 0;
         }
       }
+
+      /* ========================================================
+         💡 히어로 3D 퍼즐 방법 설명 팝업 트리거 (특정 영역 원형 버튼)
+         [위치 조정 가이드]:
+         - 아래 top, left 값을 변경하여 원하는 위치로 이동시킬 수 있습니다.
+         - 예: top: 40%; left: 52%; 등
+         [투명화 가이드]:
+         - 추후 투명하게 만들려면 background, border, box-shadow를 transparent로 변경하세요.
+      ======================================================== */
+      .hero-guide-hotspot {
+        position: absolute;
+        top: 81.3%; /* 💡 위치 조절 (상하 %) */
+        left: 63.6%; /* 💡 위치 조절 (좌우 %) */
+        transform: translate(-50%, -50%);
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: transparent; /* 💡 색을 칠한 원의 형태 (식별용 핑크) */
+        border: none;
+        outline: none;
+        cursor: pointer;
+        z-index: 30; /* 캔버스와 스티커 상단에 배치 */
+        padding: 0;
+        user-select: none;
+        box-shadow: none;
+      }
+      .hero-guide-hotspot:hover {
+        /* 호버 시 확대 및 그림자 없음 */
+      }
+      .hero-guide-hotspot:active {
+        opacity: 0.8;
+      }
+
+      /* ========================================================
+         💡 3D 퍼즐 플레이 방법 설명 팝업 모달 스타일
+      ======================================================== */
+      .puzzle-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        background: rgba(8, 8, 8, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+          visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .puzzle-modal-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .puzzle-modal-card {
+        background: #ffffff;
+        border-radius: 28px;
+        width: 100%;
+        max-width: 500px;
+        padding: 34px 28px 28px;
+        position: relative;
+        box-shadow:
+          0 25px 60px rgba(0, 0, 0, 0.35),
+          0 0 0 1px rgba(0, 0, 0, 0.05);
+        transform: translateY(24px) scale(0.94);
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        font-family: "Paperlogy", Pretendard, sans-serif;
+      }
+      .puzzle-modal-backdrop.active .puzzle-modal-card {
+        transform: translateY(0) scale(1);
+      }
+      .puzzle-modal-header {
+        text-align: center;
+        margin-bottom: 22px;
+      }
+      .puzzle-modal-badge {
+        display: inline-block;
+        background: #ff2482;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        padding: 4px 12px;
+        border-radius: 99px;
+        margin-bottom: 8px;
+      }
+      .puzzle-modal-title {
+        font-family: "Paperlogy", sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        color: #080808;
+        margin: 4px 0 6px;
+        letter-spacing: -0.5px;
+      }
+      .puzzle-modal-subtitle {
+        font-size: 14px;
+        color: #777;
+        margin: 0;
+        font-weight: 500;
+      }
+      .puzzle-modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .guide-step-card {
+        background: #f8fafd;
+        border: 1px solid #edf1f6;
+        border-radius: 16px;
+        padding: 14px 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .guide-step-card:hover {
+        background: #f3f7fc;
+        border-color: #dce5ef;
+      }
+      .guide-step-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: #ffffff;
+        border: 1px solid #e5ecf3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      }
+      .guide-step-icon img {
+        object-fit: contain;
+        display: block;
+      }
+
+      /* ========================================================
+         💡 3가지 아이콘 개별 조절 영역 (크기 및 위치)
+         - width, height: 아이콘 이미지 크기
+         - transform: translate(좌우px, 상하px) : 위치 이동
+      ======================================================== */
+      /* 🔄 1단계: 회전 아이콘 개별 조절 */
+      .guide-step-icon.icon-rotate img {
+        width: 32px; /* 크기 */
+        height: 32px;
+        transform: translate(0px, 0px); /* 💡 위치 (X, Y) */
+      }
+
+      /* 👆 2단계: 클릭 아이콘 개별 조절 */
+      .guide-step-icon.icon-click img {
+        width: 26px; /* 크기 */
+        height: 26px;
+        transform: translate(0.5px, 1px); /* 💡 위치 (X, Y) */
+      }
+
+      /* 🎯 3단계: 완성 아이콘 개별 조절 */
+      .guide-step-icon.icon-finish img {
+        width: 32px; /* 크기 */
+        height: 32px;
+        transform: translate(0px, 0.5px); /* 💡 위치 (X, Y) */
+      }
+      .guide-step-content {
+        flex: 1;
+      }
+      .guide-step-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #111;
+        margin: 0 0 3px;
+      }
+      .guide-step-desc {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.45;
+        margin: 0;
+        font-weight: 400;
+      }
+      .puzzle-modal-footer {
+        text-align: center;
+      }
+      .puzzle-modal-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #ff2482, #ff4c97);
+        color: #ffffff;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        font-family: "Paperlogy", sans-serif;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 6px 20px rgba(255, 36, 130, 0.35);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+      .puzzle-modal-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 26px rgba(255, 36, 130, 0.5);
+      }
+      .puzzle-modal-btn:active {
+        transform: translateY(0);
+      }
     </style>
   </head>
   <body id="top">
@@ -1711,6 +1932,15 @@
           alt=""
           aria-hidden="true"
         />
+
+        <!-- 💡 3D 퍼즐 플레이 방법 가이드 팝업 버튼 (특정 영역 - 원형) -->
+        <button
+          type="button"
+          class="hero-guide-hotspot"
+          id="heroPuzzleGuideBtn"
+          aria-label="3D 퍼즐 플레이 방법 보기"
+          title="3D 퍼즐 플레이 방법 보기"
+        ></button>
       </section>
 
       <section class="section works-intro" id="works">
@@ -1893,9 +2123,9 @@
     <div class="footer-menu">
       <nav aria-label="푸터 메뉴">
         <a href="about.html#about-content">회사소개</a>
-        <span style="cursor: default;">채용정보</span>
-        <span style="cursor: default;">이용약관</span>
-        <span style="cursor: default;">입점문의</span>
+        <span style="cursor: default">채용정보</span>
+        <span style="cursor: default">이용약관</span>
+        <span style="cursor: default">입점문의</span>
         <a href="sponsors.html">제휴광고</a>
       </nav>
     </div>
@@ -1911,7 +2141,8 @@
               <strong>(주)퍼즐</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               대표이사: 정인서 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소: 경기도
               용인시 처인구 명지로 116<br />전화번호: 1577-0020
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진: 김종환 유형준 임경훈 김형규
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E-mail : mju.ac.kr<br />임원진:
+              김종환 유형준 임경훈 김형규
             </p>
             <p>
               사이트 내 판매 상품은 실제 판매하는 상품이 포함되어 있지
@@ -1923,8 +2154,8 @@
           </div>
           <div>
             <p>
-              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~
-              18:00<br />점심시간: 없음
+              <strong>고객센터 운영시간</strong><br />이용시간: 11:00 ~ 18:00<br />점심시간:
+              없음
             </p>
           </div>
           <div class="qr">
@@ -2830,5 +3061,120 @@
     </script>
     <script src="auth.js"></script>
     <script type="module" src="reviews.js"></script>
+
+    <!-- 💡 3D 퍼즐 플레이 방법 설명 팝업 모달 -->
+    <div class="puzzle-modal-backdrop" id="puzzleGuideModal" aria-hidden="true">
+      <div
+        class="puzzle-modal-card"
+        role="dialog"
+        aria-labelledby="modalTitle"
+        aria-modal="true"
+      >
+        <div class="puzzle-modal-header">
+          <span class="puzzle-modal-badge">HOW TO PLAY</span>
+          <h2 class="puzzle-modal-title" id="modalTitle">
+            3D 퍼즐 플레이 방법
+          </h2>
+          <p class="puzzle-modal-subtitle">
+            화면 중앙의 3D 슬라이딩 퍼즐을 직접 돌리고 맞춰보세요!
+          </p>
+        </div>
+
+        <div class="puzzle-modal-body">
+          <div class="guide-step-card">
+            <div class="guide-step-icon icon-rotate">
+              <img src="웹 에셋/아이콘_회전.svg" alt="회전" />
+            </div>
+            <div class="guide-step-content">
+              <h3 class="guide-step-title">1. 3D 각도 회전 (드래그)</h3>
+              <p class="guide-step-desc">
+                마우스를 누른 채 좌우로 드래그(모바일은 터치 드래그)하면<br />퍼즐을
+                360도 회전시켜 다양한 각도에서 둘러볼 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="guide-step-icon icon-click">
+              <img src="웹 에셋/아이콘_클릭.svg" alt="클릭" />
+            </div>
+            <div class="guide-step-content">
+              <h3 class="guide-step-title">2. 퍼즐 조각 밀기 (클릭)</h3>
+              <p class="guide-step-desc">
+                빈칸(비어 있는 자리) 바로 옆에 위치한 조각을 클릭하면<br />해당
+                조각이 빈칸으로 부드럽게 미끄러지며 이동합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="guide-step-icon icon-finish">
+              <img src="웹 에셋/아이콘_완성.svg" alt="완성" />
+            </div>
+            <div class="guide-step-content">
+              <h3 class="guide-step-title">3. 퍼즐 완성하기</h3>
+              <p class="guide-step-desc">
+                조각들을 하나씩 이동하여 원래 순서대로 정렬하면<br />하나의
+                완성된 그래픽 아트 컬렉션이 나타납니다!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="puzzle-modal-footer">
+          <button
+            type="button"
+            class="puzzle-modal-btn"
+            id="confirmPuzzleModal"
+          >
+            <span>퍼즐 플레이 시작하기</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 💡 3D 퍼즐 가이드 모달 열기/닫기 스크립트
+      (function () {
+        const guideBtn = document.getElementById("heroPuzzleGuideBtn");
+        const modal = document.getElementById("puzzleGuideModal");
+        const closeBtn = document.getElementById("closePuzzleModal");
+        const confirmBtn = document.getElementById("confirmPuzzleModal");
+
+        function openModal() {
+          if (!modal) return;
+          modal.classList.add("active");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+          if (!modal) return;
+          modal.classList.remove("active");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        }
+
+        if (guideBtn) guideBtn.addEventListener("click", openModal);
+        if (closeBtn) closeBtn.addEventListener("click", closeModal);
+        if (confirmBtn) confirmBtn.addEventListener("click", closeModal);
+
+        if (modal) {
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) closeModal();
+          });
+        }
+
+        window.addEventListener("keydown", function (e) {
+          if (
+            e.key === "Escape" &&
+            modal &&
+            modal.classList.contains("active")
+          ) {
+            closeModal();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
