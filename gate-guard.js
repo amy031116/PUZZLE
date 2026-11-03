@@ -29,8 +29,8 @@
     return;
   }
 
-  // D-Day(2026-11-05 18:00 KST) 전에는 grand opening 페이지로 리다이렉트
-  var openTime = new Date("2026-11-05T18:00:00+09:00");
+  // D-Day(2026-11-05 11:00 KST) 전에는 grand opening 페이지로 리다이렉트
+  var openTime = new Date("2026-11-05T11:00:00+09:00");
   if (new Date() < openTime) {
     location.replace("grand opening.html");
   }

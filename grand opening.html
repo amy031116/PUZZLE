@@ -334,6 +334,7 @@
         font-weight: 800;
         letter-spacing: -0.1cqi;
         line-height: 1;
+        font-variant-numeric: tabular-nums;
       }
 
       /* 하단 소개 글 (아래로 20px 이동: -80px -> -60px) */
@@ -488,8 +489,9 @@
     </div>
 
     <script>
-      // 이벤트 시작 시간 (한국시간 2026년 11월 5일 18:00)
-      const eventTimeKst = new Date("2026-11-05T18:00:00+09:00");
+      // 이벤트 시작 시간 (한국시간 2026년 11월 5일 11:00)
+      const eventTimeKst = new Date("2026-11-05T11:00:00+09:00");
+      let isRedirecting = false;
 
       function update() {
         const now = new Date();
@@ -510,23 +512,31 @@
         // 3. 자정 기준 날짜 차이 계산
         const dayDiff = Math.floor((targetDate - todayDate) / 86400000);
 
-        // 4. 실제 이벤트 시간이 지났는지 확인
+        // 4. 실제 이벤트 시간(11:00)까지 남은 시간 계산
         const timeDiff = eventTimeKst - now;
 
         if (timeDiff <= 0) {
-          document.getElementById("ddayNum").textContent = "D-DAY";
-          // 이벤트 시간(18:00) 도달 시 3초 후 자동으로 메인으로 이동
-          setTimeout(function () {
-            location.replace("main.html");
-          }, 3000);
+          document.getElementById("ddayNum").textContent = "00:00:00";
+          // 이벤트 시간(11:00) 도달 시 자동으로 메인으로 이동
+          if (!isRedirecting) {
+            isRedirecting = true;
+            setTimeout(function () {
+              location.replace("main.html");
+            }, 1500);
+          }
           return;
         }
 
         if (dayDiff <= 0) {
-          // 날짜상으로는 11월 5일이 되었지만 아직 오후 6시 전일 때
-          document.getElementById("ddayNum").textContent = "D-DAY";
+          // 11월 5일 당일 (오전 11시 전까지 남은 시간: 시간:분:초 형식 표시)
+          const totalSec = Math.floor(timeDiff / 1000);
+          const hours = String(Math.floor(totalSec / 3600)).padStart(2, "0");
+          const minutes = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
+          const seconds = String(totalSec % 60).padStart(2, "0");
+
+          document.getElementById("ddayNum").textContent = `${hours}:${minutes}:${seconds}`;
         } else {
-          // 그 외의 경우 (밤 12시 땡 치면 숫자가 바뀜)
+          // 11월 5일 이전 (D-2, D-1 등)
           document.getElementById("ddayNum").textContent = "D-" + dayDiff;
         }
       }
