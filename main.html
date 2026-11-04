@@ -1826,18 +1826,20 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        box-shadow: 0 6px 20px rgba(255, 36, 130, 0.35);
+        box-shadow: none;
         transition:
           transform 0.2s,
-          box-shadow 0.2s,
-          background 0.2s;
+          background 0.2s,
+          opacity 0.2s;
       }
       .puzzle-modal-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 26px rgba(255, 36, 130, 0.5);
+        box-shadow: none;
+        opacity: 0.95;
       }
       .puzzle-modal-btn:active {
         transform: translateY(0);
+        opacity: 0.9;
       }
     </style>
   </head>

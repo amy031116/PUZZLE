@@ -45,7 +45,7 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
 
     .reviews-container.collapsed {
       height: auto;
-      max-height: 48px;
+      max-height: 60px;
       width: auto;
       min-width: 0;
     }
@@ -143,7 +143,9 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
     .review-bar-content {
       flex: 1;
       min-width: 0;
-      overflow: hidden;
+      overflow: visible;
+      padding: 6px 4px;
+      margin: -6px -4px;
       max-width: 500px;
       opacity: 1;
       transform: translateX(0);
@@ -155,13 +157,16 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
       opacity: 0;
       transform: translateX(-15px);
       pointer-events: none;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
     }
 
     .review-form-wrapper {
       pointer-events: auto;
       background: #fff;
       border-radius: 20px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04);
       padding: 6px;
       display: none; /* hidden by default, shown if logged in */
       opacity: 0;
@@ -231,14 +236,14 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
       background: #fff;
       border: none;
       border-radius: 20px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04);
       padding: 16px 18px;
       font-family: "Paperlogy", Pretendard, "Noto Sans KR", sans-serif;
       font-size: 14.5px;
       font-weight: 700;
       color: #555;
       cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.2s;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
     }
 
     .review-login-prompt.visible {
@@ -247,7 +252,7 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
 
     .review-login-prompt:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12), 0 4px 14px rgba(0, 0, 0, 0.06);
     }
 
     .review-login-prompt:active {
@@ -270,50 +275,80 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
 
     /* 우측 채팅창 접기/펼치기 토글 버튼 */
     .review-toggle-btn {
+      position: relative;
       width: 46px;
       height: 46px;
       flex-shrink: 0;
-      border-radius: 50%;
-      background: #ffffff;
       border: none;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+      background: transparent;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: #555;
       pointer-events: auto;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, color 0.2s, box-shadow 0.2s;
+      transform: none !important;
+      transition: color 0.2s ease;
+    }
+
+    .review-toggle-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05);
+      z-index: 0;
+      pointer-events: none;
+      transform: scale(1);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
     }
 
     .review-toggle-btn:hover {
-      transform: scale(1.08);
       color: #ff2482;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
     }
 
-    .review-toggle-btn:active {
-      transform: scale(0.95);
+    .review-toggle-btn:hover::before {
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.06);
     }
 
+    .review-toggle-btn:active::before {
+      transform: scale(0.96);
+    }
+
+    /* 접힘 상태 토글 버튼 */
     .reviews-container.collapsed .review-toggle-btn {
-      background: #ffffff;
       color: #ff2482;
-      box-shadow: 0 6px 20px rgba(255, 36, 130, 0.3);
-      animation: gentlePulse 2.4s infinite;
+    }
+
+    .reviews-container.collapsed .review-toggle-btn::before {
+      box-shadow: 0 8px 24px rgba(255, 36, 130, 0.25), 0 2px 8px rgba(0, 0, 0, 0.06);
+      animation: none;
+    }
+
+    .reviews-container.collapsed .review-toggle-btn:hover::before {
+      animation: gentlePulse 2s infinite ease-in-out;
+      box-shadow: 0 10px 28px rgba(255, 36, 130, 0.38), 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     @keyframes gentlePulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.08);
+      }
     }
 
     .review-toggle-btn .toggle-icon {
+      position: relative;
+      z-index: 1;
       width: 20px;
       height: 20px;
       display: block;
-      transition: transform 0.25s ease;
       pointer-events: none;
+      transform: none !important;
     }
 
     /* 열림 상태: 접기(chevron-down) 아이콘 표시 */
@@ -368,7 +403,6 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
   `;
   document.body.appendChild(container);
 
-
   /* ──────────────────────────────────────────
      로직
   ────────────────────────────────────────── */
@@ -383,9 +417,18 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
   toggleBtn.addEventListener("click", function (e) {
     e.stopPropagation();
     const isCollapsed = container.classList.toggle("collapsed");
-    localStorage.setItem("puzzle_chat_collapsed", isCollapsed ? "true" : "false");
-    toggleBtn.setAttribute("aria-label", isCollapsed ? "채팅창 펼치기" : "채팅창 접기");
-    toggleBtn.setAttribute("title", isCollapsed ? "채팅창 펼치기" : "채팅창 접기");
+    localStorage.setItem(
+      "puzzle_chat_collapsed",
+      isCollapsed ? "true" : "false",
+    );
+    toggleBtn.setAttribute(
+      "aria-label",
+      isCollapsed ? "채팅창 펼치기" : "채팅창 접기",
+    );
+    toggleBtn.setAttribute(
+      "title",
+      isCollapsed ? "채팅창 펼치기" : "채팅창 접기",
+    );
   });
 
   // 이전 접힘 상태 복원
@@ -444,15 +487,20 @@ import { checkProfanity, showProfanityAlert } from "./profanity-filter.js";
 
   // 실시간 구독: 기존 리뷰는 시간순으로 먼저 오고, 이후 새 리뷰가 올 때마다 호출됨
   function subscribeReviews() {
-    const q = query(reviewsRef, orderByChild("createdAt"), limitToLast(MAX_REVIEWS));
+    const q = query(
+      reviewsRef,
+      orderByChild("createdAt"),
+      limitToLast(MAX_REVIEWS),
+    );
     onChildAdded(
       q,
       (snap) => {
         const v = snap.val();
-        if (!v || typeof v.author !== "string" || typeof v.content !== "string") return;
+        if (!v || typeof v.author !== "string" || typeof v.content !== "string")
+          return;
         renderReview({ author: v.author, content: v.content });
       },
-      (err) => console.error("리뷰 구독 실패:", err)
+      (err) => console.error("리뷰 구독 실패:", err),
     );
   }
 
