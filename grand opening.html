@@ -531,10 +531,14 @@
           // 11월 5일 당일 (오전 11시 전까지 남은 시간: 시간:분:초 형식 표시)
           const totalSec = Math.floor(timeDiff / 1000);
           const hours = String(Math.floor(totalSec / 3600)).padStart(2, "0");
-          const minutes = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
+          const minutes = String(Math.floor((totalSec % 3600) / 60)).padStart(
+            2,
+            "0",
+          );
           const seconds = String(totalSec % 60).padStart(2, "0");
 
-          document.getElementById("ddayNum").textContent = `${hours}:${minutes}:${seconds}`;
+          document.getElementById("ddayNum").textContent =
+            `${hours}:${minutes}:${seconds}`;
         } else {
           // 11월 5일 이전 (D-2, D-1 등)
           document.getElementById("ddayNum").textContent = "D-" + dayDiff;
