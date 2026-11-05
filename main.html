@@ -173,7 +173,7 @@
         overflow: hidden;
         display: flex;
         align-items: center;
-        gap: 30px; /* 고정 크기 */
+        /* gap 제거 */
         background: var(--blue);
         color: #fff8f1;
         border-bottom: 2px solid rgba(0, 0, 0, 0.1);
@@ -182,7 +182,7 @@
       .ticker-track {
         display: flex;
         width: max-content;
-        animation: ticker 50s linear infinite;
+        animation: ticker 120s linear infinite;
         will-change: transform;
         position: relative;
         top: 3px;
@@ -223,11 +223,11 @@
       }
 
       @keyframes ticker {
-        from {
-          transform: translateX(0);
+        0% {
+          transform: translate3d(0, 0, 0);
         }
-        to {
-          transform: translateX(-50%);
+        100% {
+          transform: translate3d(-50%, 0, 0);
         }
       }
 
@@ -1865,7 +1865,6 @@
 
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
-        <!-- 🚂 상단 띠 그룹 1 -->
         <div class="ticker-content">
           <span>Don’t miss this!</span><span class="star">★</span>
           <span>Don’t miss this!</span><span class="star">★</span>
@@ -1883,7 +1882,40 @@
           <span>Don’t miss this!</span><span class="star">★</span>
           <span>Don’t miss this!</span><span class="star">★</span>
         </div>
-        <!-- 🚂 상단 띠 그룹 2 (빈 공간 없이 이어지도록 그룹 1과 똑같이 복사) -->
+        <div class="ticker-content">
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+        </div>
+        <div class="ticker-content">
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+        </div>
         <div class="ticker-content">
           <span>Don’t miss this!</span><span class="star">★</span>
           <span>Don’t miss this!</span><span class="star">★</span>
@@ -1950,42 +1982,74 @@
       <section class="section works-intro" id="works">
         <div class="ticker yellow" aria-hidden="true">
           <div class="ticker-track">
-            <!-- 🚂 노란 띠 그룹 1 -->
-            <div class="ticker-content">
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-            </div>
-            <!-- 🚂 노란 띠 그룹 2 -->
-            <div class="ticker-content">
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-              <span>Don’t miss this!</span><span class="star">★</span>
-            </div>
+        <div class="ticker-content">
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+        </div>
+        <div class="ticker-content">
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+        </div>
+        <div class="ticker-content">
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+        </div>
+        <div class="ticker-content">
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+          <span>Don’t miss this!</span><span class="star">★</span>
+        </div>
           </div>
         </div>
       </section>
