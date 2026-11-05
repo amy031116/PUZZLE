@@ -5,6 +5,8 @@
     <script src="gate-guard.js"></script>
     <meta name="viewport" content="width=1200" />
     <title>PUZZLE Landing</title>
+    <!-- Safari / Apple es-module-shims polyfill -->
+    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.min.js"></script>
     <!-- Three.js importmap -->
     <script type="importmap">
       {
@@ -2697,7 +2699,7 @@
       // (세로만 5px 축가 연장)
       sCtx.beginPath();
       // 1024 캔버스 상에서 세부 조정 반영
-      sCtx.roundRect(147, 90, 730, 844, 40);
+      if (typeof sCtx.roundRect === "function") { sCtx.roundRect(147, 90, 730, 844, 40); } else { sCtx.rect(147, 90, 730, 844); }
       sCtx.fill();
 
       const shadowTex = new THREE.CanvasTexture(shadowCanvas);
@@ -2718,8 +2720,9 @@
       scene.add(shadowPlane);
 
       function resize() {
-        const w = wrap.clientWidth,
-          h = wrap.clientHeight;
+        const w = wrap.clientWidth || window.innerWidth,
+          h = wrap.clientHeight || Math.round(window.innerWidth * (700 / 1920));
+        if (!w || !h) return;
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
 
@@ -2769,7 +2772,7 @@
       /* ── GLTF 로딩 ── */
       let allPieces = [],
         puzzleRoot = null;
-      const assetDir = encodeURIComponent("웹 에셋") + "/";
+      const assetDir = "웹%20에셋/";
 
       /* 텍스처 */
       const tLoader = new THREE.TextureLoader();
@@ -2795,72 +2798,80 @@
         metalness: 0.04,
       });
 
-      new GLTFLoader().load(
-        assetDir + "4x4_Sliding_Puzzle_Web.gltf",
-        (gltf) => {
-          puzzleRoot = gltf.scene;
-          puzzleRoot.rotation.y = Math.PI;
-          puzzleRoot.rotation.z = 5 * (Math.PI / 180); // 퍼즐 5도로 줄임
-          scene.add(puzzleRoot);
+      function loadGltfPuzzle(modelUrl) {
+        new GLTFLoader().load(
+          modelUrl,
+          (gltf) => {
+            puzzleRoot = gltf.scene;
+            puzzleRoot.rotation.y = Math.PI;
+            puzzleRoot.rotation.z = 5 * (Math.PI / 180); // 퍼즐 5도로 줄임
+            scene.add(puzzleRoot);
 
-          puzzleRoot.traverse((node) => {
-            if (!node.isMesh) return;
-            node.castShadow = node.receiveShadow = true;
-            if (/^P(\d+)$/.test(node.name)) {
-              let pIdx = parseInt(RegExp.$1);
-              let imageObj = new Image();
-              imageObj.crossOrigin = "anonymous";
-              imageObj.src = assetDir + "PUZZLE_Image_P" + pIdx + ".png";
+            puzzleRoot.traverse((node) => {
+              if (!node.isMesh) return;
+              node.castShadow = node.receiveShadow = true;
+              if (/^P(\d+)$/.test(node.name)) {
+                let pIdx = parseInt(RegExp.$1);
+                let imageObj = new Image();
+                imageObj.src = assetDir + "PUZZLE_Image_P" + pIdx + ".png";
 
-              imageObj.onload = () => {
-                let cvs = document.createElement("canvas");
-                cvs.width = imageObj.width;
-                cvs.height = imageObj.height;
-                let ctx = cvs.getContext("2d");
+                imageObj.onload = () => {
+                  let cvs = document.createElement("canvas");
+                  cvs.width = imageObj.width;
+                  cvs.height = imageObj.height;
+                  let ctx = cvs.getContext("2d");
 
-                // Draw white background
-                ctx.fillStyle = "#ffffff";
-                ctx.fillRect(0, 0, cvs.width, cvs.height);
-                // Draw image on top
-                ctx.drawImage(imageObj, 0, 0);
+                  // Draw white background
+                  ctx.fillStyle = "#ffffff";
+                  ctx.fillRect(0, 0, cvs.width, cvs.height);
+                  // Draw image on top
+                  ctx.drawImage(imageObj, 0, 0);
 
-                let tMap = new THREE.CanvasTexture(cvs);
-                tMap.colorSpace = THREE.SRGBColorSpace;
-                tMap.flipY = false;
+                  let tMap = new THREE.CanvasTexture(cvs);
+                  tMap.colorSpace = THREE.SRGBColorSpace;
+                  tMap.flipY = false;
 
-                node.material = new THREE.MeshStandardMaterial({
-                  color: 0xffffff,
-                  map: tMap,
-                  roughness: 1.0,
-                  metalness: 0.1,
-                });
-              };
-              allPieces.push(node);
-            } else if (node.name.includes("Frame")) node.material = frameMat;
-          });
+                  node.material = new THREE.MeshStandardMaterial({
+                    color: 0xffffff,
+                    map: tMap,
+                    roughness: 1.0,
+                    metalness: 0.1,
+                  });
+                };
+                allPieces.push(node);
+              } else if (node.name.includes("Frame")) node.material = frameMat;
+            });
 
-          const box = new THREE.Box3().setFromObject(puzzleRoot);
-          const center = box.getCenter(new THREE.Vector3());
-          const size = box.getSize(new THREE.Vector3());
-          const scale =
-            3.2 /
-            Math.max(size.x, size.y, size.z); /* ← 이 숫자로 퍼즐 크기 조절 */
-          puzzleRoot.scale.setScalar(scale);
-          puzzleRoot.position.copy(center.multiplyScalar(-scale));
+            const box = new THREE.Box3().setFromObject(puzzleRoot);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+            const scale =
+              3.2 /
+              Math.max(size.x, size.y, size.z); /* ← 이 숫자로 퍼즐 크기 조절 */
+            puzzleRoot.scale.setScalar(scale);
+            puzzleRoot.position.copy(center.multiplyScalar(-scale));
 
-          buildGrid();
-          loading.classList.add("done");
-        },
-        (xhr) => {
-          if (xhr.total > 0)
-            bar.style.width = Math.round((xhr.loaded / xhr.total) * 100) + "%";
-          else bar.style.width = "50%";
-        },
-        (err) => {
-          console.error("히어로 GLTF 오류:", err);
-          loading.classList.add("done");
-        },
-      );
+            buildGrid();
+            loading.classList.add("done");
+          },
+          (xhr) => {
+            if (xhr.total > 0)
+              bar.style.width = Math.round((xhr.loaded / xhr.total) * 100) + "%";
+            else bar.style.width = "60%";
+          },
+          (err) => {
+            console.error("히어로 GLTF 오류:", err);
+            if (modelUrl.includes("%20")) {
+              console.warn("한글 디렉토리 원본 경로로 재시도합니다.");
+              loadGltfPuzzle("웹 에셋/4x4_Sliding_Puzzle_Web.gltf");
+            } else {
+              loading.classList.add("done");
+            }
+          },
+        );
+      }
+
+      loadGltfPuzzle(assetDir + "4x4_Sliding_Puzzle_Web.gltf");
 
       /* ── 슬라이딩 퍼즐 그리드 ── */
       const COL_X = [0.453, 0.13, -0.194, -0.518];
